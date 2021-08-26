@@ -1,10 +1,16 @@
 import React from "react";
-import { Layout, ComingSoon } from "../components";
-import { AboutSection } from "../components/homeSections";
+import { Layout } from "../components";
+import {
+    AboutSection,
+    ContactSection,
+    ProjectSection,
+} from "../components/homeSections";
 const HomePage = () => {
     return (
         <Layout>
             <AboutSection />
+            <ProjectSection />
+            <ContactSection />
         </Layout>
     );
 };

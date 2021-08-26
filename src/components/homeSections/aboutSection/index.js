@@ -1,12 +1,12 @@
 import React from "react";
-import * as S from "./styled";
 import * as G from "../../common/global-style";
-import Chevronright from "../../../images/chevronright.svg";
 
+import Logos from "../../../images/logos-large.png";
+import { LearnMore } from "../../common";
 export const AboutSection = () => {
     return (
         <G.SectionLink to="/about">
-            <S.Section>
+            <G.Section url={Logos} paddingTop={90}>
                 <G.Typography>
                     <G.Title>Hasung Jun</G.Title>
                     <G.SubTitle $weight={400}>Software Engineer</G.SubTitle>
@@ -14,12 +14,9 @@ export const AboutSection = () => {
                         Hello, I am Hasung Jun, also go by Ian <br />A Software
                         Engineer, enthusiastic about iOS
                     </G.Info>
-                    <G.LinkWrapper>
-                        <G.LearnMoreLink>Learn more</G.LearnMoreLink>
-                        <G.Chevronright src={Chevronright} />
-                    </G.LinkWrapper>
+                    <LearnMore />
                 </G.Typography>
-            </S.Section>
+            </G.Section>
         </G.SectionLink>
     );
 };

@@ -1,12 +1,12 @@
 import React from "react";
-import ContactBG from "../../images/contact-bg.png";
+
 import * as S from "./styled";
 import * as G from "../common/global-style";
 import { Link } from "react-scroll";
 import { AppleButton } from "../common";
 import { StaticImage } from "gatsby-plugin-image";
 import { makeStyles } from "@material-ui/styles";
-import { graphql } from "gatsby";
+
 const useStyles = makeStyles({
     contactBg: {
         display: "block",

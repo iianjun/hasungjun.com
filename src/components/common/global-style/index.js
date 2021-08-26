@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Link } from "gatsby";
 export const Typography = styled.div`
+    padding-top: ${(props) =>
+        props.paddingTop ? `${props.paddingTop}px` : `0px`};
     > * {
         width: 100%;
         display: flex;
@@ -19,6 +21,7 @@ export const Heading = styled.span`
     color: #f56300;
 `;
 export const Title = styled.h2`
+    color: ${(props) => props.color};
     font-size: 56px;
     line-height: 1.07143;
     font-weight: 600;
@@ -85,4 +88,16 @@ export const Chevronright = styled.img`
     width: 8px;
     margin-top: 2px;
     padding-left: 5px;
+`;
+
+export const Section = styled.section`
+    padding-top: ${(props) => `${props.paddingTop}px`};
+    height: 569px;
+    cursor: pointer;
+    letter-spacing: 0.1rem;
+    background: url(${(props) => `${props.url}`});
+    background-size: auto 569px;
+    background-position: center;
+    background-repeat: no-repeat;
+    --gutter-width: 12px;
 `;
