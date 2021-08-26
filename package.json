@@ -15,7 +15,10 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@material-ui/styles": "^4.11.4",
+    "aos": "^2.3.4",
     "babel-plugin-styled-components": "^1.13.2",
+    "emailjs-com": "^3.2.0",
     "gatsby": "^3.11.1",
     "gatsby-plugin-gatsby-cloud": "^3.0.0",
     "gatsby-plugin-image": "^1.12.0",
@@ -25,6 +28,7 @@
     "gatsby-transformer-sharp": "^3.12.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-scroll": "^1.8.3",
     "styled-components": "^5.3.1"
   }
 }

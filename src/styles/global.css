@@ -1,0 +1,31 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+    font-family: "SF Pro Display", sans-serif;
+}
+
+body {
+    font-size: 17px;
+    line-height: 1.47059;
+    font-weight: 350;
+    letter-spacing: -0.022em;
+    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    background-color: #fff;
+    color: #1d1d1f;
+    font-style: normal;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 98rem;
+    margin: 0 auto;
+    padding: 0 2.2rem;
+}
