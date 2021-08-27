@@ -1,6 +1,5 @@
 import React from "react";
 import * as G from "../../common/global-style";
-
 import Logos from "../../../images/logos-large.png";
 import { LearnMore } from "../../common";
 export const AboutSection = () => {

@@ -3,12 +3,7 @@ import { Link } from "gatsby";
 export const Typography = styled.div`
     padding-top: ${(props) =>
         props.paddingTop ? `${props.paddingTop}px` : `0px`};
-    > * {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        font-family: sans-serif;
-    }
+    width: 100%;
 `;
 export const Heading = styled.span`
     font-size: 17px;
@@ -21,6 +16,10 @@ export const Heading = styled.span`
     color: #f56300;
 `;
 export const Title = styled.h2`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
     color: ${(props) => props.color};
     font-size: 56px;
     line-height: 1.07143;
@@ -32,6 +31,10 @@ export const Title = styled.h2`
 `;
 
 export const SubTitle = styled.p`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
     font-size: 28px;
     line-height: 1.14286;
     font-weight: ${(props) => `${props.$weight}`};
@@ -48,7 +51,10 @@ export const Info = styled.p`
     color: #86868b;
     text-align: center;
     font-weight: 300;
-
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
     letter-spacing: 0.007em;
 `;
 export const LinkWrapper = styled.div`
@@ -96,6 +102,7 @@ export const Section = styled.section`
     cursor: pointer;
     letter-spacing: 0.1rem;
     background: url(${(props) => `${props.url}`});
+
     background-size: auto 569px;
     background-position: center;
     background-repeat: no-repeat;
