@@ -14,6 +14,10 @@ export const Heading = styled.span`
     background: rgba(0, 0, 0, 0);
     border-color: #bf4800;
     color: #f56300;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
 `;
 export const Title = styled.h2`
     width: 100%;
