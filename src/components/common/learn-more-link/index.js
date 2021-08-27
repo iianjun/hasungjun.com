@@ -5,7 +5,7 @@ export const LearnMore = () => {
     return (
         <G.LinkWrapper>
             <G.LearnMoreLink>Learn more</G.LearnMoreLink>
-            <G.Chevronright src={Chevronright} />
+            <G.Chevronright src={Chevronright} alt="chevronright" />
         </G.LinkWrapper>
     );
 };
