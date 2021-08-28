@@ -105,10 +105,17 @@ export const Section = styled.section`
     height: 569px;
     cursor: pointer;
     letter-spacing: 0.1rem;
-    background: url(${(props) => `${props.url}`});
-
-    background-size: auto 569px;
-    background-position: center;
-    background-repeat: no-repeat;
-    --gutter-width: 12px;
+    width: 100%;
+    @media (max-width: 1765px) {
+        background: url(${(props) => `${props.mediumUrl}`});
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 1766px) {
+        background: url(${(props) => `${props.largeUrl}`});
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 `;

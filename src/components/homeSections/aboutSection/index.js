@@ -1,11 +1,16 @@
 import React from "react";
 import * as G from "../../common/global-style";
-import Logos from "../../../images/logos-large.png";
+import LogosLarge from "../../../images/logos-large.png";
+import LogosMedium from "../../../images/logos-medium.png";
 import { LearnMore } from "../../common";
 export const AboutSection = () => {
     return (
         <G.SectionLink to="/about">
-            <G.Section url={Logos} paddingTop={90}>
+            <G.Section
+                largeUrl={LogosLarge}
+                mediumUrl={LogosMedium}
+                paddingTop={90}
+            >
                 <G.Typography>
                     <G.Title>Hasung Jun</G.Title>
                     <G.SubTitle $weight={400}>Software Engineer</G.SubTitle>
