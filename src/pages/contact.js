@@ -4,7 +4,7 @@ import { Layout, ContactIntro, ContactForm } from "../components/";
 const ContactPage = () => {
     const [clickedBuy, setClickedBuy] = useState(false);
     return (
-        <Layout>
+        <Layout pageTitle="Contact">
             <ContactIntro setClickedBuy={setClickedBuy} />
             <ContactForm clickedBuy={clickedBuy} />
         </Layout>

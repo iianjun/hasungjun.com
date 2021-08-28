@@ -3,7 +3,7 @@ import React from "react";
 import { Layout, ComingSoon } from "../components/";
 const ProjectsPage = () => {
     return (
-        <Layout>
+        <Layout pageTitle="Projects">
             <ComingSoon />
         </Layout>
     );
