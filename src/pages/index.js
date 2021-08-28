@@ -7,7 +7,7 @@ import {
 } from "../components/homeSections";
 const HomePage = () => {
     return (
-        <Layout pageTitle="Home">
+        <Layout>
             <AboutSection />
             <ProjectSection />
             <ContactSection />
