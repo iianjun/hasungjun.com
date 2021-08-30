@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavBar } from "..";
+import { NavBar } from "../";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
@@ -95,7 +95,7 @@ export const Layout = ({ pageTitle, children }) => {
                 <link
                     rel="icon"
                     type="image/png"
-                    href="..å/images/favicon-196x196.png"
+                    href="../images/favicon-196x196.png"
                     sizes="196x196"
                 />
             </Helmet>
