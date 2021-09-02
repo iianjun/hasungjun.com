@@ -8,21 +8,12 @@ on:
     branches:
       - main
 jobs:
-  lighthouse-check:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - run: mkdir /tmp/artifacts
-      - name: Run Lighthouse
-        uses: foo-software/lighthouse-check-action@master
+      - uses: actions/checkout@v1
+      - uses: enriikke/gatsby-gh-pages-action@v2
         with:
-          accessToken: ${{ secrets.ACCESS_TOKEN }}
-          branch: ${{ github.ref }}
-          outputDirectory: /tmp/artifacts
-          urls: 'https://www.hasungjun.com'
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@master
-        with:
-          name: Lighthouse reports
-          path: /tmp/artifacts
+          access-token: ${{ secrets.HASUNG_JUN_ACCESS_TOKEN }}
+          deploy-branch: gh-pages
+          gatsby-args: --prefix-paths
