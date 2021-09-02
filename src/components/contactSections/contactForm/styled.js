@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import contactImg from "../../images/contact.jpg";
+import contactImg from "../../../images/contact.jpg";
 
 export const Wrapper = styled.section`
     margin-top: 10px;

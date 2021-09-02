@@ -1,9 +1,9 @@
 import React from "react";
 
 import * as S from "./styled";
-import * as G from "../common/global-style";
+import * as G from "../../common/global-style";
 import { Link } from "react-scroll";
-import { AppleButton } from "../common";
+import { AppleButton } from "../../common";
 import { StaticImage } from "gatsby-plugin-image";
 import { makeStyles } from "@material-ui/styles";
 
@@ -43,7 +43,7 @@ export const ContactIntro = (props) => {
             </G.ButtonWrapper>
             <StaticImage
                 className={classes.contactBg}
-                src="../../images/contact-bg.png"
+                src="../../../images/contact-bg.png"
                 alt="contactBg"
             />
 

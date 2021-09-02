@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styled";
-import { AppleButton, Input } from "../common";
+import { AppleButton, Input } from "../../common";
 import { Element } from "react-scroll";
 import Aos from "aos";
 import "aos/dist/aos.css";
-
 import emailjs from "emailjs-com";
 
 const placeholders = ["Name", "Email", "Subject", "Message"];

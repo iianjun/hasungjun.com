@@ -6,10 +6,10 @@ import TinyDeskLarge from "../../../images/projects-large-tinydesk.png";
 import TinyDeskMedium from "../../../images/projects-medium-tinydesk.png";
 import { LearnMore } from "../../common";
 
-export const ProjectSection = () => {
+export const ProjectSection = ({ paddingTop }) => {
     return (
         <>
-            <G.SectionLink to="/projects">
+            <G.SectionLink to="/suni">
                 <G.Section largeUrl={SuniLarge} mediumUrl={SuniMedium}>
                     <G.Typography paddingTop={50}>
                         <G.Title color="#ffffff">Suni</G.Title>
@@ -21,7 +21,7 @@ export const ProjectSection = () => {
                     </G.Typography>
                 </G.Section>
             </G.SectionLink>
-            <G.SectionLink to="/projects">
+            <G.SectionLink to="/tinydesk">
                 <G.Section largeUrl={TinyDeskLarge} mediumUrl={TinyDeskMedium}>
                     <G.Typography paddingTop={50}>
                         <G.Title color="#000000">Tiny Desk</G.Title>

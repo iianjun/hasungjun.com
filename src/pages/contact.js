@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { Layout, ContactIntro, ContactForm } from "../components/";
+import { Layout } from "../components/";
+import { ContactIntro, ContactForm } from "../components/";
 const ContactPage = () => {
     const [clickedBuy, setClickedBuy] = useState(false);
     return (
