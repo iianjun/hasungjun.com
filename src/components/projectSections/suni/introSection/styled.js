@@ -4,11 +4,7 @@ import Sequence from "../../../common/Sequence";
 
 export const Section = styled.section`
     margin-top: 44px;
-    height: 600px;
-    /* background: url(${Suni});
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: auto 530px; */
+    height: 300px;
     display: flex;
     align-items: center;
 `;
