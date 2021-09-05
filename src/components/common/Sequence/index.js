@@ -16,7 +16,7 @@ const ImageSequence = forwardRef(({ progress }, ref) => {
                     ref={ref}
                     key={i}
                     style={{
-                        display: i !== index ? "none" : "block",
+                        display: i !== index ? "none" : "flex",
                         height: "503px",
                         width: "248px",
                         marginTop: "44px",
