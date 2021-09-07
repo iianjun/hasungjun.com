@@ -29,8 +29,7 @@ export const TitleHeading = styled.h1`
     font-size: 40px;
     line-height: 1.05;
     font-weight: 500;
-    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica",
-        "Arial", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     visibility: visible;
     width: 100%;
 `;

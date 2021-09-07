@@ -90,7 +90,8 @@ export const ButtonWrapper = styled.div`
 
 export const SectionLink = styled(Link)`
     :active,
-    :visited {
+    :visited,
+    :link {
         color: black;
     }
 `;

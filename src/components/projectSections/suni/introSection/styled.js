@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Suni from "../../../../images/suni-bg.png";
-import Sequence from "../../../common/Sequence";
 
 export const Section = styled.section`
     margin-top: 44px;
@@ -27,23 +25,18 @@ export const Header = styled.h1`
     font-weight: 600;
     letter-spacing: -0.015em;
     width: 100%;
-    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica",
-        "Arial", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     @media (max-width: 1068px) {
         font-size: 72px;
         line-height: 1.05556;
         font-weight: 600;
         letter-spacing: -0.012em;
-        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue",
-            "Helvetica", "Arial", sans-serif;
     }
     @media (max-width: 734px) {
         font-size: 64px;
         line-height: 1.0625;
         font-weight: 600;
         letter-spacing: -0.009em;
-        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue",
-            "Helvetica", "Arial", sans-serif;
     }
 `;
 export const SubHeader = styled.h2`
@@ -67,8 +60,7 @@ export const SubHeader = styled.h2`
     line-height: 1.125;
     font-weight: 600;
     letter-spacing: 0.004em;
-    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica",
-        "Arial", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 
     @media (max-width: 1068px) {
         width: 300px;
@@ -76,8 +68,7 @@ export const SubHeader = styled.h2`
         line-height: 1.16667;
         font-weight: 600;
         letter-spacing: 0.009em;
-        font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue",
-            "Helvetica", "Arial", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     @media (max-width: 734px) {

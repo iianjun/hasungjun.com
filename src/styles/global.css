@@ -7,7 +7,7 @@
 
 html {
     font-size: 10px;
-    font-family: "SF Pro Display", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -15,8 +15,7 @@ body {
     line-height: 1.47059;
     font-weight: 400;
     letter-spacing: -0.022em;
-    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica",
-        "Arial", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #fff;
     color: #1d1d1f;
     font-style: normal;
