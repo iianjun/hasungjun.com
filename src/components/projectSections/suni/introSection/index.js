@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as S from "./styled";
+import { LearnMore } from "../../../common";
 import { Controller, Scene } from "react-scrollmagic";
 import Sequence from "../../../common/Sequence";
 import { SuniImages } from "../../../../images/suni-intro-animation";
@@ -26,6 +27,17 @@ export const SuniIntroSection = () => {
                 <S.TypographyWrapper>
                     <S.Header>Suni</S.Header>
                     <S.SubHeader>University Schedule App</S.SubHeader>
+
+                    <LearnMore
+                        title="GitHub"
+                        to="https://github.com/iianjun/Suni"
+                        marginTop="10"
+                    />
+                    <LearnMore
+                        title="Download"
+                        to="https://apps.apple.com/us/app/순이/id1554029990"
+                        marginTop="10"
+                    />
                 </S.TypographyWrapper>
             </S.Section>
             <Controller>

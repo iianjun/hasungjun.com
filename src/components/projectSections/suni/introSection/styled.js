@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Section = styled.section`
     margin-top: 44px;
-    height: 300px;
+    height: 320px;
     display: flex;
     align-items: center;
 `;
