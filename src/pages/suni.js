@@ -5,6 +5,7 @@ import {
     MoreSection,
     SuniIntroSection,
     ScheduleSection,
+    AddCourseSection,
 } from "../components";
 import { makeStyles } from "@material-ui/styles";
 
@@ -23,8 +24,11 @@ const SuniPage = () => {
             <div className={classes.blackOut}>
                 <SuniIntroSection />
                 <ScheduleSection />
+                <AddCourseSection />
             </div>
-            <div className={classes.whiteOut}>{/* <MoreSection /> */}</div>
+            <div className={classes.whiteOut}>
+                <MoreSection />
+            </div>
         </Layout>
     );
 };

@@ -1,9 +1,14 @@
 import React, { forwardRef } from "react";
 import { Skeleton } from "../Skeleton";
-import SuniImagesArray from "./ImageArray";
+import { SuniIntroImagesArray, SuniAddCourseImagesArray } from "./ImageArray";
 
-const ImageSequence = forwardRef(({ progress }, ref) => {
-    const newImages = SuniImagesArray();
+const ImageSequence = forwardRef(({ progress, target }, ref) => {
+    let newImages;
+    if (target == "suni-intro") {
+        newImages = SuniIntroImagesArray();
+    } else {
+        newImages = SuniAddCourseImagesArray();
+    }
 
     let index = Math.round(progress * 1 * (newImages.length - 1));
 
@@ -16,10 +21,10 @@ const ImageSequence = forwardRef(({ progress }, ref) => {
                     ref={ref}
                     key={i}
                     style={{
-                        display: i !== index ? "none" : "flex",
+                        display: i !== index ? "none" : "block",
                         height: "503px",
                         width: "248px",
-                        marginTop: "44px",
+                        marginTop: "100px",
                         backgroundImage: `url('${
                             item[0] ? item[0].src : null
                         }')`,

@@ -10,8 +10,7 @@ export const Button = styled.button`
     line-height: 1.17648;
     font-weight: 400;
     letter-spacing: -0.022em;
-    font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica",
-        "Arial", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     min-width: 28px;
     padding-left: 16px;
     padding-right: 16px;
