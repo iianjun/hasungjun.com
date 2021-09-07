@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const Section = styled.section``;
+export const Section = styled.section`
+    /* height: 300px; */
+`;
 
 export const TypographyWrapper = styled.div`
-    position: absolute;
     margin-top: 250px;
     width: 100%;
 `;

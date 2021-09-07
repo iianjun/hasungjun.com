@@ -18,7 +18,14 @@ export const MoreSection = () => {
                     </S.GridHeader>
                 </S.Grid>
 
-                <S.Grid>dd</S.Grid>
+                <S.Grid>
+                    <S.MoreFeatures>
+                        Take Screenshot and share with friends. <br />
+                        Phone booth of staff. <br />
+                        Link to course detail. <br />
+                        Dynamic course list update. <br />
+                    </S.MoreFeatures>
+                </S.Grid>
             </S.GridContainer>
         </S.Section>
     );

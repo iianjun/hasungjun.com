@@ -1,21 +1,9 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-    width: 1440px;
+    width: 100%;
     background-color: #ffffff;
     margin: auto;
-    /* @media (max-width: 1279px) {
-        width: 1200px;
-    }
-    @media (max-width: 959px) {
-        width: 800px;
-    }
-    @media (max-width: 599px) {
-        width: 10%;
-    }
-    @media (min-width: 598px) {
-        width: 80%;
-    } */
 `;
 export const TypographyWrapper = styled.div`
     display: flex;
@@ -29,10 +17,23 @@ export const Header = styled.h2`
     font-weight: 600;
     letter-spacing: -0.015em;
     max-width: 520px;
-
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
+    @media (max-width: 1068px) {
+        font-size: 64px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 68px;
+        font-weight: 600;
+        letter-spacing: -0.576px;
+    }
+    @media (max-width: 734px) {
+        font-size: 40px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 44px;
+        font-weight: 600;
+        letter-spacing: normal;
+    }
 `;
 
 export const GridHeader = styled.p`
@@ -56,29 +57,39 @@ export const GridHeader = styled.p`
 `;
 
 export const GridContainer = styled.div`
-    display: grid;
-
-    grid-template-columns: 50% 50%;
-    @media (max-width: 700px) {
-        grid-template-columns: auto;
+    width: 100vw;
+    @media (min-width: 1280px) {
+        width: 1280px;
     }
+    display: grid;
+    grid-template-columns: 50% 50%;
+    @media (max-width: 734px) {
+        grid-template-columns: 450px;
+    }
+    justify-content: center;
     margin-left: 50%;
     margin-right: 50%;
     transform: translateX(-50%);
-    width: 1390px;
-    padding-left: 25px;
-    padding-right: 25px;
 `;
 
 export const Grid = styled.div`
     background: url(${(props) => props.largeUrl});
     background-position: center;
     background-size: auto 720px;
-    background-color: #f5f5f7;
     background-repeat: no-repeat;
+    background-color: #f5f5f7;
     padding: 45px 40px 7px 40px;
     border-radius: 30px;
     min-height: 720px;
-    margin-left: 12px;
-    margin-right: 12px;
+    margin: 20px 12px;
+`;
+export const MoreFeatures = styled.div`
+    color: #d1adff;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    position: absolute;
+    text-align: left;
+    font-size: 43px;
+    font-weight: 600;
 `;
