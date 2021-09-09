@@ -1,14 +1,22 @@
 import React, { forwardRef } from "react";
 import { Skeleton } from "../Skeleton";
-import { SuniIntroImagesArray, SuniAddCourseImagesArray } from "./ImageArray";
+import {
+    SuniIntroImagesArray,
+    SuniAddCourseImagesArray,
+    TinyDeskIntroArray,
+} from "./ImageArray";
 
 const ImageSequence = forwardRef(({ progress, target }, ref) => {
     let newImages;
-    if (target == "suni-intro") {
+    console.log(target);
+    if (target === "suni-intro") {
         newImages = SuniIntroImagesArray();
-    } else {
+    } else if (target === "suni-add-course") {
         newImages = SuniAddCourseImagesArray();
     }
+    // } else {
+    //     newImages = TinyDeskIntroArray();
+    // }
 
     let index = Math.round(progress * 1 * (newImages.length - 1));
 
