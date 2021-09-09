@@ -44,9 +44,6 @@ export const ImageWrapper = styled.div`
     display: flex;
     justify-content: center;
     margin: auto;
-`;
-
-export const IntroMac = styled.img`
     width: 1200px;
     @media (max-width: 1200px) {
         width: 850px;

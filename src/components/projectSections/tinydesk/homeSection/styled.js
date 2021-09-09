@@ -28,14 +28,3 @@ export const Header = styled.h1`
         letter-spacing: 0em;
     }
 `;
-export const Image = styled.img`
-    display: block;
-    height: 800px;
-    margin: auto;
-    @media (max-width: 1068px) {
-        height: 600px;
-    }
-    @media (max-width: 734px) {
-        height: 400px;
-    }
-`;

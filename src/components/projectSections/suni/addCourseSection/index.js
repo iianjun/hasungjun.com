@@ -7,7 +7,7 @@ export const AddCourseSection = () => {
     const ref = useRef();
 
     return (
-        <div>
+        <S.Wrapper>
             <S.Section>
                 <S.TypographyWrapper>
                     <S.SubHeadline>
@@ -34,6 +34,6 @@ export const AddCourseSection = () => {
                     </Scene>
                 </Controller>
             </S.Section>
-        </div>
+        </S.Wrapper>
     );
 };

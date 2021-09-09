@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+    background-color: #000000;
+    padding-top: 100px;
+`;
 export const Section = styled.section`
     /* height: 300px; */
 `;
 
 export const TypographyWrapper = styled.div`
-    margin-top: 250px;
+    /* margin-top: 250px; */
     width: 100%;
 `;
 export const SubHeadline = styled.p`
