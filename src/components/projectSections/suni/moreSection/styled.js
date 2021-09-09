@@ -56,33 +56,6 @@ export const GridHeader = styled.p`
     }
 `;
 
-export const GridContainer = styled.div`
-    width: 100vw;
-    @media (min-width: 1280px) {
-        width: 1280px;
-    }
-    display: grid;
-    grid-template-columns: 50% 50%;
-    @media (max-width: 734px) {
-        grid-template-columns: 450px;
-    }
-    justify-content: center;
-    margin-left: 50%;
-    margin-right: 50%;
-    transform: translateX(-50%);
-`;
-
-export const Grid = styled.div`
-    background: url(${(props) => props.largeUrl});
-    background-position: center;
-    background-size: auto 720px;
-    background-repeat: no-repeat;
-    background-color: #f5f5f7;
-    padding: 45px 40px 7px 40px;
-    border-radius: 30px;
-    min-height: 720px;
-    margin: 20px 12px;
-`;
 export const MoreFeatures = styled.div`
     color: #d1adff;
     top: 50%;

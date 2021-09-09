@@ -62,6 +62,8 @@ export const Info = styled.p`
     letter-spacing: 0.007em;
 `;
 export const LinkWrapper = styled.div`
+    margin-top: ${(props) => `${props.marginTop}px`};
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
