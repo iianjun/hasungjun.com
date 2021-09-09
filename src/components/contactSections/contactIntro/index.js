@@ -6,7 +6,7 @@ import { Link } from "react-scroll";
 import { AppleButton } from "../../common";
 import { StaticImage } from "gatsby-plugin-image";
 import { makeStyles } from "@material-ui/styles";
-
+import ContactBg from "../../../images/contact-bg.png";
 const useStyles = makeStyles({
     contactBg: {
         display: "block",
@@ -41,11 +41,22 @@ export const ContactIntro = (props) => {
                     <AppleButton onClick={onClickBuy}>Buy</AppleButton>
                 </Link>
             </G.ButtonWrapper>
-            <StaticImage
+            <S.ImageWrapper>
+                <StaticImage
+                    src="../../../images/contact-bg.png"
+                    alt="contact-bg.png"
+                    placeholder="blurred"
+                    layout="fixed"
+                    height={800}
+                    className="contact-bg"
+                />
+            </S.ImageWrapper>
+            {/* <StaticImage src="../../../images/contact-bg.png" alt="contactBg" /> */}
+            {/* <StaticImage
                 className={classes.contactBg}
                 src="../../../images/contact-bg.png"
                 alt="contactBg"
-            />
+            /> */}
 
             <S.ContactForm id="contact"></S.ContactForm>
         </S.IntroSection>

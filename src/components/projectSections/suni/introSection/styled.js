@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+    background-color: #000000;
+`;
 export const Section = styled.section`
     margin-top: 44px;
     height: 320px;

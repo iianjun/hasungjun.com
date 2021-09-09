@@ -22,7 +22,7 @@ export const SuniIntroSection = () => {
         return null;
     }
     return (
-        <div>
+        <S.Wrapper>
             <S.Section>
                 <S.TypographyWrapper>
                     <S.Header>Suni</S.Header>
@@ -53,6 +53,6 @@ export const SuniIntroSection = () => {
                     )}
                 </Scene>
             </Controller>
-        </div>
+        </S.Wrapper>
     );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import * as S from "./styled";
 import TinyIntro from "../../../../images/tinydesk-intro.png";
 import { LearnMore } from "../../../common";
+import { StaticImage } from "gatsby-plugin-image";
 export const TinydeskIntroSection = () => {
     return (
         <>
@@ -21,7 +22,14 @@ export const TinydeskIntroSection = () => {
                     />
                 </S.TypographyWrapper>
                 <S.ImageWrapper>
-                    <S.IntroMac src={TinyIntro} alt="tinydesk-intro" />
+                    <StaticImage
+                        src="../../../../images/tinydesk-intro.png"
+                        alt="tinydesk-intro"
+                        placeholder="blurred"
+                        style={{
+                            borderRadius: "20px",
+                        }}
+                    />
                 </S.ImageWrapper>
                 <S.TypographyWrapper>
                     <S.SubHeadline>

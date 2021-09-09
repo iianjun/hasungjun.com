@@ -4,6 +4,7 @@ export const Section = styled.section`
     width: 100%;
     background-color: #ffffff;
     margin: auto;
+    padding-bottom: 30px;
 `;
 export const TypographyWrapper = styled.div`
     display: flex;
@@ -61,7 +62,7 @@ export const MoreFeatures = styled.div`
     top: 50%;
     transform: translateY(-50%);
     margin: 0;
-    position: absolute;
+    position: relative;
     text-align: left;
     font-size: 43px;
     font-weight: 600;
