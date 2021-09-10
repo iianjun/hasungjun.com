@@ -5,19 +5,8 @@ import * as G from "../../common/global-style";
 import { Link } from "react-scroll";
 import { AppleButton } from "../../common";
 import { StaticImage } from "gatsby-plugin-image";
-import { makeStyles } from "@material-ui/styles";
-import ContactBg from "../../../images/contact-bg.png";
-const useStyles = makeStyles({
-    contactBg: {
-        display: "block",
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: "400px",
-        marginTop: "1em",
-    },
-});
+
 export const ContactIntro = (props) => {
-    const classes = useStyles();
     const onClickBuy = () => {
         props.setClickedBuy(true);
     };

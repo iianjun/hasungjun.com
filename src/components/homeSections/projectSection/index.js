@@ -1,5 +1,6 @@
 import React from "react";
 import * as G from "../../common/global-style";
+import * as S from "./styled";
 import SuniLarge from "../../../images/projects-large-suni.png";
 import SuniMedium from "../../../images/projects-medium-suni.png";
 import TinyDeskLarge from "../../../images/projects-large-tinydesk.png";
@@ -8,9 +9,9 @@ import { LearnMore } from "../../common";
 
 export const ProjectSection = ({ paddingTop }) => {
     return (
-        <>
+        <S.Wrapper paddingTop={paddingTop}>
             <G.SectionLink to="/suni">
-                <G.Section largeUrl={SuniLarge} mediumUrl={SuniMedium}>
+                <S.Section largeUrl={SuniLarge} mediumUrl={SuniMedium}>
                     <G.Typography paddingTop={50}>
                         <G.Title color="#ffffff">Suni</G.Title>
                         <G.Info $weight={40}>
@@ -19,10 +20,10 @@ export const ProjectSection = ({ paddingTop }) => {
                         </G.Info>
                         <LearnMore />
                     </G.Typography>
-                </G.Section>
+                </S.Section>
             </G.SectionLink>
             <G.SectionLink to="/tinydesk">
-                <G.Section largeUrl={TinyDeskLarge} mediumUrl={TinyDeskMedium}>
+                <S.Section largeUrl={TinyDeskLarge} mediumUrl={TinyDeskMedium}>
                     <G.Typography paddingTop={50}>
                         <G.Title color="#000000">Tiny Desk</G.Title>
                         <G.Info $weight={40}>
@@ -30,8 +31,8 @@ export const ProjectSection = ({ paddingTop }) => {
                         </G.Info>
                         <LearnMore />
                     </G.Typography>
-                </G.Section>
+                </S.Section>
             </G.SectionLink>
-        </>
+        </S.Wrapper>
     );
 };
