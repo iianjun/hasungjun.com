@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Section = styled.section`
     padding-bottom: 30px;
+    background-color: #f5f5f7;
 `;
 
 export const ImageContainer = styled.div`
