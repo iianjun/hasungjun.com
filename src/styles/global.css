@@ -43,16 +43,21 @@ a {
     margin-right: auto;
 
     max-width: 1100px;
-    
 }
+
+.emoji {
+    display: flex;
+    width: 300px;
+    margin: auto;
+}
+
 @media only screen and (max-width: 1068px) {
     .tinydesk-homepage {
         max-width: 750px;
-    }       
+    }
 }
 @media only screen and (max-width: 734px) {
     .tinydesk-homepage {
         max-width: 500px;
-    }       
+    }
 }
-

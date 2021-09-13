@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as S from "./styled";
-import TinydeskHomepage from "../../../../images/tinydesk-homepage.png";
 import { StaticImage } from "gatsby-plugin-image";
-import { css } from "styled-components";
 export const TinyDeskHomeSection = () => {
     return (
         <S.Section>
