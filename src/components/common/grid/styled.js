@@ -25,7 +25,12 @@ export const Wrapper = styled.div`
             : `auto ${props.height}px`};
     background-repeat: no-repeat;
     background-color: ${(props) => props.backgroundColor};
-    padding: 45px 40px 7px 40px;
+    padding: ${(props) =>
+        props.full
+            ? "0px"
+            : props.padding
+            ? `${props.padding}`
+            : "45px 40px 7px 40px"};
     border-radius: 30px;
     height: ${(props) => `${props.height}px`};
     margin-left: 12px;

@@ -25,6 +25,7 @@ export const Header = styled.h2`
     font-weight: 600;
 `;
 export const Bio = styled.p`
+    color: #86868b;
     font-size: 24px;
     font-weight: 600;
     line-height: 1.16667;

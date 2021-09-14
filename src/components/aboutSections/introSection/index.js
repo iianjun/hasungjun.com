@@ -19,7 +19,11 @@ export const AboutIntroSection = () => {
                         <S.Header>Hasung Jun</S.Header>
                         <S.Bio>
                             I'm an software engineer, perfectionist,
-                            harderworker and, an iOS enthusiast.
+                            harderworker and, an iOS enthusiast. Passionate
+                            about iOS developing and learning human-computer
+                            interaction. Experience with implementing
+                            functionalities of an app to maximize user
+                            experience.
                         </S.Bio>
                     </S.TypographyWrapper>
                 </Fade>

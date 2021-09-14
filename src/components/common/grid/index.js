@@ -16,6 +16,8 @@ export const Grid = ({
     backgroundColor,
     height,
     backgroundHeight,
+    full,
+    padding,
 }) => {
     return (
         <S.Wrapper
@@ -24,6 +26,8 @@ export const Grid = ({
             backgroundColor={backgroundColor}
             height={height}
             backgroundHeight={backgroundHeight}
+            full={full}
+            padding={padding}
         >
             {children}
         </S.Wrapper>

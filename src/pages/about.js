@@ -1,10 +1,17 @@
 import React from "react";
-import { Layout, AboutIntroSection } from "../components/";
+import {
+    Layout,
+    AboutIntroSection,
+    AboutPictureSection,
+    AboutEducationSection,
+} from "../components/";
 
 const AboutPage = () => {
     return (
         <Layout pageTitle="About">
             <AboutIntroSection />
+            <AboutPictureSection />
+            <AboutEducationSection />
         </Layout>
     );
 };
