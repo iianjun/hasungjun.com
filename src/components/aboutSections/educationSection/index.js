@@ -1,8 +1,8 @@
 import { StaticImage } from "gatsby-plugin-image";
 import { GridContainer, Grid } from "../../common";
 import React from "react";
-import StonyBrook from "../../../images/stony-brook-logo.png";
-import StonyBrook2 from "../../../images/stony-brook-logo2.png";
+import Test3 from "../../../images/test3.png";
+
 import * as S from "./styled";
 
 export const AboutEducationSection = () => {
@@ -19,26 +19,31 @@ export const AboutEducationSection = () => {
                         height={300}
                     /> */}
                 {/* <S.Block> */}
-                <GridContainer column="100%">
-                    <Grid backgroundColor="#ffffff" padding="20px 20px">
-                        <StaticImage
-                            src="../../../images/stony-brook-logo2.png"
-                            placeholder="none"
-                            alt="stony-brook-logo"
-                            className="stony-brook-logo"
-                        />
-                    </Grid>
-                    <GridContainer column="50% 50%">
-                        <Grid backgroundColor="#ffffff" height={300}>
-                            <S.Major>Computer Science</S.Major>
-                            <S.Explanation>Helloi</S.Explanation>
-                        </Grid>
 
-                        <Grid backgroundColor="#ffffff" height={300}>
-                            <S.Major>Technological Systems Management</S.Major>
-                            <S.Explanation>Helloi</S.Explanation>
-                        </Grid>
-                    </GridContainer>
+                <GridContainer column="50% 50%">
+                    <Grid
+                        backgroundColor="#ffffff"
+                        height={300}
+                        largeUrl={Test3}
+                    >
+                        <S.Major>Computer Science</S.Major>
+                        <S.Degree>BACHELOR’S DEGREE</S.Degree>
+                        <S.Explanation>
+                            Stony Brook University, 2014 - 2022
+                        </S.Explanation>
+                    </Grid>
+
+                    <Grid
+                        backgroundColor="#ffffff"
+                        height={300}
+                        largeUrl={Test3}
+                    >
+                        <S.Major>Technological Systems Management</S.Major>
+                        <S.Degree>BACHELOR’S DEGREE</S.Degree>
+                        <S.Explanation>
+                            Stony Brook University, 2014 - 2022
+                        </S.Explanation>
+                    </Grid>
                 </GridContainer>
             </S.Section>
         </S.Background>

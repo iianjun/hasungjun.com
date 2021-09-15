@@ -4,6 +4,7 @@ import {
     AboutIntroSection,
     AboutPictureSection,
     AboutEducationSection,
+    AboutWorkExperienceSection,
 } from "../components/";
 
 const AboutPage = () => {
@@ -12,6 +13,7 @@ const AboutPage = () => {
             <AboutIntroSection />
             <AboutPictureSection />
             <AboutEducationSection />
+            <AboutWorkExperienceSection />
         </Layout>
     );
 };

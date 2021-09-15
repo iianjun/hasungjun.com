@@ -25,6 +25,7 @@ export const Wrapper = styled.div`
             : `auto ${props.height}px`};
     background-repeat: no-repeat;
     background-color: ${(props) => props.backgroundColor};
+
     padding: ${(props) =>
         props.full
             ? "0px"
