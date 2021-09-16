@@ -5,6 +5,7 @@ import {
     AboutPictureSection,
     AboutEducationSection,
     AboutWorkExperienceSection,
+    AboutAwardSection,
 } from "../components/";
 
 const AboutPage = () => {
@@ -14,6 +15,7 @@ const AboutPage = () => {
             <AboutPictureSection />
             <AboutEducationSection />
             <AboutWorkExperienceSection />
+            <AboutAwardSection />
         </Layout>
     );
 };

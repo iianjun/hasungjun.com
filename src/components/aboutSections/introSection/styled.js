@@ -32,3 +32,11 @@ export const Bio = styled.p`
     font-weight: 600;
     letter-spacing: 0.009em;
 `;
+export const LinkWrapper = styled.div`
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    align-items: center;
+
+    height: 100px;
+`;

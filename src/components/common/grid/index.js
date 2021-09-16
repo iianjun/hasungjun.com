@@ -1,9 +1,9 @@
 import React from "react";
 import * as S from "./styled";
 
-export const GridContainer = ({ children, column }) => {
+export const GridContainer = ({ children, column, noGap }) => {
     return (
-        <S.GridContainerWrapper column={column}>
+        <S.GridContainerWrapper column={column} noGap={noGap}>
             {children}
         </S.GridContainerWrapper>
     );
@@ -18,6 +18,10 @@ export const Grid = ({
     backgroundHeight,
     full,
     padding,
+    borderTop,
+    borderBottom,
+    borderRight,
+    borderRadius,
 }) => {
     return (
         <S.Wrapper
@@ -28,6 +32,10 @@ export const Grid = ({
             backgroundHeight={backgroundHeight}
             full={full}
             padding={padding}
+            borderTop={borderTop}
+            borderBottom={borderBottom}
+            borderRight={borderRight}
+            borderRadius={borderRadius}
         >
             {children}
         </S.Wrapper>

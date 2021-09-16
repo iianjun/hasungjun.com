@@ -10,17 +10,7 @@ export const TypographyWrapper = styled.div`
     max-width: 1200px;
     margin: auto;
 `;
-export const Header = styled.h1`
-    color: #f63e54;
-    padding: 36px 40px 40px 40px;
-    font-size: 56px;
-    line-height: 1.0714285714;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-`;
+
 export const Major = styled.h2`
     font-size: 30px;
     color: #f63e54;

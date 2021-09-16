@@ -2,6 +2,7 @@ import { StaticImage } from "gatsby-plugin-image";
 import { GridContainer, Grid } from "../../common";
 import React from "react";
 import Test3 from "../../../images/test3.png";
+import { Header } from "../../common/global-style";
 
 import * as S from "./styled";
 
@@ -10,16 +11,8 @@ export const AboutEducationSection = () => {
         <S.Background>
             <S.Section>
                 <S.TypographyWrapper>
-                    <S.Header>Education</S.Header>
+                    <Header color="#f63e54">Education</Header>
                 </S.TypographyWrapper>
-
-                {/* <StaticImage
-                        src="../../../images/stony-brook-logo.png"
-                        placeholder="none"
-                        height={300}
-                    /> */}
-                {/* <S.Block> */}
-
                 <GridContainer column="50% 50%">
                     <Grid
                         backgroundColor="#ffffff"

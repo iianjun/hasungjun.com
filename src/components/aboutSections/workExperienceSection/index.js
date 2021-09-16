@@ -1,21 +1,38 @@
 import { StaticImage } from "gatsby-plugin-image";
 import React from "react";
 import * as S from "./styled";
+import { Header } from "../../common/global-style";
 export const AboutWorkExperienceSection = () => {
     return (
         <S.Section>
             <S.TypographyWrapper>
-                <S.Header>Work Experience</S.Header>
+                <Header color="#8876fe">Work Experience</Header>
             </S.TypographyWrapper>
             <S.Wrapper>
                 <StaticImage
                     src="../../../images/moornmo-logo.png"
                     placeholder="none"
-                    height={250}
+                    className="moornmo-logo"
                 />
+
                 <S.Block>
-                    <S.CompanyName>Moornmo</S.CompanyName>
-                    <S.Duration>June 2021 - July 2021</S.Duration>
+                    <S.CompanyName>Freelance @ Moornmo</S.CompanyName>
+                    <S.Duration>June - July 2021, as Freelance</S.Duration>
+                    <S.Expereience>
+                        - Developed functinoalities of client's electronic
+                        document management system
+                    </S.Expereience>
+
+                    <S.Expereience>
+                        - Implemented 3D model viewer, which has done within two
+                        days that previous employee could not implment for three
+                        month
+                    </S.Expereience>
+
+                    <S.Expereience>
+                        - Implemented multiple sub-functionalities for 3D model
+                        viewer features
+                    </S.Expereience>
                 </S.Block>
             </S.Wrapper>
         </S.Section>
