@@ -159,28 +159,3 @@ export const NavLink = styled.a`
         align-items: center;
     }
 `;
-
-export const Menu = styled.ul`
-    @media (max-width: 767px) {
-        #open-menu:checked {
-            display: block;
-            position: absolute;
-            z-index: 1;
-            top: 3.52941em;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            max-width: 664px;
-            margin: 0 auto;
-            padding: 45px 40px 8px;
-            height: auto;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            visibility: hidden;
-            -webkit-transition: visibility 0s linear 1s;
-            transition: visibility 0s linear 1s;
-        }
-    }
-`;

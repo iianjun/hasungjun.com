@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./styled";
 import logo from "../../images/logo.svg";
-
+import { Cross as Hamburger } from "hamburger-react";
 import { Link } from "gatsby";
+import { NavigationLinks } from "../navigation-links";
 export const NavBar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleOpen = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
         <S.Header>
             <S.Wrapper className="container">
                 <S.Nav>
                     <S.Mobile>
                         <S.NavList>
-                            <S.NavLink href="#open-menu" role="button">
+                            <S.NavLink onClick={handleOpen}>
                                 <S.MenuIcon>
-                                    <S.MenuIconLabel>
+                                    {/* <S.MenuIconLabel>
                                         <S.LineTopWrapper>
                                             <S.LineTop />
                                         </S.LineTopWrapper>
                                         <S.LineBottomWrapper>
                                             <S.LineBottom />
                                         </S.LineBottomWrapper>
-                                    </S.MenuIconLabel>
+                                    </S.MenuIconLabel> */}
+                                    <Hamburger size={17} color="#ffffff" />
+                                    <NavigationLinks isOpen={isOpen} />
                                 </S.MenuIcon>
                             </S.NavLink>
                             <S.MobileLogoWrapper>
@@ -72,7 +81,6 @@ export const NavBar = () => {
                             </S.NavItem>
                         </S.NavList>
                     </S.Full>
-                    <S.Menu></S.Menu>
                 </S.Nav>
             </S.Wrapper>
         </S.Header>
