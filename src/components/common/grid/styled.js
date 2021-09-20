@@ -6,7 +6,7 @@ export const GridContainerWrapper = styled.div`
         width: 1280px;
     }
     display: grid;
-    grid-row-gap: 25px;
+    grid-row-gap: ${(props) => (props.noGap ? `0px` : `25px`)};
     grid-template-columns: ${(props) => props.column};
     @media (max-width: 734px) {
         grid-template-columns: 450px;
@@ -25,11 +25,21 @@ export const Wrapper = styled.div`
             : `auto ${props.height}px`};
     background-repeat: no-repeat;
     background-color: ${(props) => props.backgroundColor};
-    padding: 45px 40px 7px 40px;
-    border-radius: 30px;
+
+    padding: ${(props) =>
+        props.full
+            ? "0px"
+            : props.padding
+            ? `${props.padding}`
+            : "45px 40px 7px 40px"};
+    border-radius: ${(props) =>
+        props.borderRadius ? `${props.borderRadius}px` : `30px`};
     height: ${(props) => `${props.height}px`};
     margin-left: 12px;
     margin-right: 12px;
+    border-top: ${(props) => `${props.borderTop}`};
+    border-bottom: ${(props) => `${props.borderBottom}`};
+    border-right: ${(props) => `${props.borderRight}`};
 `;
 export const GridHeader = styled.h4`
     font-size: 21px;

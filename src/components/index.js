@@ -4,3 +4,4 @@ export * from "./navbar";
 export * from "./homeSections";
 export * from "./contactSections";
 export * from "./projectSections";
+export * from "./aboutSections";

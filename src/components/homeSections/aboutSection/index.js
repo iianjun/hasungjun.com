@@ -13,10 +13,9 @@ export const AboutSection = () => {
             >
                 <G.Typography>
                     <G.Title>Hasung Jun</G.Title>
-                    <G.SubTitle $weight={400}>Software Engineer</G.SubTitle>
                     <G.Info>
-                        Hello, I am Hasung Jun, also go by Ian <br />A Software
-                        Engineer, enthusiastic about iOS
+                        Hello, I’m Hasung Jun, but you can call me Ian. <br />
+                        I’m a software engineer and iOS enthusiast
                     </G.Info>
                     <LearnMore />
                 </G.Typography>
