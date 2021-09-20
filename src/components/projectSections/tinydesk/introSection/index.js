@@ -12,7 +12,7 @@ export const TinydeskIntroSection = () => {
                     <S.Headline>Maximize efficiency.</S.Headline>
                     <LearnMore
                         title="GitHub"
-                        to="https://github.com/iianjun"
+                        to="https://github.com/iianjun/tinydesk"
                         marginTop="10"
                     />
                     <LearnMore
