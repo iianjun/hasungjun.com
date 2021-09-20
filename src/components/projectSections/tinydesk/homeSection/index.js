@@ -1,8 +1,6 @@
 import React from "react";
 import * as S from "./styled";
-
 import { StaticImage } from "gatsby-plugin-image";
-
 export const TinyDeskHomeSection = () => {
     return (
         <S.Section>

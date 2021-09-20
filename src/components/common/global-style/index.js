@@ -32,6 +32,7 @@ export const Title = styled.h2`
     :visited {
         color: red;
     }
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 `;
 
 export const SubTitle = styled.p`
@@ -45,6 +46,7 @@ export const SubTitle = styled.p`
     letter-spacing: 0.007em;
     margin-top: 6px;
     margin-bottom: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 `;
 export const Info = styled.p`
     margin-block-start: 1em;
@@ -60,9 +62,11 @@ export const Info = styled.p`
     justify-content: center;
     font-family: sans-serif;
     letter-spacing: 0.007em;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 `;
 export const LinkWrapper = styled.div`
     margin-top: ${(props) => `${props.marginTop}px`};
+    margin-right: ${(props) => `${props.marginRight}px`};
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -121,4 +125,16 @@ export const Section = styled.section`
         background-position: center;
         background-repeat: no-repeat;
     }
+`;
+
+export const Header = styled.h1`
+    color: ${(props) => props.color};
+    padding: 36px 40px 40px 40px;
+    font-size: 56px;
+    line-height: 1.0714285714;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
 `;
