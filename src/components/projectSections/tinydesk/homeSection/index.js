@@ -4,9 +4,7 @@ import { StaticImage } from "gatsby-plugin-image";
 export const TinyDeskHomeSection = () => {
     return (
         <S.Section>
-            <S.TypographyWrapper>
-                <S.Header>Homepage</S.Header>
-            </S.TypographyWrapper>
+            <S.Header>Homepage</S.Header>
 
             <StaticImage
                 src="../../../../images/tinydesk-homepage.png"
