@@ -2,7 +2,6 @@ import React from "react";
 import * as G from "../global-style";
 import Chevronright from "../../../images/chevronright.svg";
 export const LearnMore = ({ title, to, marginTop, marginRight }) => {
-    console.log(title);
     return (
         <G.LinkWrapper
             marginTop={marginTop ? marginTop : 0}

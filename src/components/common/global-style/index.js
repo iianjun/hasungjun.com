@@ -32,6 +32,7 @@ export const Title = styled.h2`
     :visited {
         color: red;
     }
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 `;
 
 export const SubTitle = styled.p`
@@ -45,6 +46,7 @@ export const SubTitle = styled.p`
     letter-spacing: 0.007em;
     margin-top: 6px;
     margin-bottom: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 `;
 export const Info = styled.p`
     margin-block-start: 1em;
@@ -60,6 +62,7 @@ export const Info = styled.p`
     justify-content: center;
     font-family: sans-serif;
     letter-spacing: 0.007em;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 `;
 export const LinkWrapper = styled.div`
     margin-top: ${(props) => `${props.marginTop}px`};
