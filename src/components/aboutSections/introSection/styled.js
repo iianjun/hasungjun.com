@@ -31,12 +31,38 @@ export const Bio = styled.p`
     line-height: 1.16667;
     font-weight: 600;
     letter-spacing: 0.009em;
+    margin-bottom: 20px;
 `;
 export const LinkWrapper = styled.div`
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
     align-items: center;
-
     height: 100px;
+`;
+
+export const SkillsWrapper = styled.div`
+    text-align: left;
+`;
+export const SkillsHeader = styled.h2`
+    color: #26476d;
+    font-size: 30px;
+    font-weight: 600;
+`;
+
+export const Skills = styled.div`
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+`;
+
+export const SkillGrid = styled.div`
+    display: flex;
+
+    align-items: center;
+`;
+export const SkillName = styled.h4`
+    color: #86868b;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 10px;
 `;

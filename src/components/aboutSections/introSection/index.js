@@ -25,6 +25,52 @@ export const AboutIntroSection = () => {
                             functionalities of an app to maximize user
                             experience.
                         </S.Bio>
+
+                        <S.SkillsWrapper>
+                            <S.SkillsHeader>Skills</S.SkillsHeader>
+                            <S.Skills>
+                                <S.SkillGrid>
+                                    <StaticImage
+                                        src="../../../images/gatsby_logo.png"
+                                        width={60}
+                                        height={60}
+                                        alt="gatsby-logo"
+                                        placeholder="none"
+                                    />
+                                    <S.SkillName>Gatsby</S.SkillName>
+                                </S.SkillGrid>
+                                <S.SkillGrid>
+                                    <StaticImage
+                                        src="../../../images/react_logo.png"
+                                        width={60}
+                                        height={60}
+                                        alt="react-logo"
+                                        placeholder="none"
+                                    />
+                                    <S.SkillName>React</S.SkillName>
+                                </S.SkillGrid>
+                                <S.SkillGrid>
+                                    <StaticImage
+                                        src="../../../images/swift_logo.png"
+                                        width={60}
+                                        height={60}
+                                        alt="swift-logo"
+                                        placeholder="none"
+                                    />
+                                    <S.SkillName>Swift</S.SkillName>
+                                </S.SkillGrid>
+                                <S.SkillGrid>
+                                    <StaticImage
+                                        src="../../../images/swiftui_logo.png"
+                                        width={60}
+                                        height={60}
+                                        alt="swiftui-logo"
+                                        placeholder="none"
+                                    />
+                                    <S.SkillName>SwiftUI</S.SkillName>
+                                </S.SkillGrid>
+                            </S.Skills>
+                        </S.SkillsWrapper>
                         <S.LinkWrapper>
                             <LearnMore
                                 title="GitHub"
