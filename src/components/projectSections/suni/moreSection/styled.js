@@ -49,7 +49,7 @@ export const GridHeader = styled.p`
         line-height: 1.16667;
         letter-spacing: 0.009em;
     }
-    @media (max-width: 1068px) {
+    @media (max-width: 1067px) {
         font-size: 28px;
         line-height: 1.14286;
         font-weight: 500;
@@ -66,4 +66,10 @@ export const MoreFeatures = styled.div`
     text-align: left;
     font-size: 43px;
     font-weight: 600;
+    @media (max-width: 1067px) {
+        font-size: 38px;
+    }
+    @media (max-width: 734px) {
+        font-size: 43px;
+    }
 `;

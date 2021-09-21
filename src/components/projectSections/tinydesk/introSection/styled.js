@@ -26,6 +26,17 @@ export const Header = styled.h1`
     width: 100%;
     font-size: 25.5px;
     font-weight: 600;
+    -webkit-background-clip: text;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-fill-color: rgba(0, 0, 0, 0);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(
+        180deg,
+        #6d51fb 36.04%,
+        #f8c836 88.83%,
+        #54b8f8 220.3%
+    );
 `;
 
 export const Headline = styled.p`
@@ -38,6 +49,12 @@ export const Headline = styled.p`
     max-width: 800px;
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    @media (max-width: 1076px) {
+        font-size: 70px;
+    }
+    @media (max-width: 734px) {
+        font-size: 56px;
+    }
 `;
 
 export const ImageWrapper = styled.div`

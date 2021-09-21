@@ -18,7 +18,8 @@ export const GridContainerWrapper = styled.div`
 
 export const Wrapper = styled.div`
     background: url(${(props) => props.largeUrl});
-    background-position: center;
+    background-position: ${(props) =>
+        props.backgroundPosition ? `${props.backgroundPosition}` : "center"};
     background-size: ${(props) =>
         props.backgroundHeight
             ? `auto ${props.backgroundHeight}px`
@@ -40,6 +41,32 @@ export const Wrapper = styled.div`
     border-top: ${(props) => `${props.borderTop}`};
     border-bottom: ${(props) => `${props.borderBottom}`};
     border-right: ${(props) => `${props.borderRight}`};
+    @media (max-width: 1068px) {
+        background: url(${(props) => props.mediumUrl});
+        background-position: ${(props) =>
+            props.backgroundPosition
+                ? `${props.backgroundPosition}`
+                : "center"};
+        background-size: ${(props) =>
+            props.backgroundHeight
+                ? `auto ${props.backgroundHeight}px`
+                : `auto ${props.height}px`};
+        background-repeat: no-repeat;
+        background-color: ${(props) => props.backgroundColor};
+    }
+    @media (max-width: 734px) {
+        background: url(${(props) => props.smallUrl});
+        background-position: ${(props) =>
+            props.backgroundPosition
+                ? `${props.backgroundPosition}`
+                : "center"};
+        background-size: ${(props) =>
+            props.backgroundHeight
+                ? `auto ${props.backgroundHeight}px`
+                : `auto ${props.height}px`};
+        background-repeat: no-repeat;
+        background-color: ${(props) => props.backgroundColor};
+    }
 `;
 export const GridHeader = styled.h4`
     font-size: 21px;

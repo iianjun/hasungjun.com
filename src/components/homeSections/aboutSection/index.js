@@ -2,6 +2,7 @@ import React from "react";
 import * as G from "../../common/global-style";
 import LogosLarge from "../../../images/logos-large.png";
 import LogosMedium from "../../../images/logos-medium.png";
+import LogosSmall from "../../../images/logos-small.png";
 import { LearnMore } from "../../common";
 export const AboutSection = () => {
     return (
@@ -9,6 +10,7 @@ export const AboutSection = () => {
             <G.Section
                 largeUrl={LogosLarge}
                 mediumUrl={LogosMedium}
+                smallUrl={LogosSmall}
                 paddingTop={90}
             >
                 <G.Typography>

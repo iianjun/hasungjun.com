@@ -9,15 +9,19 @@ export const AboutWorkExperienceSection = () => {
                 <Header color="#8876fe">Work Experience</Header>
             </S.TypographyWrapper>
             <S.Wrapper>
-                <StaticImage
-                    src="../../../images/moornmo-logo.png"
-                    placeholder="none"
-                    className="moornmo-logo"
-                />
+                <S.ImageWrapper>
+                    <StaticImage
+                        src="../../../images/moornmo-logo.png"
+                        placeholder="none"
+                        alt="moornmo-logo"
+                        width={250}
+                        width={250}
+                    />
+                </S.ImageWrapper>
 
                 <S.Block>
                     <S.CompanyName>Freelance @ Moornmo</S.CompanyName>
-                    <S.Duration>June - July 2021, as Freelance</S.Duration>
+                    <S.Duration>June - July 2021</S.Duration>
                     <S.Expereience>
                         - Developed functinoalities of client's electronic
                         document management system

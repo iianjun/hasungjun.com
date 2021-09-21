@@ -20,6 +20,12 @@ export const Major = styled.h2`
     letter-spacing: 0em;
     margin-bottom: 20px;
     text-align: left;
+    @media (max-width: 1068px) {
+        font-size: 24px;
+    }
+    @media (max-width: 734px) {
+        font-size: 30px;
+    }
 `;
 
 export const Block = styled.div`
@@ -33,9 +39,21 @@ export const Degree = styled.h3`
     line-height: 1.05;
     letter-spacing: 0em;
     margin-bottom: 20px;
+    @media (max-width: 1068px) {
+        font-size: 20px;
+    }
+    @media (max-width: 734px) {
+        font-size: 28px;
+    }
 `;
 export const Explanation = styled.h4`
-    font-size: 25px;
+    font-size: 21px;
     color: #82828b;
     font-weight: 600;
+    @media (max-width: 1068px) {
+        font-size: 18px;
+    }
+    @media (max-width: 734px) {
+        font-size: 21px;
+    }
 `;

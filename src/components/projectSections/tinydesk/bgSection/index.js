@@ -2,14 +2,14 @@ import React from "react";
 import * as S from "./styled";
 import { GridContainer, Grid, GridHeader, SubSection } from "../../../common";
 import TinyDeskEditBackground from "../../../../images/tinydesk-edit-background.png";
-import TinyDeskBookmarks from "../../../../images/tinydesk-bookmarks.png";
+import TinyDeskBookmarksLarge from "../../../../images/tinydesk-bookmarks-large.png";
 export const TinyDeskBGSection = () => {
     const handleOpenUnsplash = () => {
         window.open("https://unsplash.com");
     };
     return (
         <S.Section>
-            <GridContainer column="75% 35%">
+            <GridContainer column="65% 35%">
                 <Grid backgroundColor="#ffffff" height={550}>
                     <GridHeader>Customize Background</GridHeader>
                     <SubSection>
@@ -27,11 +27,15 @@ export const TinyDeskBGSection = () => {
                         />
                     </S.ImageContainer>
                 </Grid>
-                <Grid backgroundColor="#ffffff" height={550}>
+                <Grid
+                    backgroundColor="#ffffff"
+                    height={550}
+                    largeUrl={TinyDeskBookmarksLarge}
+                >
                     <GridHeader>Bookmarks</GridHeader>
-                    <S.ImageContainer height="95%">
-                        <S.Image src={TinyDeskBookmarks} height={500} />
-                    </S.ImageContainer>
+                    {/* <S.ImageContainer height="95%">
+                        <S.Image src={TinyDeskBookmarksLarge} height={500} />
+                    </S.ImageContainer> */}
                 </Grid>
             </GridContainer>
         </S.Section>
