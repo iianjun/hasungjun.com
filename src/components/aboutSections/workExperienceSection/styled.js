@@ -27,7 +27,7 @@ export const CompanyName = styled.h2`
     font-size: 35px;
     color: #8876fe;
     font-weight: 600;
-    @media (max-width: 1067px) {
+    @media (max-width: 1068px) {
     }
     @media (max-width: 734px) {
     }
@@ -36,7 +36,7 @@ export const Duration = styled.h3`
     font-size: 25px;
     color: #000000;
     font-weight: 600;
-    @media (max-width: 1067px) {
+    @media (max-width: 1068px) {
     }
     @media (max-width: 734px) {
     }
@@ -51,7 +51,7 @@ export const Expereience = styled.h4`
     max-width: 700px;
     text-align: left;
     padding-bottom: 10px;
-    @media (max-width: 1067px) {
+    @media (max-width: 1068px) {
     }
     @media (max-width: 734px) {
     }

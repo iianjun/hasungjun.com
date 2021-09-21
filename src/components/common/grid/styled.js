@@ -8,6 +8,10 @@ export const GridContainerWrapper = styled.div`
     display: grid;
     grid-row-gap: ${(props) => (props.noGap ? `0px` : `25px`)};
     grid-template-columns: ${(props) => props.column};
+    @media (max-width: 1068px) {
+        grid-template-columns: ${(props) =>
+            props.column === "65% 35%" ? "50% 50%" : "100%"};
+    }
     @media (max-width: 734px) {
         grid-template-columns: 450px;
     }
@@ -42,7 +46,8 @@ export const Wrapper = styled.div`
     border-bottom: ${(props) => `${props.borderBottom}`};
     border-right: ${(props) => `${props.borderRight}`};
     @media (max-width: 1068px) {
-        background: url(${(props) => props.mediumUrl});
+        background: url(${(props) =>
+            props.mediumUrl ? props.mediumUrl : props.largeUrl});
         background-position: ${(props) =>
             props.backgroundPosition
                 ? `${props.backgroundPosition}`
@@ -55,7 +60,8 @@ export const Wrapper = styled.div`
         background-color: ${(props) => props.backgroundColor};
     }
     @media (max-width: 734px) {
-        background: url(${(props) => props.smallUrl});
+        background: url(${(props) =>
+            props.smallUrl ? props.smallUrl : props.largeUrl});
         background-position: ${(props) =>
             props.backgroundPosition
                 ? `${props.backgroundPosition}`

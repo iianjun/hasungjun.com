@@ -2,7 +2,8 @@ import React from "react";
 import * as S from "./styled";
 import { GridContainer, Grid, GridHeader, SubSection } from "../../../common";
 import TinyDeskEditBackground from "../../../../images/tinydesk-edit-background.png";
-import TinyDeskBookmarksLarge from "../../../../images/tinydesk-bookmarks-large.png";
+import TinyDeskBookmarks from "../../../../images/tinydesk-bookmarks.png";
+import { StaticImage } from "gatsby-plugin-image";
 export const TinyDeskBGSection = () => {
     const handleOpenUnsplash = () => {
         window.open("https://unsplash.com");
@@ -20,22 +21,17 @@ export const TinyDeskBGSection = () => {
                         plain background from other browsers.
                     </SubSection>
                     <S.ImageContainer height="80%">
-                        <S.Image
-                            src={TinyDeskEditBackground}
-                            alt="tinydesk-edit-background"
-                            height={400}
-                        />
+                        <S.Image src={TinyDeskEditBackground} height={400} />
                     </S.ImageContainer>
                 </Grid>
                 <Grid
                     backgroundColor="#ffffff"
                     height={550}
-                    largeUrl={TinyDeskBookmarksLarge}
+                    largeUrl={TinyDeskBookmarks}
+                    mediumUrl={TinyDeskBookmarks}
+                    smallUrl={TinyDeskBookmarks}
                 >
                     <GridHeader>Bookmarks</GridHeader>
-                    {/* <S.ImageContainer height="95%">
-                        <S.Image src={TinyDeskBookmarksLarge} height={500} />
-                    </S.ImageContainer> */}
                 </Grid>
             </GridContainer>
         </S.Section>

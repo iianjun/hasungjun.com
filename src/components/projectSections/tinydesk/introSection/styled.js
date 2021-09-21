@@ -49,7 +49,7 @@ export const Headline = styled.p`
     max-width: 800px;
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    @media (max-width: 1076px) {
+    @media (max-width: 1068px) {
         font-size: 70px;
     }
     @media (max-width: 734px) {
