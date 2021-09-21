@@ -32,20 +32,14 @@ export const ContactIntro = (props) => {
             </G.ButtonWrapper>
             <S.ImageWrapper>
                 <StaticImage
-                    src="../../../images/contact-bg.png"
-                    alt="contact-bg.png"
-                    placeholder="blurred"
+                    src="../../../images/contact/contact-bg.png"
+                    alt="contact-bg"
+                    placeholder="none"
                     layout="fixed"
                     height={800}
                     className="contact-bg"
                 />
             </S.ImageWrapper>
-            {/* <StaticImage src="../../../images/contact-bg.png" alt="contactBg" /> */}
-            {/* <StaticImage
-                className={classes.contactBg}
-                src="../../../images/contact-bg.png"
-                alt="contactBg"
-            /> */}
 
             <S.ContactForm id="contact"></S.ContactForm>
         </S.IntroSection>

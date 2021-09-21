@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import * as S from "./styled";
-import LargeUrl from "../../../../images/suni-schedule-large.png";
-import MediumUrl from "../../../../images/suni-schedule-medium.png";
-import SmallUrl from "../../../../images/suni-schedule-small.png";
+import LargeUrl from "../../../../images/projects/suni/suni-schedule-large.png";
+import MediumUrl from "../../../../images/projects/suni/suni-schedule-medium.png";
+import SmallUrl from "../../../../images/projects/suni/suni-schedule-small.png";
 export const ScheduleSection = () => {
     return (
         <>

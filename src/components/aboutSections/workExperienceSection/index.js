@@ -11,7 +11,7 @@ export const AboutWorkExperienceSection = () => {
             <S.Wrapper>
                 <S.ImageWrapper>
                     <StaticImage
-                        src="../../../images/moornmo-logo.png"
+                        src="../../../images/about/moornmo-logo.png"
                         placeholder="none"
                         alt="moornmo-logo"
                         width={250}

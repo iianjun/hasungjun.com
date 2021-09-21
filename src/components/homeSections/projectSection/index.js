@@ -1,12 +1,12 @@
 import React from "react";
 import * as G from "../../common/global-style";
 import * as S from "./styled";
-import SuniLarge from "../../../images/projects-large-suni.png";
-import SuniMedium from "../../../images/projects-medium-suni.png";
-import SuniSmall from "../../../images/projects-small-suni.png";
-import TinyDeskLarge from "../../../images/projects-large-tinydesk.png";
-import TinyDeskMedium from "../../../images/projects-medium-tinydesk.png";
-import TinyDeskSmall from "../../../images/projects-small-tinydesk.png";
+import SuniLarge from "../../../images/home/projects-large-suni.png";
+import SuniMedium from "../../../images/home/projects-medium-suni.png";
+import SuniSmall from "../../../images/home/projects-small-suni.png";
+import TinyDeskLarge from "../../../images/home/projects-large-tinydesk.png";
+import TinyDeskMedium from "../../../images/home/projects-medium-tinydesk.png";
+import TinyDeskSmall from "../../../images/home/projects-small-tinydesk.png";
 import { LearnMore } from "../../common";
 
 export const ProjectSection = ({ paddingTop }) => {

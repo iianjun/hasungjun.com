@@ -1,8 +1,8 @@
 import React from "react";
 import * as S from "./styled";
-import TinyDeskWidgetsLarge from "../../../../images/tinydesk-widgets-large.png";
-import TinyDeskWidgetsMedium from "../../../../images/tinydesk-widgets-medium.png";
-import TinyDeskWidgetsSmall from "../../../../images/tinydesk-widgets-small.png";
+import TinyDeskWidgetsLarge from "../../../../images/about/tinydesk-widgets-large.png";
+import TinyDeskWidgetsMedium from "../../../../images/about/tinydesk-widgets-medium.png";
+import TinyDeskWidgetsSmall from "../../../../images/about/tinydesk-widgets-small.png";
 
 import { GridContainer, Grid, GridHeader, SubSection } from "../../../common/";
 export const TinyDeskWidgetSection = () => {

@@ -31,7 +31,7 @@ module.exports = {
                 description: "Portfolio Website by Hasung Jun",
                 display: "standalone",
                 lang: "en",
-                icon: "src/images/icons/icon-32x32.png",
+                icon: "src/images/icons/icon-128x128.png",
                 icons: [
                     {
                         src: "src/images/icons/icon-16x16",
@@ -40,6 +40,11 @@ module.exports = {
                     },
                     {
                         src: "src/images/icons/icon-32x32",
+                        sizes: "32x32",
+                        type: "image/png",
+                    },
+                    {
+                        src: "src/images/icons/icon-48x48",
                         sizes: "32x32",
                         type: "image/png",
                     },
@@ -95,6 +100,21 @@ module.exports = {
                     },
                     {
                         src: "src/images/icons/icon-196x196",
+                        sizes: "196x196",
+                        type: "image/png",
+                    },
+                    {
+                        src: "src/images/icons/icon-256x256",
+                        sizes: "196x196",
+                        type: "image/png",
+                    },
+                    {
+                        src: "src/images/icons/icon-384x384",
+                        sizes: "196x196",
+                        type: "image/png",
+                    },
+                    {
+                        src: "src/images/icons/icon-512x512",
                         sizes: "196x196",
                         type: "image/png",
                     },

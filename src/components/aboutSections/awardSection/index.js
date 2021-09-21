@@ -3,7 +3,7 @@ import * as S from "./styled";
 import { Grid, GridContainer } from "../../common";
 import { Header } from "../../common/global-style";
 import { StaticImage } from "gatsby-plugin-image";
-import Test from "../../../images/gold-medal.png";
+
 export const AboutAwardSection = () => {
     return (
         <S.Section>
@@ -16,7 +16,7 @@ export const AboutAwardSection = () => {
                         <S.FullGridcontainer>
                             <S.ImageWrapper>
                                 <StaticImage
-                                    src="../../../images/gold-medal.png"
+                                    src="../../../images/about/gold-medal.png"
                                     placeholder="none"
                                     width={112}
                                     height={112}
@@ -37,7 +37,7 @@ export const AboutAwardSection = () => {
                         <S.FullGridcontainer>
                             <S.ImageWrapper>
                                 <StaticImage
-                                    src="../../../images/silver-medal.png"
+                                    src="../../../images/about/silver-medal.png"
                                     placeholder="none"
                                     width={112}
                                     height={112}
@@ -58,7 +58,7 @@ export const AboutAwardSection = () => {
                         <S.FullGridcontainer>
                             <S.ImageWrapper>
                                 <StaticImage
-                                    src="../../../images/gold-medal.png"
+                                    src="../../../images/about/gold-medal.png"
                                     placeholder="none"
                                     width={112}
                                     height={112}

@@ -7,7 +7,7 @@ export const TinyDeskHomeSection = () => {
             <S.Header>Homepage</S.Header>
 
             <StaticImage
-                src="../../../../images/tinydesk-homepage.png"
+                src="../../../../images/about/tinydesk-homepage.png"
                 placeholder="none"
                 className="tinydesk-homepage"
             />
