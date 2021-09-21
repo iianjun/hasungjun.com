@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./styled";
-import TinyIntro from "../../../../images/tinydesk-intro.png";
+
 import { LearnMore } from "../../../common";
 import { StaticImage } from "gatsby-plugin-image";
 export const TinydeskIntroSection = () => {
@@ -23,7 +23,7 @@ export const TinydeskIntroSection = () => {
                 </S.TypographyWrapper>
                 <S.ImageWrapper>
                     <StaticImage
-                        src="../../../../images/tinydesk-intro.png"
+                        src="../../../../images/about/tinydesk-intro.png"
                         alt="tinydesk-intro"
                         placeholder="none"
                     />

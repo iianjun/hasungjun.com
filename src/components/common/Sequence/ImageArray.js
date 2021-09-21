@@ -1,7 +1,7 @@
 import { SuniImages } from "../../../images/suni-intro-animation";
 import { useImage } from "../../../hooks";
 import { SuniAddCourseImages } from "../../../images/suni-add-course-animation";
-// import { TinyDeskIntroImages } from "../../../images/tinydesk-intro-animation";
+
 export const SuniIntroImagesArray = () => {
     const [AA0, AA0S] = useImage(SuniImages[0]);
     const [AA1, AA1S] = useImage(SuniImages[1]);

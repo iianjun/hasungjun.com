@@ -58,6 +58,7 @@ export const Expereience = styled.h4`
 `;
 
 export const ImageWrapper = styled.div`
+    margin-left: 40px;
     @media (max-width: 734px) {
         display: flex;
         justify-content: center;

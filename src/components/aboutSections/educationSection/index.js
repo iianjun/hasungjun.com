@@ -1,7 +1,6 @@
-import { StaticImage } from "gatsby-plugin-image";
 import { GridContainer, Grid } from "../../common";
 import React from "react";
-import StonyBrookLogo from "../../../images/stony-brook-logo-bg.png";
+import StonyBrookLogo from "../../../images/about/stony-brook-logo-bg.png";
 import { Header } from "../../common/global-style";
 
 import * as S from "./styled";

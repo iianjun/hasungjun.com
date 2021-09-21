@@ -1,8 +1,8 @@
 import React from "react";
 import * as S from "./styled";
 import { GridContainer, Grid, GridHeader, SubSection } from "../../../common";
-import TinyDeskEditBackground from "../../../../images/tinydesk-edit-background.png";
-import TinyDeskBookmarks from "../../../../images/tinydesk-bookmarks.png";
+import TinyDeskEditBackground from "../../../../images/about/tinydesk-edit-background.png";
+import TinyDeskBookmarks from "../../../../images/about/tinydesk-bookmarks.png";
 import { StaticImage } from "gatsby-plugin-image";
 export const TinyDeskBGSection = () => {
     const handleOpenUnsplash = () => {

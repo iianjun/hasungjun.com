@@ -1,8 +1,8 @@
 import React from "react";
 import * as G from "../../common/global-style";
-import ContactLarge from "../../../images/contact-large.png";
-import ContactMedium from "../../../images/contact-medium.png";
-import ContactSmall from "../../../images/contact-small.png";
+import ContactLarge from "../../../images/home/contact-large.png";
+import ContactMedium from "../../../images/home/contact-medium.png";
+import ContactSmall from "../../../images/home/contact-small.png";
 import { LearnMore } from "../../common";
 export const ContactSection = () => {
     return (

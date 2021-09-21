@@ -1,8 +1,8 @@
 import React from "react";
 import * as G from "../../common/global-style";
-import LogosLarge from "../../../images/logos-large.png";
-import LogosMedium from "../../../images/logos-medium.png";
-import LogosSmall from "../../../images/logos-small.png";
+import LogosLarge from "../../../images/home/logos-large.png";
+import LogosMedium from "../../../images/home/logos-medium.png";
+import LogosSmall from "../../../images/home/logos-small.png";
 import { LearnMore } from "../../common";
 export const AboutSection = () => {
     return (

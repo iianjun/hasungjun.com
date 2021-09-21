@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./styled";
-import CalendarLarge from "../../../../images/academic-calendar-large.png";
-import CalendarMedium from "../../../../images/academic-calendar-medium.png";
+import CalendarLarge from "../../../../images/projects/suni/academic-calendar-large.png";
+import CalendarMedium from "../../../../images/projects/suni/academic-calendar-medium.png";
 import { GridContainer, Grid } from "../../../common/";
 
 export const MoreSection = () => {

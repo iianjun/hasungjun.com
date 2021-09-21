@@ -10,7 +10,7 @@ export const AboutIntroSection = () => {
                 <Fade>
                     <S.Wrapper>
                         <StaticImage
-                            src="../../../images/about-emoji.png"
+                            src="../../../images/about/about-emoji.png"
                             placeholder="none"
                             className="emoji"
                         />
@@ -31,7 +31,7 @@ export const AboutIntroSection = () => {
                             <S.Skills>
                                 <S.SkillGrid>
                                     <StaticImage
-                                        src="../../../images/gatsby_logo.png"
+                                        src="../../../images/about/gatsby_logo.png"
                                         width={60}
                                         height={60}
                                         alt="gatsby-logo"
@@ -41,7 +41,7 @@ export const AboutIntroSection = () => {
                                 </S.SkillGrid>
                                 <S.SkillGrid>
                                     <StaticImage
-                                        src="../../../images/react_logo.png"
+                                        src="../../../images/about/react_logo.png"
                                         width={60}
                                         height={60}
                                         alt="react-logo"
@@ -51,7 +51,7 @@ export const AboutIntroSection = () => {
                                 </S.SkillGrid>
                                 <S.SkillGrid>
                                     <StaticImage
-                                        src="../../../images/swift_logo.png"
+                                        src="../../../images/about/swift_logo.png"
                                         width={60}
                                         height={60}
                                         alt="swift-logo"
@@ -61,7 +61,7 @@ export const AboutIntroSection = () => {
                                 </S.SkillGrid>
                                 <S.SkillGrid>
                                     <StaticImage
-                                        src="../../../images/swiftui_logo.png"
+                                        src="../../../images/about/swiftui_logo.png"
                                         width={60}
                                         height={60}
                                         alt="swiftui-logo"
