@@ -1,13 +1,18 @@
 import React from "react";
 import * as S from "./styled";
-import TinyDeskWidgets from "../../../../images/tinydesk-widgets.png";
+import TinyDeskWidgetsLarge from "../../../../images/tinydesk-widgets-large.png";
+import TinyDeskWidgetsMedium from "../../../../images/tinydesk-widgets-medium.png";
+import TinyDeskWidgetsSmall from "../../../../images/tinydesk-widgets-small.png";
+
 import { GridContainer, Grid, GridHeader, SubSection } from "../../../common/";
 export const TinyDeskWidgetSection = () => {
     return (
         <S.Section>
-            <GridContainer column="110%">
+            <GridContainer column="100%">
                 <Grid
-                    largeUrl={TinyDeskWidgets}
+                    largeUrl={TinyDeskWidgetsLarge}
+                    mediumUrl={TinyDeskWidgetsMedium}
+                    smallUrl={TinyDeskWidgetsSmall}
                     backgroundColor="#ffffff"
                     height={550}
                 >

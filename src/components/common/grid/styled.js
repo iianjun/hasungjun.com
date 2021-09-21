@@ -8,6 +8,10 @@ export const GridContainerWrapper = styled.div`
     display: grid;
     grid-row-gap: ${(props) => (props.noGap ? `0px` : `25px`)};
     grid-template-columns: ${(props) => props.column};
+    @media (max-width: 1068px) {
+        grid-template-columns: ${(props) =>
+            props.column === "65% 35%" ? "50% 50%" : "100%"};
+    }
     @media (max-width: 734px) {
         grid-template-columns: 450px;
     }
@@ -18,7 +22,8 @@ export const GridContainerWrapper = styled.div`
 
 export const Wrapper = styled.div`
     background: url(${(props) => props.largeUrl});
-    background-position: center;
+    background-position: ${(props) =>
+        props.backgroundPosition ? `${props.backgroundPosition}` : "center"};
     background-size: ${(props) =>
         props.backgroundHeight
             ? `auto ${props.backgroundHeight}px`
@@ -40,6 +45,34 @@ export const Wrapper = styled.div`
     border-top: ${(props) => `${props.borderTop}`};
     border-bottom: ${(props) => `${props.borderBottom}`};
     border-right: ${(props) => `${props.borderRight}`};
+    @media (max-width: 1068px) {
+        background: url(${(props) =>
+            props.mediumUrl ? props.mediumUrl : props.largeUrl});
+        background-position: ${(props) =>
+            props.backgroundPosition
+                ? `${props.backgroundPosition}`
+                : "center"};
+        background-size: ${(props) =>
+            props.backgroundHeight
+                ? `auto ${props.backgroundHeight}px`
+                : `auto ${props.height}px`};
+        background-repeat: no-repeat;
+        background-color: ${(props) => props.backgroundColor};
+    }
+    @media (max-width: 734px) {
+        background: url(${(props) =>
+            props.smallUrl ? props.smallUrl : props.largeUrl});
+        background-position: ${(props) =>
+            props.backgroundPosition
+                ? `${props.backgroundPosition}`
+                : "center"};
+        background-size: ${(props) =>
+            props.backgroundHeight
+                ? `auto ${props.backgroundHeight}px`
+                : `auto ${props.height}px`};
+        background-repeat: no-repeat;
+        background-color: ${(props) => props.backgroundColor};
+    }
 `;
 export const GridHeader = styled.h4`
     font-size: 21px;

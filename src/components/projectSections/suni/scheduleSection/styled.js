@@ -13,6 +13,13 @@ export const Section = styled.section`
         background-size: auto 800px;
         background-position: center;
     }
+    @media (max-width: 734px) {
+        background: url(${(props) => props.smallUrl});
+        background-repeat: no-repeat;
+        background-size: auto 500px;
+        background-position: center;
+        height: 500px;
+    }
 `;
 
 export const TypographyWrapper = styled.div`

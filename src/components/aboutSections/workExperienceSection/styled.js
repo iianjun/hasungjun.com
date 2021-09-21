@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const Section = styled.section`
-    height: 500px;
-`;
+export const Section = styled.section``;
 
 export const TypographyWrapper = styled.div`
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -12,9 +10,13 @@ export const TypographyWrapper = styled.div`
 
 export const Wrapper = styled.div`
     display: flex;
+    align-items: center;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    @media (max-width: 734px) {
+        display: block;
+    }
 `;
 
 export const Block = styled.div`
@@ -22,18 +24,26 @@ export const Block = styled.div`
     padding-left: 50px;
 `;
 export const CompanyName = styled.h2`
-    font-size: 40px;
+    font-size: 35px;
     color: #8876fe;
     font-weight: 600;
+    @media (max-width: 1068px) {
+    }
+    @media (max-width: 734px) {
+    }
 `;
 export const Duration = styled.h3`
-    font-size: 30px;
+    font-size: 25px;
     color: #000000;
     font-weight: 600;
+    @media (max-width: 1068px) {
+    }
+    @media (max-width: 734px) {
+    }
 `;
 export const Expereience = styled.h4`
     color: #86868b;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.16667;
     font-weight: 600;
@@ -41,4 +51,16 @@ export const Expereience = styled.h4`
     max-width: 700px;
     text-align: left;
     padding-bottom: 10px;
+    @media (max-width: 1068px) {
+    }
+    @media (max-width: 734px) {
+    }
+`;
+
+export const ImageWrapper = styled.div`
+    @media (max-width: 734px) {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
 `;

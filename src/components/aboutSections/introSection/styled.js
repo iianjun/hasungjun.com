@@ -3,10 +3,13 @@ export const Background = styled.div`
     background-color: #f5f5f7;
 `;
 export const Section = styled.div`
-    max-width: 1100px;
+    max-width: 90%;
     display: flex;
     margin-top: 44px;
     margin: auto;
+    @media (max-width: 734px) {
+        display: block;
+    }
 `;
 export const Wrapper = styled.div`
     margin-top: 100px;
@@ -53,6 +56,9 @@ export const SkillsHeader = styled.h2`
 export const Skills = styled.div`
     display: grid;
     grid-template-columns: auto auto auto auto;
+    @media (max-width: 767px) {
+        grid-template-columns: 50% 50%;
+    }
 `;
 
 export const SkillGrid = styled.div`

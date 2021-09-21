@@ -125,6 +125,13 @@ export const Section = styled.section`
         background-position: center;
         background-repeat: no-repeat;
     }
+    @media (max-width: 734px) {
+        background: url(${(props) => `${props.smallUrl}`});
+        height: 392px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 `;
 
 export const Header = styled.h1`

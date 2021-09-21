@@ -9,7 +9,7 @@ export const TinydeskIntroSection = () => {
             <S.Section>
                 <S.TypographyWrapper>
                     <S.Header>Tiny Desk</S.Header>
-                    <S.Headline>Maximize efficiency.</S.Headline>
+                    <S.Headline>Maximize your browsing efficiency.</S.Headline>
                     <LearnMore
                         title="GitHub"
                         to="https://github.com/iianjun/tinydesk"
@@ -25,10 +25,7 @@ export const TinydeskIntroSection = () => {
                     <StaticImage
                         src="../../../../images/tinydesk-intro.png"
                         alt="tinydesk-intro"
-                        placeholder="blurred"
-                        style={{
-                            borderRadius: "20px",
-                        }}
+                        placeholder="none"
                     />
                 </S.ImageWrapper>
                 <S.TypographyWrapper>

@@ -1,5 +1,4 @@
 import React from "react";
-import { GridContent } from "../../../common";
 import * as S from "./styled";
 import CalendarLarge from "../../../../images/academic-calendar-large.png";
 import CalendarMedium from "../../../../images/academic-calendar-medium.png";
@@ -14,18 +13,19 @@ export const MoreSection = () => {
             <GridContainer column="50% 50%">
                 <Grid
                     largeUrl={CalendarLarge}
+                    mediumUrl={CalendarMedium}
                     backgroundColor="#f5f5f7"
-                    height={720}
+                    height={700}
                 >
                     <S.GridHeader>
                         Easy visualization on Academic Calendar
                     </S.GridHeader>
                 </Grid>
 
-                <Grid backgroundColor="#f5f5f7">
+                <Grid backgroundColor="#f5f5f7" height={700}>
                     <S.MoreFeatures>
                         Take Screenshot and share with friends. <br />
-                        Phone booth of staff. <br />
+                        Phone booth. <br />
                         Link to course detail. <br />
                         Dynamic course list update. <br />
                     </S.MoreFeatures>

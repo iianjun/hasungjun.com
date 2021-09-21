@@ -13,6 +13,7 @@ export const Grid = ({
     children,
     largeUrl,
     mediumUrl,
+    smallUrl,
     backgroundColor,
     height,
     backgroundHeight,
@@ -22,12 +23,15 @@ export const Grid = ({
     borderBottom,
     borderRight,
     borderRadius,
+    backgroundPosition,
 }) => {
     return (
         <S.Wrapper
             largeUrl={largeUrl}
             mediumUrl={mediumUrl}
+            smallUrl={smallUrl}
             backgroundColor={backgroundColor}
+            backgroundPosition={backgroundPosition}
             height={height}
             backgroundHeight={backgroundHeight}
             full={full}

@@ -66,4 +66,10 @@ export const MoreFeatures = styled.div`
     text-align: left;
     font-size: 43px;
     font-weight: 600;
+    @media (max-width: 1068px) {
+        font-size: 38px;
+    }
+    @media (max-width: 734px) {
+        font-size: 43px;
+    }
 `;

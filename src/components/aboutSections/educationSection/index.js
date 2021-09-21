@@ -1,7 +1,7 @@
 import { StaticImage } from "gatsby-plugin-image";
 import { GridContainer, Grid } from "../../common";
 import React from "react";
-import Test3 from "../../../images/test3.png";
+import StonyBrookLogo from "../../../images/stony-brook-logo-bg.png";
 import { Header } from "../../common/global-style";
 
 import * as S from "./styled";
@@ -17,7 +17,9 @@ export const AboutEducationSection = () => {
                     <Grid
                         backgroundColor="#ffffff"
                         height={300}
-                        largeUrl={Test3}
+                        backgroundHeight={352}
+                        largeUrl={StonyBrookLogo}
+                        backgroundPosition="fixed"
                     >
                         <S.Major>Computer Science</S.Major>
                         <S.Degree>BACHELOR’S DEGREE</S.Degree>
@@ -29,7 +31,9 @@ export const AboutEducationSection = () => {
                     <Grid
                         backgroundColor="#ffffff"
                         height={300}
-                        largeUrl={Test3}
+                        backgroundHeight={352}
+                        largeUrl={StonyBrookLogo}
+                        backgroundPosition="fixed"
                     >
                         <S.Major>Technological Systems Management</S.Major>
                         <S.Degree>BACHELOR’S DEGREE</S.Degree>
