@@ -41,6 +41,6 @@ export const Header = styled.h2`
         padding-top: 0;
     }
     @media (max-width: 734px) {
-        font-size: 50px;
+        font-size: 40px;
     }
 `;

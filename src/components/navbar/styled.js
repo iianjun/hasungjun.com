@@ -18,7 +18,7 @@ export const NavList = styled.ul`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 -10px;
+    /* margin: 0 -10px; */
 
     @media (max-width: 767px) {
         &.desktop {

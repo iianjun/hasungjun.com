@@ -25,7 +25,7 @@ export const SubHeadline = styled.p`
         color: #f5f5f7;
     }
     @media (max-width: 734px) {
-        max-width: 500px;
+        max-width: 90%;
     }
 `;
 export const SequenceWrapper = styled.div`

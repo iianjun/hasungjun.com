@@ -4,7 +4,7 @@ module.exports = {
         title: "Hasung Jun",
         description: "Portfolio Website by Hasung Jun",
         author: "Hasung Jun",
-        viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
+        viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
         image: "https://res.cloudinary.com/commandt/image/upload/v1632164731/about-emoji_rsbgtr.png",
     },
     plugins: [
