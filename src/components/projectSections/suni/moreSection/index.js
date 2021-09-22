@@ -25,8 +25,8 @@ export const MoreSection = () => {
 
                 <Grid backgroundColor="#f5f5f7" height={700}>
                     <S.MoreFeatures>
-                        Take Screenshot and share with friends. <br />
-                        Phone booth. <br />
+                        Take a Screenshot and share it with friends. <br />
+                        Phonebooth. <br />
                         Link to course detail. <br />
                         Dynamic course list update. <br />
                     </S.MoreFeatures>

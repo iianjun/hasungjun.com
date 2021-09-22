@@ -23,14 +23,14 @@ export const AboutWorkExperienceSection = () => {
                     <S.CompanyName>Freelance @ Moornmo</S.CompanyName>
                     <S.Duration>June - July 2021</S.Duration>
                     <S.Expereience>
-                        - Developed functinoalities of client's electronic
+                        - Developed functionalities of client's electronic
                         document management system
                     </S.Expereience>
 
                     <S.Expereience>
                         - Implemented 3D model viewer, which has done within two
-                        days that previous employee could not implment for three
-                        month
+                        days that previous employee could not implement for
+                        three month
                     </S.Expereience>
 
                     <S.Expereience>

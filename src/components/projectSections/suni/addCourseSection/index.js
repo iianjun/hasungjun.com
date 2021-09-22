@@ -16,8 +16,8 @@ export const AddCourseSection = () => {
                         courses. It can avoid conflicts between the classes and
                         is an efficient tool to enroll in the courses much
                         faster than others. All you have to do is choose the
-                        courses, and it will automatically generate the time
-                        schedule or alerts you when it has conflicts.
+                        courses, and it will automatically generate the schedule
+                        or alert you when it has conflicts.
                     </S.SubHeadline>
                 </S.TypographyWrapper>
                 <Controller>
