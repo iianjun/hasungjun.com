@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StaticImage } from "gatsby-plugin-image";
+
 export const Wrapper = styled.section``;
 export const IntroSection = styled.section`
     margin-top: 100px;

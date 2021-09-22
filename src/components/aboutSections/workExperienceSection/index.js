@@ -15,7 +15,6 @@ export const AboutWorkExperienceSection = () => {
                         placeholder="none"
                         alt="moornmo-logo"
                         width={250}
-                        width={250}
                     />
                 </S.ImageWrapper>
 

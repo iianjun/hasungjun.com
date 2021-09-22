@@ -19,7 +19,7 @@ export const AboutSection = () => {
                         Hello, I’m Hasung Jun, but you can call me Ian. <br />
                         I’m a software engineer and iOS enthusiast
                     </G.Info>
-                    <LearnMore />
+                    <LearnMore to="/about" />
                 </G.Typography>
             </G.Section>
         </G.SectionLink>

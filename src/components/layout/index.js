@@ -1,11 +1,11 @@
 import * as React from "react";
 import { NavBar } from "../";
 
-import SEO from "./seo";
+import Seo from "./seo";
 export const Layout = ({ pageTitle, children }) => {
     return (
         <>
-            <SEO lang="en" pageTitle={pageTitle} meta={[]} />
+            <Seo lang="en" pageTitle={pageTitle} meta={[]} />
             <NavBar />
             {children}
         </>

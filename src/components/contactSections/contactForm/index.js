@@ -48,7 +48,10 @@ export const ContactForm = (props) => {
         return false;
     };
     return (
-        <S.AOSContainer data-aos="fade-in" className="animation">
+        <S.AOSContainer
+            data-aos={props.clickedBuy ? "" : "fade-in"}
+            className="animation"
+        >
             <Element name="contactForm" className="element">
                 <S.Wrapper $visible={props.clickedBuy}>
                     <S.Title>

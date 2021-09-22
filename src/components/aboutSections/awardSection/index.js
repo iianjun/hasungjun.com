@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./styled";
-import { Grid, GridContainer } from "../../common";
+
 import { Header } from "../../common/global-style";
 import { StaticImage } from "gatsby-plugin-image";
 

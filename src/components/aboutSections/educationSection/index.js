@@ -18,6 +18,8 @@ export const AboutEducationSection = () => {
                         height={300}
                         backgroundHeight={352}
                         largeUrl={StonyBrookLogo}
+                        mediumUrl={StonyBrookLogo}
+                        smallUrl={StonyBrookLogo}
                         backgroundPosition="fixed"
                     >
                         <S.Major>Computer Science</S.Major>
@@ -32,6 +34,8 @@ export const AboutEducationSection = () => {
                         height={300}
                         backgroundHeight={352}
                         largeUrl={StonyBrookLogo}
+                        mediumUrl={StonyBrookLogo}
+                        smallUrl={StonyBrookLogo}
                         backgroundPosition="fixed"
                     >
                         <S.Major>Technological Systems Management</S.Major>
