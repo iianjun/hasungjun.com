@@ -9,7 +9,11 @@ export const Header = styled.header`
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: saturate(180%) blur(20px);
 `;
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+    max-width: 98rem;
+    margin: 0 auto;
+    padding: 0 2.2rem;
+`;
 
 export const Nav = styled.nav``;
 
@@ -18,7 +22,6 @@ export const NavList = styled.ul`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* margin: 0 -10px; */
 
     @media (max-width: 767px) {
         &.desktop {

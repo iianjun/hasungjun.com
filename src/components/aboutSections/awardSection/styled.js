@@ -48,4 +48,6 @@ export const Break = styled.div`
 export const FullGridcontainer = styled.div`
     display: grid;
     grid-template-columns: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
 `;
