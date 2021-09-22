@@ -7,12 +7,14 @@ export const Section = styled.div`
     display: flex;
     margin-top: 44px;
     margin: auto;
+
     @media (max-width: 734px) {
         display: block;
+        max-width: 100%;
     }
 `;
 export const Wrapper = styled.div`
-    margin-top: 100px;
+    margin-top: 48px;
 `;
 
 export const TypographyWrapper = styled.div`

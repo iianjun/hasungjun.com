@@ -10,7 +10,7 @@ export const LearnMore = ({ title, to, marginTop, marginRight }) => {
             <G.LearnMoreLink href={to}>
                 {title ? title : "Learn more"}
             </G.LearnMoreLink>
-            <G.Chevronright src={Chevronright} />
+            <G.Chevronright src={Chevronright} alt="chevronright" />
         </G.LinkWrapper>
     );
 };

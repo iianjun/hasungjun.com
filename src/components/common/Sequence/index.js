@@ -8,7 +8,6 @@ import {
 
 const ImageSequence = forwardRef(({ progress, target }, ref) => {
     let newImages;
-    console.log(target);
     if (target === "suni-intro") {
         newImages = SuniIntroImagesArray();
     } else if (target === "suni-add-course") {
