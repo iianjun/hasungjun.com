@@ -21,10 +21,10 @@ export const ProjectSection = ({ paddingTop }) => {
                     <G.Typography paddingTop={50}>
                         <G.Title color="#ffffff">Suni</G.Title>
                         <G.Info $weight={40}>
-                            Schedule Management iOS App for Students in SUNY
+                            Schedule management iOS app for students in SUNY
                             Korea
                         </G.Info>
-                        <LearnMore />
+                        <LearnMore to="/suni" />
                     </G.Typography>
                 </G.Section>
             </G.SectionLink>
@@ -39,7 +39,7 @@ export const ProjectSection = ({ paddingTop }) => {
                         <G.Info $weight={40}>
                             Change the way you organize your bookmarks
                         </G.Info>
-                        <LearnMore />
+                        <LearnMore to="/tinydesk" />
                     </G.Typography>
                 </G.Section>
             </G.SectionLink>

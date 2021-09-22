@@ -1,10 +1,6 @@
 import React, { forwardRef } from "react";
 import { Skeleton } from "../Skeleton";
-import {
-    SuniIntroImagesArray,
-    SuniAddCourseImagesArray,
-    TinyDeskIntroArray,
-} from "./ImageArray";
+import { SuniIntroImagesArray, SuniAddCourseImagesArray } from "./ImageArray";
 
 const ImageSequence = forwardRef(({ progress, target }, ref) => {
     let newImages;

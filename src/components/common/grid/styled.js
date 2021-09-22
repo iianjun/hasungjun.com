@@ -46,8 +46,7 @@ export const Wrapper = styled.div`
     border-bottom: ${(props) => `${props.borderBottom}`};
     border-right: ${(props) => `${props.borderRight}`};
     @media (max-width: 1068px) {
-        background: url(${(props) =>
-            props.mediumUrl ? props.mediumUrl : props.largeUrl});
+        background: url(${(props) => props.mediumUrl});
         background-position: ${(props) =>
             props.backgroundPosition
                 ? `${props.backgroundPosition}`
@@ -60,8 +59,8 @@ export const Wrapper = styled.div`
         background-color: ${(props) => props.backgroundColor};
     }
     @media (max-width: 734px) {
-        backgroud: url(${(props) =>
-            props.smallUrl ? props.smallUrl : props.largeUrl});
+        background: url(${(props) => props.smallUrl});
+
         background-position: ${(props) =>
             props.backgroundPosition
                 ? `${props.backgroundPosition}`

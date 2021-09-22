@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./styled";
 import CalendarLarge from "../../../../images/projects/suni/academic-calendar-large.png";
 import CalendarMedium from "../../../../images/projects/suni/academic-calendar-medium.png";
-import Test from "../../../../images/contact/contact.jpg";
+
 import { GridContainer, Grid } from "../../../common/";
 
 export const MoreSection = () => {
@@ -15,6 +15,7 @@ export const MoreSection = () => {
                 <Grid
                     largeUrl={CalendarLarge}
                     mediumUrl={CalendarMedium}
+                    smallUrl={CalendarMedium}
                     backgroundColor="#f5f5f7"
                     height={700}
                 >
@@ -25,8 +26,8 @@ export const MoreSection = () => {
 
                 <Grid backgroundColor="#f5f5f7" height={700}>
                     <S.MoreFeatures>
-                        Take Screenshot and share with friends. <br />
-                        Phone booth. <br />
+                        Take a Screenshot and share it with friends. <br />
+                        Phonebooth. <br />
                         Link to course detail. <br />
                         Dynamic course list update. <br />
                     </S.MoreFeatures>

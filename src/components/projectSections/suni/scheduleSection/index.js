@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import * as S from "./styled";
 import LargeUrl from "../../../../images/projects/suni/suni-schedule-large.png";
 import MediumUrl from "../../../../images/projects/suni/suni-schedule-medium.png";
