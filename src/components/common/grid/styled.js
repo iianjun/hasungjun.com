@@ -13,7 +13,7 @@ export const GridContainerWrapper = styled.div`
             props.column === "65% 35%" ? "50% 50%" : "100%"};
     }
     @media (max-width: 734px) {
-        grid-template-columns: 450px;
+        grid-template-columns: 90%;
     }
     justify-content: center;
     margin-left: auto;
@@ -60,7 +60,7 @@ export const Wrapper = styled.div`
         background-color: ${(props) => props.backgroundColor};
     }
     @media (max-width: 734px) {
-        background: url(${(props) =>
+        backgroud: url(${(props) =>
             props.smallUrl ? props.smallUrl : props.largeUrl});
         background-position: ${(props) =>
             props.backgroundPosition

@@ -16,5 +16,4 @@ export const ContactForm = styled.div`
 export const ImageWrapper = styled.div`
     display: block;
     margin-top: 1em;
-    /* padding: 40px; */
 `;

@@ -13,7 +13,7 @@ export const NavBar = () => {
 
     return (
         <S.Header>
-            <S.Wrapper className="container">
+            <S.Wrapper>
                 <S.Nav>
                     <S.Mobile>
                         <S.NavList>

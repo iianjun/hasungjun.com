@@ -70,6 +70,6 @@ export const MoreFeatures = styled.div`
         font-size: 38px;
     }
     @media (max-width: 734px) {
-        font-size: 43px;
+        font-size: 30px;
     }
 `;

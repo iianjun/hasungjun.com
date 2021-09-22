@@ -10,7 +10,7 @@ export const Section = styled.div`
 
     @media (max-width: 734px) {
         display: block;
-        max-width: 100%;
+        width: 100%;
     }
 `;
 export const Wrapper = styled.div`
