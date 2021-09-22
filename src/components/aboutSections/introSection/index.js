@@ -13,6 +13,7 @@ export const AboutIntroSection = () => {
                             src="../../../images/about/about-emoji.png"
                             placeholder="none"
                             className="emoji"
+                            alt="memoji"
                         />
                     </S.Wrapper>
                     <S.TypographyWrapper>

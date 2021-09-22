@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import * as S from "./styled";
 import logo from "../../images/logo.svg";
-import { Cross as Hamburger } from "hamburger-react";
+
 import { Link } from "gatsby";
-import { NavigationLinks } from "../navigation-links";
+
 export const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleOpen = () => {
+    const handleClick = () => {
         setIsOpen(!isOpen);
     };
 
@@ -17,18 +17,24 @@ export const NavBar = () => {
                 <S.Nav>
                     <S.Mobile>
                         <S.NavList>
-                            <S.NavLink onClick={handleOpen}>
-                                <S.MenuIcon>
-                                    {/* <S.MenuIconLabel>
-                                        <S.LineTopWrapper>
-                                            <S.LineTop />
-                                        </S.LineTopWrapper>
-                                        <S.LineBottomWrapper>
-                                            <S.LineBottom />
-                                        </S.LineBottomWrapper>
-                                    </S.MenuIconLabel> */}
-                                    <Hamburger size={17} color="#ffffff" />
-                                    <NavigationLinks isOpen={isOpen} />
+                            <S.NavLink>
+                                <S.MenuIcon onClick={handleClick}>
+                                    {/* <S.MenuIconLabel> */}
+                                    <S.LineTopWrapper
+                                        className={isOpen ? "active" : ""}
+                                    >
+                                        <S.LineTop
+                                            className={isOpen ? "active" : ""}
+                                        />
+                                    </S.LineTopWrapper>
+                                    <S.LineBottomWrapper
+                                        className={isOpen ? "active" : ""}
+                                    >
+                                        <S.LineBottom
+                                            className={isOpen ? "active" : ""}
+                                        />
+                                    </S.LineBottomWrapper>
+                                    {/* </S.MenuIconLabel> */}
                                 </S.MenuIcon>
                             </S.NavLink>
                             <S.MobileLogoWrapper>
@@ -46,9 +52,12 @@ export const NavBar = () => {
                             </S.MobileLogoWrapper>
                         </S.NavList>
                     </S.Mobile>
-                    <S.Full>
-                        <S.NavList>
-                            <S.NavItem className="nav-item-hidden">
+                    <S.Full className={isOpen ? "active" : ""}>
+                        <S.NavList className={isOpen ? "desktop active" : ""}>
+                            <S.NavItem
+                                className="nav-item-hidden"
+                                isOpen={isOpen}
+                            >
                                 <Link to="/">
                                     <S.NavLink>
                                         <img
@@ -59,24 +68,40 @@ export const NavBar = () => {
                                     </S.NavLink>
                                 </Link>
                             </S.NavItem>
-                            <S.NavItem>
+                            <S.NavItem className="desktop-item">
                                 <Link to="/">
-                                    <S.NavLink>Home</S.NavLink>
+                                    <S.NavLink
+                                        className={isOpen ? "active" : ""}
+                                    >
+                                        Home
+                                    </S.NavLink>
                                 </Link>
                             </S.NavItem>
-                            <S.NavItem>
+                            <S.NavItem className="desktop-item">
                                 <Link to="/about">
-                                    <S.NavLink>About</S.NavLink>
+                                    <S.NavLink
+                                        className={isOpen ? "active" : ""}
+                                    >
+                                        About
+                                    </S.NavLink>
                                 </Link>
                             </S.NavItem>
-                            <S.NavItem>
+                            <S.NavItem className="desktop-item">
                                 <Link to="/projects">
-                                    <S.NavLink>Projects</S.NavLink>
+                                    <S.NavLink
+                                        className={isOpen ? "active" : ""}
+                                    >
+                                        Projects
+                                    </S.NavLink>
                                 </Link>
                             </S.NavItem>
-                            <S.NavItem>
+                            <S.NavItem className="desktop-item">
                                 <Link to="/contact">
-                                    <S.NavLink>Contact</S.NavLink>
+                                    <S.NavLink
+                                        className={isOpen ? "active" : ""}
+                                    >
+                                        Contact
+                                    </S.NavLink>
                                 </Link>
                             </S.NavItem>
                         </S.NavList>

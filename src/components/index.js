@@ -5,3 +5,4 @@ export * from "./homeSections";
 export * from "./contactSections";
 export * from "./projectSections";
 export * from "./aboutSections";
+export * from "./navigationMobile";
