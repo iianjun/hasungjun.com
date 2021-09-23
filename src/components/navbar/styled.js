@@ -5,9 +5,12 @@ export const Header = styled.header`
     top: 0;
     z-index: 300;
     width: 100%;
-    height: 48px;
+    height: 44px;
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: saturate(180%) blur(20px);
+    @media (max-width: 767px) {
+        height: 48px;
+    }
 `;
 export const Wrapper = styled.div`
     max-width: 98rem;
