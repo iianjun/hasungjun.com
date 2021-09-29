@@ -19,7 +19,6 @@ export const NavBar = () => {
                         <S.NavList>
                             <S.NavLink>
                                 <S.MenuIcon onClick={handleClick}>
-                                    {/* <S.MenuIconLabel> */}
                                     <S.LineTopWrapper
                                         className={isOpen ? "active" : ""}
                                     >
@@ -34,7 +33,6 @@ export const NavBar = () => {
                                             className={isOpen ? "active" : ""}
                                         />
                                     </S.LineBottomWrapper>
-                                    {/* </S.MenuIconLabel> */}
                                 </S.MenuIcon>
                             </S.NavLink>
                             <S.MobileLogoWrapper>
