@@ -48,9 +48,6 @@ a {
     .tinydesk-homepage {
         max-width: 750px;
     }
-    .contact-bg {
-        width: 300px;
-    }
 }
 
 @media only screen and (max-width: 734px) {
