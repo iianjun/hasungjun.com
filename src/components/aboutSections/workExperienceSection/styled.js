@@ -16,12 +16,17 @@ export const Wrapper = styled.div`
     margin-right: auto;
     @media (max-width: 734px) {
         display: block;
+        margin: auto;
     }
 `;
 
 export const Block = styled.div`
     display: block;
-    padding-left: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    @media (max-width: 734px) {
+        max-width: 90%;
+    }
 `;
 export const CompanyName = styled.h2`
     font-size: 35px;
@@ -60,6 +65,7 @@ export const Expereience = styled.h4`
 export const ImageWrapper = styled.div`
     margin-left: 40px;
     @media (max-width: 734px) {
+        margin-left: 0px;
         display: flex;
         justify-content: center;
         margin-bottom: 30px;

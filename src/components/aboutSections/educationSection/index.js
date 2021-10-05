@@ -19,13 +19,13 @@ export const AboutEducationSection = () => {
                         backgroundHeight={352}
                         largeUrl={StonyBrookLogo}
                         mediumUrl={StonyBrookLogo}
-                        smallUrl={StonyBrookLogo}
                         backgroundPosition="fixed"
                     >
                         <S.Major>Computer Science</S.Major>
                         <S.Degree>BACHELOR’S DEGREE</S.Degree>
                         <S.Explanation>
-                            Stony Brook University, 2014 - 2022
+                            Stony Brook University, Expected graduation on May
+                            2022
                         </S.Explanation>
                     </Grid>
 
@@ -35,13 +35,13 @@ export const AboutEducationSection = () => {
                         backgroundHeight={352}
                         largeUrl={StonyBrookLogo}
                         mediumUrl={StonyBrookLogo}
-                        smallUrl={StonyBrookLogo}
                         backgroundPosition="fixed"
                     >
                         <S.Major>Technological Systems Management</S.Major>
                         <S.Degree>BACHELOR’S DEGREE</S.Degree>
                         <S.Explanation>
-                            Stony Brook University, 2014 - 2022
+                            Stony Brook University, Expected graduation on May
+                            2022
                         </S.Explanation>
                     </Grid>
                 </GridContainer>

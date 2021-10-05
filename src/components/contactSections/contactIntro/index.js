@@ -2,15 +2,10 @@ import React from "react";
 
 import * as S from "./styled";
 import * as G from "../../common/global-style";
-import { Link } from "react-scroll";
 import { AppleButton } from "../../common";
 import { StaticImage } from "gatsby-plugin-image";
 
-export const ContactIntro = (props) => {
-    const onClickBuy = () => {
-        props.setClickedBuy(true);
-    };
-
+export const ContactIntro = () => {
     return (
         <S.IntroSection>
             <G.Typography>
@@ -19,24 +14,16 @@ export const ContactIntro = (props) => {
                 <G.SubTitle $weight={450}>Say hello.</G.SubTitle>
             </G.Typography>
             <G.ButtonWrapper>
-                <Link
-                    activeClass="active"
-                    className="contactForm"
-                    to="contactForm"
-                    spy={true}
-                    smooth={true}
-                    duration={1000}
-                >
-                    <AppleButton onClick={onClickBuy}>Buy</AppleButton>
-                </Link>
+                <S.MailTo href="mailto:hasungjunn@gmail.com">
+                    <AppleButton>Message</AppleButton>
+                </S.MailTo>
             </G.ButtonWrapper>
             <S.ImageWrapper>
                 <StaticImage
                     src="../../../images/contact/contact-bg.png"
                     alt="contact-bg"
                     placeholder="none"
-                    layout="fixed"
-                    height={800}
+                    width={350}
                     className="contact-bg"
                 />
             </S.ImageWrapper>
