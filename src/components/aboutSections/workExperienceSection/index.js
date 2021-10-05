@@ -22,19 +22,13 @@ export const AboutWorkExperienceSection = () => {
                     <S.CompanyName>Freelance @ Moornmo</S.CompanyName>
                     <S.Duration>June - July 2021</S.Duration>
                     <S.Expereience>
-                        - Developed functionalities of client's electronic
-                        document management system
+                        - Developed various functionalities for the client’s
+                        electronic document management system
                     </S.Expereience>
 
                     <S.Expereience>
-                        - Implemented 3D model viewer, which has done within two
-                        days that previous employee could not implement for
-                        three month
-                    </S.Expereience>
-
-                    <S.Expereience>
-                        - Implemented multiple sub-functionalities for 3D model
-                        viewer features
+                        - Implemented a 3D model viewer system, which was done
+                        in less than 1/10th the previously budgeted time
                     </S.Expereience>
                 </S.Block>
             </S.Wrapper>

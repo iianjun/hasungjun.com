@@ -14,6 +14,9 @@ export const ContactForm = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-    display: block;
+    display: flex;
     margin-top: 1em;
+    justify-content: center;
 `;
+
+export const MailTo = styled.a``;
