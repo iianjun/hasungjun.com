@@ -79,7 +79,7 @@ export const AboutIntroSection = () => {
                             />
                             <LearnMore
                                 title="LinkedIn"
-                                to="https://www.linkedin.com/in/hasung-jun-b4b2aa21a"
+                                to="https://www.linkedin.com/in/hasungjun"
                                 marginRight={20}
                             />
                             <LearnMore
