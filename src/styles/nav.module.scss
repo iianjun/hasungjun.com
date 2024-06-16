@@ -1,0 +1,39 @@
+@import "./mixins.scss";
+
+.container {
+  margin: 0 auto;
+  max-width: 102.4rem;
+  @include row-between();
+}
+
+.logo {
+  font-size: 2.4rem;
+  font-weight: 700;
+  @include flex-center();
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0.4rem;
+    left: 0;
+    height: 0.3rem;
+    width: 0%;
+    background: black;
+    border-radius: 1rem;
+    transition: all 0.4s ease;
+  }
+  &:hover {
+    &::before {
+      width: 100%;
+    }
+    border-radius: 0.4rem;
+  }
+}
+.list {
+  @include row(2.4rem);
+  &-item {
+    height: 4.4rem;
+    font-size: 1.6rem;
+    @include flex-center();
+  }
+}
