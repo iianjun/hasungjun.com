@@ -1,5 +1,9 @@
 @import "./mixins.scss";
 
+.header {
+  position: fixed;
+  width: 100%;
+}
 .container {
   margin: 0 auto;
   max-width: 102.4rem;

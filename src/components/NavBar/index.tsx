@@ -1,10 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import classNames from "classnames";
 import styles from "@/styles/nav.module.scss";
 const NavBar: React.FC = () => {
   return (
-    <header>
+    <header className={styles.header}>
       <nav>
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>

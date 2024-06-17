@@ -1,5 +1,4 @@
-$lg-breakpoint: 1068px;
-$md-breakpoint: 734px;
+@import "../variables.scss";
 
 @mixin lg-media-query($font-size, $line-height, $letter-spacing) {
   @media (max-width: $lg-breakpoint) {
