@@ -3,6 +3,8 @@
 .header {
   position: fixed;
   width: 100%;
+  background: white;
+  z-index: 10;
 }
 .container {
   margin: 0 auto;
@@ -10,11 +12,7 @@
   @include row-between();
 }
 
-.logo {
-  font-size: 2.4rem;
-  font-weight: 700;
-  @include flex-center();
-  position: relative;
+.underline {
   &::before {
     content: "";
     position: absolute;
@@ -33,11 +31,18 @@
     border-radius: 0.4rem;
   }
 }
+.logo {
+  font-size: 2.4rem;
+  font-weight: 700;
+  @include flex-center();
+  position: relative;
+}
 .list {
   @include row(2.4rem);
   &-item {
     height: 4.4rem;
     font-size: 1.6rem;
     @include flex-center();
+    position: relative;
   }
 }
