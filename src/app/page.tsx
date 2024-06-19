@@ -1,58 +1,12 @@
-"use client";
+import Terminal from "@/components/Terminal";
 
-import { LinkButton, Text } from "@/ui";
-import { random, round } from "lodash";
-import { useCallback, useEffect, useRef } from "react";
-
-import Image from "next/image";
-import styles from "@/styles/home.module.scss";
-
-const hellos = [
-  "Hello",
-  "안녕하세요",
-  "你好",
-  "Hola",
-  "Bonjour",
-  "Hallo",
-  "こんにちは",
-  "Привет",
-  "مرحبا",
-  "Ciao",
-];
 export default function Home() {
-  const ref = useRef<HTMLDetailsElement>(null);
-
-  const createBubble = (text: string, i: number) => {
-    const bubble = document.createElement("div");
-    bubble.classList.add(styles.bubble);
-    bubble.innerText = text;
-    const randomXTo = `${round(random(0, 1, true), 2) * 100}%`;
-    const randomYTo = `${round(random(0, 1, true), 2) * 100}%`;
-
-    bubble.style.setProperty("--random-x-to", randomXTo);
-    bubble.style.setProperty("--random-y-to", randomYTo);
-    ref.current?.appendChild(bubble);
-
-    setTimeout(() => {
-      bubble.remove();
-    }, 4000);
-  };
-
-  const createRandomBubbles = useCallback(() => {
-    for (let i = 0; i < 30; i++) {
-      createBubble(hellos[i % 10], i);
-    }
-  }, []);
-
-  useEffect(() => {
-    createRandomBubbles();
-  }, [createRandomBubbles]);
-
   return (
-    <main className="main flex flex-col gap-[1.2rem]">
-      <section className={styles.section} ref={ref} data-section-theme="light">
+    <main className="main flex justify-center items-center h-screen">
+      <Terminal />
+      {/* <section className={styles.section} ref={ref} data-section-theme="light">
         <div>
-          <Text variant="headline">Hasung Jun</Text>
+          <Text variant="headline">Hasung (Ian) Jun</Text>
           <Text variant="subhead" className="mt-[.5rem]">
             Full stack developer
           </Text>
@@ -128,6 +82,19 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <section className={styles.section} data-section-theme="light">
+        <div>
+          <Text variant="headline">Tiny Desk</Text>
+          <Text variant="subhead" className="mt-[.5rem]">
+            Change the way you organize your bookmarks
+          </Text>
+          <div className="mt-[1.5rem]">
+            <LinkButton variant="fill" href="/about">
+              Learn more
+            </LinkButton>
+          </div>
+        </div>
+      </section> */}
     </main>
   );
 }

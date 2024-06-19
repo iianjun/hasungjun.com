@@ -23,3 +23,7 @@ section[data-section-theme="dark"] {
 .main {
   padding-top: $nav-height;
 }
+
+* {
+  backface-visibility: hidden;
+}
