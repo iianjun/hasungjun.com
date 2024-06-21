@@ -6,7 +6,9 @@ import classNames from "classnames";
 import dayjs from "dayjs";
 import localFont from "next/font/local";
 import styles from "@/styles/terminal.module.scss";
+import { useRouter } from "next/navigation";
 import useTypedText from "@/hooks/useTypedText";
+
 const d2coding = localFont({
   src: "../../fonts/D2Coding.woff2",
 });
@@ -19,7 +21,7 @@ interface CommandHistory {
 
 const DIRECTORIES = ["about", "resume", "projects", "contact"];
 const Command: React.FC<{ history: CommandHistory }> = ({ history }) => {
-  console.log({ history });
+  const router = useRouter();
   return (
     <>
       <div className={styles.history}>
@@ -77,7 +79,7 @@ const Command: React.FC<{ history: CommandHistory }> = ({ history }) => {
               } else if (history.directories.length > 1) {
                 return <p>cd: string not in pwd</p>;
               } else {
-                // TODO: change directory
+                router.push(`${history.directories[0]}`);
                 return null;
               }
             default:

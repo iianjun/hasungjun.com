@@ -1,0 +1,25 @@
+@import "./mixins.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100%;
+}
+
+.content {
+  position: fixed;
+  width: 50vw;
+  @include flex-center();
+  min-height: 100svh;
+}
+.resume-wrap {
+  @include col();
+  align-items: center;
+}
+.resume {
+  position: relative;
+  aspect-ratio: 2480 / 3509;
+  max-width: 72rem;
+  width: 100%;
+  transform: translateY(calc(100svh - 8%));
+}
