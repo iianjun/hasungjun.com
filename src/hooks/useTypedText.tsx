@@ -2,24 +2,41 @@
 
 import { useEffect, useState } from "react";
 
-const useTypedText = (text: string, speed: number = 100) => {
-  const [typedText, setTypedText] = useState<string>("");
+const useTypedText = (texts: string[], speed: number = 100) => {
+  const [typedTexts, setTypedTexts] = useState<string[]>([]);
   const [done, setDone] = useState<boolean>(false);
+  const [textIndex, setTextIndex] = useState<number>(0);
   useEffect(() => {
-    let currentIndex = 0;
+    let charIndex = 0;
+    let textIndex = 0;
     const intervalId = setInterval(() => {
-      currentIndex++;
-      setTypedText((prev) => `${prev}${text[currentIndex - 1]}`);
-      if (currentIndex === text.length) {
+      charIndex++;
+      if (charIndex - 1 < texts[textIndex].length) {
+        setTypedTexts((prev) => {
+          const newTexts = [...prev];
+          newTexts[textIndex] =
+            (newTexts[textIndex] || "") + texts[textIndex][charIndex - 1];
+          return newTexts;
+        });
+      } else if (textIndex < texts.length - 1) {
+        textIndex++;
+        setTextIndex(textIndex);
+        charIndex = 0;
+      } else {
         clearInterval(intervalId);
         setDone(true);
       }
     }, speed);
 
-    return () => clearInterval(intervalId);
-  }, [text, speed]);
+    return () => {
+      clearInterval(intervalId);
+      setTypedTexts([]);
+      setDone(false);
+      setTextIndex(0);
+    };
+  }, [texts, speed]);
 
-  return { typedText, done };
+  return { typedTexts, done, textIndex };
 };
 
 export default useTypedText;
