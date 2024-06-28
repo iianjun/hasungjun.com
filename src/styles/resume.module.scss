@@ -1,25 +1,94 @@
 @import "./mixins.scss";
+@import "./variables.scss";
 
+$init-transition:
+  0.5s transform $transition,
+  0.8s opacity $transition;
+
+@mixin divider($placement, $size: "sm") {
+  position: absolute;
+  content: "";
+  display: block;
+  border-right: 1px solid #b4b4b4;
+  left: 50%;
+  transform: translateX(-50%);
+  @if ($placement == "top") {
+    bottom: calc(100% + 0.75rem);
+  } @else {
+    top: calc(100% + 0.75rem);
+  }
+  @if ($size == "sm") {
+    height: 1.5rem;
+  } @else {
+    height: 5rem;
+  }
+}
 .container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   height: 100%;
+  position: relative;
 }
 
 .content {
   position: fixed;
   width: 50vw;
-  @include flex-center();
+  display: flex;
+  justify-content: center;
   min-height: 100svh;
+  padding: 5rem 3rem;
 }
-.resume-wrap {
-  @include col();
-  align-items: center;
-}
+
 .resume {
   position: relative;
-  aspect-ratio: 2480 / 3509;
+  aspect-ratio: 595 / 842;
   max-width: 72rem;
   width: 100%;
-  transform: translateY(calc(100svh - 8%));
+  transition: $init-transition;
+  opacity: 0;
+  transform: translateY(calc(100svh));
+  &.visible {
+    transform: translateY(calc(100svh - 10%));
+    opacity: 1;
+  }
+}
+
+.links {
+  @include col(3rem);
+  position: absolute;
+  left: 3rem;
+  bottom: 3rem;
+  transform: translateY(250px);
+  opacity: 0;
+  transition: $init-transition;
+  &.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.download,
+.github,
+.linkedin {
+  position: relative;
+}
+
+.download {
+  &::before {
+    @include divider("top", "lg");
+  }
+}
+
+.github {
+  &::before {
+    @include divider("top");
+  }
+  &::after {
+    @include divider("bottom");
+  }
+}
+.linkedin {
+  &::after {
+    @include divider("bottom");
+  }
 }
