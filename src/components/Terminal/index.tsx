@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { DIRECTORIES, LINK_HASH } from "@/constants/terminal";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 
 import classNames from "classnames";
 import dayjs from "dayjs";
@@ -14,82 +15,95 @@ const d2coding = localFont({
 });
 
 interface CommandHistory {
-  command: string;
+  command: "help" | "ls" | "cd" | string;
   isSuccess: boolean;
   directories?: string[];
 }
 
-const DIRECTORIES = ["about", "resume", "projects", "contact"];
-const Command: React.FC<{ history: CommandHistory }> = ({ history }) => {
-  const router = useRouter();
-  return (
-    <>
-      <div className={styles.history}>
-        <span className={styles["history-prefix"]}></span>
-        <p
-          className={classNames(styles["history-text"], {
-            "!text-[#ec675e]": !history.isSuccess,
-            "!text-[#89f498]": history.isSuccess,
-          })}
-        >
-          {[history.command, ...(history.directories || [])]
-            .filter(Boolean)
-            .join(" ")}
-        </p>
-      </div>
-      <div className={styles["history-result"]}>
-        {(() => {
-          switch (history.command) {
-            case "help":
-              return (
-                <div className="text-white text-[1.6rem]">
-                  <p>Version 1.0.0</p>
-                  <br />
-                  <p>All commands:</p>
-                  <div className="pl-12 flex gap-12">
-                    <div className="flex flex-col">
-                      <p>help</p>
-                      <p>ls</p>
-                      <p>cd [directory]</p>
-                    </div>
-                    <div className="flex flex-col">
-                      <p>See available commands</p>
-                      <p>See list directories</p>
-                      <p>Change directories</p>
+const Command: React.FC<{ history: CommandHistory }> = memo(
+  ({ history }) => {
+    const router = useRouter();
+
+    return (
+      <>
+        <div className={styles.history}>
+          <span className={styles["history-prefix"]}></span>
+          <p
+            className={classNames(styles["history-text"], {
+              "!text-[#ec675e]": !history.isSuccess,
+              "!text-[#89f498]": history.isSuccess,
+            })}
+          >
+            {[history.command, ...(history.directories || [])]
+              .filter(Boolean)
+              .join(" ")}
+          </p>
+        </div>
+        <div className={styles["history-result"]}>
+          {(() => {
+            switch (history.command) {
+              case "help":
+                return (
+                  <div className="text-white text-[1.6rem]">
+                    <p>Version 1.0.0</p>
+                    <br />
+                    <p>All commands:</p>
+                    <div className="pl-12 flex gap-12">
+                      <div className="flex flex-col">
+                        <p>help</p>
+                        <p>ls</p>
+                        <p>cd [directory]</p>
+                      </div>
+                      <div className="flex flex-col">
+                        <p>See available commands</p>
+                        <p>See list directories</p>
+                        <p>Change directories</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            case "ls":
-              return (
-                <div className="grid grid-cols-4 w-full">
-                  <p>about</p>
-                  <p>resume</p>
-                  <p>projects</p>
-                  <p>contact</p>
-                </div>
-              );
-            case "cd":
-              if (!history.directories || !!!history.directories.length) {
-                return <p>cd: missing directory</p>;
-              } else if (!DIRECTORIES.includes(history.directories[0])) {
-                return (
-                  <p>cd: no such file or directory: {history.directories[0]}</p>
                 );
-              } else if (history.directories.length > 1) {
-                return <p>cd: string not in pwd</p>;
-              } else {
-                router.push(`${history.directories[0]}`);
-                return null;
-              }
-            default:
-              return <p>command not found: {history.command}</p>;
-          }
-        })()}
-      </div>
-    </>
-  );
-};
+              case "ls":
+                return (
+                  <div className="grid grid-cols-4 w-full">
+                    {DIRECTORIES.map((directory) => (
+                      <p key={directory}>{directory}</p>
+                    ))}
+                  </div>
+                );
+              case "cd":
+                if (!history.directories || !!!history.directories.length) {
+                  return <p>cd: missing directory</p>;
+                } else if (!DIRECTORIES.includes(history.directories[0])) {
+                  return (
+                    <p>
+                      cd: no such file or directory: {history.directories[0]}
+                    </p>
+                  );
+                } else if (history.directories.length > 1) {
+                  return <p>cd: string not in pwd</p>;
+                } else if (
+                  ["github", "linkedin"].includes(history.directories[0])
+                ) {
+                  window.open(
+                    LINK_HASH[history.directories[0] as keyof typeof LINK_HASH],
+                    "_blank",
+                  );
+                  return <p>Redirect completed</p>;
+                } else {
+                  router.push(`${history.directories[0]}`);
+                  return null;
+                }
+              default:
+                return <p>command not found: {history.command}</p>;
+            }
+          })()}
+        </div>
+      </>
+    );
+  },
+  () => true,
+);
+Command.displayName = "Command";
 const Terminal: React.FC = () => {
   const [command, setCommand] = useState<string>("");
   const [histories, setHistories] = useState<CommandHistory[]>([]);
@@ -163,7 +177,7 @@ const Terminal: React.FC = () => {
                   setHistories((prev) => [
                     ...prev,
                     {
-                      command: command.trim(),
+                      command: command.trim() as "help" | "ls",
                       isSuccess: true,
                     },
                   ]);

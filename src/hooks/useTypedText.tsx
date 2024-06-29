@@ -7,9 +7,11 @@ const useTypedText = (texts: string[], speed: number = 100) => {
   const [done, setDone] = useState<boolean>(false);
   const [textIndex, setTextIndex] = useState<number>(0);
   useEffect(() => {
-    setTypedTexts(texts);
-    setDone(true);
-    return;
+    if (process.env.NODE_ENV === "development") {
+      setTypedTexts(texts);
+      setDone(true);
+      return;
+    }
     let charIndex = 0;
     let textIndex = 0;
     const intervalId = setInterval(() => {
