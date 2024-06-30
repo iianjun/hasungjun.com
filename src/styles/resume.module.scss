@@ -23,12 +23,6 @@ $init-transition:
     height: 5rem;
   }
 }
-.container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  height: 100%;
-  position: relative;
-}
 
 .content {
   position: fixed;
@@ -37,20 +31,6 @@ $init-transition:
   justify-content: center;
   min-height: 100svh;
   padding: 5rem 3rem;
-}
-
-.resume {
-  position: relative;
-  aspect-ratio: 595 / 842;
-  max-width: 72rem;
-  width: 100%;
-  transition: $init-transition;
-  opacity: 0;
-  transform: translateY(calc(100svh));
-  &.visible {
-    transform: translateY(calc(100svh - 10%));
-    opacity: 1;
-  }
 }
 
 .links {
@@ -90,5 +70,27 @@ $init-transition:
 .linkedin {
   &::after {
     @include divider("bottom");
+  }
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.img-wrap {
+  position: sticky;
+  aspect-ratio: 595 / 842;
+  top: 0;
+  opacity: 0;
+  transform: translateY(calc(100vh));
+  max-width: 72rem;
+  @include flex-center();
+  transition: $init-transition;
+  &.active {
+    // transition: 0.4s transform $transition;
+    transform: translateY(calc(100vh - 10%));
+    opacity: 1;
   }
 }
