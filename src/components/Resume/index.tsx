@@ -14,8 +14,7 @@ const Resume: React.FC = () => {
   const experience = useRef<HTMLDivElement>(null);
   const projects = useRef<HTMLDivElement>(null);
   const skills = useRef<HTMLDivElement>(null);
-
-  const { isInViews } = useIsInViews([education, experience, projects, skills]);
+  const isInViews = useIsInViews(education, experience, projects, skills);
 
   useEffect(() => {
     setMounted({ resume: true, links: true });
@@ -86,7 +85,7 @@ const Resume: React.FC = () => {
               "!translate-y-[calc(100vh-25%)]": isInViews[0],
               "!translate-y-[calc(100vh-61%)]": isInViews[1],
               "!translate-y-[calc(100vh-82%)]": isInViews[2],
-              "!translate-y-[3%]": isInViews[3],
+              "!translate-y-0": isInViews[3],
             })}
           >
             <Image

@@ -1,5 +1,4 @@
 import Resume from "@/components/Resume";
-import styles from "@/styles/resume.module.scss";
 
 export default function ResumePage() {
   return (
