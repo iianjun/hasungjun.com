@@ -10,12 +10,15 @@ import { useIsInViews } from "@/hooks/useIsInViews";
 
 const Resume: React.FC = () => {
   const [mounted, setMounted] = useState({ resume: false, links: false });
-  const education = useRef<HTMLDivElement>(null);
-  const experience = useRef<HTMLDivElement>(null);
-  const projects = useRef<HTMLDivElement>(null);
-  const skills = useRef<HTMLDivElement>(null);
-  const isInViews = useIsInViews(education, experience, projects, skills);
-
+  const refs = useRef([
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ]);
+  const [education, experience, projects, skills] = useIsInViews(
+    ...refs.current,
+  );
   useEffect(() => {
     setMounted({ resume: true, links: true });
   }, []);
@@ -24,9 +27,6 @@ const Resume: React.FC = () => {
     <>
       <section>
         <div className={styles.content}>
-          <p style={{ fontSize: 40, color: "white" }}>
-            Hello! My name is Hassung Jun, also go by Ian.
-          </p>
           <aside>
             <div
               className={classNames(styles.links, {
@@ -82,10 +82,10 @@ const Resume: React.FC = () => {
           <div
             className={classNames(styles["img-wrap"], {
               [styles.active]: mounted.resume,
-              "!translate-y-[calc(100vh-25%)]": isInViews[0],
-              "!translate-y-[calc(100vh-61%)]": isInViews[1],
-              "!translate-y-[calc(100vh-82%)]": isInViews[2],
-              "!translate-y-0": isInViews[3],
+              "!translate-y-[calc(100vh-25%)]": education && !experience,
+              "!translate-y-[calc(100vh-61%)]": experience && !projects,
+              "!translate-y-[calc(100vh-82%)]": projects && !skills,
+              "!translate-y-[calc(100vh-98%)]": skills,
             })}
           >
             <Image
@@ -99,10 +99,10 @@ const Resume: React.FC = () => {
           </div>
         </div>
         <div className="h-[150vh]"></div>
-        <div className="h-[100vh]" ref={education}></div>
-        <div className="h-[100vh]" ref={experience}></div>
-        <div className="h-[100vh]" ref={projects}></div>
-        <div className="h-[100vh]" ref={skills}></div>
+        <div className="h-[100vh]" ref={refs.current[0]}></div>
+        <div className="h-[100vh]" ref={refs.current[1]}></div>
+        <div className="h-[100vh]" ref={refs.current[2]}></div>
+        <div className="h-[100vh]" ref={refs.current[3]}></div>
       </section>
     </>
   );

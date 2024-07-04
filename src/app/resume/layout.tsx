@@ -11,16 +11,5 @@ export default function ResumeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      {children}
-      <style>
-        {`
-      body {
-       background: #282a35;
-      }
-    `}
-      </style>
-    </>
-  );
+  return <>{children}</>;
 }
