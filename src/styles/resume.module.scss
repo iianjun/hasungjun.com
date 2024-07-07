@@ -1,10 +1,6 @@
 @import "./mixins.scss";
 @import "./variables.scss";
 
-$init-transition:
-  0.5s transform $transition,
-  0.8s opacity $transition;
-
 @mixin divider($placement, $size: "sm") {
   position: absolute;
   content: "";
@@ -24,25 +20,32 @@ $init-transition:
   }
 }
 
-.content {
-  position: fixed;
-  width: 50vw;
-  min-height: 100svh;
-  padding: 5rem 3rem;
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
+@keyframes transform {
+  from {
+    transform: translateY(250px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
 .links {
   @include col(3rem);
-  position: absolute;
+  position: fixed;
   left: 3rem;
   bottom: 3rem;
   transform: translateY(250px);
-  opacity: 0;
-  transition: $init-transition;
-  &.visible {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  animation-name: opacity, transform;
+  animation-duration: 0.8s, 0.5s;
+  animation-timing-function: $transition;
+  animation-fill-mode: forwards, forwards;
 }
 
 .download,
@@ -72,23 +75,19 @@ $init-transition:
 }
 
 .container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-
-.img-wrap {
-  position: sticky;
   aspect-ratio: 595 / 842;
-  top: 0;
-  opacity: 0;
-  transform: translateY(calc(100vh));
-  max-width: 72rem;
-  @include flex-center();
-  transition: $init-transition;
-  &.active {
-    // transition: 0.4s transform $transition;
-    transform: translateY(calc(100vh - 10%));
-    opacity: 1;
+  height: calc(100svh - 6rem);
+  animation-name: opacity;
+  animation-duration: 0.8s;
+  animation-timing-function: $transition;
+  animation-fill-mode: forwards;
+  font-family: Arial, Helvetica, sans-serif;
+
+  & > * {
+    line-height: 1.167;
+  }
+  a {
+    color: #0047ff;
+    text-decoration: underline;
   }
 }
