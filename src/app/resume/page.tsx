@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Resume from "@/components/Resume";
 import styles from "@/styles/resume.module.scss";
+
 export default function ResumePage() {
   return (
     <main className="relative min-h-screen">

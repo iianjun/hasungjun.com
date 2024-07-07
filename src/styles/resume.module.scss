@@ -1,5 +1,5 @@
-@import "./mixins.scss";
-@import "./variables.scss";
+@import "mixins";
+@import "variables";
 
 @mixin divider($placement, $size: "sm") {
   position: absolute;
@@ -75,8 +75,6 @@
 }
 
 .container {
-  aspect-ratio: 595 / 842;
-  height: calc(100svh - 6rem);
   animation-name: opacity;
   animation-duration: 0.8s;
   animation-timing-function: $transition;
