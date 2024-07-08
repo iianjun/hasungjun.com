@@ -24,6 +24,26 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
   ({ history }) => {
     const router = useRouter();
 
+    useEffect(() => {
+      if (history.command !== "cd") return;
+      if (
+        !history.directories ||
+        !!!history.directories.length ||
+        !DIRECTORIES.includes(history.directories[0]) ||
+        history.directories.length > 1
+      )
+        return;
+      if (["github", "linkedin"].includes(history.directories[0])) {
+        window.open(
+          LINK_HASH[history.directories[0] as keyof typeof LINK_HASH],
+          "_blank",
+        );
+        return;
+      }
+      return router.push(`${history.directories[0]}`);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [history]);
+
     return (
       <>
         <div className={styles.history}>
@@ -84,14 +104,9 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
                 } else if (
                   ["github", "linkedin"].includes(history.directories[0])
                 ) {
-                  window.open(
-                    LINK_HASH[history.directories[0] as keyof typeof LINK_HASH],
-                    "_blank",
-                  );
                   return <p>Redirect completed</p>;
                 } else {
-                  router.push(`${history.directories[0]}`);
-                  return null;
+                  return <></>;
                 }
               default:
                 return <p>command not found: {history.command}</p>;
@@ -116,6 +131,13 @@ const Terminal: React.FC = () => {
   }, []);
   const { typedTexts, done, textIndex } = useTypedText(text, 50);
   const inputRef = useRef<HTMLInputElement>(null);
+  const wrapper = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (wrapper.current) {
+      wrapper.current.scrollTop = wrapper.current.scrollHeight;
+    }
+  }, [histories]);
 
   useEffect(() => {
     if (done) {
@@ -138,7 +160,7 @@ const Terminal: React.FC = () => {
           hasungjun
         </h6>
       </div>
-      <div className="overflow-auto">
+      <div ref={wrapper} className="overflow-auto">
         <div className="p-1 inline-flex flex-col">
           {typedTexts.map((typedText, index) => (
             <p
