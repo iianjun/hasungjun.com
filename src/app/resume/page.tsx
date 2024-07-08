@@ -51,7 +51,7 @@ export default function ResumePage() {
             </Link>
           </div>
         </aside>
-        <div className="flex justify-center items-center pt-24">
+        <div className="flex justify-center items-center pt-10 pb-[8.8rem]">
           <Resume />
         </div>
       </section>
