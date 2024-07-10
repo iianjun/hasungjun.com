@@ -1,10 +1,25 @@
 import React from "react";
-
-const Bubble: React.FC<{ message: string }> = ({ message }) => {
+const Bubble: React.FC<{
+  message: string;
+  showDelivered: boolean;
+  isNotDelivered: boolean;
+}> = ({ message, showDelivered, isNotDelivered }) => {
   return (
-    <p className="mb-[.8rem] mr-[2rem] max-w-[33.3rem] self-end break-words rounded-[1.5rem] bg-gradient-to-b from-[#5294f7] from-0% to-[#3c83f7] to-100% px-[1rem] py-[.6rem] text-[1.3rem] leading-normal text-white">
-      {message}
-    </p>
+    <li className="mb-[.8rem] mr-[2rem] flex flex-col items-end gap-[.3rem] self-end">
+      <p className="max-w-[33.3rem] whitespace-pre-wrap break-words rounded-[1.4rem] bg-[#2982f6] px-[1rem] py-[.6rem] text-[1.3rem] leading-tight text-white">
+        {message}
+      </p>
+      {isNotDelivered && (
+        <span className="text-[1rem] font-semibold text-[#e25243]">
+          Not Delivered
+        </span>
+      )}
+      {showDelivered && (
+        <span className="text-[1rem] font-semibold text-[#9a9a9a]">
+          Delivered
+        </span>
+      )}
+    </li>
   );
 };
 

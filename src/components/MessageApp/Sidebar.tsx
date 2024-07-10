@@ -20,13 +20,15 @@ const Sidebar = () => {
           <Image
             width={40}
             height={40}
-            className="h-16 w-16 rounded-[50%] bg-white"
+            className="h-16 w-16 rounded-[50%] bg-[#cac4bd]"
             src="/sticker-5.png"
             alt="memoji"
           />
         </div>
         <div className="flex-grow-0">
-          <p className="text-[1.3rem] font-bold text-white">Hasung Jun</p>
+          <p className="line-clamp-1 text-[1.3rem] font-bold text-white">
+            Hasung Jun
+          </p>
           <p className="line-clamp-2 whitespace-break-spaces break-all text-[1.2rem] leading-tight text-[#d7e5fd]">
             {lastMessage}
           </p>
