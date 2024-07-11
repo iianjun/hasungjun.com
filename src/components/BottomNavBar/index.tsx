@@ -3,9 +3,14 @@ import Link from "next/link";
 import React from "react";
 import styles from "@/styles/dock.module.scss";
 
-const BottomNavBar = () => {
+const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
+  position = "bottom",
+}) => {
   return (
-    <nav className={styles.container}>
+    <nav
+      id="nav-dock"
+      className={position === "bottom" ? "nav-bottom" : "nav-left"}
+    >
       <ul className={styles.list}>
         <li>
           <div className={styles.item}>
@@ -13,7 +18,7 @@ const BottomNavBar = () => {
               <Image
                 width="50"
                 height="0"
-                className="w-full h-full"
+                className="h-full w-full"
                 src="/svg/dock-terminal.svg"
                 alt="terminal"
               />
@@ -29,7 +34,7 @@ const BottomNavBar = () => {
               <Image
                 width="50"
                 height="0"
-                className="w-full h-full"
+                className="h-full w-full"
                 src="/dock-about.png"
                 alt="about-me"
               />
@@ -45,7 +50,7 @@ const BottomNavBar = () => {
               <Image
                 width="50"
                 height="0"
-                className="w-full h-full"
+                className="h-full w-full"
                 src="/svg/dock-resume.svg"
                 alt="resume"
               />
@@ -61,7 +66,7 @@ const BottomNavBar = () => {
               <Image
                 width="50"
                 height="0"
-                className="w-full h-full"
+                className="h-full w-full"
                 src="/svg/dock-contact.svg"
                 alt="contact"
               />
@@ -81,7 +86,7 @@ const BottomNavBar = () => {
               <Image
                 width="50"
                 height="0"
-                className="w-full h-full"
+                className="h-full w-full"
                 src="/svg/dock-linkedin.svg"
                 alt="linkedin"
               />
@@ -101,7 +106,7 @@ const BottomNavBar = () => {
               <Image
                 width="50"
                 height="0"
-                className="w-full h-full"
+                className="h-full w-full"
                 src="/svg/dock-github.svg"
                 alt="github"
               />

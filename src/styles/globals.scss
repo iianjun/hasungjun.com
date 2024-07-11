@@ -19,3 +19,10 @@ body {
     opacity 500ms cubic-bezier(0, 0, 0.5, 1),
     visibility 500ms cubic-bezier(0, 0, 0.5, 1);
 }
+[data-floating-animation] {
+  transition: transform 0.1s ease-out;
+}
+::selection {
+  color: #f1f5f9;
+  background-color: #646687;
+}

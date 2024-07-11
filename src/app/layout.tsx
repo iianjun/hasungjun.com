@@ -1,6 +1,6 @@
 import "@/styles/globals.scss";
+import "@/styles/nav.scss";
 
-import BottomNavBar from "@/components/BottomNavBar";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import classNames from "classnames";
@@ -25,7 +25,6 @@ export default function RootLayout({
         )}
       >
         {children}
-        <BottomNavBar />
       </body>
     </html>
   );
