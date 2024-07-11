@@ -12,3 +12,10 @@ body {
 * {
   backface-visibility: hidden;
 }
+
+[data-text-animation] {
+  transition:
+    transform 500ms cubic-bezier(0, 0, 0.5, 1),
+    opacity 500ms cubic-bezier(0, 0, 0.5, 1),
+    visibility 500ms cubic-bezier(0, 0, 0.5, 1);
+}
