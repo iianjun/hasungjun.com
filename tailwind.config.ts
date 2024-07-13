@@ -20,6 +20,9 @@ const config: Config = {
         "screen-xl": "1280px",
         "screen-2xl": "1536px",
       },
+      transitionTimingFunction: {
+        smooth: "cubic-bezier(0.4, 0, 0.6, 1)",
+      },
       boxShadow: {
         modal: "0 22px 70px 4px rgba(0, 0, 0, 0.56)",
       },
@@ -28,9 +31,31 @@ const config: Config = {
           "from, to": { borderColor: "transparent" },
           "50%": { borderColor: "white" },
         },
+        "bottom-to-top": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(100%)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "left-to-right": {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(-100%);",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        },
       },
       animation: {
         "blink-caret": "blink-caret 0.75s step-end infinite",
+        "bottom-to-top": "bottom-to-top 0.5s cubic-bezier(0, 0, 0.5, 1)",
+        "left-to-right": "left-to-right 0.5s cubic-bezier(0, 0, 0.5, 1)",
       },
     },
   },
