@@ -2,18 +2,23 @@
 
 import React, { useRef } from "react";
 
-import Floating from "@/components/About/Floating";
+import AboutModal from "@/components/Modals/AboutModal";
 import classNames from "classnames";
 import { useIsInViews } from "@/hooks/useIsInViews";
 
 const About = () => {
-  const about = useRef<HTMLDivElement>(null);
   const main = useRef<HTMLDetailsElement>(null);
-  const [isInViewA, isInViewB] = useIsInViews(main, about);
+  const about = useRef<HTMLDivElement>(null);
+  const experience = useRef<HTMLDivElement>(null);
+  const projects = useRef<HTMLDivElement>(null);
+  const skills = useRef<HTMLDivElement>(null);
+  const isInViews = useIsInViews(main, about, experience, projects, skills);
 
   return (
     <>
-      <Floating />
+      <section>
+        <AboutModal visible={isInViews[1]} />
+      </section>
       <div className="grid grid-cols-2 gap-6">
         <section
           className="sticky top-0 flex max-h-screen flex-col justify-between px-6 py-32"
@@ -23,8 +28,8 @@ const About = () => {
             <h1
               data-text-animation
               className={classNames("text-8xl font-bold text-slate-200", {
-                "translate-y-10 opacity-0": !isInViewA,
-                "translate-y-0 opacity-100": isInViewA,
+                "translate-y-10 opacity-0": !isInViews[0],
+                "translate-y-0 opacity-100": isInViews[0],
               })}
             >
               Hasung Jun
@@ -34,8 +39,8 @@ const About = () => {
               className={classNames(
                 "text-[2.4rem] font-semibold text-slate-400 !delay-200",
                 {
-                  "translate-y-10 opacity-0": !isInViewA,
-                  "translate-y-0 opacity-100": isInViewA,
+                  "translate-y-10 opacity-0": !isInViews[0],
+                  "translate-y-0 opacity-100": isInViews[0],
                 },
               )}
             >
@@ -46,8 +51,8 @@ const About = () => {
               className={classNames(
                 "max-w-2xl text-[1.8rem] text-slate-500 !delay-500",
                 {
-                  "translate-y-10 opacity-0": !isInViewA,
-                  "translate-y-0 opacity-100": isInViewA,
+                  "translate-y-10 opacity-0": !isInViews[0],
+                  "translate-y-0 opacity-100": isInViews[0],
                 },
               )}
             >
@@ -63,8 +68,8 @@ const About = () => {
             <div
               data-text-animation
               className={classNames("flex flex-col gap-6", {
-                "translate-y-10 opacity-0": !isInViewB,
-                "translate-y-0 opacity-100": isInViewB,
+                "translate-y-10 opacity-0": !isInViews[1],
+                "translate-y-0 opacity-100": isInViews[1],
               })}
             >
               <p className="text-[1.8rem] text-slate-500">
@@ -87,19 +92,16 @@ const About = () => {
             </div>
           </div>
           {/* Experience */}
-          <div className="flex h-svh flex-col justify-center">
-            <h1 className="text-4xl font-bold">Content</h1>
+          <div className="flex h-svh flex-col justify-center" ref={experience}>
+            <h1 className="text-4xl font-bold text-white">Content</h1>
           </div>
           {/* Projects */}
-          <div className="flex h-svh flex-col justify-center">
-            <h1 className="text-4xl font-bold">Content</h1>
+          <div className="flex h-svh flex-col justify-center" ref={projects}>
+            <h1 className="text-4xl font-bold text-white">Content</h1>
           </div>
           {/* Skills */}
-          <div className="flex h-svh flex-col justify-center">
-            <h1 className="text-4xl font-bold">Content</h1>
-          </div>
-          <div className="flex h-svh flex-col justify-center">
-            <h1 className="text-4xl font-bold">Content</h1>
+          <div className="flex h-svh flex-col justify-center" ref={skills}>
+            <h1 className="text-4xl font-bold text-white">Content</h1>
           </div>
         </div>
       </div>

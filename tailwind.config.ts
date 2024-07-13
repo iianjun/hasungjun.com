@@ -7,10 +7,6 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    screens: {
-      lg: { max: "1068px" },
-      md: { max: "734px" },
-    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -23,6 +19,18 @@ const config: Config = {
         "screen-lg": "1024px",
         "screen-xl": "1280px",
         "screen-2xl": "1536px",
+      },
+      boxShadow: {
+        modal: "0 22px 70px 4px rgba(0, 0, 0, 0.56)",
+      },
+      keyframes: {
+        "blink-caret": {
+          "from, to": { borderColor: "transparent" },
+          "50%": { borderColor: "white" },
+        },
+      },
+      animation: {
+        "blink-caret": "blink-caret 0.75s step-end infinite",
       },
     },
   },
