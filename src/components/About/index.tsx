@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 
-import AboutModal from "@/components/Modals/AboutModal";
+import AboutTerminal from "@/components/Terminal/AboutTerminal";
 import classNames from "classnames";
 import { useIsInViews } from "@/hooks/useIsInViews";
 
@@ -17,7 +17,7 @@ const About = () => {
   return (
     <>
       <section>
-        <AboutModal visible={isInViews[1]} />
+        <AboutTerminal visible={isInViews[1]} />
       </section>
       <div className="grid grid-cols-2 gap-6">
         <section

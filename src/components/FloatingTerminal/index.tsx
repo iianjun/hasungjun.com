@@ -2,13 +2,14 @@
 
 import React, { PropsWithChildren, useEffect, useRef } from "react";
 
+import Terminal from "@/components/Terminal";
 import classNames from "classnames";
 
-export interface FloatingModalProps extends PropsWithChildren {
+export interface FloatingTerminalProps extends PropsWithChildren {
   visible: boolean;
   animation?: boolean;
 }
-const FloatingModal: React.FC<FloatingModalProps> = ({
+const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
   visible,
   animation,
   children,
@@ -45,9 +46,7 @@ const FloatingModal: React.FC<FloatingModalProps> = ({
       >
         <div className="px-40 xl:aspect-[3/1] 2xl:aspect-[3.7/1]">
           <div className="h-full max-h-screen w-full">
-            <div className="h-full w-full rounded-t-[2rem] bg-white">
-              {children}
-            </div>
+            <Terminal className="h-full w-full">{children}</Terminal>
           </div>
         </div>
       </div>
@@ -55,4 +54,4 @@ const FloatingModal: React.FC<FloatingModalProps> = ({
   );
 };
 
-export default FloatingModal;
+export default FloatingTerminal;
