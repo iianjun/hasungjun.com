@@ -3,6 +3,8 @@
 import React, { useRef } from "react";
 
 import AboutTerminal from "@/components/Terminal/AboutTerminal";
+import ExperienceTerminal from "@/components/Terminal/ExperienceTerminal";
+import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
 import classNames from "classnames";
 import { useIsInViews } from "@/hooks/useIsInViews";
 
@@ -18,6 +20,8 @@ const About = () => {
     <>
       <section>
         <AboutTerminal visible={isInViews[1]} />
+        <ExperienceTerminal visible={isInViews[2] && !isInViews[1]} />
+        <ProjectsTerminal visible={isInViews[3] && !isInViews[2]} />
       </section>
       <div className="grid grid-cols-2 gap-6">
         <section
@@ -64,7 +68,7 @@ const About = () => {
         </section>
         <div className="px-6">
           {/* About me */}
-          <div className={"flex h-svh items-center"} ref={about}>
+          <div className="flex h-svh items-center" ref={about}>
             <div
               data-text-animation
               className={classNames("flex flex-col gap-6", {
@@ -93,15 +97,15 @@ const About = () => {
           </div>
           {/* Experience */}
           <div className="flex h-svh flex-col justify-center" ref={experience}>
-            <h1 className="text-4xl font-bold text-white">Content</h1>
+            <h1 className="text-4xl font-bold text-white">Experience</h1>
           </div>
           {/* Projects */}
           <div className="flex h-svh flex-col justify-center" ref={projects}>
-            <h1 className="text-4xl font-bold text-white">Content</h1>
+            <h1 className="text-4xl font-bold text-white">Projects</h1>
           </div>
           {/* Skills */}
-          <div className="flex h-svh flex-col justify-center" ref={skills}>
-            <h1 className="text-4xl font-bold text-white">Content</h1>
+          <div className="flex h-[200svh] flex-col justify-center" ref={skills}>
+            <h1 className="text-4xl font-bold text-white">Skills</h1>
           </div>
         </div>
       </div>

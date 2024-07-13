@@ -15,7 +15,8 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-
+  const terminal = useRef<HTMLDivElement>(null);
+  const startIncreaseScrollY = useRef(0);
   useEffect(() => {
     if (!animation) return;
     const animate = () => {
@@ -27,6 +28,15 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       const translateY = Math.min(yScale + calc, 0);
       ref.current.style.transform = `translateX(${translateX}%) scale(${scaleValue}%)`;
       ref.current.style.bottom = `${translateY}%`;
+      //once it is fully scaled and startIncreaseScrollY is not set
+      if (scaleValue >= 100 && startIncreaseScrollY.current === 0) {
+        startIncreaseScrollY.current = window.scrollY;
+      } else if (scaleValue < 100 && startIncreaseScrollY.current !== 0) {
+        startIncreaseScrollY.current = 0;
+      }
+      if (scaleValue >= 100 && terminal.current) {
+        terminal.current.style.height = `calc(50vh + ${window.scrollY - startIncreaseScrollY.current}px)`;
+      }
     };
     window.addEventListener("scroll", animate);
     return () => window.removeEventListener("scroll", animate);
@@ -34,7 +44,10 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
 
   return (
     <div
-      className="fixed -bottom-[10%] left-0 right-0 z-[2] m-0 w-full -translate-x-1/4 scale-50 p-0"
+      className={classNames("fixed left-0 right-0 z-[2] m-0 w-full p-0", {
+        "-bottom-[10%] -translate-x-1/4 scale-50": animation,
+        "bottom-0 translate-x-0 scale-100": !animation,
+      })}
       ref={ref}
     >
       <div
@@ -44,10 +57,11 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
         })}
         data-floating-animation
       >
-        <div className="px-40 xl:aspect-[3/1] 2xl:aspect-[3.7/1]">
-          <div className="h-full max-h-screen w-full">
-            <Terminal className="h-full w-full">{children}</Terminal>
-          </div>
+        <div
+          className="max-w-screen h-[60svh] max-h-[60svh] px-40"
+          ref={terminal}
+        >
+          <Terminal className="h-full w-full">{children}</Terminal>
         </div>
       </div>
     </div>

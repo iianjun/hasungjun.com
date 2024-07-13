@@ -1,10 +1,10 @@
 import FloatingTerminal from "@/components/FloatingTerminal";
 import { FloatingTerminalProps } from "@/components/FloatingTerminal";
 import React from "react";
-const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
+const ProjectsTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
   return (
-    <FloatingTerminal animation {...rest}>
-      <h1 className="text-9xl text-slate-200">About me</h1>
+    <FloatingTerminal {...rest}>
+      <h1 className="text-9xl text-slate-200">Projects</h1>
       <p className="text-[1.8rem] text-slate-200">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Sit amet luctus
@@ -16,4 +16,4 @@ const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
   );
 };
 
-export default AboutTermimal;
+export default ProjectsTerminal;
