@@ -150,7 +150,7 @@ const HomePage = () => {
     <Terminal
       className={classNames(
         d2coding.className,
-        "h-[70svh] w-[50svw] min-w-[60rem] text-[1.6rem] text-white",
+        "h-[calc(100svh-8rem)] w-screen text-[1.6rem] text-white md:h-[80svh] md:w-[90vw] lg:h-[70svh] lg:w-[60vw] xl:w-[50vw]",
       )}
       onClick={() => inputRef.current?.focus()}
     >

@@ -2,7 +2,7 @@ import HomePage from "@/components/HomePage";
 
 export default function Home() {
   return (
-    <main className="main flex h-screen items-center justify-center">
+    <main className="flex h-screen md:items-center md:justify-center">
       <HomePage />
     </main>
   );
