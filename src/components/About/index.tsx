@@ -3,13 +3,12 @@
 import React, { useRef } from "react";
 
 import AboutTerminal from "@/components/Terminal/AboutTerminal";
-import ExperienceSection from "@/components/About/ExperienceSection";
 import ExperienceTerminal from "@/components/Terminal/ExperienceTerminal";
 import IntroSection from "@/components/About/IntroSection";
 import MainSection from "@/components/About/MainSection";
-import ProjectSection from "@/components/About/ProjectSection";
 import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
-import SkillSection from "@/components/About/SkillSection";
+import StickySection from "@/components/About/StickySection";
+// import SkillSection from "@/components/About/SkillSection";
 import { useIsInViews } from "@/hooks/useIsInViews";
 
 const About = () => {
@@ -30,9 +29,17 @@ const About = () => {
         <MainSection />
         <div className="px-6">
           <IntroSection ref={intro} />
-          <ExperienceSection ref={experience} />
-          <ProjectSection ref={projects} />
-          <SkillSection ref={skills} />
+          <StickySection
+            ref={experience}
+            headline="Experience"
+            subhead="Where did I work?"
+          />
+          <StickySection
+            ref={projects}
+            headline="Projects"
+            subhead="My projects"
+          />
+          <StickySection ref={skills} headline="My skills" />
         </div>
       </div>
     </>

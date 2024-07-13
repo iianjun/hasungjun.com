@@ -4,14 +4,9 @@ import React from "react";
 const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
   return (
     <FloatingTerminal animation {...rest}>
-      <h1 className="text-9xl text-slate-200">About me</h1>
-      <p className="text-[1.8rem] text-slate-200">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Sit amet luctus
-        venenatis lectus magna fringilla. Sodales neque sodales ut etiam sit.
-        Egestas congue quisque egestas diam. Sagittis eu volutpat odio facilisis
-        mauris sit amet massa.
-      </p>
+      <div className="flex flex-col gap-6 p-12">
+        <h1 className="text-8xl text-slate-200">Education</h1>
+      </div>
     </FloatingTerminal>
   );
 };
