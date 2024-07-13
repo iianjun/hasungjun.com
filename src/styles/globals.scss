@@ -36,6 +36,34 @@
     animation-delay: 1000ms;
   }
 }
+
+@layer components {
+  #nav-dock {
+    position: fixed;
+    display: flex;
+    transition:
+      opacity,
+      transform 0.2s $transition;
+    justify-content: center;
+
+    ul {
+      li:hover + li {
+        & > div {
+          width: 5.5rem;
+          height: 5.5rem;
+          margin-top: -0.5rem;
+        }
+      }
+      li:has(+ li:hover) {
+        & > div {
+          width: 5.5rem;
+          height: 5.5rem;
+          margin-top: -0.5rem;
+        }
+      }
+    }
+  }
+}
 html,
 body {
   font-size: 0.625rem;
@@ -45,9 +73,6 @@ body {
   backface-visibility: hidden;
 }
 
-[data-floating-animation] {
-  transition: transform 0.35s ease-in-out;
-}
 ::selection {
   color: #f1f5f9;
   background-color: #646687;

@@ -51,11 +51,13 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       ref={ref}
     >
       <div
-        className={classNames("absolute bottom-0 left-0 right-0", {
-          "translate-y-full": !visible,
-          "translate-y-0": visible,
-        })}
-        data-floating-animation
+        className={classNames(
+          "absolute bottom-0 left-0 right-0 transform transition-transform duration-[.35s] ease-in-out",
+          {
+            "translate-y-full": !visible,
+            "translate-y-0": visible,
+          },
+        )}
       >
         <div
           className="max-w-screen h-[60svh] max-h-[60svh] px-40"
