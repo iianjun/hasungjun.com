@@ -41,6 +41,16 @@ const config: Config = {
             transform: "translateY(0)",
           },
         },
+        "fade-in-up": {
+          from: {
+            opacity: "0",
+            transform: "translateY(2.5rem)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
         "left-to-right": {
           "0%": {
             opacity: "0",
@@ -56,6 +66,7 @@ const config: Config = {
         "blink-caret": "blink-caret 0.75s step-end infinite",
         "bottom-to-top": "bottom-to-top 0.5s cubic-bezier(0, 0, 0.5, 1)",
         "left-to-right": "left-to-right 0.5s cubic-bezier(0, 0, 0.5, 1)",
+        "fade-in-up": "fade-in-up 0.5s forwards",
       },
     },
   },

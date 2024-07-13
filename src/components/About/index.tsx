@@ -3,110 +3,36 @@
 import React, { useRef } from "react";
 
 import AboutTerminal from "@/components/Terminal/AboutTerminal";
+import ExperienceSection from "@/components/About/ExperienceSection";
 import ExperienceTerminal from "@/components/Terminal/ExperienceTerminal";
+import IntroSection from "@/components/About/IntroSection";
+import MainSection from "@/components/About/MainSection";
+import ProjectSection from "@/components/About/ProjectSection";
 import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
-import classNames from "classnames";
+import SkillSection from "@/components/About/SkillSection";
 import { useIsInViews } from "@/hooks/useIsInViews";
 
 const About = () => {
-  const main = useRef<HTMLDetailsElement>(null);
-  const about = useRef<HTMLDivElement>(null);
-  const experience = useRef<HTMLDivElement>(null);
-  const projects = useRef<HTMLDivElement>(null);
-  const skills = useRef<HTMLDivElement>(null);
-  const isInViews = useIsInViews(main, about, experience, projects, skills);
+  const intro = useRef<HTMLDetailsElement>(null);
+  const experience = useRef<HTMLDetailsElement>(null);
+  const projects = useRef<HTMLDetailsElement>(null);
+  const skills = useRef<HTMLDetailsElement>(null);
+  const isInViews = useIsInViews(intro, experience, projects, skills);
 
   return (
     <>
       <section>
-        <AboutTerminal visible={isInViews[1]} />
-        <ExperienceTerminal visible={isInViews[2] && !isInViews[1]} />
-        <ProjectsTerminal visible={isInViews[3] && !isInViews[2]} />
+        <AboutTerminal visible={isInViews[0]} />
+        <ExperienceTerminal visible={isInViews[1] && !isInViews[0]} />
+        <ProjectsTerminal visible={isInViews[2] && !isInViews[1]} />
       </section>
       <div className="grid grid-cols-2 gap-6">
-        <section
-          className="sticky top-0 flex max-h-screen flex-col justify-between px-6 py-32"
-          ref={main}
-        >
-          <div className="flex flex-col gap-[1.6rem]">
-            <h1
-              data-text-animation
-              className={classNames("text-8xl font-bold text-slate-200", {
-                "translate-y-10 opacity-0": !isInViews[0],
-                "translate-y-0 opacity-100": isInViews[0],
-              })}
-            >
-              Hasung Jun
-            </h1>
-            <h2
-              data-text-animation
-              className={classNames(
-                "text-[2.4rem] font-semibold text-slate-400 !delay-200",
-                {
-                  "translate-y-10 opacity-0": !isInViews[0],
-                  "translate-y-0 opacity-100": isInViews[0],
-                },
-              )}
-            >
-              Frontend Developer
-            </h2>
-            <p
-              data-text-animation
-              className={classNames(
-                "max-w-2xl text-[1.8rem] text-slate-500 !delay-500",
-                {
-                  "translate-y-10 opacity-0": !isInViews[0],
-                  "translate-y-0 opacity-100": isInViews[0],
-                },
-              )}
-            >
-              I'm a passionate front-end software engineer focused on building
-              efficient and user-centric applications. As a continuous and fast
-              learner, I'm always excited to discover something new.
-            </p>
-          </div>
-        </section>
+        <MainSection />
         <div className="px-6">
-          {/* About me */}
-          <div className="flex h-svh items-center" ref={about}>
-            <div
-              data-text-animation
-              className={classNames("flex flex-col gap-6", {
-                "translate-y-10 opacity-0": !isInViews[1],
-                "translate-y-0 opacity-100": isInViews[1],
-              })}
-            >
-              <p className="text-[1.8rem] text-slate-500">
-                I started my journey in software development in my sophmore year
-                by falling in love with computer science by accident. My initial
-                major was Technological Systems Management (TSM), which had the
-                prerequisite to take Object Oriented Programming class.
-              </p>
-              <p className="text-[1.8rem] text-slate-500">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <p className="text-[1.8rem] text-slate-500">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit
-                amet luctus venenatis lectus magna fringilla. Sodales neque
-                sodales ut etiam sit. Egestas congue quisque egestas diam.
-                Sagittis eu volutpat odio facilisis mauris sit amet massa.
-              </p>
-            </div>
-          </div>
-          {/* Experience */}
-          <div className="flex h-svh flex-col justify-center" ref={experience}>
-            <h1 className="text-4xl font-bold text-white">Experience</h1>
-          </div>
-          {/* Projects */}
-          <div className="flex h-svh flex-col justify-center" ref={projects}>
-            <h1 className="text-4xl font-bold text-white">Projects</h1>
-          </div>
-          {/* Skills */}
-          <div className="flex h-[200svh] flex-col justify-center" ref={skills}>
-            <h1 className="text-4xl font-bold text-white">Skills</h1>
-          </div>
+          <IntroSection ref={intro} />
+          <ExperienceSection ref={experience} />
+          <ProjectSection ref={projects} />
+          <SkillSection ref={skills} />
         </div>
       </div>
     </>
