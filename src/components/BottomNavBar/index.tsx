@@ -49,7 +49,7 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 position === "bottom" && ITEMS.length - 1 !== index,
             })}
           >
-            <div className="relative h-20 w-20 transition-all duration-100 ease-smooth group-active:-mt-4 group-active:h-24 group-active:w-24 sm:group-hover:-mt-4 sm:group-hover:h-24 sm:group-hover:w-24">
+            <div className="relative h-20 w-20 transition-all duration-100 ease-smooth group-active:-mt-4 group-active:h-24 group-active:w-24 md:group-hover:-mt-4 md:group-hover:h-24 md:group-hover:w-24">
               <Link
                 href={item.link}
                 target={item.link.startsWith("/") ? undefined : "_blank"}
@@ -66,7 +66,7 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 />
               </Link>
               <span
-                className="invisible absolute bottom-[calc(100%_+_1.5rem)] left-1/2 -translate-x-1/2 transform rounded-[0.8rem] border border-black bg-[#27282a] px-[1.2rem] py-[.4rem] text-center text-[1.2rem] text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible sm:group-hover:visible"
+                className="invisible absolute bottom-[calc(100%_+_1.5rem)] left-1/2 -translate-x-1/2 transform rounded-[0.8rem] border border-black bg-[#27282a] px-[1.2rem] py-[.4rem] text-center text-[1.2rem] text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible"
                 role="tooltip"
               >
                 {item.name}

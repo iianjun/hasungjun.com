@@ -11,11 +11,11 @@ const Terminal: React.FC<PropsWithChildren<HTMLAttributes<HTMLDivElement>>> = ({
   return (
     <div
       className={classNames(
-        "flex flex-col bg-[#282a35] sm:rounded-[.6rem] sm:border sm:border-[#5f5f5f] sm:shadow-modal",
+        "flex flex-col bg-[#282a35] md:rounded-[.6rem] md:border md:border-[#5f5f5f] md:shadow-modal",
         className,
       )}
     >
-      <div className="relative flex h-[2.6rem] items-center border-b border-black bg-[#383838] px-[.6rem] sm:rounded-t-[.6rem]">
+      <div className="relative flex h-[2.6rem] items-center border-b border-black bg-[#383838] px-[.6rem] md:rounded-t-[.6rem]">
         <div className="flex gap-[.8rem]">
           <div className="h-[1.2rem] w-[1.2rem] rounded-full bg-[#ed6a5e]"></div>
           <div className="h-[1.2rem] w-[1.2rem] rounded-full bg-[#f5bf4f]"></div>

@@ -96,7 +96,7 @@
     justify-content: center;
 
     ul {
-      @media (max-width: #{$sm-breakpoint - 1} ) {
+      @media (max-width: #{$md-breakpoint - 1} ) {
         li:active + li {
           & > div {
             width: 5.5rem;
@@ -112,7 +112,7 @@
           }
         }
       }
-      @media (min-width: $sm-breakpoint) {
+      @media (min-width: $md-breakpoint) {
         li:hover + li {
           & > div {
             width: 5.5rem;
@@ -130,15 +130,8 @@
       }
     }
   }
-  .resume-vertical-list {
-    @for $i from 0 through 1 {
-      li:nth-of-type(#{$i + 1}) {
-        @include dividerAttr("vertical", $i);
-      }
-    }
-  }
   .resume-aside {
-    @media (max-width: #{$sm-breakpoint - 1}) {
+    @media (max-width: #{$md-breakpoint - 1}) {
       @for $i from 0 through 2 {
         li:nth-of-type(#{$i + 1}) {
           @if $i != 2 {
@@ -150,7 +143,7 @@
         }
       }
     }
-    @media (min-width: $sm-breakpoint) {
+    @media (min-width: $md-breakpoint) {
       @for $i from 0 through 2 {
         li:nth-of-type(#{$i + 1}) {
           @if $i != 2 {
