@@ -2,7 +2,7 @@ import React from "react";
 
 const MainSection: React.FC = () => {
   return (
-    <section className="sticky top-0 flex max-h-screen flex-col justify-between px-6 py-32">
+    <section className="sticky top-0 flex max-h-svh flex-col justify-between px-6 py-32">
       <div className="flex flex-col gap-[1.6rem]">
         <h1 className="animate-fade-in-up text-8xl font-bold text-slate-200">
           Hasung Jun

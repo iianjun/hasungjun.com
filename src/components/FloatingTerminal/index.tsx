@@ -35,7 +35,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
         startIncreaseScrollY.current = 0;
       }
       if (scaleValue >= 100 && terminal.current) {
-        terminal.current.style.height = `calc(50vh + ${window.scrollY - startIncreaseScrollY.current}px)`;
+        terminal.current.style.height = `calc(50svh + ${window.scrollY - startIncreaseScrollY.current}px)`;
       }
     };
     window.addEventListener("scroll", animate);

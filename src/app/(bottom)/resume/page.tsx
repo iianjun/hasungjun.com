@@ -4,7 +4,7 @@ import Resume from "@/components/Resume";
 
 export default function ResumePage() {
   return (
-    <main className="relative min-h-screen">
+    <main className="relative h-svh">
       <aside>
         <ul className="resume-aside fixed left-12 top-4 flex gap-12 sm:bottom-12 sm:left-12 sm:top-auto sm:flex-col-reverse sm:justify-start">
           <li className="relative">
