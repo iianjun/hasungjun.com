@@ -11,7 +11,7 @@ const Terminal: React.FC<PropsWithChildren<HTMLAttributes<HTMLDivElement>>> = ({
   return (
     <div
       className={classNames(
-        "flex min-w-[60rem] flex-col rounded-[.6rem] border border-[#5f5f5f] bg-[#282a35] shadow-modal",
+        "flex flex-col rounded-[.6rem] border border-[#5f5f5f] bg-[#282a35] shadow-modal",
         className,
       )}
     >
