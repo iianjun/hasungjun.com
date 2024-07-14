@@ -3,7 +3,7 @@ import React from "react";
 
 const Resume: React.FC = () => {
   return (
-    <div className="flex items-center justify-center pb-32 pt-20 sm:pb-[8.8rem] sm:pt-10">
+    <div className="flex items-center justify-center pb-32 sm:pb-[8.8rem] sm:pt-10">
       <div className="animate-resume-visible font-arial leading-[1.167]">
         <div className="h-[calc(100svh-13rem)] w-screen overflow-auto bg-white pt-[1.4rem] sm:h-[84.2rem] sm:w-[59.5rem]">
           <div className="flex flex-col items-center gap-[.4rem] px-[1.8rem] py-[.6rem]">
