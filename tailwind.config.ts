@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        arial: ["Arial", "Helvetica", "sans-serif"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -31,17 +34,15 @@ const config: Config = {
           "from, to": { borderColor: "transparent" },
           "50%": { borderColor: "white" },
         },
-        "bottom-to-top": {
+        "fade-up-full": {
           "0%": {
-            opacity: "0",
             transform: "translateY(100%)",
           },
           "100%": {
-            opacity: "1",
             transform: "translateY(0)",
           },
         },
-        "fade-in-up": {
+        "text-fade-up": {
           from: {
             opacity: "0",
             transform: "translateY(2.5rem)",
@@ -51,22 +52,33 @@ const config: Config = {
             transform: "translateY(0)",
           },
         },
-        "left-to-right": {
+        "fade-right-full": {
           "0%": {
-            opacity: "0",
             transform: "translateX(-100%);",
           },
           "100%": {
-            opacity: "1",
             transform: "translateX(0)",
+          },
+        },
+        opacity: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
           },
         },
       },
       animation: {
         "blink-caret": "blink-caret 0.75s step-end infinite",
-        "bottom-to-top": "bottom-to-top 0.5s cubic-bezier(0, 0, 0.5, 1)",
-        "left-to-right": "left-to-right 0.5s cubic-bezier(0, 0, 0.5, 1)",
-        "fade-in-up": "fade-in-up 0.5s forwards",
+        "nav-fade-up":
+          "opacity 0.5s, fade-up-full 0.5s cubic-bezier(0, 0, 0.5, 1)",
+        "nav-fade-right":
+          "opacity 0.5s, fade-right-full 0.5s cubic-bezier(0, 0, 0.5, 1)",
+        "fade-in-up": "text-fade-up 0.5s cubic-bezier(0, 0, 0.5, 1) forwards",
+        "fade-in-up-late-opacity":
+          "opacity 0.8s, fade-up-full 0.5s cubic-bezier(0.4, 0, 0.6, 1) forwards",
+        "resume-visible": "opacity 0.8s cubic-bezier(0.4, 0, 0.6, 1) forwards",
       },
     },
   },

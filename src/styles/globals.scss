@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@mixin dividerAttr() {
+  position: absolute;
+  content: "";
+  display: block;
+  border-right: 1px solid #b4b4b4;
+  left: 50%;
+  transform: translateX(-50%);
+}
 @layer utilities {
   .animate-delay-0 {
     animation-delay: 0s;
@@ -35,15 +43,44 @@
   .animate-delay-1000 {
     animation-delay: 1000ms;
   }
+  .divider-top {
+    &::before {
+      @include dividerAttr();
+      bottom: calc(100% + 0.75rem);
+    }
+    &.divider-lg {
+      &::before {
+        height: 5rem;
+      }
+    }
+    &.divider-sm {
+      &::before {
+        height: 1.5rem;
+      }
+    }
+  }
+  .divider-bottom {
+    &::after {
+      @include dividerAttr();
+      top: calc(100% + 0.75rem);
+    }
+    &.divider-lg {
+      &::after {
+        height: 5rem;
+      }
+    }
+    &.divider-sm {
+      &::after {
+        height: 1.5rem;
+      }
+    }
+  }
 }
 
 @layer components {
   #nav-dock {
     position: fixed;
     display: flex;
-    transition:
-      opacity,
-      transform 0.2s $transition;
     justify-content: center;
 
     ul {

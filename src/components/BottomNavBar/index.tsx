@@ -26,8 +26,8 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
     <nav
       id="nav-dock"
       className={classNames({
-        "bottom-0 w-full animate-bottom-to-top pb-4": position === "bottom",
-        "left-0 top-0 h-full w-fit animate-left-to-right flex-col pl-4":
+        "bottom-0 w-full animate-nav-fade-up pb-4": position === "bottom",
+        "left-0 top-0 h-full w-fit animate-nav-fade-right flex-col pl-4":
           position === "left",
       })}
     >
