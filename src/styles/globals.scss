@@ -96,18 +96,36 @@
     justify-content: center;
 
     ul {
-      li:hover + li {
-        & > div {
-          width: 5.5rem;
-          height: 5.5rem;
-          margin-top: -0.5rem;
+      @media (max-width: #{$sm-breakpoint - 1} ) {
+        li:active + li {
+          & > div {
+            width: 5.5rem;
+            height: 5.5rem;
+            margin-top: -0.5rem;
+          }
+        }
+        li:has(+ li:active) {
+          & > div {
+            width: 5.5rem;
+            height: 5.5rem;
+            margin-top: -0.5rem;
+          }
         }
       }
-      li:has(+ li:hover) {
-        & > div {
-          width: 5.5rem;
-          height: 5.5rem;
-          margin-top: -0.5rem;
+      @media (min-width: $sm-breakpoint) {
+        li:hover + li {
+          & > div {
+            width: 5.5rem;
+            height: 5.5rem;
+            margin-top: -0.5rem;
+          }
+        }
+        li:has(+ li:hover) {
+          & > div {
+            width: 5.5rem;
+            height: 5.5rem;
+            margin-top: -0.5rem;
+          }
         }
       }
     }

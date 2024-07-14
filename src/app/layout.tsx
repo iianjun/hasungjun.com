@@ -20,7 +20,7 @@ export default function RootLayout({
       <body
         className={classNames(
           inter.className,
-          "bg-gradient-to-br from-[#1a1b27] to-[#2b2c3a]",
+          "overflow-hidden bg-gradient-to-br from-[#1a1b27] to-[#2b2c3a]",
         )}
       >
         {children}
