@@ -9,7 +9,7 @@ const Sidebar = () => {
     (state) => state.msgReducer.lastMessage || "",
   );
   return (
-    <aside className="flex w-[32rem] flex-col border-r border-r-black bg-[#303030] px-4">
+    <aside className="hidden w-[32rem] flex-col border-r border-r-black bg-[#303030] px-4 sm:flex">
       <div className="flex h-20 items-center gap-[.8rem] px-4">
         <button className="h-[1.2rem] w-[1.2rem] rounded-xl bg-[#ed6a5e]"></button>
         <button className="h-[1.2rem] w-[1.2rem] rounded-xl bg-[#f5bf4f]"></button>

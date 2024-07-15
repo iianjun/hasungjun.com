@@ -5,7 +5,7 @@ const Bubble: React.FC<{
   isNotDelivered: boolean;
 }> = ({ message, showDelivered, isNotDelivered }) => {
   return (
-    <li className="mb-[.8rem] mr-[2rem] flex flex-col items-end gap-[.3rem] self-end">
+    <li className="mb-[.8rem] mr-[2rem] flex flex-col items-end gap-[.3rem] self-end [&:first-child]:mt-[.8rem] [&:last-child]:mb-0">
       <p className="max-w-[33.3rem] whitespace-pre-wrap break-words rounded-[1.4rem] bg-[#2982f6] px-[1rem] py-[.6rem] text-[1.3rem] leading-tight text-white">
         {message}
       </p>
