@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
+import { dockReducer } from "@/redux/reducer/dockReducer";
 import { msgReducer } from "@/redux/reducer/msgReducer";
 
 const reducer = combineReducers({
   msgReducer,
+  dockReducer,
 });
 export const makeStore = () =>
   configureStore({

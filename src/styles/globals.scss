@@ -97,7 +97,8 @@
     position: fixed;
     display: flex;
     justify-content: center;
-
+    transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);
+    z-index: 11;
     ul {
       @media (max-width: #{$md-breakpoint - 1} ) {
         li:active + li {

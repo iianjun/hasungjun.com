@@ -1,4 +1,5 @@
 import BottomNavBar from "@/components/BottomNavBar";
+import TopNavBar from "@/components/TopNavBar";
 
 export default async function Layout({
   children,
@@ -7,8 +8,9 @@ export default async function Layout({
 }) {
   return (
     <>
+      <TopNavBar />
       {children}
-      {/* <BottomNavBar position="left" /> */}
+      <BottomNavBar position="left" />
     </>
   );
 }

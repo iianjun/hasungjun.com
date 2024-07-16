@@ -2,6 +2,7 @@ import "@/styles/globals.scss";
 
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+import StoreProvider from "@/components/StoreProvider";
 import classNames from "classnames";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,7 +24,7 @@ export default function RootLayout({
           "overflow-x-hidden bg-gradient-to-br from-[#1a1b27] to-[#2b2c3a]",
         )}
       >
-        {children}
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   );
