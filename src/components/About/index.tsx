@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import AboutTerminal from "@/components/Terminal/AboutTerminal";
 import ExperienceTerminal from "@/components/Terminal/ExperienceTerminal";
@@ -25,9 +25,9 @@ const About = () => {
         <ExperienceTerminal visible={isInViews[1] && !isInViews[0]} />
         <ProjectsTerminal visible={isInViews[2] && !isInViews[1]} />
       </section>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-6">
         <MainSection />
-        <div className="px-6">
+        <div className="px-8 lg:px-6">
           <IntroSection ref={intro} />
           <StickySection
             ref={experience}

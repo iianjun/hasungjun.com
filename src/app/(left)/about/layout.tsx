@@ -8,7 +8,7 @@ export default async function Layout({
   return (
     <>
       {children}
-      <BottomNavBar position="left" />
+      {/* <BottomNavBar position="left" /> */}
     </>
   );
 }

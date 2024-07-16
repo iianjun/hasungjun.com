@@ -2,8 +2,8 @@ import React from "react";
 
 const MainSection: React.FC = () => {
   return (
-    <section className="sticky top-0 flex max-h-svh flex-col justify-between px-6 py-32">
-      <div className="flex flex-col gap-[1.6rem]">
+    <section className="flex h-svh max-h-svh flex-col items-center px-8 py-16 md:pb-40 lg:sticky lg:top-0 lg:items-baseline lg:px-6 lg:py-32">
+      <div className="mt-[20%] flex flex-col gap-[1.6rem] lg:mt-0">
         <h1 className="animate-fade-in-up text-8xl font-bold text-slate-200">
           Hasung Jun
         </h1>

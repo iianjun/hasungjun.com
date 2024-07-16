@@ -2,8 +2,8 @@ import React, { forwardRef } from "react";
 
 const IntroSection = forwardRef<HTMLDetailsElement>((_, ref) => {
   return (
-    <section className="flex h-svh items-center" ref={ref}>
-      <div className="flex animate-fade-in-up flex-col gap-6 text-[1.8rem] text-slate-500">
+    <section className="flex items-center lg:h-svh" ref={ref}>
+      <div className="animate-delay-600 flex translate-y-10 animate-fade-in-up flex-col gap-6 text-[1.8rem] text-slate-500 opacity-0">
         <p>
           I started my journey in software development in my sophmore year by
           falling in love with computer science by accident. My initial major
