@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import AboutTerminal from "@/components/Terminal/AboutTerminal";
 import ExperienceTerminal from "@/components/Terminal/ExperienceTerminal";
-import IntroSection from "@/components/About/IntroSection";
 import MainSection from "@/components/About/MainSection";
 import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
 import StickySection from "@/components/About/StickySection";
@@ -25,22 +24,19 @@ const About = () => {
         <ExperienceTerminal visible={isInViews[1] && !isInViews[0]} />
         <ProjectsTerminal visible={isInViews[2] && !isInViews[1]} />
       </section>
-      <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-6">
-        <MainSection />
-        <div className="px-8 lg:px-6">
-          <IntroSection ref={intro} />
-          <StickySection
-            ref={experience}
-            headline="Experience"
-            subhead="Where did I work?"
-          />
-          <StickySection
-            ref={projects}
-            headline="Projects"
-            subhead="My projects"
-          />
-          <StickySection ref={skills} headline="My skills" />
-        </div>
+      <div className="flex flex-col items-center">
+        <MainSection ref={intro} />
+        <StickySection
+          ref={experience}
+          headline="Experience"
+          subhead="Where did I work?"
+        />
+        <StickySection
+          ref={projects}
+          headline="Projects"
+          subhead="My projects"
+        />
+        <StickySection ref={skills} headline="My skills" />
       </div>
     </>
   );

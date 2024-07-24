@@ -33,13 +33,14 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
   const isLg = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
-    if (isLg) {
+    if (!isLg) {
       dispatch(hideDock());
     }
     return () => {
       dispatch(hideDock());
     };
   }, [dispatch, isLg]);
+
   return (
     <nav
       id="nav-dock"

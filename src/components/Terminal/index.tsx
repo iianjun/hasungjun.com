@@ -20,7 +20,7 @@ const Terminal: React.FC<
     >
       <div
         className={classNames(
-          "relative flex h-[2.6rem] items-center border-b border-black bg-[#383838] px-[.6rem]",
+          "relative flex h-[2.6rem] flex-shrink-0 items-center border-b border-black bg-[#383838] px-[.6rem]",
           {
             "md:rounded-t-[.6rem]": !keepBorder,
             "rounded-t-[.6rem]": keepBorder,

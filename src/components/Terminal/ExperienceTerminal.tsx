@@ -4,7 +4,7 @@ import React from "react";
 const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
   return (
     <FloatingTerminal {...rest}>
-      <h1 className="text-9xl text-slate-200">Experience</h1>
+      <h2 className="text-9xl text-slate-200">Experience</h2>
       <p className="text-[1.8rem] text-slate-200">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Sit amet luctus

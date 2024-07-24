@@ -27,11 +27,10 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
     const animate = () => {
       if (!ref.current || !isLg) return;
       const calc = (window.scrollY / window.innerHeight) * 100;
-      const translateX = Math.min(-25 + calc, 0);
       const scaleValue = Math.min(50 + calc * 2, 100);
       const yScale = -10;
       const translateY = Math.min(yScale + calc, 0);
-      ref.current.style.transform = `translateX(${translateX}%) scale(${scaleValue}%)`;
+      ref.current.style.transform = `translateX(-50%) scale(${scaleValue}%)`;
       ref.current.style.bottom = `${translateY}%`;
       //once it is fully scaled and startIncreaseScrollY is not set
       // if (scaleValue >= 100 && startIncreaseScrollY.current === 0) {
@@ -57,11 +56,13 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
 
   return (
     <div
-      className={classNames("fixed left-0 right-0 z-[2] m-0 w-full p-0", {
-        "bottom-0 translate-x-0 scale-100 lg:-bottom-[10%] lg:-translate-x-1/4 lg:scale-50":
-          animation,
-        "bottom-0 translate-x-0 scale-100": !animation,
-      })}
+      className={classNames(
+        "fixed left-1/2 right-0 z-[2] m-0 w-full -translate-x-1/2 p-0",
+        {
+          "bottom-0 scale-100 lg:-bottom-[10%] lg:scale-50": animation,
+          "bottom-0 scale-100": !animation,
+        },
+      )}
       ref={ref}
     >
       <div
@@ -75,7 +76,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       >
         <div
           className={classNames(
-            "max-w-screen h-[40svh] max-h-[40svh] px-10 lg:h-[60svh] lg:max-h-[60svh] lg:px-40",
+            "max-w-screen h-[50svh] max-h-[50svh] px-10 lg:h-[60svh] lg:max-h-[60svh] lg:px-40",
             {
               "h-[40svh] max-h-[40svh]": hasContentAbove,
               "h-[60svh] max-h-[60svh]": !hasContentAbove,
