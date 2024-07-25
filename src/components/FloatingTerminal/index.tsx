@@ -76,7 +76,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       >
         <div
           className={classNames(
-            "max-w-screen h-[50svh] max-h-[50svh] px-10 lg:h-[60svh] lg:max-h-[60svh] lg:px-40",
+            "h-[50svh] max-h-[50svh] w-screen px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[70vw]",
             {
               "h-[40svh] max-h-[40svh]": hasContentAbove,
               "h-[60svh] max-h-[60svh]": !hasContentAbove,
@@ -85,7 +85,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
           ref={terminal}
         >
           <Terminal className="h-full w-full" keepBorder>
-            {children}
+            <div className="overflow-auto p-12">{children}</div>
           </Terminal>
         </div>
       </div>

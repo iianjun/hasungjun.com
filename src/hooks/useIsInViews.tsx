@@ -18,6 +18,7 @@ export const useIsInViews = (...refs: RefObject<HTMLElement>[]): boolean[] => {
           }
         });
       },
+      { rootMargin: "-1px 0px 0px 0px" },
     );
 
     refs.forEach((ref) => {
