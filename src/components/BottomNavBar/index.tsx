@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 
 import Image from "next/image";
@@ -10,24 +10,25 @@ import { hideDock } from "@/redux/action/dockAction";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const ITEMS = [
-  { name: "Terminal", src: "/svg/dock-terminal.svg", link: "/" },
-  { name: "About", src: "/dock-about.png", link: "/about" },
-  { name: "Resume", src: "/svg/dock-resume.svg", link: "/resume" },
-  { name: "Contact", src: "/svg/dock-contact.svg", link: "/contact" },
+  { name: "Terminal", src: "/dock/dock-terminal.svg", link: "/" },
+  { name: "About", src: "/dock/dock-about.png", link: "/about" },
+  { name: "Resume", src: "/dock/dock-resume.svg", link: "/resume" },
+  { name: "Contact", src: "/dock/dock-contact.svg", link: "/contact" },
   {
     name: "LinkedIn",
-    src: "/svg/dock-linkedin.svg",
+    src: "/dock/dock-linkedin.svg",
     link: "https://www.linkedin.com/in/hasungjun/",
   },
   {
     name: "GitHub",
-    src: "/svg/dock-github.svg",
+    src: "/dock/dock-github.svg",
     link: "https://github.com/iianjun",
   },
 ];
 const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
   position = "bottom",
 }) => {
+  const [mounted, setMounted] = useState(false);
   const isShow = useAppSelector((state) => state.dockReducer.show);
   const dispatch = useAppDispatch();
   const isLg = useMediaQuery("(min-width: 1024px)");
@@ -41,6 +42,10 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
     };
   }, [dispatch, isLg]);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) return <></>;
   return (
     <nav
       id="nav-dock"

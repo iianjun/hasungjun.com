@@ -19,7 +19,7 @@ const TopNavBar = () => {
         <Image
           width={30}
           height={30}
-          src="/svg/dock-icon.svg"
+          src="/dock/dock-icon.svg"
           alt="dock-icon"
         />
       </button>

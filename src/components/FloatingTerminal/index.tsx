@@ -9,12 +9,10 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 export interface FloatingTerminalProps extends PropsWithChildren {
   visible: boolean;
   animation?: boolean;
-  hasContentAbove?: boolean;
 }
 const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
   visible,
   animation,
-  hasContentAbove = false,
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -75,16 +73,12 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
         )}
       >
         <div
-          className={classNames(
-            "h-[50svh] max-h-[50svh] w-screen px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[70vw]",
-            {
-              "h-[40svh] max-h-[40svh]": hasContentAbove,
-              "h-[60svh] max-h-[60svh]": !hasContentAbove,
-            },
-          )}
+          className={
+            "h-[60svh] max-h-[60svh] w-screen px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[70vw]"
+          }
           ref={terminal}
         >
-          <Terminal className="h-full w-full" keepBorder>
+          <Terminal className="h-full w-full" keepBorder hideShadow={!visible}>
             <div className="overflow-auto p-12">{children}</div>
           </Terminal>
         </div>

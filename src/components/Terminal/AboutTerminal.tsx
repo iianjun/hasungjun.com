@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
   return (
-    <FloatingTerminal animation hasContentAbove {...rest}>
+    <FloatingTerminal animation {...rest}>
       <div className="flex flex-col gap-12">
         <section>
           <h2 className="mb-6 text-5xl text-slate-200">Background</h2>

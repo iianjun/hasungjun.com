@@ -5,18 +5,18 @@ import React, { HTMLAttributes, PropsWithChildren } from "react";
 import classNames from "classnames";
 
 const Terminal: React.FC<
-  PropsWithChildren<HTMLAttributes<HTMLDivElement>> & { keepBorder?: boolean }
-> = ({ children, className, keepBorder = false }) => {
+  PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
+    keepBorder?: boolean;
+    hideShadow?: boolean;
+  }
+> = ({ children, className, keepBorder = false, hideShadow = false }) => {
   return (
     <div
-      className={classNames(
-        "flex flex-col bg-[#282a35] md:shadow-modal",
-        className,
-        {
-          "rounded-[.6rem] border border-[#5f5f5f]": keepBorder,
-          "md:rounded-[.6rem] md:border md:border-[#5f5f5f]": !keepBorder,
-        },
-      )}
+      className={classNames("flex flex-col bg-[#282a35]", className, {
+        "rounded-[.6rem] border border-[#5f5f5f]": keepBorder,
+        "md:rounded-[.6rem] md:border md:border-[#5f5f5f]": !keepBorder,
+        "md:shadow-modal": !hideShadow,
+      })}
     >
       <div
         className={classNames(

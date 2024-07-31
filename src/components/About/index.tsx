@@ -6,16 +6,15 @@ import AboutTerminal from "@/components/Terminal/AboutTerminal";
 import ExperienceTerminal from "@/components/Terminal/ExperienceTerminal";
 import MainSection from "@/components/About/MainSection";
 import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
+import SkillSection from "@/components/About/SkillSection";
 import StickySection from "@/components/About/StickySection";
-// import SkillSection from "@/components/About/SkillSection";
 import { useIsInViews } from "@/hooks/useIsInViews";
 
 const About = () => {
   const intro = useRef<HTMLDetailsElement>(null);
   const experience = useRef<HTMLDetailsElement>(null);
   const projects = useRef<HTMLDetailsElement>(null);
-  const skills = useRef<HTMLDetailsElement>(null);
-  const isInViews = useIsInViews(intro, experience, projects, skills);
+  const isInViews = useIsInViews(intro, experience, projects);
 
   return (
     <>
@@ -36,7 +35,7 @@ const About = () => {
           headline="Projects"
           subhead="My projects"
         />
-        <StickySection ref={skills} headline="My skills" />
+        <SkillSection />
       </div>
     </>
   );
