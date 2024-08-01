@@ -17,6 +17,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const terminal = useRef<HTMLDivElement>(null);
+  const scrollContent = useRef<HTMLDivElement>(null);
   // const startIncreaseScrollY = useRef(0);
   const isLg = useMediaQuery("(min-width: 1024px)");
 
@@ -52,6 +53,12 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
     }
   }, [isLg]);
 
+  useEffect(() => {
+    if (!visible) {
+      scrollContent.current?.scrollTo({ top: 0 });
+    }
+  }, [visible]);
+
   return (
     <div
       className={classNames(
@@ -74,12 +81,14 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       >
         <div
           className={
-            "h-[60svh] max-h-[60svh] w-screen px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[70vw]"
+            "h-[55svh] max-h-[55svh] w-screen px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[70vw]"
           }
           ref={terminal}
         >
           <Terminal className="h-full w-full" keepBorder hideShadow={!visible}>
-            <div className="overflow-auto p-12">{children}</div>
+            <div className="overflow-auto p-12" ref={scrollContent}>
+              {children}
+            </div>
           </Terminal>
         </div>
       </div>

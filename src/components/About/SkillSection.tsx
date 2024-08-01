@@ -13,10 +13,17 @@ const SkillSection = () => {
 
   return (
     <section className="h-[500svh] w-screen" ref={section}>
-      <div className="sticky left-0 top-0 flex h-svh w-full justify-center">
-        <h2 className="h-fit px-8 py-40 text-8xl font-bold text-white md:min-w-[42rem] md:px-0">
-          My skills
-        </h2>
+      <div className="sticky left-0 top-0 flex h-svh w-full md:justify-center">
+        <div className="flex flex-col gap-[1.6rem] px-8 py-30 md:min-w-[42rem] md:px-0 md:py-40">
+          <h2 className="h-fit text-6xl font-bold text-white md:text-8xl">
+            Skills
+          </h2>
+          <h3 className="text-3xl font-semibold text-slate-400 md:text-4xl">
+            <h3 className="text-3xl font-semibold text-slate-400 md:text-4xl">
+              Expertise and Tools
+            </h3>
+          </h3>
+        </div>
         <div className="absolute h-full w-full overflow-hidden">
           <div
             className="absolute top-1/2 flex items-center gap-24 ps-[calc(50%+15rem)] opacity-0 will-change-[transform,opacity] md:ps-[calc(50%+10rem)]"
@@ -26,7 +33,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[10rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 Typescript
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -42,7 +49,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[10rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 Javascript
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -58,7 +65,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[10rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 GraphQL
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -74,7 +81,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[13rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 Next.js
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -90,7 +97,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[13rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 Node.js
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -106,7 +113,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[10rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 React
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -122,7 +129,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[10rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 Cascading Style Sheets
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -138,7 +145,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[15rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 Tailwind CSS
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -154,7 +161,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[10rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 Nest.js
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -171,7 +178,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[15rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 MongoDB
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -187,7 +194,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[12rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 SQL
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
@@ -203,7 +210,7 @@ const SkillSection = () => {
             <div className="relative h-auto w-[10rem] will-change-[transform]">
               <div
                 role="tooltip"
-                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm"
+                className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
               >
                 REST API
                 <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />

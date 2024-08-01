@@ -28,12 +28,14 @@ const About = () => {
         <StickySection
           ref={experience}
           headline="Experience"
-          subhead="Where did I work?"
+          subhead="My Professional Journey"
+          content="Explore my professional journey that have shaped my career. In each role, I’ve developed pixel-perfect designs and seamless user experiences while delivering efficient solutions."
         />
         <StickySection
           ref={projects}
           headline="Projects"
-          subhead="My projects"
+          subhead="Bringing Ideas to Life"
+          content="Discover the projects that highlight my journey as a developer, from concept to execution. Each project reflects my dedication to delivering great user experiences and efficient solutions."
         />
         <SkillSection />
       </div>

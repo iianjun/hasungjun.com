@@ -26,6 +26,9 @@ const config: Config = {
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.4, 0, 0.6, 1)",
       },
+      spacing: {
+        30: "7.5rem",
+      },
       boxShadow: {
         modal: "0 22px 70px 4px rgba(0, 0, 0, 0.56)",
       },
