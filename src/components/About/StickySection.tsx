@@ -23,7 +23,7 @@ const StickySection = forwardRef<HTMLDetailsElement, Props>(
             </h3>
           )}
           {content && (
-            <p className="animate-delay-400 md:text-3xl- translate-y-10 animate-fade-in-up text-[1.6rem] text-slate-500 opacity-0 md:max-w-2xl">
+            <p className="animate-delay-400 translate-y-10 animate-fade-in-up text-[1.6rem] text-slate-500 opacity-0 md:max-w-2xl md:text-[1.8rem]">
               {content}
             </p>
           )}
