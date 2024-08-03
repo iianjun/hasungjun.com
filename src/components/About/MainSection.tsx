@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 const MainSection = forwardRef<HTMLDetailsElement>((_, ref) => {
   return (
     <section ref={ref} className="h-svh">
-      <div className="sticky top-0 flex flex-col gap-[1.6rem] px-8 py-30 md:px-0 md:py-40">
+      <div className="sticky top-0 flex flex-col gap-[1.6rem] px-10 py-30 md:px-0 md:py-16">
         <h1 className="animate-fade-in-up text-6xl font-bold text-slate-200 md:text-8xl">
           Hasung Jun
         </h1>

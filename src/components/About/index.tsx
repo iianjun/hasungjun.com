@@ -9,11 +9,12 @@ import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
 import SkillSection from "@/components/About/SkillSection";
 import StickySection from "@/components/About/StickySection";
 import { useIsInViews } from "@/hooks/useIsInViews";
+import { useScaleEntrance } from "@/hooks/useScaleEntrance";
 
 const About = () => {
   const intro = useRef<HTMLDetailsElement>(null);
-  const experience = useRef<HTMLDetailsElement>(null);
-  const projects = useRef<HTMLDetailsElement>(null);
+  const experience = useScaleEntrance<HTMLDetailsElement>();
+  const projects = useScaleEntrance<HTMLDetailsElement>();
   const isInViews = useIsInViews(intro, experience, projects);
 
   return (
