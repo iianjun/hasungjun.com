@@ -11,17 +11,36 @@ export const useScaleEntrance = <T extends HTMLElement>() => {
     const beginScrollOffset = window.innerHeight / 2;
     const handleScroll = () => {
       const top = element?.getBoundingClientRect().top || -1;
-      if (!isInView || !element || beginScrollOffset < top) return;
-      requestAnimationFrame(() => {
-        const value = Math.min(
-          (beginScrollOffset - top) / beginScrollOffset,
-          1,
-        );
-        element.style.opacity = `${value}`;
-        element.style.transform = `scale(${value})`;
-      });
+      const bottom = window.innerHeight + top;
+      if (bottom < 0) {
+        element?.setAttribute("style", "opacity: 0");
+        return;
+      } else if (beginScrollOffset < top) {
+        element?.setAttribute("style", "opacity: 1");
+        return;
+      }
+      if (!isInView || !element) return;
+      if (bottom < beginScrollOffset) {
+        requestAnimationFrame(() => {
+          const value = 1 - (beginScrollOffset - bottom) / beginScrollOffset;
+          element.style.opacity = `${value}`;
+        });
+      } else {
+        requestAnimationFrame(() => {
+          const value = Math.min(
+            (beginScrollOffset - top) / beginScrollOffset,
+            1,
+          );
+          element.style.opacity = `${value}`;
+        });
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    if (isInView) {
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      // element?.setAttribute("style", "opacity: 0");
+      window.removeEventListener("scroll", handleScroll);
+    }
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

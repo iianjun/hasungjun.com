@@ -35,7 +35,11 @@ const SkillSection = () => {
                 key={skill.value}
                 className={classNames(
                   "relative h-auto will-change-[transform]",
-                  skill.className,
+                  {
+                    "w-[10rem]": skill.width === 10,
+                    "w-[13rem]": skill.width === 13,
+                    "w-[15rem]": skill.width === 15,
+                  },
                 )}
               >
                 <div
@@ -49,7 +53,11 @@ const SkillSection = () => {
                   src={`/skills/${skill.value}.svg`}
                   width="0"
                   height="0"
-                  className={classNames("h-auto", skill.className)}
+                  className={classNames("h-auto", {
+                    "w-[10rem]": skill.width === 10,
+                    "w-[13rem]": skill.width === 13,
+                    "w-[15rem]": skill.width === 15,
+                  })}
                   alt={`${skill.value}`}
                 />
               </div>

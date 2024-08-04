@@ -2,61 +2,61 @@ export const SKILLS = [
   {
     label: "Typescript",
     value: "typescript-logo",
-    className: "w-[10rem]",
+    width: 10,
   },
   {
     label: "Javascript",
     value: "javascript-logo",
-    className: "w-[10rem]",
+    width: 10,
   },
   {
     label: "GraphQL",
     value: "graphql-logo",
-    className: "w-[10rem]",
+    width: 10,
   },
   {
     label: "Next.js",
     value: "nextjs-logo",
-    className: "w-[13rem]",
+    width: 13,
   },
   {
     label: "Node.js",
     value: "nodejs-logo",
-    className: "w-[13rem]",
+    width: 13,
   },
   {
     label: "React",
     value: "react-logo",
-    className: "w-[10rem]",
+    width: 10,
   },
   {
     label: "Cascading Style Sheets",
     value: "css-logo",
-    className: "w-[10rem]",
+    width: 10,
   },
   {
     label: "Tailwind CSS",
     value: "tailwindcss-logo",
-    className: "w-[15rem]",
+    width: 15,
   },
   {
     label: "Nest.js",
     value: "nestjs-logo",
-    className: "w-[10rem]",
+    width: 10,
   },
   {
     label: "MongoDB",
     value: "mongodb-logo",
-    className: "w-[15rem]",
+    width: 15,
   },
   {
     label: "SQL",
     value: "sql-logo",
-    className: "w-[12rem]",
+    width: 13,
   },
   {
     label: "REST API",
     value: "rest-api-logo",
-    className: "w-[10rem]",
+    width: 10,
   },
 ];
