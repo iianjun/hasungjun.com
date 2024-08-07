@@ -18,7 +18,6 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const terminal = useRef<HTMLDivElement>(null);
   const scrollContent = useRef<HTMLDivElement>(null);
-  // const startIncreaseScrollY = useRef(0);
   const isLg = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
@@ -29,17 +28,10 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       const scaleValue = Math.min(50 + calc * 2, 100);
       const yScale = -10;
       const translateY = Math.min(yScale + calc, 0);
-      ref.current.style.transform = `translateX(-50%) scale(${scaleValue}%)`;
-      ref.current.style.bottom = `${translateY}%`;
-      //once it is fully scaled and startIncreaseScrollY is not set
-      // if (scaleValue >= 100 && startIncreaseScrollY.current === 0) {
-      //   startIncreaseScrollY.current = window.scrollY;
-      // } else if (scaleValue < 100 && startIncreaseScrollY.current !== 0) {
-      //   startIncreaseScrollY.current = 0;
-      // }
-      // if (scaleValue >= 100 && terminal.current) {
-      //   terminal.current.style.height = `calc(50svh + ${window.scrollY - startIncreaseScrollY.current}px)`;
-      // }
+      ref.current.setAttribute(
+        "style",
+        `transform: translateX(-50%) scale(${scaleValue}%); bottom: ${translateY}%`,
+      );
     };
     window.addEventListener("scroll", animate);
     return () => window.removeEventListener("scroll", animate);
@@ -47,11 +39,22 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
 
   useEffect(() => {
     if (!isLg) {
-      ref.current?.style.removeProperty("transform");
-      ref.current?.style.removeProperty("bottom");
-      terminal.current?.style.removeProperty("height");
+      ref.current?.setAttribute(
+        "style",
+        "transform: translateX(-50%) scale: 1; bottom: 0%",
+      );
+      return;
     }
-  }, [isLg]);
+    if (!animation) return;
+    const calc = (window.scrollY / window.innerHeight) * 100;
+    const scaleValue = Math.min(50 + calc * 2, 100);
+    const yScale = -10;
+    const translateY = Math.min(yScale + calc, 0);
+    ref.current?.setAttribute(
+      "style",
+      `transform: translateX(-50%) scale(${scaleValue}%); bottom: ${translateY}%`,
+    );
+  }, [isLg, animation]);
 
   useEffect(() => {
     if (!visible) {
