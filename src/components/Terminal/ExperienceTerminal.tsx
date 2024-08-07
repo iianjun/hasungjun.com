@@ -1,5 +1,6 @@
 import FloatingTerminal from "@/components/FloatingTerminal";
 import { FloatingTerminalProps } from "@/components/FloatingTerminal";
+import Link from "next/link";
 import React from "react";
 const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
   return (
@@ -24,11 +25,12 @@ const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
             </div>
           </div>
           <p className="text-[1.6rem] text-slate-400">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet
-            luctus venenatis lectus magna fringilla. Sodales neque sodales ut
-            etiam sit. Egestas congue quisque egestas diam. Sagittis eu volutpat
-            odio facilisis mauris sit amet massa.
+            Build and maintain critical frontend UIs using React and Next.js.
+            Worked closely with design team to implement and deliver better UX.
+            Developed and maintained RESTful APIs and GraphQL using Node.js and
+            Fastify to ensure seamless communication between the frontend and
+            backend systems while integrating MongoDB for efficient data storage
+            and optimizing queries to enhance application performance.
           </p>
         </section>
         <section className="flex flex-col gap-3">
@@ -48,11 +50,9 @@ const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
             </div>
           </div>
           <p className="text-[1.6rem] text-slate-400">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet
-            luctus venenatis lectus magna fringilla. Sodales neque sodales ut
-            etiam sit. Egestas congue quisque egestas diam. Sagittis eu volutpat
-            odio facilisis mauris sit amet massa.
+            Build and styled interactive e-commerce web apps, inclduing the
+            order management user interface and product management system in the
+            admin page using Next.js, Typescript, and Tailwind CSS.
           </p>
         </section>
         <section className="flex flex-col gap-3">
@@ -72,11 +72,17 @@ const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
             </div>
           </div>
           <p className="text-[1.6rem] text-slate-400">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet
-            luctus venenatis lectus magna fringilla. Sodales neque sodales ut
-            etiam sit. Egestas congue quisque egestas diam. Sagittis eu volutpat
-            odio facilisis mauris sit amet massa.
+            Developed production code for client websites including electronic
+            document management system using React and Redux and 3D viewer using{" "}
+            <Link
+              href="https://www.itwinjs.org"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              iTwin.js
+            </Link>
+            .
           </p>
         </section>
       </div>

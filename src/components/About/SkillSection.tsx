@@ -11,12 +11,15 @@ const SkillSection = () => {
   const section = useRef<HTMLDetailsElement>(null);
   const skills = useRef<HTMLDivElement>(null);
 
-  useScrollTransform({ num: 12, stuckOffset: OFFSET }, [section, skills]);
+  useScrollTransform({ num: SKILLS.length, stuckOffset: OFFSET }, [
+    section,
+    skills,
+  ]);
 
   return (
     <section className="h-[500svh] w-screen" ref={section}>
       <div className="sticky left-0 top-0 flex h-svh w-full md:justify-center">
-        <div className="flex flex-col gap-[1.6rem] px-10 py-30 md:min-w-[42rem] md:px-0 md:py-20">
+        <div className="flex flex-col gap-[1.6rem] px-10 py-30 md:min-w-[42rem] md:px-0 md:py-20 lg:py-16">
           <h2 className="h-fit animate-fade-in-up text-6xl font-bold text-white md:text-8xl">
             Skills
           </h2>
@@ -44,10 +47,12 @@ const SkillSection = () => {
               >
                 <div
                   role="tooltip"
-                  className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-2xl bg-[#383838] px-6 py-4 text-2xl font-semibold text-white opacity-0 shadow-sm will-change-[opacity]"
+                  className="absolute bottom-[calc(100%+2rem)] left-1/2 z-10 -translate-x-1/2 rounded-2xl bg-[#383838] px-6 py-4 opacity-0 shadow-sm will-change-[opacity]"
                 >
-                  {skill.label}
-                  <div className="absolute left-1/2 h-6 w-6 -translate-x-1/2 rotate-45 bg-inherit" />
+                  <p className="z-[5] whitespace-nowrap text-2xl font-semibold text-white">
+                    {skill.label}
+                  </p>
+                  <div className="absolute left-1/2 top-full z-[3] -translate-x-1/2 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-[#383838]" />
                 </div>
                 <Image
                   src={`/skills/${skill.value}.svg`}

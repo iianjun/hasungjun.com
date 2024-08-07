@@ -17,15 +17,14 @@ const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
             prerequisite to take Object Oriented Programming class.
           </p>
           <p className="mb-6 text-[1.6rem] text-slate-400 md:text-[1.8rem]">
-            Taking this class changed my life. As I learn more about
-            programming,
-          </p>
-          <p className="text-[1.6rem] text-slate-400 md:text-[1.8rem]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet
-            luctus venenatis lectus magna fringilla. Sodales neque sodales ut
-            etiam sit. Egestas congue quisque egestas diam. Sagittis eu volutpat
-            odio facilisis mauris sit amet massa.
+            Taking this class changed my life. The more I learned about
+            programming, the more I realized this was what I wanted to do for
+            the rest of my life. That one simple class became a turning point
+            for me. Each line of code was like solving a puzzle, and the sense
+            of accomplishment I felt when a program worked seamlessly was
+            incredibly rewarding. The creative process of building something
+            from scratch, along with the logical problem-solving aspect, sparked
+            a passion that has driven me ever since.
           </p>
         </section>
         <section className="flex flex-col gap-12">

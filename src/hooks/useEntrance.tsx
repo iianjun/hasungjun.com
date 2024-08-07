@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
 
 import { useIsInViews } from "./useIsInViews";
 
-export const useScaleEntrance = <T extends HTMLElement>() => {
+export const useEntrance = <
+  T extends HTMLElement,
+>(): MutableRefObject<T | null> => {
   const ref = useRef<T | null>(null);
   const [isInView] = useIsInViews(ref);
 

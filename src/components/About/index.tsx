@@ -7,13 +7,13 @@ import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
 import React from "react";
 import SkillSection from "@/components/About/SkillSection";
 import StickySection from "@/components/About/StickySection";
+import { useEntrance } from "@/hooks/useEntrance";
 import { useIsInViews } from "@/hooks/useIsInViews";
-import { useScaleEntrance } from "@/hooks/useScaleEntrance";
 
 const About = () => {
-  const intro = useScaleEntrance<HTMLDetailsElement>();
-  const experience = useScaleEntrance<HTMLDetailsElement>();
-  const projects = useScaleEntrance<HTMLDetailsElement>();
+  const intro = useEntrance<HTMLDetailsElement>();
+  const experience = useEntrance<HTMLDetailsElement>();
+  const projects = useEntrance<HTMLDetailsElement>();
   const isInViews = useIsInViews(intro, experience, projects);
 
   return (

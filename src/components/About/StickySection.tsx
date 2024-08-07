@@ -15,7 +15,7 @@ const StickySection = forwardRef<HTMLDetailsElement, Props>(
         className={classNames("h-svh w-full md:w-auto", className)}
         ref={ref}
       >
-        <div className="sticky top-0 flex flex-col gap-[1.6rem] px-10 py-30 text-white md:min-w-[42rem] md:px-0 md:py-16">
+        <div className="sticky top-0 flex flex-col gap-[1.6rem] px-10 py-30 text-white md:min-w-[42rem] md:px-0 md:py-20 lg:py-16">
           <h2 className="animate-fade-in-up text-6xl font-bold opacity-0 md:text-8xl">
             {headline}
           </h2>

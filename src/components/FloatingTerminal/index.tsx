@@ -84,7 +84,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       >
         <div
           className={
-            "h-[55svh] max-h-[55svh] w-screen px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[70vw]"
+            "h-[55svh] max-h-[55svh] w-screen px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[50vw]"
           }
           ref={terminal}
         >
