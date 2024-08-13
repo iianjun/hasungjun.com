@@ -9,17 +9,20 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 export interface FloatingTerminalProps extends PropsWithChildren {
   visible: boolean;
   animation?: boolean;
+  autoScale?: boolean;
 }
 const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
   visible,
   animation,
+  autoScale,
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const terminal = useRef<HTMLDivElement>(null);
   const scrollContent = useRef<HTMLDivElement>(null);
   const isLg = useMediaQuery("(min-width: 1024px)");
-
+  // TODO: AutoScale
+  // const startIncreaseScrollY = useRef(0);
   useEffect(() => {
     if (!animation) return;
     const animate = () => {
@@ -36,6 +39,28 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
     window.addEventListener("scroll", animate);
     return () => window.removeEventListener("scroll", animate);
   }, [animation, isLg]);
+
+  // useEffect(() => {
+  //   if (!autoScale) return;
+  //   const animate = () => {
+  //     if (!terminal.current) return;
+  //     terminal.current.style.maxHeight = "90svh";
+  //     const calc = (window.scrollY / window.innerHeight) * 100;
+  //     const scaleValue = Math.min(50 + calc * 2, 100);
+  //     if (scaleValue >= 100 && startIncreaseScrollY.current === 0) {
+  //       startIncreaseScrollY.current = window.scrollY;
+  //     } else if (scaleValue < 100 && startIncreaseScrollY.current !== 0) {
+  //       startIncreaseScrollY.current = 0;
+  //     }
+  //     if (scaleValue >= 100 && terminal.current) {
+  //       terminal.current.style.height = `calc(55svh + ${window.scrollY - startIncreaseScrollY.current}px)`;
+  //     }
+  //   };
+  //   window.addEventListener("scroll", animate);
+  //   return () => {
+  //     window.removeEventListener("scroll", animate);
+  //   };
+  // }, [autoScale, visible]);
 
   useEffect(() => {
     if (!isLg) {

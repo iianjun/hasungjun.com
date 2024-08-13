@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        link: "#0071e3",
+      },
       fontFamily: {
         arial: ["Arial", "Helvetica", "sans-serif"],
       },
