@@ -5,8 +5,8 @@ import Resume from "@/components/Resume";
 export default function ResumePage() {
   return (
     <main className="relative h-svh">
-      <aside className="left-6 top-4 flex h-20 items-center px-6 md:fixed md:bottom-12 md:left-12 md:top-auto md:block md:h-auto md:px-0">
-        <ul className="resume-aside flex gap-12 md:flex-col-reverse md:justify-start">
+      <aside className="left-4 top-2 flex h-[3.125rem] items-center px-4 md:fixed md:bottom-[1.875rem] md:left-[1.875rem] md:top-auto md:block md:h-auto md:px-0">
+        <ul className="resume-aside flex gap-[1.875rem] md:flex-col-reverse md:justify-start">
           <li className="relative">
             <Link
               href="https://www.linkedin.com/in/hasungjun/"
