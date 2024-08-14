@@ -46,8 +46,8 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
 
     return (
       <>
-        <div className="flex gap-[.7rem]">
-          <span className="h-0 w-0 border-b-[1rem] border-l-[1rem] border-t-[1rem] border-b-transparent border-l-[#76c4fa] border-t-transparent"></span>
+        <div className="flex gap-2">
+          <span className="h-0 w-0 border-b-[.625rem] border-l-[.625rem] border-t-[.625rem] border-b-transparent border-l-[#76c4fa] border-t-transparent"></span>
           <p
             className={classNames({
               "!text-[#ec675e]": !history.isSuccess,
@@ -59,7 +59,7 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
               .join(" ")}
           </p>
         </div>
-        <div className="whitespace-pre-wrap leading-[2.4rem]">
+        <div className="whitespace-pre-wrap leading-6">
           {(() => {
             switch (history.command) {
               case "help":
@@ -68,7 +68,7 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
                     <p>Version 1.0.0</p>
                     <br />
                     <p>All commands:</p>
-                    <div className="flex gap-12 pl-12">
+                    <div className="flex gap-[1.875rem] pl-[1.875rem]">
                       <div className="flex flex-col">
                         <p>help</p>
                         <p>ls</p>
@@ -150,17 +150,17 @@ const HomePage = () => {
     <Terminal
       className={classNames(
         d2coding.className,
-        "h-[calc(100svh-8rem)] w-screen text-[1.6rem] text-white md:h-[80svh] md:w-[90vw] lg:h-[70svh] lg:w-[60vw] xl:w-[50vw]",
+        "h-[calc(100svh-5rem)] w-screen text-base text-white md:h-[80svh] md:w-[90vw] lg:h-[70svh] lg:w-[60vw] xl:w-[50vw]",
       )}
       onClick={() => inputRef.current?.focus()}
     >
       <div ref={wrapper} className="overflow-auto">
-        <div className="inline-flex flex-col p-1">
+        <div className="inline-flex flex-col p-[.15625rem]">
           {typedTexts.map((typedText, index) => (
             <p
               key={index}
               className={classNames(
-                "inline w-fit break-all border-r-[.8rem] border-r-transparent leading-normal",
+                "inline w-fit break-all border-r-[.5rem] border-r-transparent leading-normal",
                 {
                   "animate-blink-caret": textIndex === index && !done,
                 },
@@ -174,8 +174,8 @@ const HomePage = () => {
           <Command history={history} key={index} />
         ))}
         {done && (
-          <div className="flex w-full gap-[.7rem]">
-            <span className="h-0 w-0 border-b-[1rem] border-l-[1rem] border-t-[1rem] border-b-transparent border-l-[#76c4fa] border-t-transparent"></span>
+          <div className="flex w-full gap-2">
+            <span className="h-0 w-0 border-b-[.625rem] border-l-[.625rem] border-t-[.625rem] border-b-transparent border-l-[#76c4fa] border-t-transparent"></span>
             <form
               className="flex w-full"
               onSubmit={(e) => {
