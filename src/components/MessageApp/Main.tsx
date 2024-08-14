@@ -116,6 +116,7 @@ const Main = () => {
               name="from"
               type="email"
               autoComplete="off"
+              autoFocus
               spellCheck="false"
               className={classNames(
                 "w-full bg-transparent caret-[#1f7bf6] outline-none",
