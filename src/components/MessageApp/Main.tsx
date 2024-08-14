@@ -72,29 +72,29 @@ const Main = () => {
 
   return (
     <section
-      className="relative flex w-full flex-col justify-between bg-[#1e1e1e] md:w-[55.4rem]"
+      className="relative flex w-full flex-col justify-between bg-[#1e1e1e] md:w-[34.625rem]"
       style={{
         paddingBottom: sendHeight,
       }}
       ref={container}
     >
       <div
-        className="flex flex-shrink-0 flex-col items-center gap-2 border-b border-black bg-[#3a3a3a] px-8 py-4 text-[1.6rem] sm:h-20 sm:flex-row sm:py-0 sm:text-[1.3rem]"
+        className="flex flex-shrink-0 flex-col items-center gap-1 border-b border-black bg-[#3a3a3a] px-5 py-[.625rem] text-[1rem] sm:h-[3.125rem] sm:flex-row sm:py-0 sm:text-[.8125rem]"
         ref={header}
       >
-        <div className="flex flex-col items-center gap-[.6rem] sm:hidden">
+        <div className="flex flex-col items-center gap-[.375rem] sm:hidden">
           <Image
             width={50}
             height={50}
-            className="h-20 w-20 rounded-[50%] bg-[#cac4bd]"
+            className="h-[3.125rem] w-[3.125rem] rounded-[50%] bg-[#cac4bd]"
             src="/sticker-5.png"
             alt="memoji"
           />
-          <p className="line-clamp-1 text-[1.2rem] font-semibold text-white">
+          <p className="line-clamp-1 text-[0.75rem] font-semibold text-white">
             Hasung Jun
           </p>
         </div>
-        <div className="flex w-full gap-2">
+        <div className="flex w-full gap-[0.375rem]">
           <label
             htmlFor="from"
             className={classNames("font-medium text-[#929292]", {
@@ -105,7 +105,7 @@ const Main = () => {
             From:
           </label>
           <form
-            className="flex"
+            className="flex-1"
             onSubmit={(e) => {
               e.preventDefault();
               if (!!!from || !emailPattern.test(from)) return;
@@ -118,7 +118,7 @@ const Main = () => {
               autoComplete="off"
               spellCheck="false"
               className={classNames(
-                "flex-1 bg-transparent caret-[#1f7bf6] outline-none",
+                "w-full bg-transparent caret-[#1f7bf6] outline-none",
                 {
                   "text-[#eb5545]": error.inValid,
                   "text-white": !error.inValid,
@@ -157,7 +157,7 @@ const Main = () => {
           ))}
         </ul>
       </div>
-      <div className="absolute bottom-0 w-full px-8 py-[1.6rem]" ref={send}>
+      <div className="absolute bottom-0 w-full px-5 py-4" ref={send}>
         <form
           className="flex"
           onSubmit={(e) => {
@@ -169,7 +169,7 @@ const Main = () => {
             placeholder="Send message"
             ref={textarea}
             rows={1}
-            className="w-full flex-1 resize-none rounded-3xl border border-[#2f2f2f] bg-transparent px-4 py-1 text-[1.6rem] text-white placeholder-[#535353] caret-[#1f7bf6] outline-none sm:text-[1.3rem]"
+            className="w-full flex-1 resize-none rounded-2xl border border-[#2f2f2f] bg-transparent px-[.625rem] py-[0.15625rem] text-[1rem] text-white placeholder-[#535353] caret-[#1f7bf6] outline-none sm:text-[.8125rem]"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();

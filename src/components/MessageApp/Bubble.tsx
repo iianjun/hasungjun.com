@@ -5,17 +5,17 @@ const Bubble: React.FC<{
   isNotDelivered: boolean;
 }> = ({ message, showDelivered, isNotDelivered }) => {
   return (
-    <li className="mb-[.8rem] mr-[2rem] flex flex-col items-end gap-[.3rem] self-end [&:first-child]:mt-[.8rem] [&:last-child]:mb-0">
-      <p className="max-w-[33.3rem] whitespace-pre-wrap break-words rounded-[1.4rem] bg-[#2982f6] px-[1rem] py-[.6rem] text-[1.3rem] leading-tight text-white">
+    <li className="mb-2 mr-5 flex flex-col items-end gap-1 self-end [&:first-child]:mt-2 [&:last-child]:mb-0">
+      <p className="max-w-[20.75rem] whitespace-pre-wrap break-words rounded-[.875rem] bg-[#2982f6] px-[.625rem] py-[.375rem] text-[.8125rem] leading-tight text-white">
         {message}
       </p>
       {isNotDelivered && (
-        <span className="text-[1rem] font-semibold text-[#e25243]">
+        <span className="text-[.625rem] font-semibold text-[#e25243]">
           Not Delivered
         </span>
       )}
       {showDelivered && (
-        <span className="text-[1rem] font-semibold text-[#9a9a9a]">
+        <span className="text-[.625rem] font-semibold text-[#9a9a9a]">
           Delivered
         </span>
       )}
