@@ -4,7 +4,6 @@ import AboutTerminal from "@/components/Terminal/AboutTerminal";
 import ExperienceTerminal from "@/components/Terminal/ExperienceTerminal";
 import MainSection from "@/components/About/MainSection";
 import ProjectsSection from "@/components/About/ProjectsSection";
-import ProjectsTerminal from "@/components/Terminal/ProjectsTerminal";
 import React from "react";
 import SkillSection from "@/components/About/SkillSection";
 import StickySection from "@/components/About/StickySection";

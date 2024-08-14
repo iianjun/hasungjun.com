@@ -10,7 +10,7 @@ const TopNavBar = () => {
   const dispatch = useAppDispatch();
   const show = useAppSelector((state) => state.dockReducer.show);
   return (
-    <nav className="fixed top-0 z-20 flex h-[50px] w-full items-center justify-start px-8 backdrop-blur-md lg:hidden">
+    <nav className="fixed top-0 z-20 flex h-[3.125rem] w-full items-center justify-start px-5 backdrop-blur-md lg:hidden">
       <button
         onClick={() => {
           dispatch(show ? hideDock() : showDock());

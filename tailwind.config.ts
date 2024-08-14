@@ -51,7 +51,7 @@ const config: Config = {
         "text-fade-up": {
           from: {
             opacity: "0",
-            transform: "translateY(2.5rem)",
+            transform: "translateY(1.5rem)",
           },
           to: {
             opacity: "1",

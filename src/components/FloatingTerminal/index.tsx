@@ -83,13 +83,13 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       >
         <div
           className={
-            "h-[55svh] max-h-[55svh] w-screen max-w-screen-lg px-10 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[80vw]"
+            "h-[55svh] max-h-[55svh] w-screen max-w-screen-lg px-6 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[80vw]"
           }
           ref={terminal}
         >
           <Terminal className="h-full w-full" keepBorder hideShadow={!visible}>
             <div
-              className="hide-scrollbar overflow-auto p-12"
+              className="hide-scrollbar overflow-auto p-[1.875rem]"
               ref={scrollContent}
             >
               {children}

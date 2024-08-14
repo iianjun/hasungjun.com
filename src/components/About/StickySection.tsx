@@ -12,20 +12,23 @@ const StickySection = forwardRef<HTMLDetailsElement, Props>(
   ({ headline, content, className, subhead }, ref) => {
     return (
       <section
-        className={classNames("h-svh w-full md:w-auto", className)}
+        className={classNames(
+          "h-svh w-full md:w-auto md:max-w-[26.25rem]",
+          className,
+        )}
         ref={ref}
       >
-        <div className="sticky top-0 flex flex-col gap-[1.6rem] px-10 py-30 text-white md:min-w-[42rem] md:px-0 md:py-20 lg:py-16">
-          <h2 className="animate-fade-in-up text-6xl font-bold opacity-0 md:text-8xl">
+        <div className="sticky top-0 flex flex-col gap-3 px-6 py-[4.75rem] md:px-0 md:py-[3.125rem] lg:py-10">
+          <h2 className="animate-fade-in-up text-4xl font-bold text-slate-200 opacity-0 md:text-6xl">
             {headline}
           </h2>
           {subhead && (
-            <h3 className="animate-delay-200 animate-fade-in-up text-3xl font-semibold text-slate-400 opacity-0 md:text-4xl">
+            <h3 className="animate-delay-200 translate-y-6 animate-fade-in-up text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
               {subhead}
             </h3>
           )}
           {content && (
-            <p className="animate-delay-400 translate-y-10 animate-fade-in-up text-[1.6rem] text-slate-500 opacity-0 md:max-w-2xl md:text-[1.8rem]">
+            <p className="animate-delay-400 translate-y-6 animate-fade-in-up text-base text-slate-500 opacity-0 md:text-lg">
               {content}
             </p>
           )}
