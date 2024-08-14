@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 const ProjectsTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
   return (
-    <FloatingTerminal autoScale {...rest}>
+    <FloatingTerminal {...rest}>
       <div className="flex flex-col gap-10">
         <section className="flex flex-col gap-3">
           <div className="flex gap-4">

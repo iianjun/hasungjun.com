@@ -90,6 +90,24 @@ $md-breakpoint: 768px;
   .animate-delay-1000 {
     animation-delay: 1000ms;
   }
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .bg-big-sur-gradient {
+    background: linear-gradient(
+      to left,
+      #347fbb,
+      #bed2ef,
+      #f4a14d,
+      #eb5947,
+      #da3454,
+      #6d3670
+    );
+  }
 }
 
 @layer components {
