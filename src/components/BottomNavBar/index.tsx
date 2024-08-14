@@ -49,15 +49,18 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
   return (
     <nav
       id="nav-dock"
-      className={classNames("bottom-0 w-full animate-nav-fade-up pb-4", {
-        "lg:left-0 lg:top-0 lg:h-full lg:w-fit lg:animate-nav-fade-right lg:flex-col lg:pl-4":
-          position === "left",
-        "!hidden": !isLg && !isShow && position === "left",
-      })}
+      className={classNames(
+        "bottom-0 w-full animate-nav-fade-up pb-[.625rem]",
+        {
+          "lg:left-0 lg:top-0 lg:h-full lg:w-fit lg:animate-nav-fade-right lg:flex-col lg:pl-[.625rem]":
+            position === "left",
+          "!hidden": !isLg && !isShow && position === "left",
+        },
+      )}
     >
       <ul
         className={classNames(
-          "flex rounded-[2rem] border border-[#45474b] bg-[#53535340] p-[.8rem] backdrop-blur-[1.3rem]",
+          "flex rounded-[1.25rem] border border-[#45474b] bg-[#53535340] p-2 backdrop-blur-md",
           {
             "lg:flex-col": position === "left",
           },
@@ -68,13 +71,13 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
             key={item.name}
             className={classNames("group", {
               "pr-0": position === "left",
-              "pb-[1.2rem]":
+              "pb-3":
                 position === "left" && ITEMS.length - 1 !== index && !isShow,
-              "pr-[1.2rem]":
+              "pr-3":
                 (position === "bottom" || isShow) && ITEMS.length - 1 !== index,
             })}
           >
-            <div className="relative h-20 w-20 transition-all duration-100 ease-smooth group-active:-mt-4 group-active:h-24 group-active:w-24 md:group-hover:-mt-4 md:group-hover:h-24 md:group-hover:w-24">
+            <div className="relative h-[3.125rem] w-[3.125rem] transition-all duration-100 ease-smooth group-active:-mt-4 group-active:h-[3.75rem] group-active:w-[3.75rem] md:group-hover:-mt-[.625rem] md:group-hover:h-[3.75rem] md:group-hover:w-[3.75rem]">
               <Link
                 href={item.link}
                 target={item.link.startsWith("/") ? undefined : "_blank"}
@@ -91,7 +94,7 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 />
               </Link>
               <span
-                className="invisible absolute bottom-[calc(100%_+_1.5rem)] left-1/2 -translate-x-1/2 transform rounded-[0.8rem] border border-black bg-[#27282a] px-[1.2rem] py-[.4rem] text-center text-[1.2rem] text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible"
+                className="invisible absolute bottom-[calc(100%_+_1rem)] left-1/2 -translate-x-1/2 transform rounded-lg border border-black bg-[#27282a] px-3 py-1 text-center text-xs text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible"
                 role="tooltip"
               >
                 {item.name}
