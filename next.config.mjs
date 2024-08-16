@@ -2,9 +2,19 @@
 
 const nextConfig = {
   reactStrictMode: false,
-  compiler: {
-    removeConsole: process.env.NODE_ENV !== "production" ? false : true,
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
   },
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV !== "production" ? false : true,
+  // },
 };
 
 export default nextConfig;

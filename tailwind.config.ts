@@ -84,6 +84,9 @@ const config: Config = {
         "fade-in-up": "text-fade-up 0.5s cubic-bezier(0, 0, 0.5, 1) forwards",
         "resume-visible": "opacity 0.8s cubic-bezier(0.4, 0, 0.6, 1) forwards",
       },
+      transitionDuration: {
+        600: "600ms",
+      },
     },
   },
   plugins: [],

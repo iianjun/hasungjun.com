@@ -1,3 +1,4 @@
 {
-  "tailwindCSS.rootFontSize": 16
+  "tailwindCSS.rootFontSize": 16,
+  "liveServer.settings.port": 5501
 }

@@ -34,23 +34,24 @@ const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
           <div className="flex items-start gap-6 md:items-center">
             <Image
               src="/svg/stony-brook-logo.svg"
-              width={60}
-              height={0}
-              className="mt-3 h-auto md:mt-0"
+              priority
+              width={"0"}
+              height={"0"}
+              className="mt-3 h-auto w-[3.75rem] md:mt-0"
               alt="stony-brook-logo"
             />
             <div>
-              <h3 className="mb-2 text-base text-slate-200 md:text-lg">
+              <h3 className="mb-1 text-base text-slate-200 md:mb-2 md:text-lg">
                 <span>Computer Science</span>{" "}
                 <span className="invisible md:visible"> · </span>{" "}
                 <span className="block md:inline">
                   Technological Systems Management
                 </span>
               </h3>
-              <h4 className="mb-2 text-base text-slate-400 md:text-lg">
+              <h4 className="mb-1 text-base text-slate-400 md:mb-2 md:text-lg">
                 Stony Brook University
               </h4>
-              <p className="mb-2 text-base text-slate-400 md:text-lg">
+              <p className="mb-1 text-base text-slate-400 md:mb-2 md:text-lg">
                 Bachelor's Degree
               </p>
               <p className="text-base text-slate-400 md:text-lg">

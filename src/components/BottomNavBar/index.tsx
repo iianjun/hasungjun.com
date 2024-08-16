@@ -86,15 +86,24 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 }
               >
                 <Image
-                  width="50"
+                  width="0"
                   height="0"
                   className="h-full w-full"
+                  sizes="3.5rem"
                   src={item.src}
                   alt={item.name}
                 />
               </Link>
               <span
-                className="invisible absolute bottom-[calc(100%_+_1rem)] left-1/2 -translate-x-1/2 transform rounded-lg border border-black bg-[#27282a] px-3 py-1 text-center text-xs text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible"
+                className={classNames(
+                  "invisible absolute transform rounded-lg border border-black bg-[#27282a] px-3 py-1 text-center text-xs text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible",
+                  {
+                    "left-[calc(100%_+_1rem)] top-1/2 -translate-y-1/2":
+                      position === "left",
+                    "bottom-[calc(100%_+_1rem)] left-1/2 -translate-x-1/2":
+                      position === "bottom",
+                  },
+                )}
                 role="tooltip"
               >
                 {item.name}

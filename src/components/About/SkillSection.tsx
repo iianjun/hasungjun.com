@@ -23,9 +23,9 @@ const SkillSection = () => {
           <h2 className="h-fit animate-fade-in-up text-4xl font-bold text-slate-200 md:text-6xl">
             Skills
           </h2>
-          <h3 className="animate-delay-200 translate-y-6 animate-fade-in-up text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
+          <p className="animate-delay-200 translate-y-6 animate-fade-in-up text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
             Expertise and Tools
-          </h3>
+          </p>
         </div>
         <div className="absolute h-full w-full overflow-hidden">
           <div
