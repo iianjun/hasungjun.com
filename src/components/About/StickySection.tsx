@@ -13,7 +13,7 @@ const StickySection = forwardRef<HTMLDetailsElement, Props>(
     return (
       <section
         className={classNames(
-          "h-svh w-full md:w-auto md:max-w-[26.25rem]",
+          "mx-auto h-svh w-full md:w-auto md:max-w-[26.25rem]",
           className,
         )}
         ref={ref}

@@ -40,7 +40,6 @@ export const useEntrance = <
     if (isInView) {
       window.addEventListener("scroll", handleScroll);
     } else {
-      // element?.setAttribute("style", "opacity: 0");
       window.removeEventListener("scroll", handleScroll);
     }
     return () => {

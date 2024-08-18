@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useIsInView } from "@/hooks/useIsInView";
 
-const TinyDesk = () => {
+const Intro = () => {
   const handleIntersection = (entry: IntersectionObserverEntry) => {
     if (entry.isIntersecting) {
       entry.target.setAttribute("style", "opacity: 1");
@@ -26,7 +26,7 @@ const TinyDesk = () => {
   });
 
   return (
-    <section className="min-h-svh w-full max-w-screen-lg px-10 md:px-0">
+    <section className="mx-auto mb-20 w-full max-w-screen-lg px-10 md:px-0">
       <h3
         className="bg-big-sur-gradient !bg-clip-text text-center text-[3.5rem] font-bold text-transparent transition-opacity duration-600 ease-linear will-change-[opacity]"
         ref={title}
@@ -73,4 +73,4 @@ const TinyDesk = () => {
   );
 };
 
-export default TinyDesk;
+export default Intro;

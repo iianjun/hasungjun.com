@@ -4,7 +4,7 @@ import TinyDesk from "@/components/About/Projects/TinyDesk";
 const ProjectsSection = () => {
   return (
     <div>
-      <section className="mx-auto h-[100svh] w-full md:w-auto md:max-w-[26.25rem]">
+      <section className="mx-auto h-svh w-full md:w-auto md:max-w-[26.25rem]">
         <div className="flex flex-col gap-3 px-6 py-[4.75rem] md:px-0 md:py-[3.125rem] lg:pb-[11.25rem] lg:pt-10">
           <h2 className="animate-fade-in-up text-4xl font-bold text-slate-200 opacity-0 md:text-6xl">
             Projects

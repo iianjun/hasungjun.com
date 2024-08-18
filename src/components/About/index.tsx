@@ -21,7 +21,7 @@ const About = () => {
         <AboutTerminal visible={isInViews[0]} />
         <ExperienceTerminal visible={isInViews[1] && !isInViews[0]} />
       </section>
-      <div className="flex flex-col items-center">
+      <div>
         <MainSection ref={intro} />
         <StickySection
           ref={experience}
