@@ -39,7 +39,6 @@ const Intro = () => {
       >
         New browsing experience
       </h4>
-
       <div
         ref={subhead}
         className="transition-opacity duration-600 ease-linear will-change-[opacity]"
