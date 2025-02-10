@@ -5,7 +5,7 @@ export const ChevronIcon: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
 }) => {
   return (
     <span {...rest}>
-      <Chevron />
+      <Chevron style={{ width: "inherit", height: "inherit" }} />
     </span>
   );
 };

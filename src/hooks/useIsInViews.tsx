@@ -1,5 +1,7 @@
 import { RefObject, useEffect, useState } from "react";
-export const useIsInViews = (...refs: RefObject<HTMLElement>[]): boolean[] => {
+export const useIsInViews = (
+  ...refs: RefObject<HTMLElement | null>[]
+): boolean[] => {
   const [isInViews, setIsInViews] = useState<boolean[]>(
     new Array(refs.length).fill(false),
   );

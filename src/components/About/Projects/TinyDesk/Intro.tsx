@@ -26,45 +26,46 @@ const Intro = () => {
   });
 
   return (
-    <section className="mx-auto mb-20 w-full max-w-screen-lg px-10 md:px-0">
+    <section className="mx-auto mb-20 w-full max-w-screen-lg px-4 sm:px-6 lg:px-8">
       <h3
-        className="bg-big-sur-gradient !bg-clip-text text-center text-[3.5rem] font-bold text-transparent transition-opacity duration-600 ease-linear will-change-[opacity]"
+        className="bg-big-sur-gradient !bg-clip-text text-center text-3xl font-bold text-transparent transition-opacity duration-600 ease-linear will-change-[opacity] sm:text-4xl md:text-5xl"
         ref={title}
       >
-        Tiny desk
+        Tiny Desk
       </h3>
       <h4
-        className="mt-[.625rem] text-center text-[5rem] font-semibold leading-[1.05] text-slate-100 transition-opacity duration-600 ease-linear will-change-[opacity]"
+        className="mt-2 text-center text-4xl font-semibold leading-tight text-slate-100 transition-opacity duration-600 ease-linear will-change-[opacity] sm:text-5xl md:text-6xl lg:text-7xl"
         ref={headline}
       >
-        New browsing experience
+        New Browsing Experience
       </h4>
       <div
         ref={subhead}
         className="transition-opacity duration-600 ease-linear will-change-[opacity]"
       >
-        <p className="text-slate mx-auto my-[1.125rem] max-w-[85%] text-center text-[1.75rem] text-slate-200">
+        <p className="mx-auto my-4 text-center text-lg leading-relaxed text-slate-200 sm:text-xl md:max-w-[85%] md:text-2xl">
           Maximize your browsing efficiency. Change the way you organize your
-          bookmarks and use your homepage
+          bookmarks and use your homepage.
         </p>
         <div className="flex flex-col items-center gap-4">
           <Link
-            className="inline-flex items-center gap-2 text-center text-[1.75rem] text-link hover:[&>*:first-child]:underline"
+            className="inline-flex items-center gap-2 text-lg text-link sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
             href="https://www.tinydesk.me"
             target="_blank"
             rel="noopener noreferrer"
           >
             <span>Visit</span>
-            <ChevronIcon />
+            <ChevronIcon className="w-2 md:w-auto" />
           </Link>
+
           <Link
-            className="inline-flex items-center gap-2 text-center text-[1.75rem] text-link hover:[&>*:first-child]:underline"
+            className="inline-flex items-center gap-2 text-lg text-link sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
             href="https://github.com/janarosmonaliev/tinydesk_legacy"
             target="_blank"
             rel="noopener noreferrer"
           >
             <span>GitHub</span>
-            <ChevronIcon />
+            <ChevronIcon className="w-2 md:w-auto" />
           </Link>
         </div>
       </div>

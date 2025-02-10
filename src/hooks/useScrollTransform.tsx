@@ -8,8 +8,8 @@ import { RefObject, useEffect, useRef } from "react";
 export const useScrollTransform = (
   { num, stuckOffset }: { num: number; stuckOffset: number },
   [container, scrollContent]: [
-    RefObject<HTMLDetailsElement>,
-    RefObject<HTMLDivElement>,
+    RefObject<HTMLDetailsElement | null>,
+    RefObject<HTMLDivElement | null>,
   ],
 ) => {
   const topOffset = useRef(0);

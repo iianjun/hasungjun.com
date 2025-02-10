@@ -11,12 +11,12 @@ const MainSection = forwardRef<HTMLDetailsElement>((_, ref) => {
           Hasung Jun
         </h1>
         <h2 className="animate-delay-200 translate-y-6 animate-fade-in-up text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
-          Frontend Developer
+          Full-stack Developer
         </h2>
         <p className="animate-delay-400 translate-y-6 animate-fade-in-up text-base text-slate-500 opacity-0 md:text-lg">
-          I'm a passionate front-end software engineer focused on building
-          efficient and user-centric applications. As a continuous and fast
-          learner, I'm always excited to discover something new.
+          I’m a passionate full-stack developer focused on building efficient,
+          user-centric applications. As a continuous and fast learner, I’m
+          always excited to discover new things.
         </p>
       </div>
     </section>

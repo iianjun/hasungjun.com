@@ -3,7 +3,7 @@ import { RefObject, useEffect } from "react";
 const MAX_HEIGHT = 130;
 const MIN_HEIGHT = 30;
 export const useTextareaAutoSize = (
-  textAreaRef: RefObject<HTMLTextAreaElement> | null,
+  textAreaRef: RefObject<HTMLTextAreaElement | null> | null,
   value: string,
 ) => {
   useEffect(() => {
