@@ -64,7 +64,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
   return (
     <div
       className={classNames(
-        "fixed left-1/2 right-0 z-[2] m-0 w-full -translate-x-1/2 p-0",
+        "fixed right-0 left-1/2 z-[2] m-0 w-full -translate-x-1/2 p-0",
         {
           "bottom-0 scale-100 lg:-bottom-[10%] lg:scale-50": animation,
           "bottom-0 scale-100": !animation,
@@ -74,7 +74,7 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
     >
       <div
         className={classNames(
-          "absolute bottom-0 left-0 right-0 transform transition-transform duration-[.35s] ease-in-out",
+          "absolute right-0 bottom-0 left-0 transform transition-transform duration-[.35s] ease-in-out",
           {
             "translate-y-full": !visible,
             "translate-y-0": visible,
