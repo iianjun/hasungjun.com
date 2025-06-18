@@ -59,19 +59,15 @@ const HeroGroup = () => {
         className="mb-[4.375rem] mt-[3.125rem] h-[37.5rem] duration-600 ease-linear will-change-[opacity]"
         ref={group}
       >
-        <Image
-          className="absolute left-1/2 -translate-x-1/2"
-          src="/tinydesk/hero-mac.png"
-          priority
-          alt="hero-mac"
-          width={710}
-          height={600}
-        />
+        <div className="absolute left-1/2 h-[13.25rem] w-[15.625rem] -translate-x-1/2 md:h-[25.125rem] md:w-[29.75rem] lg:h-[37.125rem] lg:w-[44rem]">
+          <Image src="/tinydesk/hero-mac.png" priority fill alt="hero-mac" />
+        </div>
+        {/* 546/334 */}
         <Image
           width={474}
           height={273}
           ref={left}
-          className="absolute bottom-0 left-[18%]"
+          className="invisid absolute bottom-0 left-[8%] md:visible"
           src="/tinydesk/hero-macbook-landing.png"
           alt="hero-macbook-landing"
           style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
@@ -82,7 +78,7 @@ const HeroGroup = () => {
           ref={right}
           priority
           style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
-          className="absolute bottom-0 right-[18%]"
+          className="invisid absolute bottom-0 right-[8%] md:visible"
           src="/tinydesk/hero-macbook-widgets.png"
           alt="hero-macbook-widgets"
         />

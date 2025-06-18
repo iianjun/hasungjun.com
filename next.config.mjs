@@ -1,33 +1,32 @@
-/** @type {import('next').NextConfig} */
-
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: [
-            {
-              loader: "@svgr/webpack",
-              options: {
-                svgo: true, // Ensure SVGO is enabled
-                svgoConfig: {
-                  plugins: [
-                    {
-                      name: "preset-default", // Use the default SVGO preset
-                      params: {
-                        overrides: {
-                          removeViewBox: false, // Prevent viewBox from being removed
-                        },
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: [
+          {
+            loader: "@svgr/webpack",
+            options: {
+              svgo: true, // Ensure SVGO is enabled
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: "preset-default", // Use the default SVGO preset
+                    params: {
+                      overrides: {
+                        removeViewBox: false, // Prevent viewBox from being removed
                       },
                     },
-                  ],
-                },
+                  },
+                ],
               },
             },
-          ],
-          as: "*.js",
-        },
+          },
+        ],
+        as: "*.js",
       },
     },
   },

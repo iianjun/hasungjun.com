@@ -35,7 +35,7 @@ const Resume: React.FC = () => {
           </div>
           <div className="flex flex-col gap-[.3125rem] px-[1.125rem] py-[.375rem]">
             <h2 className="text-[.75rem] font-bold uppercase">Education</h2>
-            <div className="border-t-[1px] border-black"></div>
+            <div className="border-t-[1px] border-black" />
             <div className="space-y-[.1875rem] text-[.6875rem]">
               <div className="flex justify-between">
                 <h3>
@@ -66,7 +66,7 @@ const Resume: React.FC = () => {
                   <h3>
                     <b>WorkOnward</b> | <span>Remote</span>
                   </h3>
-                  <i>May 2022 - Present</i>
+                  <i>May 2022 - March 2025</i>
                 </div>
                 <p>Full-Stack Developer</p>
                 <ul className="list-disc space-y-[.1875rem] pl-5">

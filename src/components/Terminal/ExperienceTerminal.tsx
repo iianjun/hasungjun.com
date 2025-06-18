@@ -9,7 +9,7 @@ const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
         <section className="flex flex-col gap-2">
           <div className="flex justify-between">
             <h2 className="text-base font-medium text-white">
-              May 2022 — Present
+              May 2022 — March 2025
             </h2>
             <p className="hidden text-base text-slate-400 md:block">
               Full-Stack developer
