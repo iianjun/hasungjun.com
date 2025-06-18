@@ -24,12 +24,14 @@ export const useIsInViews = (
     );
 
     refs.forEach((ref) => {
-      ref.current && observer.observe(ref.current);
+      if (!ref.current) return;
+      observer.observe(ref.current);
     });
 
     return () => {
       refs.forEach((ref) => {
-        ref.current && observer.unobserve(ref.current);
+        if (!ref.current) return;
+        observer.unobserve(ref.current);
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

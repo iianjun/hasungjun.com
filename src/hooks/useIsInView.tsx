@@ -11,12 +11,13 @@ export const useIsInView = <T extends HTMLElement>({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]: IntersectionObserverEntry[]) => {
-        callback && callback(entry);
+        callback?.(entry);
         setIsInView(entry.isIntersecting);
       },
       options,
     );
-    ref.current && observer.observe(ref.current);
+    if (!ref.current) return;
+    observer.observe(ref.current);
 
     return () => {
       observer.disconnect();
