@@ -10,7 +10,7 @@ const Resume: React.FC = () => {
             <h1 className="text-[1.125rem] font-bold">Hasung (Ian) Jun</h1>
             <div className="text-center">
               <p className="text-[.6875rem]">
-                Frontend developer | Moreno Valley, CA | 631-202-8920
+                Full-stack developer | Seoul, South Korea | 010-9463-2817
               </p>
               <div className="text-[.6875rem]">
                 <Link

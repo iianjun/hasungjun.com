@@ -34,7 +34,7 @@ const Intro = () => {
         Tiny Desk
       </h3>
       <h4
-        className="mt-2 text-center text-4xl font-semibold leading-tight text-slate-100 transition-opacity duration-600 ease-linear will-change-[opacity] sm:text-5xl md:text-6xl lg:text-7xl"
+        className="mt-2 text-center text-4xl leading-tight font-semibold text-slate-100 transition-opacity duration-600 ease-linear will-change-[opacity] sm:text-5xl md:text-6xl"
         ref={headline}
       >
         New Browsing Experience
@@ -49,7 +49,7 @@ const Intro = () => {
         </p>
         <div className="flex flex-col items-center gap-4">
           <Link
-            className="inline-flex items-center gap-2 text-lg text-link sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
+            className="text-link inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
             href="https://www.tinydesk.me"
             target="_blank"
             rel="noopener noreferrer"
@@ -59,7 +59,7 @@ const Intro = () => {
           </Link>
 
           <Link
-            className="inline-flex items-center gap-2 text-lg text-link sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
+            className="text-link inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
             href="https://github.com/janarosmonaliev/tinydesk_legacy"
             target="_blank"
             rel="noopener noreferrer"
