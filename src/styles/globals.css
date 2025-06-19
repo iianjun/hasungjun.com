@@ -1,202 +1,297 @@
 @import "tailwindcss";
 
-@keyframes divider-width {
-  0% {
-    width: 0;
+/**
+ * =============================================================================
+ * TAILWIND V4 THEME DEFINITION
+ * =============================================================================
+ * All your design tokens (colors, fonts, animations, etc.) and their
+ * corresponding keyframes are defined here. Tailwind will use these to
+ * generate utility classes.
+ */
+@theme inline {
+  /* Breakpoints */
+  --breakpoint-screen-sm: 640px;
+  --breakpoint-screen-md: 768px;
+  --breakpoint-screen-lg: 1024px;
+  --breakpoint-screen-xl: 1280px;
+  --breakpoint-screen-2xl: 1536px;
+
+  /* Fonts */
+  --font-arial: "Arial", "Helvetica", "sans-serif";
+
+  /* Colors */
+  --color-link: #0071e3;
+
+  /* Shadows */
+  --shadow-modal: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
+
+  /* Animations & Keyframes */
+  --animate-blink-caret: blink-caret 0.75s step-end infinite;
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: white;
+    }
   }
-  100% {
-    width: 1rem;
+
+  --animate-nav-fade-up:
+    opacity 0.5s, fade-up-full 0.5s cubic-bezier(0, 0, 0.5, 1);
+  @keyframes fade-up-full {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
+
+  --animate-fade-in-up: text-fade-up 0.5s cubic-bezier(0, 0, 0.5, 1) forwards;
+  @keyframes text-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  --animate-nav-fade-right:
+    opacity 0.5s, fade-right-full 0.5s cubic-bezier(0, 0, 0.5, 1);
+  @keyframes fade-right-full {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  --animate-resume-visible: opacity 0.8s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Easing */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.6, 1);
 }
-@keyframes divider-height {
-  0% {
-    height: 0;
+
+/**
+ * =============================================================================
+ * BASE STYLES
+ * =============================================================================
+ * Global styles, element resets, and other foundational rules.
+ */
+@layer base {
+  html,
+  body {
+    font-size: 1rem;
   }
-  100% {
-    height: 1rem;
+
+  * {
+    backface-visibility: hidden;
   }
-}
-@keyframes opacity {
-  0% {
-    opacity: 0;
+
+  ::selection {
+    color: #f1f5f9;
+    background-color: #646687;
   }
-  100% {
-    opacity: 1;
+
+  @keyframes divider-width {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 1rem;
+    }
+  }
+  @keyframes divider-height {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 1rem;
+    }
   }
 }
 
-.animate-delay-0 {
-  animation-delay: 0s;
-}
-.animate-delay-75 {
-  animation-delay: 75ms;
-}
-.animate-delay-100 {
-  animation-delay: 100ms;
-}
-.animate-delay-150 {
-  animation-delay: 150ms;
-}
-.animate-delay-200 {
-  animation-delay: 200ms;
-}
-.animate-delay-300 {
-  animation-delay: 300ms;
-}
-.animate-delay-400 {
-  animation-delay: 400ms;
-}
-.animate-delay-500 {
-  animation-delay: 500ms;
-}
-.animate-delay-600 {
-  animation-delay: 600ms;
-}
-.animate-delay-700 {
-  animation-delay: 700ms;
-}
-.animate-delay-1000 {
-  animation-delay: 1000ms;
-}
-.hide-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.bg-big-sur-gradient {
-  background: linear-gradient(
-    to left,
-    #347fbb,
-    #bed2ef,
-    #f4a14d,
-    #eb5947,
-    #da3454,
-    #6d3670
-  );
-}
-
-#nav-dock {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);
-  z-index: 11;
-}
-@media (max-width: 767px) {
-  #nav-dock ul li:active + li > div {
-    width: 3.5rem;
-    height: 3.5rem;
-    margin-top: -0.375rem;
-  }
-  #nav-dock ul li:has(+ li:active) > div {
-    width: 3.5rem;
-    height: 3.5rem;
-    margin-top: -0.375rem;
-  }
-}
-@media (min-width: 768px) {
-  #nav-dock ul li:hover + li > div {
-    width: 3.5rem;
-    height: 3.5rem;
-    margin-top: -0.375rem;
-  }
-  #nav-dock ul li:has(+ li:hover) > div {
-    width: 3.5rem;
-    height: 3.5rem;
-    margin-top: -0.375rem;
-  }
-}
-@media (max-width: 767px) {
-  .resume-aside li:nth-of-type(1) {
-    opacity: 0;
-    animation: opacity 0.2s ease-in forwards;
+/**
+ * =============================================================================
+ * UTILITY CLASSES
+ * =============================================================================
+ * Your custom utility classes. These are processed by Tailwind and can be
+ * used with variants like hover:, focus:, etc.
+ */
+@layer utilities {
+  .animate-delay-0 {
     animation-delay: 0s;
   }
-  .resume-aside li:nth-of-type(1)::after {
-    position: absolute;
-    content: "";
-    display: block;
-    border-top: 1px solid #b4b4b4;
-    top: 50%;
-    transform: translateY(-50%);
-    left: calc(100% + 0.5rem);
-    animation: divider-width 0.2s ease-in forwards;
-    animation-delay: 0.2s;
+  .animate-delay-75 {
+    animation-delay: 75ms;
   }
-  .resume-aside li:nth-of-type(2) {
-    opacity: 0;
-    animation: opacity 0.2s ease-in forwards;
-    animation-delay: 0.4s;
+  .animate-delay-100 {
+    animation-delay: 100ms;
   }
-  .resume-aside li:nth-of-type(2)::after {
-    position: absolute;
-    content: "";
-    display: block;
-    border-top: 1px solid #b4b4b4;
-    top: 50%;
-    transform: translateY(-50%);
-    left: calc(100% + 0.5rem);
-    animation: divider-width 0.2s ease-in forwards;
-    animation-delay: 0.6s;
+  .animate-delay-150 {
+    animation-delay: 150ms;
   }
-  .resume-aside li:nth-of-type(3) {
-    opacity: 0;
-    animation: opacity 0.2s ease-in forwards;
-    animation-delay: 0.8s;
+  .animate-delay-200 {
+    animation-delay: 200ms;
   }
-}
-@media (min-width: 768px) {
-  .resume-aside li:nth-of-type(1) {
-    opacity: 0;
-    animation: opacity 0.2s ease-in forwards;
-    animation-delay: 0s;
+  .animate-delay-300 {
+    animation-delay: 300ms;
   }
-  .resume-aside li:nth-of-type(1)::before {
-    position: absolute;
-    content: "";
-    display: block;
-    border-right: 1px solid #b4b4b4;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: calc(100% + 0.5rem);
-    animation: divider-height 0.2s ease-in forwards;
-    animation-delay: 0.2s;
+  .animate-delay-400 {
+    animation-delay: 400ms;
   }
-  .resume-aside li:nth-of-type(2) {
-    opacity: 0;
-    animation: opacity 0.2s ease-in forwards;
-    animation-delay: 0.4s;
+  .animate-delay-500 {
+    animation-delay: 500ms;
   }
-  .resume-aside li:nth-of-type(2)::before {
-    position: absolute;
-    content: "";
-    display: block;
-    border-right: 1px solid #b4b4b4;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: calc(100% + 0.5rem);
-    animation: divider-height 0.2s ease-in forwards;
-    animation-delay: 0.6s;
+  .animate-delay-600 {
+    animation-delay: 600ms;
   }
-  .resume-aside li:nth-of-type(3) {
-    opacity: 0;
-    animation: opacity 0.2s ease-in forwards;
-    animation-delay: 0.8s;
+  .animate-delay-700 {
+    animation-delay: 700ms;
+  }
+  .animate-delay-1000 {
+    animation-delay: 1000ms;
+  }
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .bg-big-sur-gradient {
+    background: linear-gradient(
+      to left,
+      #347fbb,
+      #bed2ef,
+      #f4a14d,
+      #eb5947,
+      #da3454,
+      #6d3670
+    );
   }
 }
-
-html,
-body {
-  font-size: 1rem;
-}
-
-* {
-  backface-visibility: hidden;
-}
-
-::selection {
-  color: #f1f5f9;
-  background-color: #646687;
+@layer components {
+  #nav-dock {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);
+    z-index: 11;
+  }
+  @media (max-width: 767px) {
+    #nav-dock ul li:active + li > div {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-top: -0.375rem;
+    }
+    #nav-dock ul li:has(+ li:active) > div {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-top: -0.375rem;
+    }
+  }
+  @media (min-width: 768px) {
+    #nav-dock ul li:hover + li > div {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-top: -0.375rem;
+    }
+    #nav-dock ul li:has(+ li:hover) > div {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-top: -0.375rem;
+    }
+  }
+  @media (max-width: 767px) {
+    .resume-aside li:nth-of-type(1) {
+      opacity: 0;
+      animation: opacity 0.2s ease-in forwards;
+      animation-delay: 0s;
+    }
+    .resume-aside li:nth-of-type(1)::after {
+      position: absolute;
+      content: "";
+      display: block;
+      border-top: 1px solid #b4b4b4;
+      top: 50%;
+      transform: translateY(-50%);
+      left: calc(100% + 0.5rem);
+      animation: divider-width 0.2s ease-in forwards;
+      animation-delay: 0.2s;
+    }
+    .resume-aside li:nth-of-type(2) {
+      opacity: 0;
+      animation: opacity 0.2s ease-in forwards;
+      animation-delay: 0.4s;
+    }
+    .resume-aside li:nth-of-type(2)::after {
+      position: absolute;
+      content: "";
+      display: block;
+      border-top: 1px solid #b4b4b4;
+      top: 50%;
+      transform: translateY(-50%);
+      left: calc(100% + 0.5rem);
+      animation: divider-width 0.2s ease-in forwards;
+      animation-delay: 0.6s;
+    }
+    .resume-aside li:nth-of-type(3) {
+      opacity: 0;
+      animation: opacity 0.2s ease-in forwards;
+      animation-delay: 0.8s;
+    }
+  }
+  @media (min-width: 768px) {
+    .resume-aside li:nth-of-type(1) {
+      opacity: 0;
+      animation: opacity 0.2s ease-in forwards;
+      animation-delay: 0s;
+    }
+    .resume-aside li:nth-of-type(1)::before {
+      position: absolute;
+      content: "";
+      display: block;
+      border-right: 1px solid #b4b4b4;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 0.5rem);
+      animation: divider-height 0.2s ease-in forwards;
+      animation-delay: 0.2s;
+    }
+    .resume-aside li:nth-of-type(2) {
+      opacity: 0;
+      animation: opacity 0.2s ease-in forwards;
+      animation-delay: 0.4s;
+    }
+    .resume-aside li:nth-of-type(2)::before {
+      position: absolute;
+      content: "";
+      display: block;
+      border-right: 1px solid #b4b4b4;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(100% + 0.5rem);
+      animation: divider-height 0.2s ease-in forwards;
+      animation-delay: 0.6s;
+    }
+    .resume-aside li:nth-of-type(3) {
+      opacity: 0;
+      animation: opacity 0.2s ease-in forwards;
+      animation-delay: 0.8s;
+    }
+  }
 }

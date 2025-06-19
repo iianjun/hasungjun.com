@@ -50,9 +50,9 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
     <nav
       id="nav-dock"
       className={classNames(
-        "bottom-0 w-full animate-nav-fade-up pb-[.625rem]",
+        "animate-nav-fade-up bottom-0 w-full pb-[.625rem]",
         {
-          "lg:left-0 lg:top-0 lg:h-full lg:w-fit lg:animate-nav-fade-right lg:flex-col lg:pl-[.625rem]":
+          "lg:animate-nav-fade-right lg:top-0 lg:left-0 lg:h-full lg:w-fit lg:flex-col lg:pl-[.625rem]":
             position === "left",
           "!hidden": !isLg && !isShow && position === "left",
         },
@@ -77,7 +77,7 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 (position === "bottom" || isShow) && ITEMS.length - 1 !== index,
             })}
           >
-            <div className="relative h-[3.125rem] w-[3.125rem] transition-all duration-100 ease-smooth group-active:-mt-4 group-active:h-[3.75rem] group-active:w-[3.75rem] md:group-hover:-mt-[.625rem] md:group-hover:h-[3.75rem] md:group-hover:w-[3.75rem]">
+            <div className="ease-smooth relative h-[3.125rem] w-[3.125rem] transition-all duration-100 group-active:-mt-4 group-active:h-[3.75rem] group-active:w-[3.75rem] md:group-hover:-mt-[.625rem] md:group-hover:h-[3.75rem] md:group-hover:w-[3.75rem]">
               <Link
                 href={item.link}
                 target={item.link.startsWith("/") ? undefined : "_blank"}
@@ -98,7 +98,7 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 className={classNames(
                   "invisible absolute transform rounded-lg border border-black bg-[#27282a] px-3 py-1 text-center text-xs text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible",
                   {
-                    "left-[calc(100%_+_1rem)] top-1/2 -translate-y-1/2":
+                    "top-1/2 left-[calc(100%_+_1rem)] -translate-y-1/2":
                       position === "left",
                     "bottom-[calc(100%_+_1rem)] left-1/2 -translate-x-1/2":
                       position === "bottom",

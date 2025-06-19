@@ -47,7 +47,7 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
     return (
       <>
         <div className="flex gap-2">
-          <span className="h-0 w-0 border-b-[.625rem] border-l-[.625rem] border-t-[.625rem] border-b-transparent border-l-[#76c4fa] border-t-transparent"></span>
+          <span className="h-0 w-0 border-t-[.625rem] border-b-[.625rem] border-l-[.625rem] border-t-transparent border-b-transparent border-l-[#76c4fa]"></span>
           <p
             className={classNames({
               "!text-[#ec675e]": !history.isSuccess,
@@ -59,7 +59,7 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
               .join(" ")}
           </p>
         </div>
-        <div className="whitespace-pre-wrap leading-6">
+        <div className="leading-6 whitespace-pre-wrap">
           {(() => {
             switch (history.command) {
               case "help":
@@ -160,7 +160,7 @@ const HomePage = () => {
             <p
               key={index}
               className={classNames(
-                "inline w-fit break-all border-r-[.5rem] border-r-transparent leading-normal",
+                "inline w-fit border-r-[.5rem] border-r-transparent leading-normal break-all",
                 {
                   "animate-blink-caret": textIndex === index && !done,
                 },
@@ -175,7 +175,7 @@ const HomePage = () => {
         ))}
         {done && (
           <div className="flex w-full gap-2">
-            <span className="h-0 w-0 border-b-[.625rem] border-l-[.625rem] border-t-[.625rem] border-b-transparent border-l-[#76c4fa] border-t-transparent"></span>
+            <span className="h-0 w-0 border-t-[.625rem] border-b-[.625rem] border-l-[.625rem] border-t-transparent border-b-transparent border-l-[#76c4fa]"></span>
             <form
               className="flex w-full"
               onSubmit={(e) => {
@@ -213,7 +213,7 @@ const HomePage = () => {
               }}
             >
               <input
-                className="w-full flex-1 break-words break-all bg-transparent font-bold outline-none"
+                className="w-full flex-1 bg-transparent font-bold break-words break-all outline-none"
                 ref={inputRef}
                 autoFocus
                 value={command}
