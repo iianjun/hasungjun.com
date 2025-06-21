@@ -4,7 +4,7 @@ import { DIRECTORIES, LINK_HASH } from "@/constants/terminal";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 
 import Terminal from "@/components/Terminal";
-import classNames from "classnames";
+import { cn } from "@/utils/cn";
 import dayjs from "dayjs";
 import localFont from "next/font/local";
 import { useRouter } from "next/navigation";
@@ -49,7 +49,7 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
         <div className="flex gap-2">
           <span className="h-0 w-0 border-t-[.625rem] border-b-[.625rem] border-l-[.625rem] border-t-transparent border-b-transparent border-l-[#76c4fa]"></span>
           <p
-            className={classNames({
+            className={cn({
               "!text-[#ec675e]": !history.isSuccess,
               "!text-[#89f498]": history.isSuccess,
             })}
@@ -148,7 +148,7 @@ const HomePage = () => {
 
   return (
     <Terminal
-      className={classNames(
+      className={cn(
         d2coding.className,
         "h-[calc(100svh-5rem)] w-screen text-base text-white md:h-[80svh] md:w-[90vw] lg:h-[70svh] lg:w-[60vw] xl:w-[50vw]",
       )}
@@ -159,7 +159,7 @@ const HomePage = () => {
           {typedTexts.map((typedText, index) => (
             <p
               key={index}
-              className={classNames(
+              className={cn(
                 "inline w-fit border-r-[.5rem] border-r-transparent leading-normal break-all",
                 {
                   "animate-blink-caret": textIndex === index && !done,

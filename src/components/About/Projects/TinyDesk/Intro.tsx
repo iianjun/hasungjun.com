@@ -57,7 +57,6 @@ const Intro = () => {
             <span>Visit</span>
             <ChevronIcon className="w-2 md:w-auto" />
           </Link>
-
           <Link
             className="text-link inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
             href="https://github.com/janarosmonaliev/tinydesk_legacy"

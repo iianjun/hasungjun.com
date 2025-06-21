@@ -9,10 +9,10 @@ const HeroGroup = () => {
   const [group, groupInView] = useIsInView<HTMLDivElement>({
     options: { rootMargin: "0px 0px -50% 0px" },
   });
-  const [left, leftInView] = useIsInView<HTMLImageElement>({
+  const [left, leftInView] = useIsInView<HTMLDivElement>({
     options: { rootMargin: "0px 0px -50% 0px" },
   });
-  const right = useRef<HTMLImageElement | null>(null);
+  const right = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const groupElement = group.current;
@@ -54,34 +54,55 @@ const HeroGroup = () => {
   }, [left, leftInView]);
 
   return (
-    <section className="relative">
+    <section className="overflow-hidden">
       <div
-        className="mb-[4.375rem] mt-[3.125rem] h-[37.5rem] duration-600 ease-linear will-change-[opacity]"
+        className="relative mt-[3.125rem] mb-[4.375rem] h-[13.25rem] transition-opacity duration-600 will-change-[opacity] md:h-[25.125rem] lg:h-[37.5rem]"
         ref={group}
       >
         <div className="absolute left-1/2 h-[13.25rem] w-[15.625rem] -translate-x-1/2 md:h-[25.125rem] md:w-[29.75rem] lg:h-[37.125rem] lg:w-[44rem]">
-          <Image src="/tinydesk/hero-mac.png" priority fill alt="hero-mac" />
+          <Image
+            src="/tinydesk/hero-mac.png"
+            priority
+            fill
+            alt="hero-mac"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         </div>
-        {/* 546/334 */}
-        <Image
-          width={474}
-          height={273}
+        <div
           ref={left}
-          className="invisid absolute bottom-0 left-[8%] md:visible"
-          src="/tinydesk/hero-macbook-landing.png"
-          alt="hero-macbook-landing"
+          className="absolute bottom-0 left-[calc(50%-6.5rem)] h-32.25 w-56 -translate-x-1/2 md:left-[calc(50%-14rem)] md:h-[12.59375rem] md:w-87.25 lg:left-[calc(50%-20rem)] lg:h-68.5 lg:w-118.5"
           style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
-        />
-        <Image
+        >
+          <Image
+            fill
+            src="/tinydesk/hero-macbook-landing.png"
+            alt="hero-macbook-landing"
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+        <div
+          ref={right}
+          className="absolute right-[calc(50%-6rem)] bottom-0 h-34.25 w-56 translate-x-1/2 md:right-[calc(50%-14rem)] md:h-53.25 md:w-87.25 lg:right-[calc(50%-20rem)] lg:h-72.25 lg:w-118.5"
+          style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
+        >
+          <Image
+            fill
+            src="/tinydesk/hero-macbook-widgets.png"
+            alt="hero-macbook-widgets"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+        {/* <Image
           width={474}
           height={289}
           ref={right}
           priority
           style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
-          className="invisid absolute bottom-0 right-[8%] md:visible"
+          className="absolute right-[8%] bottom-0"
           src="/tinydesk/hero-macbook-widgets.png"
           alt="hero-macbook-widgets"
-        />
+        /> */}
       </div>
     </section>
   );

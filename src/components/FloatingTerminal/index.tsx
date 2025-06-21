@@ -3,7 +3,7 @@
 import React, { PropsWithChildren, useEffect, useRef } from "react";
 
 import Terminal from "@/components/Terminal";
-import classNames from "classnames";
+import { cn } from "@/utils/cn";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export interface FloatingTerminalProps extends PropsWithChildren {
@@ -40,11 +40,14 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
     if (!isLg) {
       ref.current?.setAttribute(
         "style",
-        "transform: translateX(-50%) scale: 1; bottom: 0%",
+        "transform: translateX(-50%) scale(1); bottom: 0%",
       );
       return;
     }
-    if (!animation) return;
+    if (!animation) {
+      ref.current?.setAttribute("style", "transform: translateX(-50%)");
+      return;
+    }
     const calc = (window.scrollY / window.innerHeight) * 100;
     const scaleValue = Math.min(50 + calc * 2, 100);
     const yScale = -10;
@@ -63,17 +66,13 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
 
   return (
     <div
-      className={classNames(
-        "fixed right-0 left-1/2 z-[2] m-0 w-full -translate-x-1/2 p-0",
-        {
-          "bottom-0 scale-100 lg:-bottom-[10%] lg:scale-50": animation,
-          "bottom-0 scale-100": !animation,
-        },
-      )}
+      className={
+        "fixed right-0 bottom-0 left-1/2 z-[2] m-0 w-full scale-100 p-0"
+      }
       ref={ref}
     >
       <div
-        className={classNames(
+        className={cn(
           "absolute right-0 bottom-0 left-0 transform transition-transform duration-[.35s] ease-in-out",
           {
             "translate-y-full": !visible,
@@ -83,13 +82,13 @@ const FloatingTerminal: React.FC<FloatingTerminalProps> = ({
       >
         <div
           className={
-            "h-[55svh] max-h-[55svh] w-screen max-w-screen-lg px-6 lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[80vw]"
+            "h-[50svh] max-h-[50svh] w-screen max-w-screen-lg px-6 sm:h-[55svh] sm:max-h-[55svh] lg:mx-auto lg:h-[60svh] lg:max-h-[60svh] lg:w-[80vw]"
           }
           ref={terminal}
         >
           <Terminal className="h-full w-full" keepBorder hideShadow={!visible}>
             <div
-              className="hide-scrollbar overflow-auto p-[1.875rem]"
+              className="hide-scrollbar overflow-auto p-4 lg:p-[1.875rem]"
               ref={scrollContent}
             >
               {children}

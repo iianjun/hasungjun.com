@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await resend.emails.send({
       from: "Me <me@hasungjun.com>",
       to: ["hasungjunn@gmail.com"],
-      reply_to: from,
+      replyTo: from,
       subject: `You have a new message from ${from}!`,
       react: EmailTemplate({ from, message }) as React.ReactNode,
       text: "",
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
     return NextResponse.json(data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json({ error }, { status: 500 });
   }
 }

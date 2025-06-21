@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 
 import Image from "next/image";
 import Link from "next/link";
-import classNames from "classnames";
+import { cn } from "@/utils/cn";
 import { hideDock } from "@/redux/action/dockAction";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -49,27 +49,24 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
   return (
     <nav
       id="nav-dock"
-      className={classNames(
-        "animate-nav-fade-up bottom-0 w-full pb-[.625rem]",
-        {
-          "lg:animate-nav-fade-right lg:top-0 lg:left-0 lg:h-full lg:w-fit lg:flex-col lg:pl-[.625rem]":
-            position === "left",
-          "!hidden": !isLg && !isShow && position === "left",
-        },
-      )}
+      className={cn("animate-nav-fade-up bottom-0 w-full pb-[.625rem]", {
+        "lg:animate-nav-fade-right lg:top-0 lg:left-0 lg:h-full lg:w-fit lg:flex-col lg:pl-[.625rem]":
+          position === "left",
+        hidden: !isLg && !isShow && position === "left",
+      })}
     >
       <ul
-        className={classNames(
+        className={cn(
           "flex rounded-[1.25rem] border border-[#45474b] bg-[#53535340] p-2 backdrop-blur-md",
           {
-            "lg:flex-col": position === "left",
+            "lg:w-17 lg:flex-col": position === "left",
           },
         )}
       >
         {ITEMS.map((item, index) => (
           <li
             key={item.name}
-            className={classNames("group", {
+            className={cn("group", {
               "pr-0": position === "left",
               "pb-3":
                 position === "left" && ITEMS.length - 1 !== index && !isShow,
@@ -95,7 +92,7 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 />
               </Link>
               <span
-                className={classNames(
+                className={cn(
                   "invisible absolute transform rounded-lg border border-black bg-[#27282a] px-3 py-1 text-center text-xs text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible",
                   {
                     "top-1/2 left-[calc(100%_+_1rem)] -translate-y-1/2":

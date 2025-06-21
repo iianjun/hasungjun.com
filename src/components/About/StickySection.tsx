@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-import classNames from "classnames";
+import { cn } from "@/utils/cn";
 
 interface Props {
   headline: string;
@@ -12,7 +12,7 @@ const StickySection = forwardRef<HTMLDetailsElement, Props>(
   ({ headline, content, className, subhead }, ref) => {
     return (
       <section
-        className={classNames(
+        className={cn(
           "mx-auto h-svh w-full md:w-auto md:max-w-[26.25rem]",
           className,
         )}
@@ -23,12 +23,12 @@ const StickySection = forwardRef<HTMLDetailsElement, Props>(
             {headline}
           </h2>
           {subhead && (
-            <h3 className="animate-delay-200 translate-y-6 animate-fade-in-up text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
+            <h3 className="animate-delay-200 animate-fade-in-up translate-y-6 text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
               {subhead}
             </h3>
           )}
           {content && (
-            <p className="animate-delay-400 translate-y-6 animate-fade-in-up text-base text-slate-500 opacity-0 md:text-lg">
+            <p className="animate-delay-400 animate-fade-in-up translate-y-6 text-base text-slate-500 opacity-0 md:text-lg">
               {content}
             </p>
           )}

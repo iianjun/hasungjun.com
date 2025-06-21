@@ -31,6 +31,12 @@ const eslintConfig = [
           argsIgnorePattern: "^_",
         },
       ],
+      "no-console": [
+        "error",
+        {
+          allow: ["warn", "error", "info", "time", "timeEnd", "trace"], // Allow specific console methods
+        },
+      ],
     },
   },
 ];

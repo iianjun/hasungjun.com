@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import Bubble from "@/components/MessageApp/Bubble";
 import Image from "next/image";
-import classNames from "classnames";
+import { cn } from "@/utils/cn";
 import { setLastMessage } from "@/redux/action/msgActions";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { useResize } from "@/hooks/useResize";
@@ -97,7 +97,7 @@ const Main = () => {
         <div className="flex w-full gap-[0.375rem]">
           <label
             htmlFor="from"
-            className={classNames("font-medium text-[#929292]", {
+            className={cn("font-medium text-[#929292]", {
               "text-[#eb5545]": error.required,
               "text-[#929292]": !error.required,
             })}
@@ -118,7 +118,7 @@ const Main = () => {
               autoComplete="off"
               autoFocus
               spellCheck="false"
-              className={classNames(
+              className={cn(
                 "w-full bg-transparent caret-[#1f7bf6] outline-none",
                 {
                   "text-[#eb5545]": error.inValid,

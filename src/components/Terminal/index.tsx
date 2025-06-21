@@ -2,7 +2,7 @@
 
 import React, { HTMLAttributes, PropsWithChildren } from "react";
 
-import classNames from "classnames";
+import { cn } from "@/utils/cn";
 
 const Terminal: React.FC<
   PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
@@ -12,14 +12,14 @@ const Terminal: React.FC<
 > = ({ children, className, keepBorder = false, hideShadow = false }) => {
   return (
     <div
-      className={classNames("flex flex-col bg-[#282a35]", className, {
+      className={cn("flex flex-col bg-[#282a35]", className, {
         "rounded-[.375rem] border border-[#5f5f5f]": keepBorder,
         "md:rounded-[.375rem] md:border md:border-[#5f5f5f]": !keepBorder,
         "md:shadow-modal": !hideShadow,
       })}
     >
       <div
-        className={classNames(
+        className={cn(
           "relative flex h-[1.625rem] flex-shrink-0 items-center border-b border-black bg-[#383838] px-[.375rem]",
           {
             "md:rounded-t-[.375rem]": !keepBorder,
