@@ -5,16 +5,11 @@ import { SKILLS } from "@/constants/skill";
 import { cn } from "@/utils/cn";
 import { useScrollTransform } from "@/hooks/useScrollTransform";
 
-const OFFSET = 484;
-
 const SkillSection = () => {
   const section = useRef<HTMLDetailsElement>(null);
   const skills = useRef<HTMLDivElement>(null);
 
-  useScrollTransform({ num: SKILLS.length, stuckOffset: OFFSET }, [
-    section,
-    skills,
-  ]);
+  useScrollTransform({ num: SKILLS.length }, [section, skills]);
 
   return (
     <section className="h-[500svh] w-screen" ref={section}>
@@ -29,8 +24,8 @@ const SkillSection = () => {
         </div>
         <div className="absolute h-full w-full overflow-hidden">
           <div
-            className="absolute top-1/2 flex items-center gap-[3.75rem] ps-[calc(50%+9.375rem)] opacity-0 will-change-[transform,opacity] md:ps-[calc(50%+6.25rem)]"
-            style={{ transform: `matrix(1, 0, 0, 1, 0, ${OFFSET})` }}
+            // 3.125rem is half size of the first logo width so that it starts from the middle of the first logo
+            className="absolute top-1/2 left-[calc(50%-3.125rem)] flex -translate-y-1/2 items-center gap-15 opacity-0 will-change-[transform,opacity]"
             ref={skills}
           >
             {SKILLS.map((skill) => (

@@ -26,15 +26,15 @@ const Intro = () => {
   });
 
   return (
-    <section className="mx-auto mb-20 w-full max-w-screen-lg px-4 sm:px-6 lg:px-8">
+    <section className="mx-auto mb-20 w-full max-w-screen-lg px-4 text-center sm:px-6 lg:px-8">
       <h3
-        className="bg-big-sur-gradient !bg-clip-text text-center text-3xl font-bold text-transparent transition-opacity duration-600 ease-linear will-change-[opacity] sm:text-4xl md:text-5xl"
+        className="bg-big-sur-gradient lg:text-2.5xl inline-block w-fit !bg-clip-text text-xl font-bold text-transparent transition-opacity duration-600 ease-linear will-change-[opacity] md:text-2xl"
         ref={title}
       >
         Tiny Desk
       </h3>
       <h4
-        className="mt-2 text-center text-4xl leading-tight font-semibold text-slate-100 transition-opacity duration-600 ease-linear will-change-[opacity] sm:text-5xl md:text-6xl"
+        className="text-3.5xl xs:text-4.5xl md:text-5.5xl mt-2 font-semibold text-slate-100 transition-opacity duration-600 ease-linear will-change-[opacity]"
         ref={headline}
       >
         New Browsing Experience
@@ -43,7 +43,7 @@ const Intro = () => {
         ref={subhead}
         className="transition-opacity duration-600 ease-linear will-change-[opacity]"
       >
-        <p className="mx-auto my-4 text-center text-lg leading-relaxed text-slate-200 sm:text-xl md:max-w-[85%] md:text-2xl">
+        <p className="mx-auto my-4 text-lg leading-relaxed text-slate-200 sm:text-xl md:max-w-[85%] md:text-2xl">
           Maximize your browsing efficiency. Change the way you organize your
           bookmarks and use your homepage.
         </p>
