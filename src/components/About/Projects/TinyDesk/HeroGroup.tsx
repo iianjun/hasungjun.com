@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 import Image from "next/image";
 import { useIsInView } from "@/hooks/useIsInView";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const MAX_SCROLL = typeof window === "object" ? window.innerHeight / 2 : 0;
 
@@ -13,7 +14,7 @@ const HeroGroup = () => {
     options: { rootMargin: "0px 0px -50% 0px" },
   });
   const right = useRef<HTMLDivElement | null>(null);
-
+  const isSm = useMediaQuery("(min-width: 48rem)");
   useEffect(() => {
     const groupElement = group.current;
     if (!groupElement) return;
@@ -28,11 +29,12 @@ const HeroGroup = () => {
     const leftElement = left.current;
     const rightElement = right.current;
     if (!leftElement || !rightElement) return;
+    const controller = new AbortController();
     const handleScroll = () => {
       if (leftInView) {
         const top = leftElement?.getBoundingClientRect().top || -1;
         const initialViewPoint = window.innerHeight / 2;
-        if (initialViewPoint > top) {
+        if (initialViewPoint > top && isSm) {
           const currentScroll = Math.min(initialViewPoint - top, MAX_SCROLL);
           const value = Math.min(currentScroll * 0.083, 40);
           requestAnimationFrame(() => {
@@ -47,16 +49,16 @@ const HeroGroup = () => {
         });
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, controller);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      controller.abort();
     };
-  }, [left, leftInView]);
+  }, [left, leftInView, isSm]);
 
   return (
-    <section className="overflow-hidden">
+    <div className="overflow-hidden">
       <div
-        className="relative mt-[3.125rem] mb-[4.375rem] h-[13.25rem] transition-opacity duration-600 will-change-[opacity] md:h-[25.125rem] lg:h-[37.5rem]"
+        className="relative mt-[3.125rem] mb-[4.375rem] h-[15.25rem] transition-opacity duration-600 will-change-[opacity] md:h-[25.125rem] lg:h-[37.5rem]"
         ref={group}
       >
         <div className="absolute left-1/2 h-[13.25rem] w-[15.625rem] -translate-x-1/2 md:h-[25.125rem] md:w-[29.75rem] lg:h-[37.125rem] lg:w-[44rem]">
@@ -70,7 +72,7 @@ const HeroGroup = () => {
         </div>
         <div
           ref={left}
-          className="absolute bottom-0 left-[calc(50%-6.5rem)] h-32.25 w-56 -translate-x-1/2 md:left-[calc(50%-14rem)] md:h-[12.59375rem] md:w-87.25 lg:left-[calc(50%-20rem)] lg:h-68.5 lg:w-118.5"
+          className="absolute bottom-0 left-[calc(50%-8.5rem)] h-32.25 w-56 -translate-x-1/2 md:left-[calc(50%-14rem)] md:h-[12.59375rem] md:w-87.25 lg:left-[calc(50%-20rem)] lg:h-68.5 lg:w-118.5"
           style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
         >
           <Image
@@ -83,7 +85,7 @@ const HeroGroup = () => {
         </div>
         <div
           ref={right}
-          className="absolute right-[calc(50%-6rem)] bottom-0 h-34.25 w-56 translate-x-1/2 md:right-[calc(50%-14rem)] md:h-53.25 md:w-87.25 lg:right-[calc(50%-20rem)] lg:h-72.25 lg:w-118.5"
+          className="absolute right-[calc(50%-8.5rem)] bottom-0 h-34.25 w-56 translate-x-1/2 md:right-[calc(50%-14rem)] md:h-53.25 md:w-87.25 lg:right-[calc(50%-20rem)] lg:h-72.25 lg:w-118.5"
           style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
         >
           <Image
@@ -104,7 +106,7 @@ const HeroGroup = () => {
           alt="hero-macbook-widgets"
         /> */}
       </div>
-    </section>
+    </div>
   );
 };
 

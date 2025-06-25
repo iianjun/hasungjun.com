@@ -2,13 +2,28 @@ import HeroGroup from "@/components/About/Projects/TinyDesk/HeroGroup";
 import Intro from "@/components/About/Projects/TinyDesk/Intro";
 import Link from "next/link";
 import React from "react";
+import { useIsInView } from "@/hooks/useIsInView";
 
 const TinyDesk = () => {
+  const handleIntersection = (entry: IntersectionObserverEntry) => {
+    if (entry.isIntersecting) {
+      entry.target.setAttribute("style", "opacity: 1");
+    } else {
+      entry.target.setAttribute("style", "opacity: 0");
+    }
+  };
+  const [ref] = useIsInView<HTMLDivElement>({
+    options: { rootMargin: "0px 0px -30% 0px" },
+    callback: handleIntersection,
+  });
   return (
-    <>
+    <section>
       <HeroGroup />
       <Intro />
-      <section className="mx-auto mb-10 w-full max-w-screen-lg px-4 sm:px-6 lg:px-8">
+      <div
+        className="mx-auto mb-10 w-full max-w-screen-lg px-4 transition-opacity duration-600 ease-linear will-change-[opacity] sm:px-6 lg:px-8"
+        ref={ref}
+      >
         <p className="text-base leading-relaxed text-slate-400 sm:text-lg md:text-xl">
           TinyDesk is designed to provide a quick and efficient way for users to
           organize their bookmarks on modern browsers. The project emphasizes
@@ -29,8 +44,8 @@ const TinyDesk = () => {
           back-end, maintaining, fixing, and developing features such as a to-do
           list, notes, bookmarks, a weather widget, and more.
         </p>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

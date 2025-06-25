@@ -1,10 +1,8 @@
-import { MutableRefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 
 import { useIsInViews } from "./useIsInViews";
 
-export const useEntrance = <
-  T extends HTMLElement,
->(): MutableRefObject<T | null> => {
+export const useEntrance = <T extends HTMLElement>(): RefObject<T | null> => {
   const ref = useRef<T | null>(null);
   const [isInView] = useIsInViews(ref);
 
