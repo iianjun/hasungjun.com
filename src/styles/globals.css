@@ -27,7 +27,11 @@
 
   /* Colors */
   --color-link: #0071e3;
-
+  --color-background: #232431;
+  --color-tldr-background: #0a0a0a;
+  --color-text-gradient-stop-1: #4285f4;
+  --color-text-gradient-stop-2: #9b72cb;
+  --color-text-gradient-stop-3: #d96570;
   /* Shadows */
   --shadow-modal: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
 
@@ -178,16 +182,21 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  .bg-big-sur-gradient {
-    background: linear-gradient(
-      to left,
-      #347fbb,
-      #bed2ef,
-      #f4a14d,
-      #eb5947,
-      #da3454,
-      #6d3670
+  .bg-text-gradient {
+    background: -webkit-linear-gradient(
+      16deg,
+      var(--color-text-gradient-stop-1) 0,
+      var(--color-text-gradient-stop-2) 9%,
+      var(--color-text-gradient-stop-3) 20%,
+      var(--color-text-gradient-stop-3) 24%,
+      var(--color-text-gradient-stop-2) 35%,
+      var(--color-text-gradient-stop-1) 44%,
+      var(--color-text-gradient-stop-2) 50%,
+      var(--color-text-gradient-stop-3) 56%,
+      var(--color-background) 75%,
+      var(--color-background) 100%
     );
+    background-size: 400% 100%;
   }
 }
 @layer components {

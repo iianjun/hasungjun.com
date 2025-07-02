@@ -21,7 +21,7 @@ export default function RootLayout({
       <body
         className={cn(
           inter.className,
-          "overflow-x-hidden bg-gradient-to-br from-[#1a1b27] to-[#2b2c3a] antialiased",
+          "bg-background overflow-x-hidden antialiased",
         )}
       >
         <StoreProvider>{children}</StoreProvider>

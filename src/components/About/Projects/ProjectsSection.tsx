@@ -1,4 +1,5 @@
 import React from "react";
+import TLDRTerms from "@/components/About/Projects/TLDRTerms";
 import TinyDesk from "@/components/About/Projects/TinyDesk";
 
 const ProjectsSection = () => {
@@ -20,6 +21,7 @@ const ProjectsSection = () => {
         </div>
       </div>
       <TinyDesk />
+      <TLDRTerms />
     </section>
   );
 };

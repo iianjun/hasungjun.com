@@ -28,7 +28,7 @@ const Intro = () => {
   return (
     <div className="mx-auto mb-10 w-full max-w-screen-lg px-4 text-center sm:px-6 lg:px-8">
       <h3
-        className="bg-big-sur-gradient lg:text-2.5xl inline-block w-fit !bg-clip-text text-xl font-bold text-transparent transition-opacity duration-600 ease-linear will-change-[opacity] md:text-2xl"
+        className="bg-text-gradient lg:text-2.5xl inline-block w-fit !bg-clip-text text-xl font-bold text-transparent transition-opacity duration-600 ease-linear will-change-[opacity] md:text-2xl"
         ref={title}
       >
         Tiny Desk
