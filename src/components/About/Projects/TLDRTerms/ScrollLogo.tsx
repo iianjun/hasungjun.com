@@ -31,7 +31,7 @@ const AnimatedGradient = ({
   </motion.linearGradient>
 );
 
-const Logo = () => {
+const ScrollLogo = () => {
   const borderId = useId();
   const dotId = useId();
   const commaId = useId();
@@ -56,8 +56,8 @@ const Logo = () => {
 
   return (
     <>
-      <div className="h-[200svh]" />
-      <div ref={ref} className="relative h-[350svh]">
+      <div className="h-svh" />
+      <div ref={ref} className="relative h-[300svh]">
         <div className="sticky top-1/2 mx-auto h-76 w-69 -translate-y-1/2 md:h-110 md:w-100">
           <svg viewBox={`0 0 ${SIZE.width} ${SIZE.height}`} fill="none">
             <path
@@ -96,4 +96,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default ScrollLogo;

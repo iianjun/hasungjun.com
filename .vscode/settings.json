@@ -1,4 +1,5 @@
 {
   "tailwindCSS.rootFontSize": 16,
-  "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "eslint.useFlatConfig": true
 }

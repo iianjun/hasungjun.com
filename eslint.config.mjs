@@ -14,16 +14,16 @@ const eslintConfig = [
   {
     ignores: ["next-env.d.ts", ".next", "node_modules"],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     plugins: {
       "unused-imports": unusedImports,
     },
   },
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
       "react/no-unescaped-entities": 0,
-      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-imports": "error",
       "no-unused-vars": [
         "warn",
         {
