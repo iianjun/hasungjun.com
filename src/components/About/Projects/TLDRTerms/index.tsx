@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
+
 import ScrollLogo from "@/components/About/Projects/TLDRTerms/ScrollLogo";
-import TLDRTermsContent from "@/components/About/Projects/TLDRTerms/Content";
+import { useScroll } from "framer-motion";
 
 const TLDRTerms = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
   return (
-    <section className="h-[1200svh]">
-      <div className="from-background to-tldr-background bg-linear-to-b">
-        <ScrollLogo />
-      </div>
-      <div className="bg-tldr-background">
-        <TLDRTermsContent />
-      </div>
-      {/*  */}
-      <div className="from-tldr-background to-background min-h-svh bg-linear-to-b"></div>
+    <section className="relative h-[400svh]" ref={ref}>
+      <div className="from-background to-tldr-background absolute h-1/3 w-full bg-linear-to-b"></div>
+      <div className="bg-tldr-background absolute top-1/3 h-1/3 w-full"></div>
+      <div className="from-tldr-background to-background absolute top-2/3 h-1/3 min-h-svh w-full bg-linear-to-b"></div>
+      <ScrollLogo y={scrollYProgress} />
+      {/* <IMacHero y={scrollYProgress} /> */}
     </section>
   );
 };

@@ -35,6 +35,9 @@
   /* Shadows */
   --shadow-modal: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
 
+  /* Spacing */
+  --spacing-m-header: 3.125rem;
+  --spacing-left-nav: calc(var(--spacing) * 17);
   /* Animations & Keyframes */
   --animate-blink-caret: blink-caret 0.75s step-end infinite;
   @keyframes blink-caret {

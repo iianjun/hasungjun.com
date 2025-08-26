@@ -59,7 +59,7 @@ const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
         className={cn(
           "flex rounded-[1.25rem] border border-[#45474b] bg-[#53535340] p-2 backdrop-blur-md",
           {
-            "lg:w-17 lg:flex-col": position === "left",
+            "lg:w-left-nav lg:flex-col": position === "left",
           },
         )}
       >
