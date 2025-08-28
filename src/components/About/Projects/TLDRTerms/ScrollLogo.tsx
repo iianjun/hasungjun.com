@@ -7,7 +7,7 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { useEffect, useId } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 
 const GRADIENT_COLORS = ["#2b7fff", "#9810fa", "#2b7fff"];
 const STROKE_WIDTH = 5;
@@ -23,7 +23,7 @@ const LOGO_PATHS = {
     "M296.562 530.355C347.03 488.585 357.1 441.613 356.826 380.821H433.156C433.81 452.073 407.732 502.369 356.826 548.907C348.376 555.163 339.934 560.931 330.528 565.715C319.918 553.405 306.486 543.217 296.562 530.355Z",
 };
 const ANIMATION_DURATION = 3;
-
+const MAX_WIDTH = 888;
 const PathLayer: React.FC<React.SVGProps<SVGPathElement>> = (props) => (
   <>
     <path d={LOGO_PATHS.border} {...props} />
@@ -48,6 +48,38 @@ const AnimatedGradient = ({
 );
 
 const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
+  const [translateTo, setTranslateTo] = useState(0);
+
+  const calculateTranslateTo = useCallback(() => {
+    const screenHeight = window.innerHeight;
+    const screenWidth = window.innerWidth;
+
+    // 모니터 - 3082:2287 비율
+    const monitorWidth =
+      screenWidth > MAX_WIDTH ? MAX_WIDTH : screenWidth * 0.9;
+    const monitorHeight = monitorWidth * (2287 / 3082);
+    // 모니터 height - 2287:517 비율
+    const monitorDisplayHeight = monitorHeight * (1770 / 2287);
+    const monitorStandHeight = monitorHeight - monitorDisplayHeight;
+
+    const monitoryDisplayCenter = monitorDisplayHeight / 2 + monitorStandHeight;
+
+    const targetPositionFromTop = screenHeight - monitoryDisplayCenter;
+    const moveDistanceFromCenter = targetPositionFromTop - screenHeight / 2;
+    setTranslateTo(moveDistanceFromCenter);
+  }, []);
+
+  useEffect(() => {
+    calculateTranslateTo();
+    const controller = new AbortController();
+    window.addEventListener("resize", calculateTranslateTo, {
+      signal: controller.signal,
+    });
+    return () => {
+      controller.abort();
+    };
+  }, [calculateTranslateTo]);
+
   const [borderId, dotId, commaId, gradientId] = [
     useId(),
     useId(),
@@ -66,6 +98,7 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
   const stageTwoOpacity = useTransform(y, [0.45, 0.5], [0, 1]);
 
   const scale = useTransform(y, [0.53, 0.85], [1, 0.7]);
+  const translateY = useTransform(y, [0.53, 0.85], [0, translateTo]);
 
   const stopColor = useMotionValue("#2b7fff");
   useEffect(() => {
@@ -79,8 +112,8 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
 
   return (
     <motion.div
-      className="xs:h-76 xs:w-69 sticky top-1/2 mx-auto h-[13.75rem] w-[12.5rem] -translate-y-1/2 md:h-110 md:w-100"
-      style={{ scale }}
+      className="xs:h-76 xs:w-69 absolute top-1/2 left-1/2 z-[2] mx-auto h-[13.75rem] w-[12.5rem] -translate-x-1/2 -translate-y-1/2 md:h-110 md:w-100"
+      style={{ scale, translateY }}
     >
       <svg
         viewBox={`0 0 ${SIZE.width} ${SIZE.height}`}

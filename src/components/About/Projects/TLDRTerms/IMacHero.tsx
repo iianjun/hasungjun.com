@@ -1,30 +1,28 @@
 "use client";
 
-import {
-  AnimatePresence,
-  MotionValue,
-  motion,
-  useTransform,
-} from "framer-motion";
+import { MotionValue, useTransform } from "framer-motion";
 
 import Image from "next/image";
 import Link from "next/link";
+import ScrollLogo from "@/components/About/Projects/TLDRTerms/ScrollLogo";
 import { TLDRTermsTypographyLogoIcon } from "@/icons";
+import { motion } from "framer-motion";
 
 export default function IMacHero({ y }: { y: MotionValue<number> }) {
   const monitorStyle = {
-    scale: useTransform(y, [0.5, 0.85], [2, 1]),
-    opacity: useTransform(y, [0.5, 0.54], [0, 1]),
+    scale: useTransform(y, [0.6, 0.85], [2, 1]),
+    opacity: useTransform(y, [0.6, 0.7], [0, 1]),
   };
 
   const textStyle = {
-    opacity: useTransform(y, [0.52, 0.85], [0, 1]),
-    translateY: useTransform(y, [0.52, 0.85], [100, 0]),
+    opacity: useTransform(y, [0.7, 0.85], [0, 1]),
+    translateY: useTransform(y, [0.6, 0.85], [100, 0]),
   };
 
   return (
     <div className="sticky top-0 min-h-svh overflow-hidden">
-      <div className="relative mx-6 max-w-[calc(64rem-(var(--spacing-left-nav)*2))] md:mx-auto lg:w-full xl:w-3/5 xl:max-w-5xl">
+      <ScrollLogo y={y} />
+      <div className="mx-auto w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))]">
         <div className="mt-10 inline-block space-y-2 py-10 md:space-y-6 lg:mt-0">
           <motion.h3
             style={textStyle}
@@ -56,29 +54,26 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
             </span>
           </motion.h4>
         </div>
-        <AnimatePresence>
-          <div className="relative z-[2]">
-            <motion.div
-              initial={{
-                opacity: 0,
-              }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              style={monitorStyle}
-            >
-              <Image
-                src="/tldrterms/xdr-display.png"
-                alt="imac"
-                className="!relative w-full"
-                fill
-                priority
-                quality={100}
-              />
-            </motion.div>
-          </div>
-        </AnimatePresence>
       </div>
+      <motion.div
+        initial={{
+          opacity: 0,
+        }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        style={monitorStyle}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2"
+      >
+        <div className="aspect-[3082/2287] w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))]">
+          <Image
+            src="/tldrterms/xdr-display.png"
+            alt="imac"
+            fill
+            className="object-contain"
+          />
+        </div>
+      </motion.div>
     </div>
   );
 }
