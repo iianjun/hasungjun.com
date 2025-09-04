@@ -1,10 +1,6 @@
 import BottomNavBar from "@/components/BottomNavBar";
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function Layout({ children }: LayoutProps<"/">) {
   return (
     <>
       {children}

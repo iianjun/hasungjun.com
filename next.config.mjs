@@ -3,6 +3,7 @@
  */
 const nextConfig = {
   reactStrictMode: false,
+  typedRoutes: true,
   turbopack: {
     rules: {
       "*.svg": {

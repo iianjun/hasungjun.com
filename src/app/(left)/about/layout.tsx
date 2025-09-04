@@ -6,11 +6,7 @@ export const metadata: Metadata = {
   title: "About Me | Hasung Jun",
 };
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function Layout({ children }: LayoutProps<"/about">) {
   return (
     <>
       <TopNavBar />

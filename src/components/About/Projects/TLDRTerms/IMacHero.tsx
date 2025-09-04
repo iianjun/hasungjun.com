@@ -32,7 +32,6 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
             }}
           >
             <Link
-              className=""
               href="https://www.tldrterms.app"
               target="_blank"
               rel="noopener noreferrer"
