@@ -1,58 +1,112 @@
 "use client";
 
 import { MotionValue, useTransform } from "framer-motion";
+import { useCallback, useEffect, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
 import ScrollLogo from "@/components/About/Projects/TLDRTerms/ScrollLogo";
 import { TLDRTermsTypographyLogoIcon } from "@/icons";
+import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 
+const MAX_WIDTH = 888;
+const LG_SCREEN_BREAKPOINT = 1024;
+const TOP_NAV_HEIGHT = 50;
 export default function IMacHero({ y }: { y: MotionValue<number> }) {
+  const [typoSectionHeight, setTypoSectionHeight] = useState(0);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
   const monitorStyle = {
     scale: useTransform(y, [0.6, 0.85], [2, 1]),
     opacity: useTransform(y, [0.6, 0.7], [0, 1]),
   };
 
   const textStyle = {
-    opacity: useTransform(y, [0.7, 0.85], [0, 1]),
-    translateY: useTransform(y, [0.6, 0.85], [100, 0]),
+    opacity: useTransform(y, [isOverflowing ? 0.8 : 0.7, 0.85], [0, 1]),
+    translateY: useTransform(y, [isOverflowing ? 0.7 : 0.6, 0.85], [100, 0]),
   };
+
+  const calculateTypoSectionHeight = useCallback(() => {
+    const screenHeight = window.innerHeight;
+    const screenWidth = window.innerWidth;
+
+    const monitorWidth =
+      screenWidth > MAX_WIDTH ? MAX_WIDTH : screenWidth * 0.9;
+    const monitorHeight = monitorWidth * (2287 / 3082);
+    const remainingHeight = screenHeight - monitorHeight;
+    setIsOverflowing(remainingHeight < 100);
+    setTypoSectionHeight(
+      screenWidth < LG_SCREEN_BREAKPOINT
+        ? remainingHeight - TOP_NAV_HEIGHT
+        : remainingHeight,
+    );
+  }, []);
+
+  useEffect(() => {
+    calculateTypoSectionHeight();
+    const controller = new AbortController();
+    window.addEventListener("resize", calculateTypoSectionHeight, {
+      signal: controller.signal,
+    });
+    return () => {
+      controller.abort();
+    };
+  }, [calculateTypoSectionHeight]);
 
   return (
     <div className="sticky top-0 min-h-svh overflow-hidden">
       <ScrollLogo y={y} />
-      <div className="mx-auto w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))]">
-        <div className="mt-10 inline-block space-y-2 py-10 md:space-y-6 lg:mt-0">
-          <motion.h3
-            style={textStyle}
-            className="z-[1] w-fit"
-            transition={{
-              duration: 0,
-            }}
+      <div
+        className={cn(
+          "2 relative mx-auto mt-12.5 w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))] space-y-4 pt-5 md:mt-0 md:space-y-6 md:pt-12.5",
+          {
+            "z-[2] !pt-0 pl-5": isOverflowing,
+          },
+        )}
+        style={{
+          height: `${(typoSectionHeight / 16).toFixed(0)}rem`,
+          marginTop: isOverflowing
+            ? `calc(${(typoSectionHeight / 16).toFixed(0)}rem + 1.25rem)`
+            : undefined,
+        }}
+      >
+        <motion.h3
+          style={textStyle}
+          className="w-fit"
+          transition={{
+            duration: 0,
+          }}
+        >
+          <Link
+            href="https://www.tldrterms.app"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <Link
-              href="https://www.tldrterms.app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <TLDRTermsTypographyLogoIcon className="h-fit w-25 text-slate-100 md:w-40" />
-            </Link>
-            <span className="sr-only">TL;DR Terms</span>
-          </motion.h3>
-          <motion.h4
-            style={textStyle}
-            className="z-[1] text-lg leading-normal font-bold whitespace-nowrap text-slate-200 sm:text-xl md:text-2xl"
-            transition={{
-              duration: 0,
-            }}
-          >
-            Understand Website Terms
-            <span className="block text-blue-500">
-              Without The Legal Jargon
-            </span>
-          </motion.h4>
-        </div>
+            <TLDRTermsTypographyLogoIcon
+              className={cn("h-fit w-25 text-slate-100", {
+                "md:w-40": !isOverflowing,
+                "w-30": isOverflowing,
+              })}
+            />
+          </Link>
+          <span className="sr-only">TL;DR Terms</span>
+        </motion.h3>
+        <motion.h4
+          style={textStyle}
+          className={cn(
+            "text-lg leading-normal font-bold whitespace-nowrap text-slate-200 sm:text-xl",
+            {
+              "md:text-2xl": !isOverflowing,
+            },
+          )}
+          transition={{
+            duration: 0,
+          }}
+        >
+          Understand Website Terms
+          <span className="block text-blue-500">Without The Legal Jargon</span>
+        </motion.h4>
       </div>
       <motion.div
         initial={{
