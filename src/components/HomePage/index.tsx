@@ -3,6 +3,7 @@
 import { DIRECTORIES, LINK_HASH } from "@/constants/terminal";
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 
+import { Route } from "next";
 import Terminal from "@/components/Terminal";
 import { cn } from "@/utils/cn";
 import dayjs from "dayjs";
@@ -40,7 +41,7 @@ const Command: React.FC<{ history: CommandHistory }> = memo(
         );
         return;
       }
-      return router.push(`${history.directories[0]}`);
+      return router.push(`${history.directories[0]}` as Route);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history]);
 

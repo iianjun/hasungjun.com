@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Resume from "@/components/Resume";
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
 
 export const metadata: Metadata = {
   title: "Resume | Hasung Jun",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function ResumePage() {
   return (
     <main className="relative h-svh">
-      <aside className="left-4 top-2 flex h-[3.125rem] items-center px-4 md:fixed md:bottom-[1.875rem] md:left-[1.875rem] md:top-auto md:block md:h-auto md:px-0">
+      <aside className="top-2 left-4 flex h-[3.125rem] items-center px-4 md:fixed md:top-auto md:bottom-[1.875rem] md:left-[1.875rem] md:block md:h-auto md:px-0">
         <ul className="resume-aside flex gap-[1.875rem] md:flex-col-reverse md:justify-start">
           <li className="relative">
             <Link
@@ -42,7 +42,7 @@ export default async function ResumePage() {
           </li>
           <li className="relative">
             <Link
-              href="/resume_hasung_jun.pdf"
+              href={"/resume_hasung_jun.pdf" as Route}
               download
               target="_blank"
               rel="noopener noreferrer"

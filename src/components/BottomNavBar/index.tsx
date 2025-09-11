@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 
 import Image from "next/image";
 import Link from "next/link";
+import { Route } from "next";
 import { cn } from "@/utils/cn";
 import { hideDock } from "@/redux/action/dockAction";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -12,7 +13,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 const ITEMS: {
   name: string;
   src: string;
-  link: __next_route_internal_types__.RouteImpl<__next_route_internal_types__.StaticRoutes>;
+  link: Route;
 }[] = [
   { name: "Terminal", src: "/dock/dock-terminal.svg", link: "/" },
   { name: "About", src: "/dock/dock-about.png", link: "/about" },
