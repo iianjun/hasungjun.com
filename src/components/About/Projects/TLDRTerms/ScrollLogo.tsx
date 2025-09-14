@@ -87,18 +87,18 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
     useId(),
   ];
 
-  const borderX1 = useTransform(y, [0, 1 / 2], [0, SIZE.width * 2]);
-  const borderX2 = useTransform(y, [0, 1 / 2], [0, SIZE.width]);
-  const dotX1 = useTransform(y, [0.1, 0.35], [0, SIZE.width * 2]);
-  const dotX2 = useTransform(y, [0.1, 0.35], [0, SIZE.width]);
-  const commaX1 = useTransform(y, [0.2, 0.45], [0, SIZE.width * 2]);
-  const commaX2 = useTransform(y, [0.2, 0.45], [0, SIZE.width]);
+  const borderX1 = useTransform(y, [0, 0.4], [0, SIZE.width * 2]);
+  const borderX2 = useTransform(y, [0, 0.4], [0, SIZE.width]);
+  const dotX1 = useTransform(y, [0.1, 0.3], [0, SIZE.width * 2]);
+  const dotX2 = useTransform(y, [0.1, 0.3], [0, SIZE.width]);
+  const commaX1 = useTransform(y, [0.2, 0.4], [0, SIZE.width * 2]);
+  const commaX2 = useTransform(y, [0.2, 0.4], [0, SIZE.width]);
 
-  const stageOneOpacity = useTransform(y, [0.45, 0.5], [1, 0]);
-  const stageTwoOpacity = useTransform(y, [0.45, 0.5], [0, 1]);
+  const stageOneOpacity = useTransform(y, [0.4, 0.45], [1, 0]);
+  const stageTwoOpacity = useTransform(y, [0.4, 0.45], [0, 1]);
 
-  const scale = useTransform(y, [0.53, 0.85], [1, 0.7]);
-  const translateY = useTransform(y, [0.53, 0.85], [0, translateTo]);
+  const scale = useTransform(y, [0.48, 0.75], [1, 0.7]);
+  const translateY = useTransform(y, [0.48, 0.75], [0, translateTo]);
 
   const stopColor = useMotionValue("#2b7fff");
   useEffect(() => {

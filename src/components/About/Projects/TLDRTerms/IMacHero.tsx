@@ -18,13 +18,13 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
   const [isOverflowing, setIsOverflowing] = useState(false);
 
   const monitorStyle = {
-    scale: useTransform(y, [0.6, 0.85], [2, 1]),
-    opacity: useTransform(y, [0.6, 0.7], [0, 1]),
+    scale: useTransform(y, [0.5, 0.75], [2, 1]),
+    opacity: useTransform(y, [0.5, 0.6], [0, 1]),
   };
 
   const textStyle = {
-    opacity: useTransform(y, [isOverflowing ? 0.8 : 0.7, 0.85], [0, 1]),
-    translateY: useTransform(y, [isOverflowing ? 0.7 : 0.6, 0.85], [100, 0]),
+    opacity: useTransform(y, [isOverflowing ? 0.7 : 0.6, 0.75], [0, 1]),
+    translateY: useTransform(y, [isOverflowing ? 0.6 : 0.5, 0.75], [100, 0]),
   };
 
   const calculateTypoSectionHeight = useCallback(() => {
@@ -55,11 +55,11 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
   }, [calculateTypoSectionHeight]);
 
   return (
-    <div className="sticky top-0 min-h-svh overflow-hidden">
+    <>
       <ScrollLogo y={y} />
       <div
         className={cn(
-          "2 relative mx-auto mt-12.5 w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))] space-y-4 pt-5 md:mt-0 md:space-y-6 md:pt-12.5",
+          "2 relative mx-auto mt-12.5 w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))] space-y-4 pt-5 md:mt-0 md:space-y-6 md:pt-13.5 lg:pt-6",
           {
             "z-[2] !pt-0 pl-5": isOverflowing,
           },
@@ -109,9 +109,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
         </motion.h4>
       </div>
       <motion.div
-        initial={{
-          opacity: 0,
-        }}
+        initial={false}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
@@ -127,6 +125,6 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
           />
         </div>
       </motion.div>
-    </div>
+    </>
   );
 }
