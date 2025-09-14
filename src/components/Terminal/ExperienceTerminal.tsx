@@ -59,7 +59,7 @@ const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
               June 2021 - July 2021
             </h2>
             <p className="hidden text-base text-slate-400 md:block">
-              Frontend developer
+              Frontend developer (Contract)
             </p>
           </div>
           <div className="flex items-center gap-2">

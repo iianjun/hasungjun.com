@@ -1,4 +1,3 @@
-import BottomNavBar from "@/components/BottomNavBar";
 import TopNavBar from "@/components/TopNavBar";
 import { Metadata } from "next";
 
@@ -10,8 +9,7 @@ export default async function Layout({ children }: LayoutProps<"/about">) {
   return (
     <>
       <TopNavBar />
-      {children}
-      <BottomNavBar position="left" />
+      <main className="min-h-svh">{children}</main>
     </>
   );
 }

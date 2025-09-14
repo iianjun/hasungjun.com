@@ -32,6 +32,7 @@
   --color-text-gradient-stop-1: #4285f4;
   --color-text-gradient-stop-2: #9b72cb;
   --color-text-gradient-stop-3: #d96570;
+  --color-control: #2a2a2d;
   /* Shadows */
   --shadow-modal: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
 
@@ -202,6 +203,7 @@
     background-size: 400% 100%;
   }
 }
+
 @layer components {
   #nav-dock {
     position: fixed;
@@ -312,4 +314,9 @@
       animation-delay: 0.8s;
     }
   }
+}
+
+/* Custom Utility */
+@utility flex-center {
+  @apply flex items-center justify-center;
 }

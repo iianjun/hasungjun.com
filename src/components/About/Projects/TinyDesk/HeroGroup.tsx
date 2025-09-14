@@ -58,10 +58,10 @@ const HeroGroup = () => {
   return (
     <div className="overflow-hidden">
       <div
-        className="relative mt-[3.125rem] mb-[4.375rem] h-[15.25rem] transition-opacity duration-600 will-change-[opacity] md:h-[25.125rem] lg:h-[37.5rem]"
+        className="relative mt-12.5 mb-17.5 h-61 transition-opacity duration-600 will-change-[opacity] md:h-100.5 lg:h-150"
         ref={group}
       >
-        <div className="absolute left-1/2 h-[13.25rem] w-[15.625rem] -translate-x-1/2 md:h-[25.125rem] md:w-[29.75rem] lg:h-[37.125rem] lg:w-[44rem]">
+        <div className="absolute left-1/2 h-53 w-62.5 -translate-x-1/2 md:h-100.5 md:w-119 lg:h-148.5 lg:w-176">
           <Image
             src="/tinydesk/hero-mac.png"
             priority
