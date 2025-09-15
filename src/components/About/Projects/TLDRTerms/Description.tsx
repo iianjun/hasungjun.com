@@ -3,6 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import { PlusIcon } from "@/icons";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
+
 function Control() {
   const [clicked, setClicked] = useState<boolean>(false);
   const [height, setHeight] = useState<number>(0);
@@ -14,6 +15,13 @@ function Control() {
         height: clicked ? height : undefined,
         width: clicked ? "374px" : undefined,
       }}
+      transition={{
+        duration: 0.4,
+        type: "spring",
+        stiffness: 200,
+        mass: 1.25,
+        damping: 23,
+      }}
     >
       <div className="flex-center pointer-events-none absolute h-full w-full">
         <span className="bg-control/72 group-hover:bg-control/92 z-[-1] h-full w-full rounded-[1.75rem] transition-colors ease-linear"></span>
@@ -21,21 +29,40 @@ function Control() {
       <motion.button
         onClick={() => setClicked((prev) => !prev)}
         className={cn(
-          "z-[1] flex h-14 cursor-pointer items-center gap-3.5 rounded-[1.75rem] pr-7 pl-3.5 font-semibold text-white",
+          "flex h-14 cursor-pointer items-center gap-3.5 rounded-[1.75rem] pr-7 pl-3.5 font-semibold whitespace-nowrap text-white",
+          {
+            "pointer-events-none": clicked,
+          },
         )}
+        disabled={clicked}
+        aria-hidden={clicked}
         animate={{
-          opacity: clicked ? 1 : 0,
+          opacity: !clicked ? 1 : 0,
+        }}
+        transition={{
+          duration: !clicked ? 0.4 : 0,
+          delay: !clicked ? 0.4 : 0,
         }}
       >
         <PlusIcon />
         Ceramic Shield
       </motion.button>
-      <div className="pointer-events-none absolute top-0 left-0 h-full w-full">
+      <div
+        className={"pointer-events-none absolute top-0 left-0 h-full w-full"}
+      >
         <div className="h-full w-full overflow-hidden">
-          <div
+          <motion.div
+            aria-hidden={!clicked}
             className={cn("invisible max-w-[374px] p-7", {
               visible: clicked,
             })}
+            animate={{
+              opacity: clicked ? 1 : 0,
+            }}
+            transition={{
+              duration: clicked ? 0.7 : 0,
+              delay: clicked ? 0.3 : 0,
+            }}
             ref={useCallback((node: HTMLDivElement | null) => {
               contentRef.current = node;
               if (node) {
@@ -48,7 +75,7 @@ function Control() {
               Pro, making it 4x more resistant to cracks. New Ceramic Shield 2
               on the front has 3x better scratch resistance.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </motion.li>
