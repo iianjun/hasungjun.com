@@ -109,10 +109,6 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
         </motion.h4>
       </div>
       <motion.div
-        initial={false}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
         style={monitorStyle}
         className="absolute bottom-0 left-1/2 -translate-x-1/2"
       >

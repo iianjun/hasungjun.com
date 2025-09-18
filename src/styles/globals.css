@@ -32,8 +32,8 @@
   --color-text-gradient-stop-1: #4285f4;
   --color-text-gradient-stop-2: #9b72cb;
   --color-text-gradient-stop-3: #d96570;
-  --color-control: #2a2a2d;
-  /* Shadows */
+  --color-control: oklch(0.2862 0.0054 286.05);
+  --color-progress: oklch(0.6217 0.0074 286.18);
   --shadow-modal: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
 
   /* Spacing */
