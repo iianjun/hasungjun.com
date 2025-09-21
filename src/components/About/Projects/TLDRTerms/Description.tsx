@@ -170,7 +170,7 @@ function Control({
   return (
     <motion.li
       initial={false}
-      className="group relative h-14 backdrop-blur-lg"
+      className="group relative h-14 rounded-[1.75rem] backdrop-blur-lg"
       animate={{
         height: active ? height : undefined,
         width: active ? expandedWidth : width,
