@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import HoloImage from "@/components/About/Projects/TLDRTerms/HoloImage";
 import { PlusIcon } from "@/icons";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
@@ -7,6 +8,7 @@ import { useIsInView } from "@/hooks/useIsInView";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useMounted } from "@/hooks/useMounted";
 
+const IS_DEV = process.env.NODE_ENV === "development";
 type ControlType = "overview" | "problem" | "technical" | "features" | "impact";
 const CONTROL_MAP: Record<
   ControlType,
@@ -55,11 +57,11 @@ function Loader() {
       threshold: 0.5,
     },
   });
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(IS_DEV ? 100 : 0);
   const interval = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!isInView || didRun.current) return;
+    if (!isInView || didRun.current || IS_DEV) return;
     didRun.current = true;
     let currentProgress = 0;
     interval.current = setInterval(() => {
@@ -258,8 +260,16 @@ export default function Description() {
           ))}
         </ul>
       </div>
-      <div className="flex-center absolute z-[-1] ml-[calc(min(6rem,8vw)+400px)] h-full w-[calc(100%-ml-[calc(min(6rem,8vw)-400px)])] flex-1 px-10 text-slate-400">
-        {clicked && CONTROL_MAP[clicked].content}
+      <div className="relative h-full w-full">
+        <div
+          className="flex-center h-full w-full"
+          // className="flex-center z-[-1] h-full w-[calc(100%-ml-[calc(min(6rem,8vw)-400px)])] flex-1 px-10 text-slate-400"
+        >
+          <div className="flex-center absolute inset-0 p-5">
+            <HoloImage />
+          </div>
+          {clicked && CONTROL_MAP[clicked].content}
+        </div>
       </div>
     </div>
   );
