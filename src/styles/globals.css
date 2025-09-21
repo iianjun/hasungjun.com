@@ -136,6 +136,10 @@
       height: 1rem;
     }
   }
+
+  button {
+    @apply cursor-pointer;
+  }
 }
 
 /**

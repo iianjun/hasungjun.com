@@ -1,22 +1,26 @@
 import Chevron from "./chevron.svg";
+import Cross from "./cross.svg";
 import { HTMLAttributes } from "react";
 import Plus from "./plus.svg";
 import TLDRTermsTypographyLogo from "./tldrterms-typo-logo.svg";
 
-export const ChevronIcon: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
-  ...rest
-}) => {
+interface SVGProps extends HTMLAttributes<SVGElement> {
+  width?: number;
+  height?: number;
+}
+export const ChevronIcon: React.FC<SVGProps> = ({ ...rest }) => {
   return <Chevron {...rest} />;
 };
 
-export const TLDRTermsTypographyLogoIcon: React.FC<
-  HTMLAttributes<HTMLSpanElement>
-> = ({ ...rest }) => {
+export const TLDRTermsTypographyLogoIcon: React.FC<SVGProps> = ({
+  ...rest
+}) => {
   return <TLDRTermsTypographyLogo {...rest} />;
 };
 
-export const PlusIcon: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
-  ...rest
-}) => {
+export const PlusIcon: React.FC<SVGProps> = ({ ...rest }) => {
   return <Plus {...rest} />;
+};
+export const CrossIcon: React.FC<SVGProps> = ({ ...rest }) => {
+  return <Cross {...rest} />;
 };
