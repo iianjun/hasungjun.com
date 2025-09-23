@@ -1,9 +1,9 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { CrossIcon, PlusIcon } from "@/icons";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import HoloImage from "@/components/About/Projects/TLDRTerms/HoloImage";
 import { cn } from "@/utils/cn";
-import { motion } from "framer-motion";
 import { useIsInView } from "@/hooks/useIsInView";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useMounted } from "@/hooks/useMounted";
@@ -242,6 +242,7 @@ function Control({
 }
 export default function Description() {
   const [clicked, setClicked] = useState<ControlType | null>(null);
+
   return (
     <div className="relative mx-auto mb-10 flex h-190 w-full max-w-7xl items-center">
       <div className="absolute top-4 right-4 z-[2]">
@@ -275,18 +276,57 @@ export default function Description() {
           ))}
         </ul>
       </div>
+      <AnimatePresence>
+        {clicked && (
+          <motion.div
+            key={clicked}
+            initial={{
+              opacity: 0,
+              visibility: "hidden",
+              transform: "matrix(0.8, 0, 0, 0.8, 200, 0)",
+            }}
+            animate={{
+              opacity: 1,
+              visibility: "visible",
+              transform: "matrix(1, 0, 0, 1, 0, 0)",
+              transition: {
+                duration: 0.4,
+                delay: 0.2,
+                ease: "easeInOut",
+              },
+            }}
+            exit={{
+              opacity: 0,
+              visibility: "hidden",
+              transform: "matrix(0.8, 0, 0, 0.8, -200, 0)",
+              transition: {
+                duration: 0.3,
+                ease: "easeInOut",
+              },
+            }}
+            className="absolute left-4/10 z-[2] p-5"
+          >
+            <p className="text-2xl font-semibold text-slate-300">
+              {CONTROL_MAP[clicked].content}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <motion.div
-        className={cn("absolute top-0 right-0 left-3/10 h-full w-7/10", {
-          "pointer-events-none": clicked,
-        })}
+        className={cn(
+          "transition-a absolute top-0 right-0 left-3/10 h-full w-7/10",
+          {
+            "pointer-events-none": clicked,
+          },
+        )}
         animate={{
+          opacity: clicked ? 0.5 : 1,
           filter: clicked ? "blur(4px)" : "blur(0)",
         }}
       >
         <div className="flex-center absolute inset-0 p-5">
           <HoloImage />
         </div>
-        {clicked && CONTROL_MAP[clicked].content}
       </motion.div>
     </div>
   );

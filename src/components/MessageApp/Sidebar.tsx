@@ -29,7 +29,7 @@ const Sidebar = () => {
           <p className="line-clamp-1 text-[0.8125rem] font-bold text-white">
             Hasung Jun
           </p>
-          <p className="line-clamp-2 whitespace-break-spaces break-all text-xs leading-tight text-[#d7e5fd]">
+          <p className="line-clamp-2 text-xs leading-tight break-all whitespace-break-spaces text-[#d7e5fd]">
             {lastMessage}
           </p>
         </div>
