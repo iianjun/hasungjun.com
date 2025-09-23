@@ -14,7 +14,6 @@ export const useScrollTransform = (
 ) => {
   const topOffset = useRef(0);
   const stuckOffset = useRef(0);
-
   const updateTopOffset = useCallback(() => {
     if (!container.current) return;
     const bodyHeight = document.body.scrollHeight;

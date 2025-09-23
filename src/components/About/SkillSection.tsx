@@ -24,17 +24,17 @@ const SkillSection = () => {
         </div>
         <div className="absolute h-full w-full overflow-hidden">
           <div
-            // 3.125rem is half size of the first logo width so that it starts from the middle of the first logo
-            className="absolute top-1/2 left-[calc(50%-3.125rem)] flex -translate-y-1/2 items-center gap-15 opacity-0 will-change-[transform,opacity]"
+            // 6.25rem is size of the first logo width so that it centers when it has full scale
+            className="absolute top-2/3 left-[calc(50%+6.25rem)] flex -translate-y-1/2 items-center gap-15 pr-37.5 opacity-0 will-change-[transform,opacity] md:top-1/2"
             ref={skills}
           >
             {SKILLS.map((skill) => (
               <div
                 key={skill.value}
                 className={cn("relative h-auto will-change-[transform]", {
-                  "w-[6.25rem]": skill.width === 100,
-                  "w-[8.125rem]": skill.width === 130,
-                  "w-[9.375rem]": skill.width === 150,
+                  "w-25": skill.width === 100,
+                  "w-32.5": skill.width === 130,
+                  "w-37.5": skill.width === 150,
                 })}
               >
                 <div
@@ -51,9 +51,9 @@ const SkillSection = () => {
                   width="0"
                   height="0"
                   className={cn("h-auto", {
-                    "w-[6.25rem]": skill.width === 100,
-                    "w-[8.125rem]": skill.width === 130,
-                    "w-[9.375rem]": skill.width === 150,
+                    "w-25": skill.width === 100,
+                    "w-32.5": skill.width === 130,
+                    "w-37.5": skill.width === 150,
                   })}
                   alt={`${skill.value}`}
                 />
