@@ -187,13 +187,6 @@
   .animate-delay-1000 {
     animation-delay: 1000ms;
   }
-  .hide-scrollbar {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
   .bg-text-gradient {
     background: -webkit-linear-gradient(
       16deg,
@@ -327,4 +320,12 @@
 /* Custom Utility */
 @utility flex-center {
   @apply flex items-center justify-center;
+}
+
+@utility hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

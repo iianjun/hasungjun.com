@@ -195,7 +195,7 @@ function Control({
         ref={buttonRef}
         onClick={onActive}
         className={cn(
-          "relative z-[1] flex h-14 cursor-pointer items-center gap-3.5 rounded-[1.75rem] pr-7 pl-3.5 font-semibold whitespace-nowrap text-white",
+          "relative z-[1] flex h-14 cursor-pointer items-center gap-3.5 rounded-[1.75rem] pr-7 pl-3.5 text-sm font-semibold whitespace-nowrap text-white md:text-base",
           {
             "pointer-events-none": active,
           },
@@ -243,7 +243,7 @@ export default function Description() {
 
   return (
     <div className="relative mx-auto mb-10 flex h-190 w-full max-w-7xl items-center">
-      <div className="absolute top-4 right-4 z-[2]">
+      <div className="absolute top-4 right-4 z-[3]">
         <motion.button
           onClick={() => setClicked(null)}
           className="flex-center bg-control/72 size-9 rounded-full"
@@ -261,18 +261,20 @@ export default function Description() {
       </div>
       <div className="absolute z-[-1] h-full w-full bg-black xl:rounded-3xl"></div>
       <Loader />
-      <div className="z-[2] w-3/10 flex-shrink-0 pl-[min(6rem,8vw)]">
-        <ul className="inline-flex flex-col gap-4">
-          {Object.keys(CONTROL_MAP).map((key) => (
-            <Control
-              key={key}
-              active={clicked === key}
-              onActive={() => setClicked(key as ControlType)}
-              title={CONTROL_MAP[key as ControlType].title}
-              phrase={CONTROL_MAP[key as ControlType].phrase}
-            />
-          ))}
-        </ul>
+      <div className="z-[2] flex h-full w-full items-end pl-0 md:block md:h-auto md:w-3/10 md:pl-[min(6rem,8vw)]">
+        <div className="sticky bottom-0 flex h-57.5 flex-col justify-end overflow-hidden pb-5 md:h-auto md:overflow-visible md:pb-0">
+          <ul className="hide-scrollbar ms-5 inline-flex flex-nowrap gap-4 overflow-auto md:relative md:bottom-auto md:ms-0 md:flex-col md:overflow-visible">
+            {Object.keys(CONTROL_MAP).map((key) => (
+              <Control
+                key={key}
+                active={clicked === key}
+                onActive={() => setClicked(key as ControlType)}
+                title={CONTROL_MAP[key as ControlType].title}
+                phrase={CONTROL_MAP[key as ControlType].phrase}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
       <AnimatePresence>
         {clicked && (
