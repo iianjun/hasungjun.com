@@ -11,5 +11,5 @@
     "typescript",
     "typescriptreact"
   ],
-  "tailwindCSS.experimental.configFile": "./src/styles/globals.css"
+  "tailwindCSS.experimental.configFile": "./src/app/styles/globals.css"
 }
