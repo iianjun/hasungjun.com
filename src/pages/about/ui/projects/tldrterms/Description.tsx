@@ -130,6 +130,8 @@ function Control({
 
   const isLg = useMediaQuery("(min-width: 64rem)");
   const isMd = useMediaQuery("(min-width: 48rem)");
+
+  const isSm = !isLg && !isMd;
   const expandedWidth = useMemo(() => {
     if (isLg) return 424;
     if (isMd) return 374;
@@ -163,12 +165,12 @@ function Control({
 
   useEffect(() => {
     if (isMounted) calculateButtonWidth();
-  }, [isMounted, calculateButtonWidth]);
+  }, [isMounted, calculateButtonWidth, isSm]);
 
   return (
     <motion.li
       initial={false}
-      className="group relative h-14 rounded-[1.75rem] backdrop-blur-lg"
+      className="group relative h-14 flex-shrink-0 rounded-[1.75rem] backdrop-blur-lg"
       animate={{
         height: active ? height : undefined,
         width: active ? expandedWidth : width,
@@ -217,7 +219,7 @@ function Control({
         <div className="h-full w-full overflow-hidden">
           <motion.div
             aria-hidden={!active}
-            className={cn("invisible w-100 p-7 md:w-93.5 lg:w-106", {
+            className={cn("invisible w-100 p-6 md:w-93.5 md:p-7 lg:w-106", {
               visible: active,
             })}
             animate={{
@@ -229,7 +231,7 @@ function Control({
             }}
             ref={contentRef}
           >
-            <p className="text-[1.0625rem] text-white">
+            <p className="text-sm text-white md:text-[1.0625rem]">
               <strong>{title}.</strong> {phrase}
             </p>
           </motion.div>
@@ -240,7 +242,16 @@ function Control({
 }
 export default function Description() {
   const [clicked, setClicked] = useState<ControlType | null>(null);
+  const isLg = useMediaQuery("(min-width: 64rem)");
+  const isMd = useMediaQuery("(min-width: 48rem)");
 
+  const isSm = !isLg && !isMd;
+
+  const expandedWidth = useMemo(() => {
+    if (isLg) return 424;
+    if (isMd) return 374;
+    return 400;
+  }, [isLg, isMd]);
   return (
     <div className="relative mx-auto mb-10 flex h-190 w-full max-w-7xl items-center">
       <div className="absolute top-4 right-4 z-[3]">
@@ -261,9 +272,13 @@ export default function Description() {
       </div>
       <div className="absolute z-[-1] h-full w-full bg-black xl:rounded-3xl"></div>
       <Loader />
-      <div className="z-[2] flex h-full w-full items-end pl-0 md:block md:h-auto md:w-3/10 md:pl-[min(6rem,8vw)]">
+      <div className="z-[2] flex h-full w-full items-end md:block md:h-auto md:w-3/10 md:pl-5 lg:pl-24">
         <div className="sticky bottom-0 flex h-57.5 flex-col justify-end overflow-hidden pb-5 md:h-auto md:overflow-visible md:pb-0">
-          <ul className="hide-scrollbar ms-5 inline-flex flex-nowrap gap-4 overflow-auto md:relative md:bottom-auto md:ms-0 md:flex-col md:overflow-visible">
+          <ul
+            className={
+              "hide-scrollbar inline-flex flex-nowrap items-end gap-4 overflow-auto pl-5 md:relative md:flex-col md:items-start md:overflow-visible md:pl-0"
+            }
+          >
             {Object.keys(CONTROL_MAP).map((key) => (
               <Control
                 key={key}
@@ -304,9 +319,14 @@ export default function Description() {
                 ease: "easeInOut",
               },
             }}
-            className="absolute left-4/10 z-[2] p-5"
+            className="absolute z-1 p-5"
+            style={{
+              left: isSm
+                ? undefined
+                : `${((expandedWidth + (isLg ? 96 : 20)) / 16).toFixed(2)}rem`,
+            }}
           >
-            <p className="text-2xl font-semibold text-slate-300">
+            <p className="font-semibold text-slate-300 md:text-xl lg:text-2xl">
               {CONTROL_MAP[clicked].content}
             </p>
           </motion.div>
@@ -314,7 +334,7 @@ export default function Description() {
       </AnimatePresence>
       <motion.div
         className={cn(
-          "transition-a absolute top-0 right-0 left-3/10 h-full w-7/10",
+          "transition-a absolute top-0 right-0 left-0 h-full w-full md:left-3/10 md:w-7/10",
           {
             "pointer-events-none": clicked,
           },
