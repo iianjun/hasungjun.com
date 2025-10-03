@@ -253,7 +253,7 @@ export default function Description() {
     return 400;
   }, [isLg, isMd]);
   return (
-    <div className="relative mx-auto mb-10 flex h-190 w-full max-w-7xl items-center">
+    <div className="relative mx-auto mb-10 flex h-190 w-full max-w-7xl items-center overflow-clip md:overflow-visible">
       <div className="absolute top-4 right-4 z-[3]">
         <motion.button
           onClick={() => setClicked(null)}
