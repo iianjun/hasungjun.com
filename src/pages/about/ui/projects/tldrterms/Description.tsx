@@ -334,7 +334,7 @@ export default function Description() {
       </AnimatePresence>
       <motion.div
         className={cn(
-          "transition-a absolute top-0 right-0 left-0 h-full w-full md:left-3/10 md:w-7/10",
+          "absolute top-0 right-0 left-0 h-full w-full md:left-3/10 md:w-7/10",
           {
             "pointer-events-none": clicked,
           },

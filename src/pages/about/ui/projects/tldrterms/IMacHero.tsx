@@ -18,13 +18,13 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
   const [isOverflowing, setIsOverflowing] = useState(false);
 
   const monitorStyle = {
-    scale: useTransform(y, [0.5, 0.75], [2, 1]),
-    opacity: useTransform(y, [0.5, 0.6], [0, 1]),
+    scale: useTransform(y, [0.4, 0.6], [2, 1]),
+    opacity: useTransform(y, [0.4, 0.6], [0, 1]),
   };
 
   const textStyle = {
-    opacity: useTransform(y, [isOverflowing ? 0.7 : 0.6, 0.75], [0, 1]),
-    translateY: useTransform(y, [isOverflowing ? 0.6 : 0.5, 0.75], [100, 0]),
+    opacity: useTransform(y, [isOverflowing ? 0.55 : 0.45, 0.6], [0, 1]),
+    translateY: useTransform(y, [isOverflowing ? 0.5 : 0.4, 0.6], [100, 0]),
   };
 
   const calculateTypoSectionHeight = useCallback(() => {

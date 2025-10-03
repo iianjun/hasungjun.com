@@ -17,7 +17,7 @@ const TLDRTerms = () => {
 
   return (
     <section ref={ref}>
-      <div className="relative mb-49 h-[500svh] md:mb-51.5">
+      <div className="relative mb-49 h-[400rem] md:mb-51.5">
         <div className="from-background to-tldr-background absolute h-1/3 w-full bg-linear-to-b"></div>
         <div className="bg-tldr-background absolute top-1/3 h-1/3 w-full"></div>
         <div className="from-tldr-background to-background absolute top-2/3 h-1/3 min-h-svh w-full bg-linear-to-b"></div>
