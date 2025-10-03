@@ -5,7 +5,7 @@ import { Route } from "next";
 
 export const ResumePage = () => {
   return (
-    <main className="relative h-svh">
+    <main>
       <aside className="top-2 left-4 flex h-[3.125rem] items-center px-4 md:fixed md:top-auto md:bottom-[1.875rem] md:left-[1.875rem] md:block md:h-auto md:px-0">
         <ul className="resume-aside flex gap-[1.875rem] md:flex-col-reverse md:justify-start">
           <li className="relative">
