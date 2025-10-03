@@ -84,7 +84,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
             rel="noopener noreferrer"
           >
             <TLDRTermsTypographyLogoIcon
-              className={cn("h-fit w-25 text-slate-100", {
+              className={cn("h-auto w-25 text-slate-100", {
                 "md:w-40": !isOverflowing,
                 "w-30": isOverflowing,
               })}

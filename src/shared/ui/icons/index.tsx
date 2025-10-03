@@ -5,8 +5,8 @@ import Plus from "./plus.svg";
 import TLDRTermsTypographyLogo from "./tldrterms-typo-logo.svg";
 
 interface SVGProps extends HTMLAttributes<SVGElement> {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
 }
 export const ChevronIcon: React.FC<SVGProps> = ({ ...rest }) => {
   return <Chevron {...rest} />;
