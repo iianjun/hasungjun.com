@@ -14,7 +14,7 @@ const Resume: React.FC = () => {
               </p>
               <div className="text-[.6875rem]">
                 <Link
-                  className="text-[#0047ff] underline"
+                  className="text-resume-link underline"
                   href="https://www.linkedin.com/in/hasungjun"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -23,7 +23,7 @@ const Resume: React.FC = () => {
                 </Link>{" "}
                 |{" "}
                 <Link
-                  className="text-[#0047ff] underline"
+                  className="text-resume-link underline"
                   href="https://www.github.com/iianjun"
                   target="_blank"
                   rel="noopener noreferrer"

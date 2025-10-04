@@ -22,20 +22,52 @@
   --text-4.5xl--line-height: 1.1;
 
   --text-5.5xl: 3.5rem;
-  --text-5.5xl--line-height:
-    1.07 /* Fonts */ --font-arial: "Arial", "Helvetica", "sans-serif";
+  --text-5.5xl--line-height: 1.07;
+
+  /* Fonts */
+  --font-arial: "Arial", "Helvetica", "sans-serif";
 
   /* Colors */
   --color-link: #0071e3;
   --color-background: #232431;
   --color-tldr-background: #0a0a0a;
+
+  --color-nav-dock-bg: #535353;
+  --color-nav-border: #45474b;
+  --color-nav-tooltip-bg: #27282a;
+
   --color-text-gradient-stop-1: #4285f4;
   --color-text-gradient-stop-2: #9b72cb;
   --color-text-gradient-stop-3: #d96570;
+  --color-message-app-bubble: #2982f6;
+  --color-message-app-error: #e25243;
+  --color-message-app-bg: #1e1e1e;
+  --color-message-app-sender-bg: #3a3a3a;
+  --color-message-input-border: #2f2f2f;
+  --color-message-input-caret: #1f7bf6;
+  --color-message-input-placeholder: #535353;
+  --color-message-selected-bg: #1f7bf6;
+  --color-message-receiver-bg: #cac4bd;
+  --color-message-text: #d7e5fd;
+  --color-message-sidebar-bg: #303030;
+
+  --color-terminal-bg: #282a35;
+  --color-app-border: #5f5f5f;
+  --color-terminal-command-success: #89f498;
+  --color-terminal-command-error: #ec675e;
+  --color-terminal-arrow-bg: #76c4fa;
+
+  --color-app-header-bg: #383838;
+  --color-app-red-btn-bg: #ed6a5e;
+  --color-app-yellow-btn-bg: #f5bf4f;
+  --color-app-green-btn-bg: #61c454;
+  --color-gray-light: #b4b4b4;
+
+  --color-resume-link: #0047ff;
   --color-control: oklch(0.2862 0.0054 286.05);
   --color-progress: oklch(0.6217 0.0074 286.18);
-  --shadow-modal: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
 
+  --shadow-modal: 0 22px 70px 4px rgba(0, 0, 0, 0.56);
   /* Spacing */
   --spacing-m-header: 3.125rem;
   --spacing-left-nav: calc(var(--spacing) * 17);
@@ -247,7 +279,7 @@
       position: absolute;
       content: "";
       display: block;
-      border-top: 1px solid #b4b4b4;
+      border-top: 1px solid var(--color-gray-light);
       top: 50%;
       transform: translateY(-50%);
       left: calc(100% + 0.5rem);
@@ -263,7 +295,7 @@
       position: absolute;
       content: "";
       display: block;
-      border-top: 1px solid #b4b4b4;
+      border-top: 1px solid var(--color-gray-light);
       top: 50%;
       transform: translateY(-50%);
       left: calc(100% + 0.5rem);
@@ -286,7 +318,7 @@
       position: absolute;
       content: "";
       display: block;
-      border-right: 1px solid #b4b4b4;
+      border-right: 1px solid var(--color-gray-light);
       left: 50%;
       transform: translateX(-50%);
       bottom: calc(100% + 0.5rem);
@@ -302,7 +334,7 @@
       position: absolute;
       content: "";
       display: block;
-      border-right: 1px solid #b4b4b4;
+      border-right: 1px solid var(--color-gray-light);
       left: 50%;
       transform: translateX(-50%);
       bottom: calc(100% + 0.5rem);

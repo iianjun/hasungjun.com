@@ -64,7 +64,7 @@ export const HomePage = () => {
         ))}
         {done && (
           <div className="flex w-full gap-2">
-            <span className="h-0 w-0 border-t-[.625rem] border-b-[.625rem] border-l-[.625rem] border-t-transparent border-b-transparent border-l-[#76c4fa]"></span>
+            <span className="border-l-terminal-arrow-bg h-0 w-0 border-t-[.625rem] border-b-[.625rem] border-l-[.625rem] border-t-transparent border-b-transparent"></span>
             <form
               className="flex w-full"
               onSubmit={(e) => {

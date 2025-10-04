@@ -71,21 +71,21 @@ export const MessageMain = () => {
 
   return (
     <section
-      className="relative flex w-full flex-col justify-between bg-[#1e1e1e] md:w-[34.625rem]"
+      className="bg-message-app-bg relative flex w-full flex-col justify-between md:w-[34.625rem]"
       style={{
         paddingBottom: sendHeight,
       }}
       ref={container}
     >
       <div
-        className="flex flex-shrink-0 flex-col items-center gap-1 border-b border-black bg-[#3a3a3a] px-5 py-[.625rem] text-[1rem] sm:h-[3.125rem] sm:flex-row sm:py-0 sm:text-[.8125rem]"
+        className="bg-message-app-sender-bg flex flex-shrink-0 flex-col items-center gap-1 border-b border-black px-5 py-[.625rem] text-[1rem] sm:h-[3.125rem] sm:flex-row sm:py-0 sm:text-[.8125rem]"
         ref={header}
       >
         <div className="flex flex-col items-center gap-[.375rem] sm:hidden">
           <Image
             width={50}
             height={50}
-            className="h-[3.125rem] w-[3.125rem] rounded-[50%] bg-[#cac4bd]"
+            className="bg-message-receiver-bg h-[3.125rem] w-[3.125rem] rounded-[50%]"
             src="/sticker-5.png"
             alt="memoji"
           />
@@ -96,9 +96,9 @@ export const MessageMain = () => {
         <div className="flex w-full gap-[0.375rem]">
           <label
             htmlFor="from"
-            className={cn("font-medium text-[#929292]", {
-              "text-[#eb5545]": error.required,
-              "text-[#929292]": !error.required,
+            className={cn("font-medium text-zinc-400", {
+              "text-message-app-error": error.required,
+              "text-zinc-400": !error.required,
             })}
           >
             From:
@@ -118,9 +118,9 @@ export const MessageMain = () => {
               autoFocus
               spellCheck="false"
               className={cn(
-                "w-full bg-transparent caret-[#1f7bf6] outline-none",
+                "caret-message-input-caret w-full bg-transparent outline-none",
                 {
-                  "text-[#eb5545]": error.inValid,
+                  "text-message-app-error": error.inValid,
                   "text-white": !error.inValid,
                 },
               )}
@@ -169,7 +169,7 @@ export const MessageMain = () => {
             placeholder="Send message"
             ref={textarea}
             rows={1}
-            className="w-full flex-1 resize-none rounded-2xl border border-[#2f2f2f] bg-transparent px-[.625rem] py-[0.15625rem] text-[1rem] text-white placeholder-[#535353] caret-[#1f7bf6] outline-none sm:text-[.8125rem]"
+            className="border-message-input-border caret-message-input-caret placeholder-message-input-placeholder w-full flex-1 resize-none rounded-2xl border bg-transparent px-[.625rem] py-[0.15625rem] text-[1rem] text-white outline-none sm:text-[.8125rem]"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();

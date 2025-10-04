@@ -39,12 +39,12 @@ const SkillSection = () => {
               >
                 <div
                   role="tooltip"
-                  className="absolute bottom-[calc(100%+1.25rem)] left-1/2 z-10 -translate-x-1/2 rounded-[.625rem] bg-[#383838] px-4 py-[.625rem] opacity-0 shadow-sm will-change-[opacity]"
+                  className="bg-app-header-bg absolute bottom-[calc(100%+1.25rem)] left-1/2 z-10 -translate-x-1/2 rounded-[.625rem] px-4 py-[.625rem] opacity-0 shadow-sm will-change-[opacity]"
                 >
                   <p className="z-[5] text-base font-semibold whitespace-nowrap text-white">
                     {skill.label}
                   </p>
-                  <div className="absolute top-full left-1/2 z-[3] -translate-x-1/2 border-t-8 border-r-8 border-l-8 border-t-[#383838] border-r-transparent border-l-transparent" />
+                  <div className="border-t-app-header-bg absolute top-full left-1/2 z-[3] -translate-x-1/2 border-t-8 border-r-8 border-l-8 border-r-transparent border-l-transparent" />
                 </div>
                 <Image
                   src={`/skills/${skill.value}.svg`}

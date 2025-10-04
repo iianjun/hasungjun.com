@@ -62,7 +62,7 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
     >
       <ul
         className={cn(
-          "flex rounded-[1.25rem] border border-[#45474b] bg-[#53535340] p-2 backdrop-blur-md",
+          "border-nav-border bg-nav-dock-bg/40 flex rounded-[1.25rem] border p-2 backdrop-blur-md",
           {
             "lg:w-left-nav lg:flex-col": position === "left",
           },
@@ -98,7 +98,7 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
               </Link>
               <span
                 className={cn(
-                  "invisible absolute transform rounded-lg border border-black bg-[#27282a] px-3 py-1 text-center text-xs text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible",
+                  "bg-nav-tooltip-bg invisible absolute transform rounded-lg border border-black px-3 py-1 text-center text-xs text-white shadow-[inset_0_0_0_1px_#47484a] group-active:visible md:group-hover:visible",
                   {
                     "top-1/2 left-[calc(100%_+_1rem)] -translate-y-1/2":
                       position === "left",

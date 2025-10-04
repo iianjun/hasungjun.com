@@ -34,11 +34,11 @@ export default function Command({ history }: { history: CommandHistory }) {
   return (
     <>
       <div className="flex gap-2">
-        <span className="h-0 w-0 border-t-[.625rem] border-b-[.625rem] border-l-[.625rem] border-t-transparent border-b-transparent border-l-[#76c4fa]"></span>
+        <span className="border-l-terminal-arrow-bg h-0 w-0 border-t-[.625rem] border-b-[.625rem] border-l-[.625rem] border-t-transparent border-b-transparent"></span>
         <p
           className={cn({
-            "!text-[#ec675e]": !history.isSuccess,
-            "!text-[#89f498]": history.isSuccess,
+            "text-terminal-command-error": !history.isSuccess,
+            "text-terminal-command-success": history.isSuccess,
           })}
         >
           {[history.command, ...(history.directories || [])]

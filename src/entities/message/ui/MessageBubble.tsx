@@ -11,16 +11,16 @@ export default function MessageBubble({
 }) {
   return (
     <li className="mr-5 mb-2 flex flex-col items-end gap-1 self-end [&:first-child]:mt-2 [&:last-child]:mb-0">
-      <p className="max-w-[20.75rem] rounded-[.875rem] bg-[#2982f6] px-[.625rem] py-[.375rem] text-[.8125rem] leading-tight break-words whitespace-pre-wrap text-white">
+      <p className="bg-message-app-bubble max-w-[20.75rem] rounded-[.875rem] px-[.625rem] py-[.375rem] text-[.8125rem] leading-tight break-words whitespace-pre-wrap text-white">
         {message}
       </p>
       {isNotDelivered && (
-        <span className="text-[.625rem] font-semibold text-[#e25243]">
+        <span className="text-message-app-error text-[.625rem] font-semibold">
           Not Delivered
         </span>
       )}
       {showDelivered && (
-        <span className="text-[.625rem] font-semibold text-[#9a9a9a]">
+        <span className="text-[.625rem] font-semibold text-neutral-400">
           Delivered
         </span>
       )}
