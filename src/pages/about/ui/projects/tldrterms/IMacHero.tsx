@@ -112,7 +112,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
         style={monitorStyle}
         className="absolute bottom-0 left-1/2 -translate-x-1/2"
       >
-        <div className="aspect-[3082/2287] w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))]">
+        <div className="relative aspect-[3082/2287] w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))]">
           <Image
             src="/tldrterms/xdr-display.png"
             alt="imac"

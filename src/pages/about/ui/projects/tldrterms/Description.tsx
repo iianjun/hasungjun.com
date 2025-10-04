@@ -1,13 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { CrossIcon, PlusIcon } from "@/shared/ui";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useIsInView, useMediaQuery, useMounted } from "@/shared/lib";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useMediaQuery, useWindowResize } from "@/shared/lib";
 
 import HoloImage from "@/pages/about/ui/projects/tldrterms/HoloImage";
+import ViewLoader from "@/pages/about/ui/projects/tldrterms/ViewLoader";
 import { cn } from "@/shared/lib";
 
-const IS_DEV = process.env.NODE_ENV === "development";
 type ControlType = "overview" | "problem" | "technical" | "features" | "impact";
+
 const CONTROL_MAP: Record<
   ControlType,
   { title: string; content: string; phrase: string }
@@ -48,83 +49,28 @@ const CONTROL_MAP: Record<
       "TL;DR Terms bridges the gap between complex legal documentation and user understanding, enabling individuals to make informed decisions about their digital privacy and data security. The project demonstrates how technology can be leveraged to solve real-world problems and protect user rights in an increasingly connected world, fostering greater digital literacy and awareness.",
   },
 };
-function Loader() {
-  const didRun = useRef(false);
-  const [ref, isInView] = useIsInView<HTMLDivElement>({
-    options: {
-      threshold: 0.5,
-    },
-  });
-  const [progress, setProgress] = useState(IS_DEV ? 100 : 0);
-  const interval = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (!isInView || didRun.current || IS_DEV) return;
-    didRun.current = true;
-    let currentProgress = 0;
-    interval.current = setInterval(() => {
-      currentProgress += 1;
-      if (currentProgress >= 100) {
-        currentProgress = 100;
-        clearInterval(interval.current as NodeJS.Timeout);
-      }
-      setProgress(currentProgress);
-    }, 20);
-  }, [isInView]);
+const CONTROL_KEYS = Object.keys(CONTROL_MAP) as ControlType[];
 
-  useEffect(() => {
-    return () => {
-      if (interval.current) {
-        clearInterval(interval.current);
-      }
-    };
-  }, []);
-
-  const isDone = progress === 100;
-
-  return (
-    <motion.div
-      ref={ref}
-      className="flex-center absolute inset-0 z-10 rounded-3xl bg-black"
-      animate={{
-        visibility: isDone ? "hidden" : "visible",
-        opacity: isDone ? 0 : 1,
-      }}
-      transition={{
-        duration: 0.4,
-        delay: 0.5,
-      }}
-    >
-      <div className="bg-progress/40 relative h-2 w-35 rounded-full">
-        <motion.div
-          className={`h-full rounded-full bg-white`}
-          initial={false}
-          animate={{
-            width: `${progress}%`,
-          }}
-          transition={{
-            duration: 0.5,
-            ease: "easeOut",
-          }}
-        />
-      </div>
-    </motion.div>
-  );
-}
 function Control({
-  title,
-  phrase,
-  active,
-  onActive,
+  type,
+  activeType,
+  onChangeType,
+  onWidthChange,
 }: {
-  title: string;
-  phrase: string;
-  active: boolean;
-  onActive: () => void;
+  type: ControlType;
+  activeType: ControlType | null;
+  onChangeType: (type: ControlType) => void;
+  onWidthChange: (width: number) => void;
 }) {
-  const isMounted = useMounted()();
+  const isSelected = activeType === type;
+  const title = CONTROL_MAP[type].title;
+  const phrase = CONTROL_MAP[type].phrase;
+
   const [height, setHeight] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
+  const [expandedWidth, setExpandedWidth] = useState<number>(0);
+
   const contentRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -132,11 +78,15 @@ function Control({
   const isMd = useMediaQuery("(min-width: 48rem)");
 
   const isSm = !isLg && !isMd;
-  const expandedWidth = useMemo(() => {
-    if (isLg) return 424;
-    if (isMd) return 374;
-    return 400;
-  }, [isLg, isMd]);
+
+  const calculateButtonWidth = useCallback(() => {
+    const buttonElement = buttonRef.current;
+    if (!buttonElement) return;
+    const buttonWidth = buttonElement.clientWidth;
+    setWidth(buttonWidth);
+    onWidthChange(buttonWidth);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const calculateContentHeight = useCallback(() => {
     const contentElement = contentRef.current;
@@ -145,35 +95,44 @@ function Control({
     setHeight(contentHeight);
   }, []);
 
-  const calculateButtonWidth = useCallback(() => {
-    const buttonElement = buttonRef.current;
-    if (!buttonElement) return;
-    const buttonWidth = buttonElement.clientWidth;
-    setWidth(buttonWidth);
-  }, []);
+  const calculateExpandedWidth = useCallback(() => {
+    if (isLg) return setExpandedWidth(424);
+    if (isMd) return setExpandedWidth(374);
+    if (window.screen.width > 400 + 80) return setExpandedWidth(400);
+    return setExpandedWidth(window.screen.width - 80);
+  }, [isLg, isMd]);
+
+  useWindowResize(calculateExpandedWidth);
 
   useEffect(() => {
+    const contentElement = contentRef.current;
+    if (!contentElement) return;
     calculateContentHeight();
-    const controller = new AbortController();
-    window.addEventListener("resize", calculateContentHeight, {
-      signal: controller.signal,
+    const resizeObserver = new ResizeObserver(() => {
+      calculateContentHeight();
     });
+    resizeObserver.observe(contentElement);
     return () => {
-      controller.abort();
+      resizeObserver.disconnect();
     };
   }, [calculateContentHeight]);
 
   useEffect(() => {
-    if (isMounted) calculateButtonWidth();
-  }, [isMounted, calculateButtonWidth, isSm]);
+    calculateButtonWidth();
+  }, [calculateButtonWidth, isSm]);
 
   return (
     <motion.li
       initial={false}
-      className="group relative h-14 flex-shrink-0 rounded-[1.75rem] backdrop-blur-lg"
+      className={cn(
+        "group relative h-14 flex-shrink-0 rounded-[1.75rem] backdrop-blur-lg",
+        {
+          "z-10": isSm && isSelected,
+        },
+      )}
       animate={{
-        height: active ? height : undefined,
-        width: active ? expandedWidth : width,
+        height: isSelected ? height : undefined,
+        width: isSelected ? expandedWidth : width,
       }}
       transition={{
         duration: 0.4,
@@ -188,28 +147,28 @@ function Control({
           className={cn(
             "bg-control/72 z-[-1] h-full w-full rounded-[1.75rem] transition-colors ease-linear",
             {
-              "group-hover:bg-control/92": !active,
+              "group-hover:bg-control/92": !isSelected,
             },
           )}
         ></span>
       </div>
       <motion.button
         ref={buttonRef}
-        onClick={onActive}
+        onClick={() => onChangeType(type)}
         className={cn(
           "relative z-[1] flex h-14 cursor-pointer items-center gap-3.5 rounded-[1.75rem] pr-7 pl-3.5 text-sm font-semibold whitespace-nowrap text-white md:text-base",
           {
-            "pointer-events-none": active,
+            "pointer-events-none": isSelected,
           },
         )}
-        disabled={active}
-        aria-hidden={active}
+        disabled={isSelected}
+        aria-hidden={isSelected}
         animate={{
-          opacity: !active ? 1 : 0,
+          opacity: isSelected ? 0 : 1,
         }}
         transition={{
-          duration: !active ? 0.4 : 0,
-          delay: !active ? 0.4 : 0,
+          duration: isSelected ? 0.2 : 0.4,
+          delay: isSelected ? 0 : 0.4,
         }}
       >
         <PlusIcon />
@@ -218,16 +177,19 @@ function Control({
       <div className={"absolute top-0 left-0 h-full w-full"}>
         <div className="h-full w-full overflow-hidden">
           <motion.div
-            aria-hidden={!active}
-            className={cn("invisible w-100 p-6 md:w-93.5 md:p-7 lg:w-106", {
-              visible: active,
+            aria-hidden={!isSelected}
+            className={cn("invisible p-6 md:p-7", {
+              visible: isSelected,
             })}
+            style={{
+              width: expandedWidth,
+            }}
             animate={{
-              opacity: active ? 1 : 0,
+              opacity: isSelected ? 1 : 0,
             }}
             transition={{
-              duration: active ? 0.7 : 0,
-              delay: active ? 0.3 : 0,
+              duration: isSelected ? 0.7 : 0,
+              delay: isSelected ? 0.3 : 0,
             }}
             ref={contentRef}
           >
@@ -240,20 +202,54 @@ function Control({
     </motion.li>
   );
 }
+
 export default function Description() {
   const [clicked, setClicked] = useState<ControlType | null>(null);
   const isLg = useMediaQuery("(min-width: 64rem)");
   const isMd = useMediaQuery("(min-width: 48rem)");
-
   const isSm = !isLg && !isMd;
 
-  const expandedWidth = useMemo(() => {
-    if (isLg) return 424;
-    if (isMd) return 374;
-    return 400;
-  }, [isLg, isMd]);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [targetOffset, setTargetOffset] = useState(0);
+
+  const controlsRef = useRef<HTMLUListElement>(null);
+  const itemWidthsRef = useRef<number[]>([]);
+
+  const handleControlClick = (key: ControlType, index: number) => {
+    setClicked(key);
+    if (!isSm || !controlsRef.current) return;
+    const container = controlsRef.current;
+    const gap = 10;
+    const expandedWidth = Math.min(window.innerWidth - 80, 400);
+
+    const calculatedItemLeft = itemWidthsRef.current.reduce((acc, width, i) => {
+      if (i < index) {
+        return acc + width + gap;
+      }
+      return acc;
+    }, 0);
+
+    const containerWidth = container.offsetWidth;
+    const scrollTarget =
+      calculatedItemLeft - containerWidth / 2 + expandedWidth / 2;
+
+    const INITIAL_OFFSET = 40;
+    setTargetOffset(scrollTarget + INITIAL_OFFSET);
+    setTimeout(() => setIsAnimating(true), 400);
+    setTimeout(() => setIsAnimating(false), 700);
+  };
+
+  useEffect(() => {
+    if (isAnimating && controlsRef.current) {
+      controlsRef.current.scrollTo({
+        left: targetOffset,
+        behavior: "smooth",
+      });
+    }
+  }, [isAnimating, targetOffset]);
+
   return (
-    <div className="relative mx-auto mb-10 flex h-190 w-full max-w-7xl items-center overflow-clip md:overflow-visible">
+    <div className="relative mx-auto mb-10 flex h-160 w-full max-w-7xl items-center overflow-clip md:h-190 lg:overflow-visible">
       <div className="absolute top-4 right-4 z-[3]">
         <motion.button
           onClick={() => setClicked(null)}
@@ -271,21 +267,32 @@ export default function Description() {
         </motion.button>
       </div>
       <div className="absolute z-[-1] h-full w-full bg-black xl:rounded-3xl"></div>
-      <Loader />
+      <ViewLoader />
       <div className="z-[2] flex h-full w-full items-end md:block md:h-auto md:w-3/10 md:pl-5 lg:pl-24">
         <div className="sticky bottom-0 flex h-57.5 flex-col justify-end overflow-hidden pb-5 md:h-auto md:overflow-visible md:pb-0">
           <ul
-            className={
-              "hide-scrollbar inline-flex flex-nowrap items-end gap-4 overflow-auto pl-5 md:relative md:flex-col md:items-start md:overflow-visible md:pl-0"
-            }
+            ref={controlsRef}
+            className={cn(
+              "hide-scrollbar inline-flex flex-nowrap items-end gap-2.5 overflow-auto pr-6 pl-6 md:relative md:flex-col md:items-start md:gap-4 md:overflow-visible md:pr-0 md:pl-0",
+              {
+                "overflow-hidden": clicked,
+              },
+            )}
           >
-            {Object.keys(CONTROL_MAP).map((key) => (
+            {CONTROL_KEYS.map((key, index) => (
               <Control
                 key={key}
-                active={clicked === key}
-                onActive={() => setClicked(key as ControlType)}
-                title={CONTROL_MAP[key as ControlType].title}
-                phrase={CONTROL_MAP[key as ControlType].phrase}
+                type={key}
+                activeType={clicked}
+                onChangeType={(type) => {
+                  const clickedIndex = CONTROL_KEYS.findIndex(
+                    (k) => k === type,
+                  );
+                  handleControlClick(type, clickedIndex);
+                }}
+                onWidthChange={(width) => {
+                  itemWidthsRef.current[index] = width;
+                }}
               />
             ))}
           </ul>
@@ -323,7 +330,7 @@ export default function Description() {
             style={{
               left: isSm
                 ? undefined
-                : `${((expandedWidth + (isLg ? 96 : 20)) / 16).toFixed(2)}rem`,
+                : `${((isLg ? 424 + 96 : 374 + 20) / 16).toFixed(2)}rem`,
             }}
           >
             <p className="font-semibold text-slate-300 md:text-xl lg:text-2xl">

@@ -86,7 +86,11 @@ export const FloatingTerminal = ({
           }
           ref={terminal}
         >
-          <Terminal className="h-full w-full" keepBorder hideShadow={!visible}>
+          <Terminal
+            className="bg-background h-full w-full"
+            keepBorder
+            hideShadow={!visible}
+          >
             <div
               className="hide-scrollbar overflow-auto p-4 lg:p-[1.875rem]"
               ref={scrollContent}

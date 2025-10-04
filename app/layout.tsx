@@ -1,7 +1,8 @@
 import "@/app/styles/globals.css";
 
+import type { Metadata, Viewport } from "next";
+
 import { Inter } from "next/font/google";
-import type { Metadata } from "next";
 import StoreProvider from "@/app/providers/store-provider";
 import { cn } from "@/shared/lib";
 import localFont from "next/font/local";
@@ -15,6 +16,10 @@ const d2coding = localFont({
 
 export const metadata: Metadata = {
   title: "Home | Hasung Jun",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#232431",
 };
 
 export default function RootLayout({

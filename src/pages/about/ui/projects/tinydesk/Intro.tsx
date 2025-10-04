@@ -1,5 +1,5 @@
-import { ChevronIcon } from "@/shared/ui";
 import Link from "next/link";
+import { LinkChevronIcon } from "@/shared/ui";
 import React from "react";
 import { useIsInView } from "@/shared/lib";
 
@@ -55,7 +55,7 @@ const Intro = () => {
             rel="noopener noreferrer"
           >
             <span>Visit</span>
-            <ChevronIcon className="w-2 md:w-auto" />
+            <LinkChevronIcon className="w-2 md:w-auto" />
           </Link>
           <Link
             className="text-link inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
@@ -64,7 +64,7 @@ const Intro = () => {
             rel="noopener noreferrer"
           >
             <span>GitHub</span>
-            <ChevronIcon className="w-2 md:w-auto" />
+            <LinkChevronIcon className="w-2 md:w-auto" />
           </Link>
         </div>
       </div>
