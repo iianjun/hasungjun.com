@@ -11,6 +11,7 @@
 @theme inline {
   /* Breakpoints */
   --breakpoint-xs: 30rem;
+  --breakpoint-a4: 49.625rem;
 
   --text-2.5xl: 1.75rem;
   --text-2.5xl--line-height: 1.142;
@@ -71,6 +72,7 @@
   /* Spacing */
   --spacing-m-header: 3.125rem;
   --spacing-left-nav: calc(var(--spacing) * 17);
+
   /* Animations & Keyframes */
   --animate-blink-caret: blink-caret 0.75s step-end infinite;
   @keyframes blink-caret {
@@ -132,6 +134,16 @@
 
   --font-inter: var(--font-inter);
   --font-d2coding: var(--font-d2coding);
+
+  --a4-width-desktop: 210mm;
+  --a4-height-desktop: 297mm;
+  --a4-width-mobile: 20rem;
+  --a4-aspect-ratio: 1.415;
+
+  --a4-font-reference: 16px;
+  --a4-width-reference: 595px;
+  --a4-font-min: 0.5375rem; /* 8.6px */
+  --a4-font-max: 1.334rem; /* 21.344px */
 }
 
 /**
@@ -358,6 +370,50 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility w-a4 {
+  width: clamp(var(--a4-width-mobile), 100vw, var(--a4-width-desktop));
+  container-type: inline-size;
+
+  /* Font scales proportionally, with min/max limits */
+  font-size: clamp(
+    var(--a4-font-min),
+    calc((var(--a4-font-reference) / var(--a4-width-reference)) * 100cqi),
+    var(--a4-font-max)
+  );
+}
+
+@utility h-a4 {
+  height: clamp(
+    calc(var(--a4-width-mobile) * var(--a4-aspect-ratio)),
+    calc(100cqi * var(--a4-aspect-ratio)),
+    var(--a4-height-desktop)
+  );
+}
+
+@utility text-a4-lg {
+  font-size: 1.125em;
+  line-height: 1.167;
+}
+@utility text-a4-base {
+  font-size: 0.75em;
+  line-height: 1.167;
+}
+@utility text-a4-sm {
+  font-size: 0.6875em;
+  line-height: 1.18;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  aside,
+  nav {
     display: none;
   }
 }
