@@ -18,7 +18,7 @@ const ITEMS: {
   { name: "Terminal", src: "/dock/dock-terminal.svg", link: "/" },
   { name: "About", src: "/dock/dock-about.png", link: "/about" },
   { name: "Resume", src: "/dock/dock-resume.svg", link: "/resume" },
-  { name: "Messages", src: "/dock/dock-messages.svg", link: "/messages" },
+  { name: "Messages", src: "/dock/dock-messages.png", link: "/messages" },
   {
     name: "LinkedIn",
     src: "/dock/dock-linkedin.svg",
@@ -79,7 +79,7 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 (position === "bottom" || isShow) && ITEMS.length - 1 !== index,
             })}
           >
-            <div className="ease-smooth relative h-[3.125rem] w-[3.125rem] transition-all duration-100 group-active:-mt-4 group-active:h-[3.75rem] group-active:w-[3.75rem] md:group-hover:-mt-[.625rem] md:group-hover:h-[3.75rem] md:group-hover:w-[3.75rem]">
+            <div className="ease-smooth relative h-12.5 w-12.5 transition-all duration-100 group-active:-mt-4 group-active:h-[3.75rem] group-active:w-[3.75rem] md:group-hover:-mt-[.625rem] md:group-hover:h-[3.75rem] md:group-hover:w-[3.75rem]">
               <Link
                 href={item.link}
                 target={item.link.startsWith("/") ? undefined : "_blank"}
@@ -87,14 +87,7 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                   item.link.startsWith("/") ? undefined : "noopener noreferrer"
                 }
               >
-                <Image
-                  width="0"
-                  height="0"
-                  className="h-full w-full"
-                  sizes="3.5rem"
-                  src={item.src}
-                  alt={item.name}
-                />
+                <Image fill sizes="3.125rem" src={item.src} alt={item.name} />
               </Link>
               <span
                 className={cn(
