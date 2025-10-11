@@ -10,7 +10,7 @@ import { TLDRTermsTypographyLogoIcon } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 import { motion } from "framer-motion";
 
-const MAX_WIDTH = 888;
+const MAX_WIDTH = 820;
 const LG_SCREEN_BREAKPOINT = 1024;
 const TOP_NAV_HEIGHT = 50;
 export default function IMacHero({ y }: { y: MotionValue<number> }) {
@@ -59,15 +59,15 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
       <ScrollLogo y={y} />
       <div
         className={cn(
-          "2 relative mx-auto mt-12.5 w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))] space-y-4 pt-5 md:mt-0 md:space-y-6 md:pt-13.5 lg:pt-6",
+          "relative mx-auto mt-12.5 w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*3))] space-y-4 pt-5 md:mt-0 md:space-y-6 md:pt-13.5 lg:pt-6",
           {
             "z-[2] !pt-0 pl-5": isOverflowing,
           },
         )}
         style={{
-          height: `${(typoSectionHeight / 16).toFixed(0)}rem`,
+          height: `${(typoSectionHeight / 16).toFixed(2)}rem`,
           marginTop: isOverflowing
-            ? `calc(${(typoSectionHeight / 16).toFixed(0)}rem + 1.25rem)`
+            ? `calc(${(typoSectionHeight / 16).toFixed(2)}rem + 1.25rem)`
             : undefined,
         }}
       >
@@ -112,7 +112,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
         style={monitorStyle}
         className="absolute bottom-0 left-1/2 -translate-x-1/2"
       >
-        <div className="relative aspect-[3082/2287] w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*2))]">
+        <div className="relative aspect-[3082/2287] w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*3))]">
           <Image
             src="/tldrterms/xdr-display.png"
             alt="imac"
