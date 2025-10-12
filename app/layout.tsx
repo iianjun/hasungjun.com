@@ -15,7 +15,46 @@ const d2coding = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Home | Hasung Jun",
+  title: "Hasung Jun",
+  description:
+    "Portfolio website of Hasung Jun, a Full Stack Developer specializing in web development. View my projects, skills, and experience.",
+  keywords: [
+    "Hasung Jun",
+    "Full Stack Developer",
+    "Web Developer",
+    "Portfolio",
+    "React",
+    "Next.js",
+  ],
+  authors: [{ name: "Hasung Jun" }],
+  openGraph: {
+    title: "Hasung Jun",
+    description:
+      "Portfolio website showcasing my web development projects and skills",
+    url: "https://www.hasungjun.com",
+    siteName: "Hasung Jun Portfolio",
+    images: [
+      {
+        url: "https://www.hasungjun.com/og-image.png",
+        width: 420,
+        height: 420,
+        alt: "Hasung Jun Portfolio",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Hasung Jun",
+    description:
+      "Portfolio website showcasing my web development projects and skills",
+    images: ["https://www.hasungjun.com/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {
