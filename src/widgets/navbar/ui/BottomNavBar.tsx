@@ -18,7 +18,7 @@ const ITEMS: {
   { name: "Terminal", src: "/dock/dock-terminal.svg", link: "/" },
   { name: "About", src: "/dock/dock-about.png", link: "/about" },
   { name: "Resume", src: "/dock/dock-resume.svg", link: "/resume" },
-  { name: "Messages", src: "/dock/dock-messages.png", link: "/messages" },
+  { name: "Messages", src: "/dock/dock-messages.svg", link: "/messages" },
   {
     name: "LinkedIn",
     src: "/dock/dock-linkedin.svg",
