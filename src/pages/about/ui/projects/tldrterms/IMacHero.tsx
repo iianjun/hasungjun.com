@@ -1,19 +1,23 @@
 "use client";
 
 import { MotionValue, useTransform } from "framer-motion";
+import { cn, useMediaQuery, useMounted } from "@/shared/lib";
 import { useCallback, useEffect, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
+import Links from "@/pages/about/ui/projects/tldrterms/Links";
 import ScrollLogo from "@/pages/about/ui/projects/tldrterms/ScrollLogo";
 import { TLDRTermsTypographyLogoIcon } from "@/shared/ui";
-import { cn } from "@/shared/lib";
 import { motion } from "framer-motion";
 
 const MAX_WIDTH = 820;
 const LG_SCREEN_BREAKPOINT = 1024;
 const TOP_NAV_HEIGHT = 50;
+
 export default function IMacHero({ y }: { y: MotionValue<number> }) {
+  const isSm = useMediaQuery("(max-width: 40rem)");
+  const isMoutned = useMounted();
   const [typoSectionHeight, setTypoSectionHeight] = useState(0);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -107,6 +111,11 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
           Understand Website Terms
           <span className="block text-blue-500">Without The Legal Jargon</span>
         </motion.h4>
+        {isSm && isMoutned() && (
+          <motion.div style={textStyle}>
+            <Links className="flex flex-col gap-2.5" />
+          </motion.div>
+        )}
       </div>
       <motion.div
         style={monitorStyle}
@@ -114,6 +123,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
       >
         <div className="relative aspect-[3082/2287] w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*3))]">
           <Image
+            priority
             src="/tldrterms/xdr-display.png"
             alt="imac"
             fill

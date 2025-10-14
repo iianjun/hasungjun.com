@@ -25,7 +25,7 @@ export default function ViewLoader() {
         clearInterval(interval.current as NodeJS.Timeout);
       }
       setProgress(currentProgress);
-    }, 20);
+    }, 10);
   }, [isInView]);
 
   useEffect(() => {

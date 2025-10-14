@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useMediaQuery, useWindowResize } from "@/shared/lib";
 
 import HoloImage from "@/pages/about/ui/projects/tldrterms/HoloImage";
+import Links from "@/pages/about/ui/projects/tldrterms/Links";
 import ViewLoader from "@/pages/about/ui/projects/tldrterms/ViewLoader";
 import { cn } from "@/shared/lib";
 
@@ -233,7 +234,7 @@ export default function Description() {
     const scrollTarget =
       calculatedItemLeft - containerWidth / 2 + expandedWidth / 2;
 
-    const INITIAL_OFFSET = 40;
+    const INITIAL_OFFSET = 24;
     setTargetOffset(scrollTarget + INITIAL_OFFSET);
     setTimeout(() => setIsAnimating(true), 400);
     setTimeout(() => setIsAnimating(false), 700);
@@ -268,15 +269,12 @@ export default function Description() {
       </div>
       <div className="absolute z-[-1] h-full w-full bg-black xl:rounded-3xl"></div>
       <ViewLoader />
-      <div className="z-[2] flex h-full w-full items-end md:block md:h-auto md:w-3/10 md:pl-5 lg:pl-24">
+      <div className="z-[1] flex h-full w-full items-end md:block md:h-auto md:w-3/10 md:pl-5 lg:pl-24">
         <div className="sticky bottom-0 flex h-57.5 flex-col justify-end overflow-hidden pb-5 md:h-auto md:overflow-visible md:pb-0">
           <ul
             ref={controlsRef}
             className={cn(
               "hide-scrollbar inline-flex flex-nowrap items-end gap-2.5 overflow-auto pr-6 pl-6 md:relative md:flex-col md:items-start md:gap-4 md:overflow-visible md:pr-0 md:pl-0",
-              {
-                "overflow-hidden": clicked,
-              },
             )}
           >
             {CONTROL_KEYS.map((key, index) => (
@@ -336,6 +334,12 @@ export default function Description() {
             <p className="font-semibold text-slate-300 md:text-xl lg:text-2xl">
               {CONTROL_MAP[clicked].content}
             </p>
+            {clicked === "overview" && (
+              <Links
+                smallerOnMobile
+                className="mt-4 inline-flex flex-col gap-2.5 md:mt-6"
+              />
+            )}
           </motion.div>
         )}
       </AnimatePresence>

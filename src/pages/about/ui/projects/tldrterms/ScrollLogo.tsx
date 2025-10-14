@@ -7,7 +7,10 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
+import { cn, useMediaQuery } from "@/shared/lib";
 import { useCallback, useEffect, useId, useState } from "react";
+
+import Links from "@/pages/about/ui/projects/tldrterms/Links";
 
 const GRADIENT_COLORS = ["#2b7fff", "#9810fa", "#2b7fff"];
 const STROKE_WIDTH = 5;
@@ -48,6 +51,7 @@ const AnimatedGradient = ({
 );
 
 const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
+  const isSm = useMediaQuery("(max-width: 40rem)");
   const [translateTo, setTranslateTo] = useState(0);
 
   const calculateTranslateTo = useCallback(() => {
@@ -110,95 +114,117 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
     return () => controls.stop();
   }, [stopColor]);
 
+  const [hoverEnabled, setHoverEnabled] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = y.on("change", (latest) => {
+      setHoverEnabled(latest >= 0.55);
+    });
+
+    return () => unsubscribe();
+  }, [y]);
+
   return (
     <motion.div
-      className="xs:h-76 xs:w-69 absolute top-1/2 left-1/2 z-[2] mx-auto h-[13.75rem] w-[12.5rem] -translate-x-1/2 -translate-y-1/2 md:h-110 md:w-100"
+      className={cn(
+        "xs:h-76 xs:w-69 absolute top-1/2 left-1/2 z-[2] mx-auto h-[13.75rem] w-[12.5rem] -translate-x-1/2 -translate-y-1/2 md:h-110 md:w-100",
+        {
+          group: hoverEnabled && !isSm,
+        },
+      )}
       style={{ scale, translateY }}
     >
-      <svg
-        viewBox={`0 0 ${SIZE.width} ${SIZE.height}`}
-        className="overflow-visible"
-        fill="none"
-      >
-        <defs>
+      <Links className="pointer-events-none absolute top-1/2 left-1/2 z-[2] inline-flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-4 opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100" />
+      <div className="transition-[filter] group-hover:blur-sm">
+        <svg
+          viewBox={`0 0 ${SIZE.width} ${SIZE.height}`}
+          className="overflow-visible"
+          fill="none"
+        >
+          <defs>
+            {/* stage 1 */}
+            <AnimatedGradient id={borderId} x1={borderX1} x2={borderX2} />
+            <AnimatedGradient id={dotId} x1={dotX1} x2={dotX2} />
+            <AnimatedGradient id={commaId} x1={commaX1} x2={commaX2} />
+
+            {/* stage 2 */}
+            <linearGradient id={gradientId}>
+              <motion.stop
+                offset="0%"
+                stopColor={stopColor}
+                stopOpacity="0.3"
+              />
+              <motion.stop offset="50%" stopColor={stopColor} stopOpacity="1" />
+              <motion.stop
+                offset="100%"
+                stopColor={stopColor}
+                stopOpacity="0.3"
+              />
+            </linearGradient>
+            <motion.linearGradient
+              id={`${gradientId}-moving`}
+              animate={{ x1: ["-100%", "100%"], x2: ["0%", "200%"] }}
+              transition={{
+                duration: ANIMATION_DURATION,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              <stop offset="0%" stopColor="#2b7fff" stopOpacity="0" />
+              <stop offset="50%" stopColor="#9810fa" stopOpacity="1" />
+              <stop offset="100%" stopColor="#2b7fff" stopOpacity="0" />
+            </motion.linearGradient>
+          </defs>
+
           {/* stage 1 */}
-          <AnimatedGradient id={borderId} x1={borderX1} x2={borderX2} />
-          <AnimatedGradient id={dotId} x1={dotX1} x2={dotX2} />
-          <AnimatedGradient id={commaId} x1={commaX1} x2={commaX2} />
+          <motion.g style={{ opacity: stageOneOpacity }}>
+            <path
+              d={LOGO_PATHS.border}
+              stroke={`url(#${borderId})`}
+              strokeWidth={STROKE_WIDTH}
+              strokeLinecap="round"
+            />
+            <path
+              d={LOGO_PATHS.dot}
+              stroke={`url(#${dotId})`}
+              strokeWidth={STROKE_WIDTH}
+              strokeLinecap="round"
+            />
+            <path
+              d={LOGO_PATHS.comma}
+              stroke={`url(#${commaId})`}
+              strokeWidth={STROKE_WIDTH}
+              strokeLinecap="round"
+            />
+          </motion.g>
 
           {/* stage 2 */}
-          <linearGradient id={gradientId}>
-            <motion.stop offset="0%" stopColor={stopColor} stopOpacity="0.3" />
-            <motion.stop offset="50%" stopColor={stopColor} stopOpacity="1" />
-            <motion.stop
-              offset="100%"
-              stopColor={stopColor}
-              stopOpacity="0.3"
+          <motion.g style={{ opacity: stageTwoOpacity }}>
+            <PathLayer
+              stroke="#2b7fff"
+              strokeOpacity="0.2"
+              strokeWidth={STROKE_WIDTH}
             />
-          </linearGradient>
-          <motion.linearGradient
-            id={`${gradientId}-moving`}
-            animate={{ x1: ["-100%", "100%"], x2: ["0%", "200%"] }}
-            transition={{
-              duration: ANIMATION_DURATION,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            <stop offset="0%" stopColor="#2b7fff" stopOpacity="0" />
-            <stop offset="50%" stopColor="#9810fa" stopOpacity="1" />
-            <stop offset="100%" stopColor="#2b7fff" stopOpacity="0" />
-          </motion.linearGradient>
-        </defs>
 
-        {/* stage 1 */}
-        <motion.g style={{ opacity: stageOneOpacity }}>
-          <path
-            d={LOGO_PATHS.border}
-            stroke={`url(#${borderId})`}
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap="round"
-          />
-          <path
-            d={LOGO_PATHS.dot}
-            stroke={`url(#${dotId})`}
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap="round"
-          />
-          <path
-            d={LOGO_PATHS.comma}
-            stroke={`url(#${commaId})`}
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap="round"
-          />
-        </motion.g>
+            <PathLayer
+              stroke={`url(#${gradientId})`}
+              strokeWidth={STROKE_WIDTH}
+            />
 
-        {/* stage 2 */}
-        <motion.g style={{ opacity: stageTwoOpacity }}>
-          <PathLayer
-            stroke="#2b7fff"
-            strokeOpacity="0.2"
-            strokeWidth={STROKE_WIDTH}
-          />
+            <PathLayer
+              stroke={`url(#${gradientId}-moving)`}
+              strokeWidth={STROKE_WIDTH + 1}
+            />
 
-          <PathLayer
-            stroke={`url(#${gradientId})`}
-            strokeWidth={STROKE_WIDTH}
-          />
-
-          <PathLayer
-            stroke={`url(#${gradientId}-moving)`}
-            strokeWidth={STROKE_WIDTH + 1}
-          />
-
-          <PathLayer
-            stroke={`url(#${gradientId})`}
-            strokeWidth={STROKE_WIDTH * 3}
-            opacity="0.3"
-            filter="blur(3px)"
-          />
-        </motion.g>
-      </svg>
+            <PathLayer
+              stroke={`url(#${gradientId})`}
+              strokeWidth={STROKE_WIDTH * 3}
+              opacity="0.3"
+              filter="blur(3px)"
+            />
+          </motion.g>
+        </svg>
+      </div>
     </motion.div>
   );
 };
