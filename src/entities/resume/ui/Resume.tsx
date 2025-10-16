@@ -42,7 +42,7 @@ const SectionItem = ({
 }: {
   title: string;
   subTitle: string;
-  date: string;
+  date?: string;
   children: React.ReactNode;
 }) => {
   return (
@@ -51,7 +51,7 @@ const SectionItem = ({
         <h3>
           <strong>{title}</strong> | <span>{subTitle}</span>
         </h3>
-        <i>{date}</i>
+        {date && <i>{date}</i>}
       </div>
       {children}
     </div>
@@ -174,56 +174,22 @@ const Resume: React.FC = () => {
               ]}
             />
           </SectionItem>
+        </div>
+      </Section>
+      <Section title="Projects">
+        <div className="text-a4-sm flex flex-col gap-[1.25em]">
           <SectionItem
-            title="Moornomo"
-            subTitle="Incheon, South Korea"
-            date="June 2021 - July 2021"
+            title="TL;DR Terms"
+            subTitle="AI T&C and Privacy Policy Analyzer"
           >
-            <p>Frontend developer (Contract)</p>
             <List
               data={[
-                <React.Fragment key={1}>
-                  Developed features for electronic document management system
-                  using React and Redux
-                </React.Fragment>,
-                <React.Fragment key={2}>
-                  Implemented 3D model viewer using iTwin.js and React,
-                  delivering in <strong>1/10th the budgeted time</strong>
-                </React.Fragment>,
+                "Developed web application using Next.js, TypeScript, and OpenAI API that analyzes website privacy policies and terms of service, providing automated safety assessments and risk scores",
               ]}
             />
           </SectionItem>
         </div>
       </Section>
-      {/* <Section title="Projects">
-        <div className="text-a4-sm flex flex-col gap-[1.25em]">
-          <SectionItem
-            title="Tiny Desk"
-            subTitle="A bookmark organizer web app"
-            date="March 2021 - June 2021"
-          >
-            <List
-              data={[
-                "Lead developer on a small team of four members",
-                "Developed the frontend",
-                "Developed Chrome and Firefox Extension",
-              ]}
-            />
-          </SectionItem>
-          <SectionItem
-            title="Suni"
-            subTitle="iOS scheduling app"
-            date="Dec 2020 - Feb 2021"
-          >
-            <List
-              data={[
-                "200+ downloads",
-                "Used by over 10% of the students at the school",
-              ]}
-            />
-          </SectionItem>
-        </div>
-      </Section> */}
       <Section title="Skills">
         <List
           className="text-a4-sm"
@@ -233,8 +199,8 @@ const Resume: React.FC = () => {
               Redux, Tailwind CSS
             </p>,
             <p key="backend">
-              <strong>Backend & Database</strong>: Node.js, Nest.js, Express.js,
-              Fastify, REST, GraphQL, MongoDB, PostgreSQL, Docker, Git
+              <strong>Backend & Database</strong>: Node.js, Nest.js, Fastify,
+              REST, GraphQL, MongoDB, PostgreSQL, Docker, Git
             </p>,
           ]}
         />
