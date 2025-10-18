@@ -15,9 +15,8 @@ import {
   DockProps,
   DockProviderProps,
 } from "../model/types";
+import { cn, useMediaQuery } from "@/shared/lib";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-
-import { cn } from "@/shared/lib";
 
 const MAGNIFICATION = 80;
 const DISTANCE = 150;
@@ -42,23 +41,23 @@ function Dock({
   const mouseX = useMotionValue(Infinity);
   const mouseY = useMotionValue(Infinity);
   const isHovered = useMotionValue(0);
-
   const isVertical = position === "left";
+  const isXs = useMediaQuery("(max-width: 30rem)");
 
   return (
     <motion.div
       style={{
         scrollbarWidth: "none",
       }}
-      className={cn(
-        "flex",
-        isVertical
-          ? "my-2 max-h-full flex-col items-start"
-          : "mx-2 max-w-full items-end",
-      )}
+      className={cn("flex", {
+        "my-2 max-h-full flex-col items-start": isVertical,
+        "mx-2 max-w-full items-end": !isVertical,
+        "w-full": isXs,
+      })}
     >
       <motion.div
         onMouseMove={({ pageX, pageY }) => {
+          if (isXs) return;
           isHovered.set(1);
           if (isVertical) {
             mouseY.set(pageY);
@@ -67,6 +66,7 @@ function Dock({
           }
         }}
         onMouseLeave={() => {
+          if (isXs) return;
           isHovered.set(0);
           if (isVertical) {
             mouseY.set(Infinity);
@@ -76,15 +76,17 @@ function Dock({
         }}
         className={cn(
           "border-nav-border bg-nav-dock-bg/40 flex gap-4 rounded-[1.25rem] border backdrop-blur-md",
-          isVertical
-            ? "my-auto h-fit flex-col items-start px-2 py-2"
-            : "mx-auto w-fit items-end px-2 py-2",
+          {
+            "h-fit flex-col items-start px-2 py-2": isVertical,
+            "w-fit items-end px-2 py-2": !isVertical,
+            "w-full": isXs,
+          },
         )}
-        style={isVertical ? { width: 68 } : { height: 68 }}
+        style={isVertical ? { width: 68 } : { height: isXs ? "100%" : 68 }}
         role="toolbar"
         aria-label="Application dock"
       >
-        <DockProvider value={{ mouseX, mouseY, spring, isVertical }}>
+        <DockProvider value={{ mouseX, mouseY, spring, isVertical, isXs }}>
           {children}
         </DockProvider>
       </motion.div>
@@ -95,7 +97,7 @@ function Dock({
 function DockItem({ children, label }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { mouseX, mouseY, spring, isVertical } = useDock();
+  const { mouseX, mouseY, spring, isVertical, isXs } = useDock();
 
   const isHovered = useMotionValue(0);
 
@@ -123,7 +125,7 @@ function DockItem({ children, label }: DockItemProps) {
   return (
     <motion.div
       ref={ref}
-      style={isVertical ? { height: size } : { width: size }}
+      style={isVertical ? { height: size } : { width: isXs ? "100%" : size }}
       onHoverStart={() => isHovered.set(1)}
       onHoverEnd={() => isHovered.set(0)}
       onFocus={() => isHovered.set(1)}

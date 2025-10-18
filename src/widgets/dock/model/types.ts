@@ -24,6 +24,7 @@ export type DocContextType = {
   mouseY: MotionValue;
   spring: SpringOptions;
   isVertical: boolean;
+  isXs: boolean;
 };
 export type DockProviderProps = {
   children: React.ReactNode;
