@@ -3,6 +3,7 @@ import "@/app/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 
 import { Inter } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
 import StoreProvider from "@/app/providers/store-provider";
 import { cn } from "@/shared/lib";
 import localFont from "next/font/local";
@@ -69,7 +70,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn(inter.variable, d2coding.variable)}>
       <body className={"bg-background overflow-x-hidden antialiased"}>
-        <StoreProvider>{children}</StoreProvider>
+        <NextIntlClientProvider locale="en">
+          <StoreProvider>{children}</StoreProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

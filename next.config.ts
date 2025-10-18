@@ -1,7 +1,6 @@
-/**
- * @type {import('next').NextConfig}
- */
-const nextConfig = {
+import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+const nextConfig: NextConfig = {
   reactStrictMode: false,
   typedRoutes: true,
   turbopack: {
@@ -32,8 +31,8 @@ const nextConfig = {
     },
   },
   webpack(config) {
-    const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg"),
+    const fileLoaderRule = config.module.rules.find((rule: unknown) =>
+      (rule as { test: RegExp }).test?.test?.(".svg"),
     );
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
@@ -76,4 +75,5 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin("./src/shared/lib/i18n/request.ts");
+export default withNextIntl(nextConfig);
