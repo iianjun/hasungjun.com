@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SupportedLocale, defaultLocale, locales } from "@/shared/lib";
+import { defaultLocale, locales } from "@/shared/lib";
+
+import { type SupportedLocale } from "@/shared/model";
 
 export function middleware(request: NextRequest) {
   const localeCookie =
@@ -12,7 +14,7 @@ export function middleware(request: NextRequest) {
     response.cookies.set("NEXT_LOCALE", locale, {
       path: "/",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 365,
+      maxAge: 60 * 60 * 24 * 36,
     });
   }
 
