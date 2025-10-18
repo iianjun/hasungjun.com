@@ -18,5 +18,52 @@
     "notDelivered": "Not Delivered",
     "placeholder": "Send message",
     "fromPlaceholder": "Email"
+  },
+  "metadata": {
+    "common": {
+      "name": "Hasung Jun",
+      "siteName": "Hasung Jun - Full Stack Developer",
+      "firstName": "Hasung",
+      "lastName": "Jun"
+    },
+    "home": {
+      "title": "Hasung Jun",
+      "description": "Portfolio website of Hasung Jun, a Full Stack Developer specializing in web development. View my projects, skills, and experience.",
+      "keywords": "Hasung Jun, Full Stack Developer, Frontend Developer, Web Developer, Portfolio, React, Next.js",
+      "ogTitle": "Hasung Jun",
+      "ogDescription": "Portfolio website showcasing my web development projects and skills",
+      "twitterTitle": "Hasung Jun",
+      "twitterDescription": "Portfolio website showcasing my web development projects and skills"
+    },
+    "about": {
+      "title": "About | Hasung Jun",
+      "description": "Learn more about Hasung Jun, a Full Stack Developer passionate about creating efficient and user-friendly web applications.",
+      "keywords": "about, Full Stack Developer, web development, software engineer, professional profile",
+      "ogTitle": "About | Hasung Jun",
+      "ogDescription": "Learn more about my journey as a Full Stack Developer and my passion for web development",
+      "ogImageAlt": "About Hasung Jun",
+      "twitterTitle": "About | Hasung Jun",
+      "twitterDescription": "Learn more about my journey as a Full Stack Developer"
+    },
+    "resume": {
+      "title": "Resume | Hasung Jun",
+      "description": "View and download the resume.",
+      "keywords": "resume, CV, download resume, professional experience, Full Stack Developer",
+      "ogTitle": "Resume | Hasung Jun",
+      "ogDescription": "View and download my professional resume.",
+      "ogImageAlt": "Hasung Jun Resume",
+      "twitterTitle": "Resume | Hasung Jun",
+      "twitterDescription": "View and download my professional resume"
+    },
+    "messages": {
+      "title": "Messages | Hasung Jun",
+      "description": "Let's connect! Feel free to reach out about projects, opportunities, or even just to say hi. I'm always happy to chat.",
+      "keywords": "contact, email, message, get in touch, hire, collaboration",
+      "ogTitle": "Messages | Hasung Jun",
+      "ogDescription": "Let's connect! Feel free to reach out about projects, opportunities, or even just to say hi. I'm always happy to chat.",
+      "ogImageAlt": "Contact Hasung Jun",
+      "twitterTitle": "Messages | Hasung Jun",
+      "twitterDescription": "Let's connect! Feel free to reach out about projects, opportunities, or even just to say hi."
+    }
   }
 }

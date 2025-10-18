@@ -3,10 +3,12 @@ import "@/app/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 
 import { Inter } from "next/font/google";
+import { LOCALE_HASH } from "@/entities/locale";
 import { NextIntlClientProvider } from "next-intl";
 import StoreProvider from "@/app/providers/store-provider";
 import { cn } from "@/shared/lib";
-import { getLocale } from "next-intl/server";
+import { getLocale } from "@/entities/locale";
+import { getTranslations } from "next-intl/server";
 import localFont from "next/font/local";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -16,48 +18,46 @@ const d2coding = localFont({
   variable: "--font-d2coding",
 });
 
-export const metadata: Metadata = {
-  title: "Hasung Jun",
-  description:
-    "Portfolio website of Hasung Jun, a Full Stack Developer specializing in web development. View my projects, skills, and experience.",
-  keywords: [
-    "Hasung Jun",
-    "Full Stack Developer",
-    "Web Developer",
-    "Portfolio",
-    "React",
-    "Next.js",
-  ],
-  authors: [{ name: "Hasung Jun" }],
-  openGraph: {
-    title: "Hasung Jun",
-    description:
-      "Portfolio website showcasing my web development projects and skills",
-    url: "https://www.hasungjun.com",
-    siteName: "Hasung Jun Portfolio",
-    images: [
-      {
-        url: "https://www.hasungjun.com/og-image.png",
-        width: 420,
-        height: 420,
-        alt: "Hasung Jun Portfolio",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title: "Hasung Jun",
-    description:
-      "Portfolio website showcasing my web development projects and skills",
-    images: ["https://www.hasungjun.com/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [locale, t, common] = await Promise.all([
+    getLocale(),
+    getTranslations("metadata.home"),
+    getTranslations("metadata.common"),
+  ]);
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords").split(", "),
+    authors: [{ name: common("name") }],
+    openGraph: {
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      url: "https://www.hasungjun.com",
+      siteName: common("siteName"),
+      images: [
+        {
+          url: "https://www.hasungjun.com/og-image.png",
+          width: 420,
+          height: 420,
+          alt: common("siteName"),
+        },
+      ],
+      locale: LOCALE_HASH[locale],
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: t("twitterTitle"),
+      description: t("twitterDescription"),
+      images: ["https://www.hasungjun.com/og-image.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#232431",
@@ -70,7 +70,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   return (
-    <html lang="en" className={cn(inter.variable, d2coding.variable)}>
+    <html lang={locale} className={cn(inter.variable, d2coding.variable)}>
       <body className={"bg-background overflow-x-hidden antialiased"}>
         <NextIntlClientProvider locale={locale}>
           <StoreProvider>{children}</StoreProvider>

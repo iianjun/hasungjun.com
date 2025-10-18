@@ -16,5 +16,52 @@
     "notDelivered": "전송실패",
     "placeholder": "메시지를 입력해주세요",
     "fromPlaceholder": "이메일"
+  },
+  "metadata": {
+    "common": {
+      "name": "전하성",
+      "siteName": "전하성 - 프론트엔드 개발자",
+      "firstName": "하성",
+      "lastName": "전"
+    },
+    "home": {
+      "title": "전하성",
+      "description": "웹 개발을 전문으로 하는 풀스택 개발자 전하성의 포트폴리오 웹사이트입니다. 프로젝트, 기술 스택, 경험을 확인하세요.",
+      "keywords": "전하성, 프론트엔드 개발자, 풀스택 개발자, 웹 개발자, 포트폴리오, React, Next.js",
+      "ogTitle": "전하성",
+      "ogDescription": "웹 개발 프로젝트와 기술을 보여주는 포트폴리오 웹사이트",
+      "twitterTitle": "전하성",
+      "twitterDescription": "웹 개발 프로젝트와 기술을 보여주는 포트폴리오 웹사이트"
+    },
+    "about": {
+      "title": "About | 전하성",
+      "description": "효율적이고 사용자 친화적인 웹 애플리케이션 개발에 열정을 가진 프론트엔드 개발자 전하성에 대해 알아보세요.",
+      "keywords": "소개, 프론트엔드 개발자, 웹 개발, 소프트웨어 엔지니어, 프로필",
+      "ogTitle": "About | 전하성",
+      "ogDescription": "프론트엔드 개발자로서의 여정과 웹 개발에 대한 열정에 대해 알아보세요",
+      "ogImageAlt": "전하성 소개",
+      "twitterTitle": "About | 전하성",
+      "twitterDescription": "프론트엔드 개발자로서의 여정과 웹 개발에 대한 열정에 대해 알아보세요"
+    },
+    "resume": {
+      "title": "이력서 | 전하성",
+      "description": "이력서를 확인하고 다운로드하세요.",
+      "keywords": "이력서, CV, 이력서 다운로드, 경력, 풀스택 개발자",
+      "ogTitle": "이력서 | 전하성",
+      "ogDescription": "이력서를 확인하고 다운로드하세요.",
+      "ogImageAlt": "전하성 이력서",
+      "twitterTitle": "이력서 | 전하성",
+      "twitterDescription": "이력서를 확인하고 다운로드하세요."
+    },
+    "messages": {
+      "title": "메시지 | 전하성",
+      "description": "연락해보세요! 프로젝트, 기회, 또는 그냥 인사하고 싶으시다면 언제든지 연락 주세요. 대화를 항상 환영합니다.",
+      "keywords": "연락, 이메일, 메시지, 문의, 채용, 협업",
+      "ogTitle": "메시지 | 전하성",
+      "ogDescription": "연락해보세요! 프로젝트, 기회, 또는 그냥 인사하고 싶으시다면 언제든지 연락 주세요. 대화를 항상 환영합니다.",
+      "ogImageAlt": "전하성 연락하기",
+      "twitterTitle": "메시지 | 전하성",
+      "twitterDescription": "연락해보세요! 프로젝트, 기회, 또는 그냥 인사하고 싶으시다면 언제든지 연락 주세요."
+    }
   }
 }

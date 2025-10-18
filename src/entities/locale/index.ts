@@ -1,5 +1,9 @@
 export { defaultLocale, locales } from "./model/constants";
-export { LOCALE_COOKIE_NAME, LOCALE_COOKIE_MAX_AGE } from "./model/constants";
+export {
+  LOCALE_COOKIE_NAME,
+  LOCALE_COOKIE_MAX_AGE,
+  LOCALE_HASH,
+} from "./model/constants";
 export type { SupportedLocale } from "./model/types";
 
 export { getLocale } from "./lib/get-locale";

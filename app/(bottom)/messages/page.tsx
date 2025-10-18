@@ -1,47 +1,49 @@
+import { getLocale } from "@/entities/locale";
+import { LOCALE_HASH } from "@/entities/locale";
 import { MessagePage } from "@/pages/messages";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Messages | Hasung Jun",
-  description:
-    "Let's connect! Feel free to reach out about projects, opportunities, or even just to say hi. I'm always happy to chat.",
-  keywords: [
-    "contact",
-    "email",
-    "message",
-    "get in touch",
-    "hire",
-    "collaboration",
-  ],
-  openGraph: {
-    title: "Messages | Hasung Jun",
-    description:
-      "Let's connect! Feel free to reach out about projects, opportunities, or even just to say hi. I'm always happy to chat.",
-    url: "https://www.hasungjun.com/messages",
-    siteName: "Hasung Jun Portfolio",
-    images: [
-      {
-        url: "https://www.hasungjun.com/og-image.png",
-        width: 420,
-        height: 420,
-        alt: "Contact Hasung Jun",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title: "Messages | Hasung Jun",
-    description:
-      "Let's connect! Feel free to reach out about projects, opportunities, or even just to say hi.",
-    images: ["https://www.hasungjun.com/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [locale, t, common] = await Promise.all([
+    getLocale(),
+    getTranslations("metadata.messages"),
+    getTranslations("metadata.common"),
+  ]);
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords").split(", "),
+    authors: [{ name: common("name") }],
+    openGraph: {
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      url: "https://www.hasungjun.com/messages",
+      siteName: common("siteName"),
+      images: [
+        {
+          url: "https://www.hasungjun.com/og-image.png",
+          width: 420,
+          height: 420,
+          alt: t("ogImageAlt"),
+        },
+      ],
+      locale: LOCALE_HASH[locale],
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: t("twitterTitle"),
+      description: t("twitterDescription"),
+      images: ["https://www.hasungjun.com/og-image.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default async function Page() {
   return <MessagePage />;
