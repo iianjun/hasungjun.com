@@ -1,5 +1,11 @@
 {
-  "HomePage": {
-    "title": "안녕하세요"
+  "nav": {
+    "terminal": "Terminal",
+    "about": "소개",
+    "resume": "이력서",
+    "messages": "메시지",
+    "linkedIn": "LinkedIn",
+    "gitHub": "GitHub",
+    "language": "Language"
   }
 }

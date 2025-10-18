@@ -1,21 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
-import { defaultLocale, locales } from "@/shared/lib";
+import { getLocale, locales, setLocale } from "@/entities/locale";
 
-import { type SupportedLocale } from "@/shared/model";
+import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const localeCookie =
-    (request.cookies.get("NEXT_LOCALE")?.value as SupportedLocale) || "";
-  const locale = locales.includes(localeCookie) ? localeCookie : defaultLocale;
+export async function middleware() {
+  const locale = await getLocale();
 
   const response = NextResponse.next();
 
-  if (!localeCookie || !locales.includes(localeCookie)) {
-    response.cookies.set("NEXT_LOCALE", locale, {
-      path: "/",
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 36,
-    });
+  if (!locale || !locales.includes(locale)) {
+    await setLocale(locale);
   }
 
   return response;

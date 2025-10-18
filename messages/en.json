@@ -1,5 +1,11 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
+  "nav": {
+    "terminal": "Terminal",
+    "about": "About",
+    "resume": "Resume",
+    "messages": "Messages",
+    "linkedIn": "LinkedIn",
+    "gitHub": "GitHub",
+    "language": "Language"
   }
 }

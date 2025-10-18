@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import { dockSlice } from "@/features/dock-toggle/model/dock.slice";
+import { dockSlice } from "@/features/dock-toggle";
 import { messageSlice } from "@/features/message/model/message.slice";
 
 const reducer = combineReducers({

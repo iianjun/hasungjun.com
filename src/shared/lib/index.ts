@@ -8,4 +8,3 @@ export { useAppStore } from "./hooks/useRedux";
 export { useResize } from "./hooks/useResize";
 export { cn } from "./utils/cn";
 export { useWindowResize } from "./hooks/useWindowResize";
-export { locales, defaultLocale } from "./i18n/constants";

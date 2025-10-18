@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import StoreProvider from "@/app/providers/store-provider";
 import { cn } from "@/shared/lib";
+import { getLocale } from "next-intl/server";
 import localFont from "next/font/local";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -62,15 +63,16 @@ export const viewport: Viewport = {
   themeColor: "#232431",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
     <html lang="en" className={cn(inter.variable, d2coding.variable)}>
       <body className={"bg-background overflow-x-hidden antialiased"}>
-        <NextIntlClientProvider locale="en">
+        <NextIntlClientProvider locale={locale}>
           <StoreProvider>{children}</StoreProvider>
         </NextIntlClientProvider>
       </body>

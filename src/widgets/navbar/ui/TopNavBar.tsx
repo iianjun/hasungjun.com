@@ -1,6 +1,6 @@
 "use client";
 
-import { hideDock, showDock } from "@/features/dock-toggle/model/dock.slice";
+import { hideDock, showDock } from "@/features/dock-toggle";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
 import Image from "next/image";
