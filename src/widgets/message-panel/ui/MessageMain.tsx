@@ -8,10 +8,13 @@ import MessageBubble from "@/entities/message/ui/MessageBubble";
 import { cn } from "@/shared/lib";
 import { setLastMessage } from "@/features/message/model/message.slice";
 import { useTextareaAutoSize } from "@/pages/messages/hooks/useTextareaAutoSize";
+import { useTranslations } from "next-intl";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const MessageMain = () => {
+  const tCommon = useTranslations("common");
+  const tMessages = useTranslations("messages");
   const [message, setMessage] = useState<string>("");
   const [from, setFrom] = useState<string>("");
   const [error, setError] = useState<{ required: boolean; inValid: boolean }>({
@@ -90,7 +93,7 @@ export const MessageMain = () => {
             alt="memoji"
           />
           <p className="line-clamp-1 text-[0.75rem] font-semibold text-white">
-            Hasung Jun
+            {tCommon("fullName")}
           </p>
         </div>
         <div className="flex w-full gap-[0.375rem]">
@@ -114,6 +117,7 @@ export const MessageMain = () => {
             <input
               name="from"
               type="email"
+              placeholder={tMessages("fromPlaceholder")}
               autoComplete="off"
               autoFocus
               spellCheck="false"
@@ -166,7 +170,7 @@ export const MessageMain = () => {
           }}
         >
           <textarea
-            placeholder="Send message"
+            placeholder={tMessages("placeholder")}
             ref={textarea}
             rows={1}
             className="border-message-input-border caret-message-input-caret placeholder-message-input-placeholder w-full flex-1 resize-none rounded-2xl border bg-transparent px-[.625rem] py-[0.15625rem] text-[1rem] text-white outline-none sm:text-[.8125rem]"

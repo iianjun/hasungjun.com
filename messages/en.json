@@ -1,4 +1,9 @@
 {
+  "common": {
+    "fullName": "Hasung Jun",
+    "delivered": "Delivered",
+    "notDelivered": "Not Delivered"
+  },
   "nav": {
     "terminal": "Terminal",
     "about": "About",
@@ -7,5 +12,11 @@
     "linkedIn": "LinkedIn",
     "gitHub": "GitHub",
     "language": "Language"
+  },
+  "messages": {
+    "delivered": "Delivered",
+    "notDelivered": "Not Delivered",
+    "placeholder": "Send message",
+    "fromPlaceholder": "Email"
   }
 }

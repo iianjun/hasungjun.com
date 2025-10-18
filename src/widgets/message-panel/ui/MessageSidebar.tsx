@@ -3,8 +3,10 @@
 import Image from "next/image";
 import React from "react";
 import { useAppSelector } from "@/shared/lib";
+import { useTranslations } from "next-intl";
 
 export const MessageSidebar = () => {
+  const t = useTranslations("common");
   const lastMessage = useAppSelector(
     (state) => state.message.lastMessage || "",
   );
@@ -27,7 +29,7 @@ export const MessageSidebar = () => {
         </div>
         <div className="flex-grow-0">
           <p className="line-clamp-1 text-[0.8125rem] font-bold text-white">
-            Hasung Jun
+            {t("fullName")}
           </p>
           <p className="text-message-text line-clamp-2 text-xs leading-tight break-all whitespace-break-spaces">
             {lastMessage}

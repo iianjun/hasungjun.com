@@ -83,9 +83,10 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
   return (
     <nav
       id="nav-dock"
-      className={cn("animate-nav-fade-up bottom-0 w-full pb-[.625rem]", {
+      className={cn("animate-nav-fade-up bottom-0 pb-[.625rem]", {
         "lg:animate-nav-fade-right lg:top-0 lg:left-0 lg:h-full lg:w-fit lg:flex-col lg:pl-[.625rem]":
           position === "left",
+        "left-1/2 -translate-x-1/2": position === "bottom",
         hidden: !isLg && !isShow && position === "left",
       })}
     >

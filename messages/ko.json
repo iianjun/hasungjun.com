@@ -1,4 +1,7 @@
 {
+  "common": {
+    "fullName": "전하성"
+  },
   "nav": {
     "terminal": "Terminal",
     "about": "소개",
@@ -7,5 +10,11 @@
     "linkedIn": "LinkedIn",
     "gitHub": "GitHub",
     "language": "Language"
+  },
+  "messages": {
+    "delivered": "전송됨",
+    "notDelivered": "전송실패",
+    "placeholder": "메시지를 입력해주세요",
+    "fromPlaceholder": "이메일"
   }
 }
