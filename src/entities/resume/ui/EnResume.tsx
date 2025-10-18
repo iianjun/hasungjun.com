@@ -57,7 +57,8 @@ const SectionItem = ({
     </div>
   );
 };
-const Resume: React.FC = () => {
+
+export default function EnResume() {
   return (
     <div className="w-a4 h-a4 bg-white pt-[0.875em]">
       <div className="flex flex-col items-center gap-[.25em] py-[.375em]">
@@ -207,5 +208,4 @@ const Resume: React.FC = () => {
       </Section>
     </div>
   );
-};
-export default Resume;
+}
