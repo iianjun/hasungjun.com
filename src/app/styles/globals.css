@@ -250,38 +250,7 @@
 }
 
 @layer components {
-  #nav-dock {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    transition: transform 0.3s cubic-bezier(0, 0, 0.5, 1);
-    z-index: 11;
-  }
-  @media (max-width: 767px) {
-    #nav-dock ul li:active + li > div {
-      width: 3.5rem;
-      height: 3.5rem;
-      margin-top: -0.375rem;
-    }
-    #nav-dock ul li:has(+ li:active) > div {
-      width: 3.5rem;
-      height: 3.5rem;
-      margin-top: -0.375rem;
-    }
-  }
-  @media (min-width: 768px) {
-    #nav-dock ul li:hover + li > div {
-      width: 3.5rem;
-      height: 3.5rem;
-      margin-top: -0.375rem;
-    }
-    #nav-dock ul li:has(+ li:hover) > div {
-      width: 3.5rem;
-      height: 3.5rem;
-      margin-top: -0.375rem;
-    }
-  }
-  @media (max-width: 767px) {
+  @media (width <= 30rem) {
     .resume-aside li:nth-of-type(1) {
       opacity: 0;
       animation: opacity 0.2s ease-in forwards;
@@ -320,7 +289,7 @@
       animation-delay: 0.8s;
     }
   }
-  @media (min-width: 768px) {
+  @media (width > 30rem) {
     .resume-aside li:nth-of-type(1) {
       opacity: 0;
       animation: opacity 0.2s ease-in forwards;

@@ -1,4 +1,4 @@
-import { BottomNavBar } from "@/widgets/navbar";
+import { BottomNavBar } from "@/widgets/dock";
 
 export default async function Layout({
   children,

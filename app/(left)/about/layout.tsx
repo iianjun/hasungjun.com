@@ -1,4 +1,4 @@
-import { TopNavBar } from "@/widgets/navbar";
+import { TopNavBar } from "@/widgets/dock";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
