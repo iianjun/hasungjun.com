@@ -183,9 +183,13 @@ function DockLabel({ children, isHovered }: DockLabelProps) {
 function DockIcon({ children, size }: DockIconProps) {
   const sizeTransform = useTransform(size, (val) => val);
 
+  const { isXs } = useDock();
   return (
     <motion.div
-      style={{ width: sizeTransform, height: sizeTransform }}
+      style={{
+        width: isXs ? "100%" : sizeTransform,
+        height: isXs ? "100%" : sizeTransform,
+      }}
       className={"flex items-center justify-center"}
     >
       {children}
