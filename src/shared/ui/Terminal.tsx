@@ -9,6 +9,7 @@ export const Terminal = ({
   className,
   keepBorder = false,
   hideShadow = false,
+  ...rest
 }: PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
   keepBorder?: boolean;
   hideShadow?: boolean;
@@ -20,6 +21,7 @@ export const Terminal = ({
         "md:border-app-border md:rounded-[.375rem] md:border": !keepBorder,
         "md:shadow-modal": !hideShadow,
       })}
+      {...rest}
     >
       <div
         className={cn(

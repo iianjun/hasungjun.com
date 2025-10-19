@@ -20,7 +20,7 @@ export const HomePage = () => {
       `Type help to see available commands.`,
     ];
   }, []);
-  const { typedTexts, done, textIndex } = useTypedText(text, 50);
+  const { typedTexts, done, textIndex, skipAnimation } = useTypedText(text, 50);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapper = useRef<HTMLDivElement>(null);
 
@@ -41,7 +41,10 @@ export const HomePage = () => {
       className={
         "font-d2coding h-[calc(100svh-5rem)] w-screen text-base text-white md:h-[80svh] md:w-[90vw] lg:h-[70svh] lg:w-[60vw] xl:w-[50vw]"
       }
-      onClick={() => inputRef.current?.focus()}
+      onClick={() => {
+        skipAnimation();
+        inputRef.current?.focus();
+      }}
     >
       <div ref={wrapper} className="overflow-auto">
         <div className="inline-flex flex-col p-[.15625rem]">
