@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { cn, useMediaQuery } from "@/shared/lib";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useEffect, useEffectEvent, useId, useState } from "react";
 
 import Links from "@/pages/about/ui/projects/tldrterms/Links";
 
@@ -54,7 +54,7 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
   const isSm = useMediaQuery("(max-width: 40rem)");
   const [translateTo, setTranslateTo] = useState(0);
 
-  const calculateTranslateTo = useCallback(() => {
+  const calculateTranslateTo = useEffectEvent(() => {
     const screenHeight = window.innerHeight;
     const screenWidth = window.innerWidth;
 
@@ -71,7 +71,7 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
     const targetPositionFromTop = screenHeight - monitoryDisplayCenter;
     const moveDistanceFromCenter = targetPositionFromTop - screenHeight / 2;
     setTranslateTo(moveDistanceFromCenter);
-  }, []);
+  });
 
   useEffect(() => {
     calculateTranslateTo();
@@ -82,7 +82,7 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
     return () => {
       controller.abort();
     };
-  }, [calculateTranslateTo]);
+  }, []);
 
   const [borderId, dotId, commaId, gradientId] = [
     useId(),

@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useRef } from "react";
+import { RefObject, useEffect, useEffectEvent, useRef } from "react";
 
 /**
  *
@@ -14,28 +14,28 @@ export const useScrollTransform = (
 ) => {
   const topOffset = useRef(0);
   const stuckOffset = useRef(0);
-  const updateTopOffset = useCallback(() => {
+  const updateTopOffset = useEffectEvent(() => {
     if (!container.current) return;
     const bodyHeight = document.body.scrollHeight;
     const sectionHeight = container.current.scrollHeight;
     topOffset.current = bodyHeight - sectionHeight;
-  }, [container]);
+  });
 
-  const updateStuckOffset = useCallback(() => {
+  const updateStuckOffset = useEffectEvent(() => {
     stuckOffset.current = window.innerHeight / 2;
-  }, []);
+  });
 
   useEffect(() => {
     const controller = new AbortController();
     window.addEventListener("resize", updateTopOffset, controller);
     window.addEventListener("resize", updateStuckOffset, controller);
     return () => controller.abort();
-  }, [updateTopOffset, updateStuckOffset]);
+  }, []);
 
   useEffect(() => {
     updateTopOffset();
     updateStuckOffset();
-  }, [updateTopOffset, updateStuckOffset]);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
