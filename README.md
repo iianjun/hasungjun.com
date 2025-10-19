@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hasung Jun - Portfolio Website
 
-## Getting Started
+> A modern, responsive portfolio website showcasing my projects, skills, and experience.
 
-First, run the development server:
+**Language:** English | [한국어](./README.ko.md)
+
+---
+
+🔗 **Live Demo:** [hasungjun.com](https://hasungjun.com)
+
+![Portfolio Preview](./public/preview.png)
+
+<!-- Add your screenshot here -->
+
+## ✨ Features
+
+- 📱 Fully responsive design
+- 🌏 Internationalization (i18n) - English & Korean support
+- 🎨 Modern UI/UX with smooth animations
+- ⚡ Fast page loads with Next.js optimization
+- 📧 Contact form integration
+- 🔍 SEO optimized
+
+## 🛠 Built With
+
+- **Framework:** [Next.js 16](https://nextjs.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Language:** TypeScript
+- **Animations:** Framer Motion
+- **i18n:** next-intl
+- **Architecture:** Feature-Sliced Design (FSD)
+- **Deployment:** [Vercel](https://vercel.com/)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 22+
+- pnpm
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clone the repository
+git clone https://github.com/iianjun/hasungjun.com.git
+
+# Navigate to the project directory
+cd hasungjun.com
+
+# Install dependencies
+pnpm install
+
+# Run the development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project follows the [Feature-Sliced Design](https://feature-sliced.design/) architecture:
 
-## Learn More
+```
+hasungjun.com/
+├── app/              # Next.js app directory (routing)
+├── src/
+│   ├── app/          # Application layer (providers, styles)
+│   ├── pages/        # Pages layer (page compositions)
+│   ├── widgets/      # Widgets layer (header, footer, etc.)
+│   ├── features/     # Features layer (user interactions)
+│   ├── entities/     # Entities layer (business entities)
+│   ├── shared/       # Shared layer (UI kit, utils, config)
+├── public/           # Static assets
+└── messages/         # i18n translation files
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🌐 Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is automatically deployed to Vercel. Any push to the `main` branch triggers a new deployment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 📫 Contact
 
-## Deploy on Vercel
+- **Website:** [hasungjun.com](https://hasungjun.com)
+- **GitHub:** [@iianjun](https://github.com/iianjun)
+- **LinkedIn:** [Hasung Jun](https://github.com/iianjun)
+- **Email:** hasungjunn@gmail.com
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+⭐ If you like this project, please consider giving it a star on GitHub!
