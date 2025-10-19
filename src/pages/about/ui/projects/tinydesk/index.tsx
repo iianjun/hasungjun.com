@@ -3,8 +3,10 @@ import Intro from "./Intro";
 import Link from "next/link";
 import React from "react";
 import { useIsInView } from "@/shared/lib";
+import { useTranslations } from "next-intl";
 
 const TinyDesk = () => {
+  const t = useTranslations("about.projects.tinyDesk");
   const handleIntersection = (entry: IntersectionObserverEntry) => {
     if (entry.isIntersecting) {
       entry.target.setAttribute("style", "opacity: 1");
@@ -25,24 +27,18 @@ const TinyDesk = () => {
         ref={ref}
       >
         <p className="text-base leading-relaxed text-slate-400 sm:text-lg md:text-xl">
-          TinyDesk is designed to provide a quick and efficient way for users to
-          organize their bookmarks on modern browsers. The project emphasizes
-          allowing users to customize their start page with advanced options not
-          typically available by default in most browsers. This project was
-          guided by{" "}
-          <Link
-            href="https://www.linkedin.com/in/alexckuhn/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-link underline transition-colors duration-200 hover:text-blue-500"
-          >
-            Alex Khun
-          </Link>
-          , an ex-Apple Engineer. Under his mentorship, I took on the role of
-          Product Owner, where I managed the schedule, set timelines, and
-          prioritized tasks. I also contributed to both the front-end and
-          back-end, maintaining, fixing, and developing features such as a to-do
-          list, notes, bookmarks, a weather widget, and more.
+          {t.rich("description", {
+            link: (chunks) => (
+              <Link
+                href="https://www.linkedin.com/in/alexckuhn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-link underline transition-colors duration-200 hover:text-blue-500"
+              >
+                {chunks}
+              </Link>
+            ),
+          })}
         </p>
       </div>
     </section>

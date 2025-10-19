@@ -4,22 +4,23 @@ import Image from "next/image";
 import { SKILLS } from "@/shared/config/skill";
 import { cn } from "@/shared/lib";
 import { useScrollTransform } from "@/pages/about/hooks/useScrollTransform";
+import { useTranslations } from "next-intl";
 
 const SkillSection = () => {
   const section = useRef<HTMLDetailsElement>(null);
   const skills = useRef<HTMLDivElement>(null);
-
+  const t = useTranslations("about.skills");
   useScrollTransform({ num: SKILLS.length }, [section, skills]);
 
   return (
     <section className="h-[500svh] w-screen" ref={section}>
       <div className="sticky top-0 left-0 flex h-svh w-full md:justify-center">
-        <div className="flex flex-col gap-4 px-[2.5rem] py-[4.75rem] md:min-w-[26.25rem] md:px-0 md:py-[3.125rem] lg:py-10">
+        <div className="z-[2] flex flex-col gap-4 px-[2.5rem] py-[4.75rem] md:min-w-[26.25rem] md:px-0 md:py-[3.125rem] lg:py-10">
           <h2 className="animate-fade-in-up h-fit text-4xl font-bold text-slate-200 md:text-6xl">
             Skills
           </h2>
           <p className="animate-delay-200 animate-fade-in-up translate-y-6 text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
-            Expertise and Tools
+            {t("subheading")}
           </p>
         </div>
         <div className="absolute h-full w-full overflow-hidden">

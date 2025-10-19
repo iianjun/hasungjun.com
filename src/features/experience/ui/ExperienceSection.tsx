@@ -2,7 +2,7 @@ interface Props {
   period: string;
   jobTitle: string;
   company: string;
-  description: React.ReactNode;
+  description: React.ReactNode | Array<React.ReactNode>;
 }
 export default function ExperienceSection({
   period,
@@ -23,7 +23,11 @@ export default function ExperienceSection({
           <p className="text-base text-slate-400">{jobTitle}</p>
         </div>
       </div>
-      <p className="text-base text-slate-400">{description}</p>
+      {Array.isArray(description) ? (
+        <ul className="list-inside list-disc">{description}</ul>
+      ) : (
+        <p className="text-base text-slate-400">{description}</p>
+      )}
     </section>
   );
 }

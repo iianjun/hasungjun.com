@@ -1,3 +1,5 @@
 import { AboutPage } from "@/pages/about";
 
-export default AboutPage;
+export default async function Page() {
+  return <AboutPage />;
+}

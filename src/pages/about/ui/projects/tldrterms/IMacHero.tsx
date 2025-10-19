@@ -10,12 +10,14 @@ import Links from "@/pages/about/ui/projects/tldrterms/Links";
 import ScrollLogo from "@/pages/about/ui/projects/tldrterms/ScrollLogo";
 import { TLDRTermsTypographyLogoIcon } from "@/shared/ui";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const MAX_WIDTH = 820;
 const LG_SCREEN_BREAKPOINT = 1024;
 const TOP_NAV_HEIGHT = 50;
 
 export default function IMacHero({ y }: { y: MotionValue<number> }) {
+  const t = useTranslations("about.projects.tldrterms");
   const isSm = useMediaQuery("(max-width: 40rem)");
   const isMoutned = useMounted();
   const [typoSectionHeight, setTypoSectionHeight] = useState(0);
@@ -108,8 +110,11 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
             duration: 0,
           }}
         >
-          Understand Website Terms
-          <span className="block text-blue-500">Without The Legal Jargon</span>
+          {t.rich("title", {
+            important: (chunks) => (
+              <span className="block text-blue-500">{chunks}</span>
+            ),
+          })}
         </motion.h4>
         {isSm && isMoutned() && (
           <motion.div style={textStyle}>

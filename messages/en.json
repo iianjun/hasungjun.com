@@ -65,5 +65,63 @@
       "twitterTitle": "Messages | Hasung Jun",
       "twitterDescription": "Let's connect! Feel free to reach out about projects, opportunities, or even just to say hi."
     }
+  },
+  "about": {
+    "main": {
+      "jobTitle": "Full-stack Developer",
+      "description": "I’m a passionate full-stack developer focused on building efficient, user-centric applications. As a continuous and fast learner, I’m always excited to discover new things."
+    },
+    "background": {
+      "storyTelling": "<paragraph>I started my journey in software development in my sophmore year by falling in love with computer science by accident. My initial major was Technological Systems Management (TSM), which had the prerequisite to take Object Oriented Programming class.</paragraph><paragraph>Taking this class changed my life. The more I learned about programming, the more I realized this was what I wanted to do for the rest of my life. That one simple class became a turning point for me. Each line of code was like solving a puzzle, and the sense of accomplishment I felt when a program worked seamlessly was incredibly rewarding. The creative process of building something from scratch, along with the logical problem-solving aspect, sparked a passion that has driven me ever since.</paragraph>",
+      "csMajor": "Computer Science",
+      "tsmMajor": "Technological Systems Management",
+      "degree": "Bachelor's Degree",
+      "graduationDate": "Graduated May 2022"
+    },
+    "experience": {
+      "subheading": "My Professional Journey",
+      "content": "Explore my professional journey that have shaped my career. In each role, I’ve developed pixel-perfect designs and seamless user experiences while delivering efficient solutions.",
+      "aicyDescription": "Built an AI-powered chat streaming service for real-time financial statement analysis using Gemini and OpenAI APIs, supporting PDF, Excel, and image formats. Architected migration from monolithic Express.js server to scalable NestJS microservices with TypeScript and Docker containerization, improving code maintainability, developer experience, and deployment efficiency.",
+      "workonwardDescription": "Build and maintain critical frontend UIs using React and Next.js. Worked closely with design team to implement and deliver better UX. Developed and maintained RESTful APIs and GraphQL using Node.js and Fastify to ensure seamless communication between the frontend and backend systems while integrating MongoDB for efficient data storage and optimizing queries to enhance application performance.",
+      "softSquaredDescription": "Build and styled interactive e-commerce web apps, inclduing the order management user interface and product management system in the admin page using Next.js, Typescript, and Tailwind CSS.",
+      "workonwardPeriod": "May 2022 — March 2025",
+      "softSquaredPeriod": "November 2023 - May 2024",
+      "aicyPeriod": "June 2025 — Present",
+      "fullStack": "Full-Stack Developer",
+      "frontend": "Frontend Developer",
+      "contract": "Contract",
+      "softSquared": "Soft Squared"
+    },
+    "projects": {
+      "subheading": "Bringing Ideas to Life",
+      "content": "Discover the projects that highlight my journey as a developer, from concept to execution. Each project reflects my dedication to delivering great user experiences and efficient solutions.",
+      "tinyDesk": {
+        "title": "New Browsing Experience",
+        "subheading": "Maximize your browsing efficiency. Change the way you organize your bookmarks and use your homepage.",
+        "description": "TinyDesk is designed to provide a quick and efficient way for users to organize their bookmarks on modern browsers. The project emphasizes allowing users to customize their start page with advanced options not typically available by default in most browsers. This project was guided by <link>Alex Khun</link>, an ex-Apple Engineer. Under his mentorship, I took on the role of Product Owner, where I managed the schedule, set timelines, and prioritized tasks. I also contributed to both the front-end and back-end, maintaining, fixing, and developing features such as a to-do list, notes, bookmarks, a weather widget, and more."
+      },
+      "tldrterms": {
+        "title": "Understand Website Terms <important>Without The Legal Jargon</important>",
+        "sectionTitle": "Take a closer look.",
+        "overview": "Overview",
+        "problem": "Problem",
+        "technical": "Technical Implementation",
+        "features": "Key Features",
+        "impact": "Impact",
+        "overviewPhrase": "AI-powered privacy analysis at your fingertips. Transform complex legal documents into clear, actionable insights.",
+        "problemPhrase": "Hidden privacy risks in plain sight. Most users accept terms without understanding the consequences.",
+        "technicalPhrase": "Built for scale, optimized for performance. Modern architecture meets intelligent processing.",
+        "featuresPhrase": "Simplicity meets sophistication. Instant analysis with comprehensive results.",
+        "impactPhrase": "Protecting privacy, one policy at a time. Empowering users to make informed digital decisions.",
+        "overviewContent": "TL;DR Terms is a full-stack web application that empowers users to make informed decisions about digital services by providing AI-powered analysis of privacy policies and terms of service documents. Users simply input a URL, and the application generates a comprehensive grade and breakdown of potential privacy concerns, making complex legal language accessible to everyone.",
+        "problemContent": "In today's digital landscape, users routinely accept lengthy terms of service and privacy policies without reading them, often exposing themselves to significant privacy risks that could compromise their personal data and digital rights. This issue became particularly evident in South Korea when Roborock users discovered that their personal data was being collected and processed in China—information that was buried in the privacy policy but went unnoticed by most users until it became a public controversy.",
+        "technicalContent": "The application leverages Next.js for optimal SEO performance and server-side rendering, ensuring fast page loads and excellent search engine visibility while providing a seamless user experience across all devices. The robust backend architecture features RESTful API endpoints integrated with sophisticated AI processing pipelines, utilizing PostgreSQL for efficient data management and implementing advanced caching mechanisms to handle high-volume document analysis.",
+        "featuresContent": "URL-based Analysis allows users to input any privacy policy or terms of service URL for instant, comprehensive analysis without complex setup or technical knowledge. AI-Powered Grading utilizes sophisticated algorithms to evaluate documents and provide clear, actionable grades with detailed explanations, while the intuitive interface makes complex legal information accessible to users of all technical backgrounds.",
+        "impactContent": "TL;DR Terms bridges the gap between complex legal documentation and user understanding, enabling individuals to make informed decisions about their digital privacy and data security. The project demonstrates how technology can be leveraged to solve real-world problems and protect user rights in an increasingly connected world, fostering greater digital literacy and awareness."
+      }
+    },
+    "skills": {
+      "subheading": "Expertise and Tools"
+    }
   }
 }

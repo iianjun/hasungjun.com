@@ -1,8 +1,10 @@
 import React from "react";
 import TLDRTerms from "@/pages/about/ui/projects/tldrterms";
 import TinyDesk from "@/pages/about/ui/projects/tinydesk";
+import { useTranslations } from "next-intl";
 
 const ProjectsSection = () => {
+  const t = useTranslations("about.projects");
   return (
     <section>
       <div className="mx-auto h-[50svh] w-full md:w-auto md:max-w-[26.25rem]">
@@ -11,12 +13,10 @@ const ProjectsSection = () => {
             Projects
           </h2>
           <p className="animate-delay-200 animate-fade-in-up translate-y-6 text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
-            Bringing Ideas to Life
+            {t("subheading")}
           </p>
           <p className="animate-delay-400 animate-fade-in-up translate-y-6 text-base text-slate-500 opacity-0 md:text-lg">
-            Discover the projects that highlight my journey as a developer, from
-            concept to execution. Each project reflects my dedication to
-            delivering great user experiences and efficient solutions.
+            {t("content")}
           </p>
         </div>
       </div>

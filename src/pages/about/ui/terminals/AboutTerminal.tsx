@@ -2,7 +2,10 @@ import { FloatingTerminal, FloatingTerminalProps } from "@/shared/ui";
 
 import Image from "next/image";
 import React from "react";
+import { useTranslations } from "next-intl";
+
 const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
+  const t = useTranslations("about.background");
   return (
     <FloatingTerminal animation {...rest}>
       <div className="flex flex-col gap-[1.875rem]">
@@ -10,22 +13,13 @@ const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
           <h2 className="mb-4 text-[1.375rem] text-slate-100 md:text-[1.875rem]">
             Background
           </h2>
-          <p className="mb-4 text-base text-slate-400 md:text-lg">
-            I started my journey in software development in my sophmore year by
-            falling in love with computer science by accident. My initial major
-            was Technological Systems Management (TSM), which had the
-            prerequisite to take Object Oriented Programming class.
-          </p>
-          <p className="mb-4 text-base text-slate-400 md:text-lg">
-            Taking this class changed my life. The more I learned about
-            programming, the more I realized this was what I wanted to do for
-            the rest of my life. That one simple class became a turning point
-            for me. Each line of code was like solving a puzzle, and the sense
-            of accomplishment I felt when a program worked seamlessly was
-            incredibly rewarding. The creative process of building something
-            from scratch, along with the logical problem-solving aspect, sparked
-            a passion that has driven me ever since.
-          </p>
+          {t.rich("storyTelling", {
+            paragraph: (chunks) => (
+              <p className="mb-4 text-base text-slate-400 md:text-lg">
+                {chunks}
+              </p>
+            ),
+          })}
         </section>
         <section className="flex flex-col gap-[1.375rem]">
           <h2 className="text-[1.375rem] text-slate-100 md:text-[1.875rem]">
@@ -42,20 +36,18 @@ const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
             />
             <div>
               <h3 className="mb-1 text-base text-slate-200 md:mb-2 md:text-lg">
-                <span>Computer Science</span>{" "}
+                <span>{t("csMajor")}</span>{" "}
                 <span className="invisible md:visible"> · </span>{" "}
-                <span className="block md:inline">
-                  Technological Systems Management
-                </span>
+                <span className="block md:inline">{t("tsmMajor")}</span>
               </h3>
               <h4 className="mb-1 text-base text-slate-400 md:mb-2 md:text-lg">
                 Stony Brook University
               </h4>
               <p className="mb-1 text-base text-slate-400 md:mb-2 md:text-lg">
-                Bachelor's Degree
+                {t("degree")}
               </p>
               <p className="text-base text-slate-400 md:text-lg">
-                Graduated May 2022
+                {t("graduationDate")}
               </p>
             </div>
           </div>

@@ -94,16 +94,6 @@ const HeroGroup = () => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-        {/* <Image
-          width={474}
-          height={289}
-          ref={right}
-          priority
-          style={{ transform: "matrix(1, 0, 0, 1, 0, 0)" }}
-          className="absolute right-[8%] bottom-0"
-          src="/tinydesk/hero-macbook-widgets.png"
-          alt="hero-macbook-widgets"
-        /> */}
       </div>
     </div>
   );

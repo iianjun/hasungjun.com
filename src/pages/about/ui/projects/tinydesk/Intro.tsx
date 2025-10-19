@@ -2,8 +2,10 @@ import Link from "next/link";
 import { LinkChevronIcon } from "@/shared/ui";
 import React from "react";
 import { useIsInView } from "@/shared/lib";
+import { useTranslations } from "next-intl";
 
 const Intro = () => {
+  const t = useTranslations("about.projects.tinyDesk");
   const handleIntersection = (entry: IntersectionObserverEntry) => {
     if (entry.isIntersecting) {
       entry.target.setAttribute("style", "opacity: 1");
@@ -37,15 +39,14 @@ const Intro = () => {
         className="text-3.5xl xs:text-4.5xl md:text-5.5xl mt-2 font-semibold text-slate-100 transition-opacity duration-600 ease-linear will-change-[opacity]"
         ref={headline}
       >
-        New Browsing Experience
+        {t("title")}
       </h4>
       <div
         ref={subhead}
         className="transition-opacity duration-600 ease-linear will-change-[opacity]"
       >
         <p className="mx-auto my-4 text-lg leading-relaxed text-slate-200 sm:text-xl md:max-w-[85%] md:text-2xl">
-          Maximize your browsing efficiency. Change the way you organize your
-          bookmarks and use your homepage.
+          {t("subheading")}
         </p>
         <div className="flex flex-col items-center gap-4">
           <Link

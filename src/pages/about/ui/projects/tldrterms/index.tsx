@@ -6,8 +6,10 @@ import Description from "./Description";
 import IMacHero from "./IMacHero";
 import { motion } from "framer-motion";
 import { useScroll } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const TLDRTerms = () => {
+  const t = useTranslations("about.projects.tldrterms");
   const ref = useRef<HTMLDetailsElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -27,7 +29,7 @@ const TLDRTerms = () => {
       <div className="py-24 md:py-28.5">
         <motion.div className="mx-auto w-[87.5%] max-w-105 pb-12 md:max-w-[78.75rem] md:pb-16 lg:pb-20">
           <h4 className="lg:text-5.5xl max-w-3/4 min-w-1/2 text-[1.75rem] font-semibold text-white md:text-5xl">
-            Take a closer look.
+            {t("sectionTitle")}
           </h4>
         </motion.div>
         <Description />
