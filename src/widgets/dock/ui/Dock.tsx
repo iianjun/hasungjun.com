@@ -56,13 +56,13 @@ function Dock({
       })}
     >
       <motion.div
-        onMouseMove={({ pageX, pageY }) => {
+        onMouseMove={({ clientX, clientY }) => {
           if (isXs) return;
           isHovered.set(1);
           if (isVertical) {
-            mouseY.set(pageY);
+            mouseY.set(clientY);
           } else {
-            mouseX.set(pageX);
+            mouseX.set(clientX);
           }
         }}
         onMouseLeave={() => {
