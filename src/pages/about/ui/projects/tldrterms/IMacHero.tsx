@@ -2,7 +2,7 @@
 
 import { MotionValue, useTransform } from "framer-motion";
 import { cn, useMediaQuery, useMounted } from "@/shared/lib";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -33,7 +33,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
     translateY: useTransform(y, [isOverflowing ? 0.5 : 0.4, 0.6], [100, 0]),
   };
 
-  const calculateTypoSectionHeight = useCallback(() => {
+  const calculateTypoSectionHeight = useEffectEvent(() => {
     const screenHeight = window.innerHeight;
     const screenWidth = window.innerWidth;
 
@@ -47,7 +47,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
         ? remainingHeight - TOP_NAV_HEIGHT
         : remainingHeight,
     );
-  }, []);
+  });
 
   useEffect(() => {
     calculateTypoSectionHeight();
@@ -58,7 +58,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
     return () => {
       controller.abort();
     };
-  }, [calculateTypoSectionHeight]);
+  }, []);
 
   return (
     <>

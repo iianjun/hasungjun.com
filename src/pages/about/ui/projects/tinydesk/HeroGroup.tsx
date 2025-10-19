@@ -18,9 +18,9 @@ const HeroGroup = () => {
     const groupElement = group.current;
     if (!groupElement) return;
     if (groupInView) {
-      groupElement.style.opacity = "1";
+      groupElement.style.setProperty("opacity", "1");
     } else {
-      groupElement.style.opacity = "0";
+      groupElement.style.setProperty("opacity", "0");
     }
   }, [group, groupInView]);
 

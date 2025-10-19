@@ -1,7 +1,7 @@
 "use client";
 
 import { Dock, DockItem } from "@/widgets/dock/ui/Dock";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
 import Image from "next/image";
@@ -47,11 +47,12 @@ const ITEMS: {
   },
 ] as const;
 
-export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
+export default function BottomNavBar({
   position = "bottom",
-}) => {
+}: {
+  position?: "left" | "bottom";
+}) {
   const t = useTranslations("nav");
-  const [mounted, setMounted] = useState(false);
   const isShow = useAppSelector((state) => state.dock.show);
   const dispatch = useAppDispatch();
   const isLg = useMediaQuery("(min-width: 1024px)");
@@ -67,10 +68,6 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
     };
   }, [dispatch, isLg]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleClick = (type: string) => {
     const buttonTypes = ["language"];
     if (!buttonTypes.includes(type)) return;
@@ -81,7 +78,6 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
     }
   };
 
-  if (!mounted) return null;
   return (
     <nav
       className={cn(
@@ -133,4 +129,4 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
       </Dock>
     </nav>
   );
-};
+}

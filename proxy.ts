@@ -2,7 +2,7 @@ import { getLocale, locales, setLocale } from "@/entities/locale";
 
 import { NextResponse } from "next/server";
 
-export async function middleware() {
+export async function proxy() {
   const locale = await getLocale();
 
   const response = NextResponse.next();

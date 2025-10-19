@@ -3,6 +3,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   reactStrictMode: false,
   typedRoutes: true,
+  reactCompiler: true,
   turbopack: {
     rules: {
       "*.svg": {

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
@@ -16,31 +16,32 @@
     "dayjs": "^1.11.13",
     "framer-motion": "^12.23.0",
     "lodash": "^4.17.21",
-    "next": "15.5.2",
+    "next": "16.0.0-beta.0",
     "next-intl": "^4.3.12",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-pdf": "^10.2.0",
     "react-redux": "^9.2.0",
     "resend": "^4.6.0"
   },
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@next/eslint-plugin-next": "^15.3.3",
+    "@next/eslint-plugin-next": "16.0.0-beta.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.0.10",
-    "@types/react": "19.1.8",
-    "@types/react-dom": "19.1.6",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9.30.1",
-    "eslint-config-next": "15.3.3",
+    "eslint-config-next": "16.0.0-beta.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
     "eslint-plugin-unused-imports": "^4.2.0",
     "husky": "^9.1.7",
     "import-sort-cli": "^6.0.0",
@@ -74,7 +75,9 @@
       "@babel/helpers": "^7.26.10",
       "@babel/runtime": "^7.26.10",
       "@eslint/plugin-kit": "^0.3.4",
-      "tmp": "^0.2.4"
+      "tmp": "^0.2.4",
+      "@types/react": "19.2.2",
+      "@types/react-dom": "19.2.2"
     }
   }
 }

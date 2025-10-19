@@ -1,6 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { CrossIcon, LinkChevronIcon, PlusIcon } from "@/shared/ui";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+} from "react";
 import { useMediaQuery, useWindowResize } from "@/shared/lib";
 
 import HoloImage from "@/pages/about/ui/projects/tldrterms/HoloImage";
@@ -8,6 +14,7 @@ import Link from "next/link";
 import Links from "@/pages/about/ui/projects/tldrterms/Links";
 import ViewLoader from "@/pages/about/ui/projects/tldrterms/ViewLoader";
 import { cn } from "@/shared/lib";
+import { useLocale } from "@/entities/locale";
 import { useTranslations } from "next-intl";
 
 const CONTROL_KEYS = [
@@ -30,6 +37,7 @@ function Control({
   onChangeType: (type: ControlType) => void;
   onWidthChange: (width: number) => void;
 }) {
+  const locale = useLocale();
   const t = useTranslations("about.projects.tldrterms");
   const isSelected = activeType === type;
 
@@ -45,21 +53,20 @@ function Control({
 
   const isSm = !isLg && !isMd;
 
-  const calculateButtonWidth = useCallback(() => {
+  const calculateButtonWidth = useEffectEvent(() => {
     const buttonElement = buttonRef.current;
     if (!buttonElement) return;
     const buttonWidth = buttonElement.clientWidth;
     setWidth(buttonWidth);
     onWidthChange(buttonWidth);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
-  const calculateContentHeight = useCallback(() => {
+  const calculateContentHeight = useEffectEvent(() => {
     const contentElement = contentRef.current;
     if (!contentElement) return;
     const contentHeight = contentElement.clientHeight;
     setHeight(contentHeight);
-  }, []);
+  });
 
   const calculateExpandedWidth = useCallback(() => {
     if (isLg) return setExpandedWidth(424);
@@ -81,11 +88,11 @@ function Control({
     return () => {
       resizeObserver.disconnect();
     };
-  }, [calculateContentHeight]);
+  }, []);
 
   useEffect(() => {
     calculateButtonWidth();
-  }, [calculateButtonWidth, isSm]);
+  }, [isSm, locale]);
 
   return (
     <motion.li
