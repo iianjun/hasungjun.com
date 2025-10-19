@@ -26,9 +26,9 @@ const TLDRTerms = () => {
           <IMacHero y={scrollYProgress} />
         </div>
       </div>
-      <div className="py-24 md:py-28.5">
-        <motion.div className="mx-auto w-[87.5%] max-w-105 pb-12 md:max-w-[78.75rem] md:pb-16 lg:pb-20">
-          <h4 className="lg:text-5.5xl max-w-3/4 min-w-1/2 text-[1.75rem] font-semibold text-white md:text-5xl">
+      <div className="pb-24 md:py-28.5">
+        <motion.div className="mx-auto w-[87.5%] max-w-105 pb-6 md:max-w-[78.75rem] md:pb-16 lg:pb-20">
+          <h4 className="lg:text-5.5xl text-[1.75rem] font-semibold text-white md:text-5xl">
             {t("sectionTitle")}
           </h4>
         </motion.div>

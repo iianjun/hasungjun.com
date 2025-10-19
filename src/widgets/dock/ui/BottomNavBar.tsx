@@ -100,6 +100,7 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
             {item.as === "link" && item.link ? (
               <Link
                 href={item.link}
+                className="relative h-full w-full"
                 target={item.link.startsWith("/") ? undefined : "_blank"}
                 rel={
                   item.link.startsWith("/") ? undefined : "noopener noreferrer"
@@ -114,7 +115,10 @@ export const BottomNavBar: React.FC<{ position?: "left" | "bottom" }> = ({
                 />
               </Link>
             ) : (
-              <button onClick={() => handleClick("language")}>
+              <button
+                className="relative h-full w-full"
+                onClick={() => handleClick("language")}
+              >
                 <Image
                   fill
                   sizes="3.125rem"

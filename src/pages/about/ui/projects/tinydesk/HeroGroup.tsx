@@ -13,7 +13,7 @@ const HeroGroup = () => {
     options: { rootMargin: "0px 0px -50% 0px" },
   });
   const right = useRef<HTMLDivElement | null>(null);
-  const isSm = useMediaQuery("(min-width: 48rem)");
+  const isMd = useMediaQuery("(min-width: 48rem)");
   useEffect(() => {
     const groupElement = group.current;
     if (!groupElement) return;
@@ -33,7 +33,7 @@ const HeroGroup = () => {
       if (leftInView) {
         const top = leftElement?.getBoundingClientRect().top || -1;
         const initialViewPoint = window.innerHeight / 2;
-        if (initialViewPoint > top && isSm) {
+        if (initialViewPoint > top && isMd) {
           const currentScroll = Math.min(initialViewPoint - top, MAX_SCROLL);
           const value = Math.min(currentScroll * 0.083, 40);
           requestAnimationFrame(() => {
@@ -52,7 +52,7 @@ const HeroGroup = () => {
     return () => {
       controller.abort();
     };
-  }, [left, leftInView, isSm]);
+  }, [left, leftInView, isMd]);
 
   return (
     <div className="overflow-hidden">

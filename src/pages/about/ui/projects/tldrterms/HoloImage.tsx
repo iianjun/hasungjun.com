@@ -6,11 +6,14 @@ import {
   useTransform,
 } from "framer-motion";
 
-import Image from "next/image";
+import dynamic from "next/dynamic";
+import { useMediaQuery } from "@/shared/lib";
 import { useRef } from "react";
 
+const Image = dynamic(() => import("next/image"), { ssr: false });
 export default function HoloImage() {
   const ref = useRef<HTMLDivElement>(null);
+  const isMd = useMediaQuery("(min-width: 48rem)");
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -62,15 +65,19 @@ export default function HoloImage() {
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="overflow-hidden rounded-2xl leading-0 shadow-[0_0_60px_10px_#232431]"
+        className="max-h-148 overflow-hidden rounded-2xl leading-0 shadow-[0_0_60px_10px_#232431] md:max-h-none"
         whileHover={{ scale: 1.025 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
         <Image
-          src="/tldrterms/landing.webp"
-          width={1520}
-          height={865}
+          src={
+            isMd ? "/tldrterms/landing.webp" : "/tldrterms/landing-mobile.webp"
+          }
+          width={isMd ? 1520 : 528}
+          height={isMd ? 865 : 689}
+          priority
           alt="TL;DR Terms Landing page"
+          style={{ width: "100%", height: "auto" }}
         />
         <motion.div
           className="pointer-events-none absolute inset-0"

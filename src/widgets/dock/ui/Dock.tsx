@@ -75,7 +75,7 @@ function Dock({
           }
         }}
         className={cn(
-          "border-nav-border bg-nav-dock-bg/40 flex gap-4 rounded-[1.25rem] border backdrop-blur-md",
+          "border-nav-border bg-nav-dock-bg/40 xs:gap-4 flex gap-2 rounded-[1.25rem] border backdrop-blur-md",
           {
             "h-fit flex-col items-start px-2 py-2": isVertical,
             "w-fit items-end px-2 py-2": !isVertical,
@@ -181,7 +181,7 @@ function DockLabel({ children, isHovered }: DockLabelProps) {
 }
 
 function DockIcon({ children, size }: DockIconProps) {
-  const sizeTransform = useTransform(size, (val) => val / 2);
+  const sizeTransform = useTransform(size, (val) => val);
 
   return (
     <motion.div
