@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LinkChevronIcon } from "@/shared/ui";
-import React from "react";
 import { useIsInView } from "@/shared/lib";
 import { useTranslations } from "next-intl";
 
@@ -49,7 +48,7 @@ const Intro = () => {
           {t("subheading")}
         </p>
         <div className="flex flex-col items-center gap-4">
-          <Link
+          {/* <Link
             className="text-link inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
             href="https://www.tinydesk.me"
             target="_blank"
@@ -57,7 +56,7 @@ const Intro = () => {
           >
             <span>Visit</span>
             <LinkChevronIcon className="w-2 md:w-auto" />
-          </Link>
+          </Link> */}
           <Link
             className="text-link inline-flex items-center gap-2 text-lg sm:text-xl md:text-2xl hover:[&>*:first-child]:underline"
             href="https://github.com/janarosmonaliev/tinydesk_legacy"
