@@ -1,6 +1,9 @@
-import { FloatingTerminal, FloatingTerminalProps } from "@/shared/ui";
+import {
+  FloatingTerminal,
+  FloatingTerminalProps,
+  OutlineStonyBrookLogoIcon,
+} from "@/shared/ui";
 
-import Image from "next/image";
 import React from "react";
 import { useTranslations } from "next-intl";
 
@@ -26,14 +29,9 @@ const AboutTermimal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
             Education
           </h2>
           <div className="flex items-start gap-6 md:items-center">
-            <Image
-              src="/svg/stony-brook-logo.svg"
-              priority
-              width={"0"}
-              height={"0"}
-              className="mt-3 h-auto w-[3.75rem] md:mt-0"
-              alt="stony-brook-logo"
-            />
+            <div className="mt-3 h-auto w-[3.75rem] md:mt-0">
+              <OutlineStonyBrookLogoIcon width="100%" height="100%" />
+            </div>
             <div>
               <h3 className="mb-1 text-base text-slate-200 md:mb-2 md:text-lg">
                 <span>{t("csMajor")}</span>{" "}

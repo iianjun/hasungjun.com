@@ -1,6 +1,14 @@
 "use client";
 
 import { Dock, DockItem } from "@/widgets/dock/ui/Dock";
+import {
+  DockGitHubIcon,
+  DockLanguageIcon,
+  DockLinkedInIcon,
+  DockMessagesIcon,
+  DockResumeIcon,
+  DockTerminalIcon,
+} from "@/shared/ui";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
@@ -15,41 +23,52 @@ import { useTranslations } from "next-intl";
 
 const ITEMS: {
   type: string;
-  src: string;
+  src?: string;
   link?: Route;
   as: "link" | "button";
   isLCP?: boolean;
+  icon?: React.ReactNode;
 }[] = [
   {
     type: "terminal",
-    src: "/dock/dock-terminal.svg",
     link: "/",
+    as: "link",
+    icon: <DockTerminalIcon width={"100%"} height={"100%"} />,
+  },
+  {
+    type: "about",
+    src: "/dock/dock-about.png",
+    link: "/about",
     as: "link",
     isLCP: true,
   },
-  { type: "about", src: "/dock/dock-about.png", link: "/about", as: "link" },
-  { type: "resume", src: "/dock/dock-resume.svg", link: "/resume", as: "link" },
+  {
+    type: "resume",
+    icon: <DockResumeIcon width={"100%"} height={"100%"} />,
+    link: "/resume",
+    as: "link",
+  },
   {
     type: "messages",
-    src: "/dock/dock-messages.svg",
+    icon: <DockMessagesIcon width={"100%"} height={"100%"} />,
     link: "/messages",
     as: "link",
   },
   {
     type: "linkedIn",
-    src: "/dock/dock-linkedin.svg",
+    icon: <DockLinkedInIcon width={"100%"} height={"100%"} />,
     link: "https://www.linkedin.com/in/hasungjun/",
     as: "link",
   },
   {
     type: "gitHub",
-    src: "/dock/dock-github.svg",
+    icon: <DockGitHubIcon width={"100%"} height={"100%"} />,
     link: "https://github.com/iianjun",
     as: "link",
   },
   {
     type: "language",
-    src: "/dock/dock-language.svg",
+    icon: <DockLanguageIcon width={"100%"} height={"100%"} />,
     as: "button",
   },
 ] as const;
@@ -85,6 +104,27 @@ export default function BottomNavBar({
     }
   };
 
+  const renderItemContent = (item: (typeof ITEMS)[number]) => {
+    if (item.src) {
+      return (
+        <Image
+          fill
+          {...(item.isLCP
+            ? {
+                priority: true,
+                fetchPriority: "high",
+              }
+            : {})}
+          sizes="3.125rem"
+          src={item.src}
+          alt={t(item.type)}
+          className="object-contain"
+        />
+      );
+    }
+    return item.icon;
+  };
+
   return (
     <nav
       className={cn(
@@ -109,38 +149,14 @@ export default function BottomNavBar({
                   item.link.startsWith("/") ? undefined : "noopener noreferrer"
                 }
               >
-                <Image
-                  fill
-                  {...(item.isLCP
-                    ? {
-                        priority: true,
-                        fetchPriority: "high",
-                      }
-                    : {})}
-                  sizes="3.125rem"
-                  src={item.src}
-                  alt={t(item.type)}
-                  className="object-contain"
-                />
+                {renderItemContent(item)}
               </Link>
             ) : (
               <button
                 className="relative h-full w-full"
-                onClick={() => handleClick("language")}
+                onClick={() => handleClick(item.type)}
               >
-                <Image
-                  fill
-                  {...(item.isLCP
-                    ? {
-                        priority: true,
-                        fetchPriority: "high",
-                      }
-                    : {})}
-                  sizes="3.125rem"
-                  src={item.src}
-                  alt={t(item.type)}
-                  className="object-contain"
-                />
+                {renderItemContent(item)}
               </button>
             )}
           </DockItem>

@@ -3,9 +3,7 @@
 import { hideDock, showDock } from "@/features/dock-toggle";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
-import Image from "next/image";
-import React from "react";
-
+import { DockIcon } from "@/shared/ui";
 export const TopNavBar = () => {
   const dispatch = useAppDispatch();
   const show = useAppSelector((state) => state.dock.show);
@@ -16,12 +14,7 @@ export const TopNavBar = () => {
           dispatch(show ? hideDock() : showDock());
         }}
       >
-        <Image
-          width={30}
-          height={30}
-          src="/dock/dock-icon.svg"
-          alt="dock-icon"
-        />
+        <DockIcon width={30} height={30} />
       </button>
     </nav>
   );

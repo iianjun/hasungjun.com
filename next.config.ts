@@ -7,26 +7,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     rules: {
       "*.svg": {
-        loaders: [
-          {
-            loader: "@svgr/webpack",
-            options: {
-              svgo: true, // Ensure SVGO is enabled
-              svgoConfig: {
-                plugins: [
-                  {
-                    name: "preset-default", // Use the default SVGO preset
-                    params: {
-                      overrides: {
-                        removeViewBox: false, // Prevent viewBox from being removed
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-        ],
+        loaders: [{ loader: "@svgr/webpack", options: { icon: true } }],
         as: "*.js",
       },
     },
@@ -47,26 +28,7 @@ const nextConfig: NextConfig = {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: [
-          {
-            loader: "@svgr/webpack",
-            options: {
-              svgo: true, // Enable SVGO
-              svgoConfig: {
-                plugins: [
-                  {
-                    name: "preset-default",
-                    params: {
-                      overrides: {
-                        removeViewBox: false, // Ensure viewBox is retained
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-        ],
+        use: [{ loader: "@svgr/webpack", options: { icon: true } }],
       },
     );
 

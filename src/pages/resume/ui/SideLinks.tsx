@@ -1,4 +1,9 @@
-import Image from "next/image";
+import {
+  OutlineDownloadIcon,
+  OutlineGitHubIcon,
+  OutlineLinkedInIcon,
+} from "@/shared/ui";
+
 import Link from "next/link";
 import { Route } from "next";
 import { SupportedLocale } from "@/entities/locale";
@@ -12,12 +17,7 @@ export default function SideLinks({ locale }: { locale: SupportedLocale }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              width={30}
-              height={30}
-              src={"/svg/linkedin.svg"}
-              alt="linkedin"
-            />
+            <OutlineLinkedInIcon width={30} height={30} />
           </Link>
         </li>
         <li className="relative">
@@ -26,12 +26,7 @@ export default function SideLinks({ locale }: { locale: SupportedLocale }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              width={30}
-              height={30}
-              src={"/svg/github.svg"}
-              alt="github"
-            />
+            <OutlineGitHubIcon width={30} height={30} />
           </Link>
         </li>
         <li className="relative">
@@ -41,12 +36,7 @@ export default function SideLinks({ locale }: { locale: SupportedLocale }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              width={30}
-              height={30}
-              src={"/svg/download.svg"}
-              alt="download"
-            />
+            <OutlineDownloadIcon width={30} height={30} />
           </Link>
         </li>
       </ul>
