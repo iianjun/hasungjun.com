@@ -18,8 +18,15 @@ const ITEMS: {
   src: string;
   link?: Route;
   as: "link" | "button";
+  isLCP?: boolean;
 }[] = [
-  { type: "terminal", src: "/dock/dock-terminal.svg", link: "/", as: "link" },
+  {
+    type: "terminal",
+    src: "/dock/dock-terminal.svg",
+    link: "/",
+    as: "link",
+    isLCP: true,
+  },
   { type: "about", src: "/dock/dock-about.png", link: "/about", as: "link" },
   { type: "resume", src: "/dock/dock-resume.svg", link: "/resume", as: "link" },
   {
@@ -104,6 +111,12 @@ export default function BottomNavBar({
               >
                 <Image
                   fill
+                  {...(item.isLCP
+                    ? {
+                        priority: true,
+                        fetchPriority: "high",
+                      }
+                    : {})}
                   sizes="3.125rem"
                   src={item.src}
                   alt={t(item.type)}
@@ -117,6 +130,12 @@ export default function BottomNavBar({
               >
                 <Image
                   fill
+                  {...(item.isLCP
+                    ? {
+                        priority: true,
+                        fetchPriority: "high",
+                      }
+                    : {})}
                   sizes="3.125rem"
                   src={item.src}
                   alt={t(item.type)}
