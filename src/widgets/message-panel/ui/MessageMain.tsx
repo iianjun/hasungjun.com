@@ -89,7 +89,7 @@ export const MessageMain = () => {
             width={50}
             height={50}
             className="bg-message-receiver-bg h-[3.125rem] w-[3.125rem] rounded-[50%]"
-            src="/hello_memoji.png"
+            src="/hello_memoji.webp"
             alt="memoji"
           />
           <p className="line-clamp-1 text-[0.75rem] font-semibold text-white">

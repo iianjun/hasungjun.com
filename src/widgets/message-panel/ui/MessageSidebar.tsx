@@ -23,7 +23,7 @@ export const MessageSidebar = () => {
             width={40}
             height={40}
             className="bg-message-receiver-bg h-10 w-10 rounded-[50%]"
-            src="/hello_memoji.png"
+            src="/hello_memoji.webp"
             alt="memoji"
           />
         </div>

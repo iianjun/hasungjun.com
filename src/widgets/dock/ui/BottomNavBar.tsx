@@ -37,7 +37,7 @@ const ITEMS: {
   },
   {
     type: "about",
-    src: "/dock/dock-about.png",
+    src: "/dock/dock-about.webp",
     link: "/about",
     as: "link",
     isLCP: true,
