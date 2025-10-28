@@ -15,7 +15,7 @@ const ProjectsSection = () => {
           <p className="animate-delay-200 animate-fade-in-up translate-y-6 text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
             {t("subheading")}
           </p>
-          <p className="animate-delay-400 animate-fade-in-up translate-y-6 text-base text-slate-500 opacity-0 md:text-lg">
+          <p className="animate-delay-400 animate-fade-in-up translate-y-6 text-base text-slate-400 opacity-0 md:text-lg">
             {t("content")}
           </p>
         </div>
