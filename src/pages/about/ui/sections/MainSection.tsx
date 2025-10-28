@@ -20,7 +20,7 @@ export default function MainSection({
         <h2 className="animate-delay-200 animate-fade-in-up translate-y-6 text-lg font-semibold text-slate-400 opacity-0 md:text-xl">
           {about("jobTitle")}
         </h2>
-        <p className="animate-delay-400 animate-fade-in-up translate-y-6 text-base text-slate-500 opacity-0 md:text-lg">
+        <p className="animate-delay-400 animate-fade-in-up translate-y-6 text-base text-slate-400 opacity-0 md:text-lg">
           {about("description")}
         </p>
       </div>

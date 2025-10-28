@@ -88,6 +88,7 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
             href="https://www.tldrterms.app"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Go to TL;DR Terms website"
           >
             <TLDRTermsTypographyLogoIcon
               className={cn("h-auto w-25 text-slate-100", {

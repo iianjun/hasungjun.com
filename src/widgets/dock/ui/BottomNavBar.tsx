@@ -28,12 +28,14 @@ const ITEMS: {
   as: "link" | "button";
   isLCP?: boolean;
   icon?: React.ReactNode;
+  label: string;
 }[] = [
   {
     type: "terminal",
     link: "/",
     as: "link",
     icon: <DockTerminalIcon width={"100%"} height={"100%"} />,
+    label: "Go to Home",
   },
   {
     type: "about",
@@ -41,35 +43,41 @@ const ITEMS: {
     link: "/about",
     as: "link",
     isLCP: true,
+    label: "Go to about page",
   },
   {
     type: "resume",
     icon: <DockResumeIcon width={"100%"} height={"100%"} />,
     link: "/resume",
     as: "link",
+    label: "Go to resume page",
   },
   {
     type: "messages",
     icon: <DockMessagesIcon width={"100%"} height={"100%"} />,
     link: "/messages",
     as: "link",
+    label: "Go to messages page",
   },
   {
     type: "linkedIn",
     icon: <DockLinkedInIcon width={"100%"} height={"100%"} />,
     link: "https://www.linkedin.com/in/hasungjun/",
     as: "link",
+    label: "Go to my LinkedIn",
   },
   {
     type: "gitHub",
     icon: <DockGitHubIcon width={"100%"} height={"100%"} />,
     link: "https://github.com/iianjun",
     as: "link",
+    label: "Go to my GitHub",
   },
   {
     type: "language",
     icon: <DockLanguageIcon width={"100%"} height={"100%"} />,
     as: "button",
+    label: "Change language",
   },
 ] as const;
 
@@ -148,11 +156,13 @@ export default function BottomNavBar({
                 rel={
                   item.link.startsWith("/") ? undefined : "noopener noreferrer"
                 }
+                aria-label={item.label}
               >
                 {renderItemContent(item)}
               </Link>
             ) : (
               <button
+                aria-label={item.label}
                 className="relative h-full w-full"
                 onClick={() => handleClick(item.type)}
               >

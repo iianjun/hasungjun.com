@@ -106,6 +106,7 @@ export const HomePage = () => {
             >
               <input
                 className="w-full flex-1 bg-transparent font-bold break-words break-all outline-none"
+                aria-label="Enter command to navigate"
                 ref={inputRef}
                 autoFocus
                 value={command}

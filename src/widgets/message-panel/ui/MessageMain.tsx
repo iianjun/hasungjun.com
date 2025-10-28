@@ -99,9 +99,9 @@ export const MessageMain = () => {
         <div className="flex w-full gap-[0.375rem]">
           <label
             htmlFor="from"
-            className={cn("font-medium text-zinc-400", {
+            className={cn("font-medium", {
               "text-message-app-error": error.required,
-              "text-zinc-400": !error.required,
+              "text-zinc-300": !error.required,
             })}
           >
             From:
