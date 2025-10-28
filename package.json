@@ -13,6 +13,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "clsx": "^2.1.1",
+    "cssnano": "^7.1.1",
     "dayjs": "^1.11.13",
     "framer-motion": "^12.23.0",
     "lodash": "^4.17.21",
