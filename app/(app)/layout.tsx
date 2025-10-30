@@ -1,6 +1,6 @@
 import { BottomNavBar } from "@/widgets/dock";
 
-export default async function Layout({ children }: LayoutProps<"/">) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}
