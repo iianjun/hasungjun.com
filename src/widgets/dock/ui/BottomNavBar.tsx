@@ -91,7 +91,6 @@ export default function BottomNavBar() {
   const [isAnimationReady, setIsAnimationReady] = useState(false);
   const pathname = usePathname();
 
-  // Determine position based on pathname
   const position = pathname === "/about" ? "left" : "bottom";
 
   useEffect(() => {
@@ -154,7 +153,6 @@ export default function BottomNavBar() {
             !horizontal,
           "left-1/2 -translate-x-1/2": horizontal,
           hidden: !isLg && !isShow && position === "left",
-          "animate-nav-fade-up": isAnimationReady,
         },
       )}
     >
