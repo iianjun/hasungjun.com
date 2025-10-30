@@ -35,8 +35,8 @@ function useDock() {
 
 function Dock({
   children,
-  spring = { mass: 0.1, stiffness: 150, damping: 12 },
   position = "bottom",
+  enableAnimations = true,
 }: DockProps) {
   const mouseX = useMotionValue(Infinity);
   const mouseY = useMotionValue(Infinity);
@@ -44,6 +44,7 @@ function Dock({
   const isVertical = position === "left";
   const isXs = useMediaQuery("(max-width: 30rem)");
 
+  const shouldAnimate = enableAnimations && !isXs;
   return (
     <motion.div
       style={{
@@ -56,17 +57,21 @@ function Dock({
       })}
     >
       <motion.div
-        onMouseMove={({ clientX, clientY }) => {
-          if (isXs) return;
-          isHovered.set(1);
-          if (isVertical) {
-            mouseY.set(clientY);
-          } else {
-            mouseX.set(clientX);
-          }
-        }}
+        onMouseMove={
+          shouldAnimate
+            ? ({ clientX, clientY }) => {
+                if (isXs) return;
+                isHovered.set(1);
+                if (isVertical) {
+                  mouseY.set(clientY);
+                } else {
+                  mouseX.set(clientX);
+                }
+              }
+            : undefined
+        }
         onMouseLeave={() => {
-          if (isXs) return;
+          if (!shouldAnimate) return;
           isHovered.set(0);
           if (isVertical) {
             mouseY.set(Infinity);
@@ -86,7 +91,7 @@ function Dock({
         role="toolbar"
         aria-label="Application dock"
       >
-        <DockProvider value={{ mouseX, mouseY, spring, isVertical, isXs }}>
+        <DockProvider value={{ mouseX, mouseY, isVertical, isXs }}>
           {children}
         </DockProvider>
       </motion.div>
@@ -97,7 +102,7 @@ function Dock({
 function DockItem({ children, label }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { mouseX, mouseY, spring, isVertical, isXs } = useDock();
+  const { mouseX, mouseY, isVertical, isXs } = useDock();
 
   const isHovered = useMotionValue(0);
 
@@ -120,7 +125,11 @@ function DockItem({ children, label }: DockItemProps) {
     [50, MAGNIFICATION, 50],
   );
 
-  const size = useSpring(sizeTransform, spring);
+  const size = useSpring(sizeTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
 
   return (
     <motion.div

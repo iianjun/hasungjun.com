@@ -1,13 +1,9 @@
-import { MotionValue, SpringOptions } from "framer-motion";
-
+import { MotionValue } from "framer-motion";
 import { PropsWithChildren } from "react";
 
 export interface DockProps extends PropsWithChildren {
-  distance?: number;
-  panelHeight?: number;
-  magnification?: number;
   position?: "left" | "bottom";
-  spring?: SpringOptions;
+  enableAnimations?: boolean;
 }
 export interface DockItemProps extends PropsWithChildren {
   label: string;
@@ -22,7 +18,6 @@ export interface DockIconProps extends PropsWithChildren {
 export type DocContextType = {
   mouseX: MotionValue;
   mouseY: MotionValue;
-  spring: SpringOptions;
   isVertical: boolean;
   isXs: boolean;
 };
