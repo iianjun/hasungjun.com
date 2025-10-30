@@ -152,7 +152,7 @@ export default function BottomNavBar() {
             !horizontal,
           "left-1/2 -translate-x-1/2": horizontal,
           hidden: !isLg && !isShow && position === "left",
-          "animate-nav-fade-up": isAnimationReady,
+          // "animate-nav-fade-up": isAnimationReady,
         },
       )}
     >
