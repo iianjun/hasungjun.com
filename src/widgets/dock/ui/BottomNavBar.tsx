@@ -9,7 +9,7 @@ import {
   DockResumeIcon,
   DockTerminalIcon,
 } from "@/shared/ui";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
 import Image from "next/image";
@@ -86,10 +86,19 @@ export default function BottomNavBar({
 }: {
   position?: "left" | "bottom";
 }) {
+  const ref = useRef<HTMLElement>(null);
   const t = useTranslations("nav");
   const isShow = useAppSelector((state) => state.dock.show);
   const dispatch = useAppDispatch();
   const isLg = useMediaQuery("(min-width: 1024px)");
+  const [isAnimationReady, setIsAnimationReady] = useState(false);
+
+  useEffect(() => {
+    const navRef = ref.current;
+    const didMnt = !!navRef;
+    setIsAnimationReady(didMnt);
+  }, []);
+
   const horizontal = position === "bottom" || (position === "left" && !isLg);
   const { toggleLocale } = useLocale();
 
@@ -135,17 +144,22 @@ export default function BottomNavBar({
 
   return (
     <nav
+      ref={ref}
       className={cn(
-        "animate-nav-fade-up xs:w-auto fixed bottom-0 z-[11] flex w-full justify-center pb-[.625rem]",
+        "xs:w-auto fixed bottom-0 z-[11] flex w-full justify-center pb-[.625rem]",
         {
           "lg:animate-nav-fade-right lg:top-0 lg:left-0 lg:h-full lg:w-fit lg:flex-col lg:pl-[.625rem]":
             !horizontal,
           "left-1/2 -translate-x-1/2": horizontal,
           hidden: !isLg && !isShow && position === "left",
+          "animate-nav-fade-up": isAnimationReady,
         },
       )}
     >
-      <Dock position={horizontal ? "bottom" : "left"}>
+      <Dock
+        position={horizontal ? "bottom" : "left"}
+        enableAnimations={isAnimationReady}
+      >
         {ITEMS.map((item) => (
           <DockItem key={item.type} label={t(item.type)}>
             {item.as === "link" && item.link ? (
@@ -162,9 +176,9 @@ export default function BottomNavBar({
               </Link>
             ) : (
               <button
-                aria-label={item.label}
                 className="relative h-full w-full"
                 onClick={() => handleClick(item.type)}
+                aria-label={item.label}
               >
                 {renderItemContent(item)}
               </button>
