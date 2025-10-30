@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { LOCALE_HASH } from "@/entities/locale";
 import { NextIntlClientProvider } from "next-intl";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import StoreProvider from "@/app/providers/store-provider";
 import { cn } from "@/shared/lib";
 import { getLocale } from "@/entities/locale";
@@ -75,6 +76,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale}>
           <StoreProvider>{children}</StoreProvider>
         </NextIntlClientProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
