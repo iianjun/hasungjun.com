@@ -16,7 +16,14 @@ import {
   DockProviderProps,
 } from "../model/types";
 import { cn, useMediaQuery } from "@/shared/lib";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+} from "react";
 
 const MAGNIFICATION = 80;
 const DISTANCE = 150;
@@ -45,8 +52,20 @@ function Dock({
   const isXs = useMediaQuery("(max-width: 30rem)");
 
   const shouldAnimate = enableAnimations && !isXs;
+
+  const reset = useEffectEvent(() => {
+    isHovered.set(0);
+    mouseX.set(Infinity);
+    mouseY.set(Infinity);
+  });
+
+  useEffect(() => {
+    reset();
+  }, [position]);
+
   return (
     <motion.div
+      key={position}
       style={{
         scrollbarWidth: "none",
       }}
@@ -60,7 +79,6 @@ function Dock({
         onMouseMove={
           shouldAnimate
             ? ({ clientX, clientY }) => {
-                if (isXs) return;
                 isHovered.set(1);
                 if (isVertical) {
                   mouseY.set(clientY);

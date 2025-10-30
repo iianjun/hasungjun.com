@@ -71,9 +71,6 @@ export default async function RootLayout({
   const locale = await getLocale();
   return (
     <html lang={locale} className={cn(inter.variable, d2coding.variable)}>
-      <head>
-        <link rel="preload" href="/dock/dock-about.webp" as="image" />
-      </head>
       <body className={"bg-background overflow-x-hidden antialiased"}>
         <NextIntlClientProvider locale={locale}>
           <StoreProvider>{children}</StoreProvider>

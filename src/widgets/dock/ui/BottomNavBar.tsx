@@ -19,6 +19,7 @@ import { cn } from "@/shared/lib";
 import { hideDock } from "@/features/dock-toggle";
 import { useLocale } from "@/entities/locale/hooks/useLocale";
 import { useMediaQuery } from "@/shared/lib";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 const ITEMS: {
@@ -81,17 +82,17 @@ const ITEMS: {
   },
 ] as const;
 
-export default function BottomNavBar({
-  position = "bottom",
-}: {
-  position?: "left" | "bottom";
-}) {
+export default function BottomNavBar() {
   const ref = useRef<HTMLElement>(null);
   const t = useTranslations("nav");
   const isShow = useAppSelector((state) => state.dock.show);
   const dispatch = useAppDispatch();
   const isLg = useMediaQuery("(min-width: 1024px)");
   const [isAnimationReady, setIsAnimationReady] = useState(false);
+  const pathname = usePathname();
+
+  // Determine position based on pathname
+  const position = pathname === "/about" ? "left" : "bottom";
 
   useEffect(() => {
     const navRef = ref.current;
@@ -100,6 +101,7 @@ export default function BottomNavBar({
   }, []);
 
   const horizontal = position === "bottom" || (position === "left" && !isLg);
+
   const { toggleLocale } = useLocale();
 
   useEffect(() => {
