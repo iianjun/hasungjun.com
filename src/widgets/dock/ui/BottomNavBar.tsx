@@ -38,14 +38,7 @@ const ITEMS: {
     icon: <DockTerminalIcon width={"100%"} height={"100%"} />,
     label: "Go to Home",
   },
-  {
-    type: "about",
-    src: "/dock/dock-about.webp",
-    link: "/about",
-    as: "link",
-    isLCP: true,
-    label: "Go to about page",
-  },
+
   {
     type: "resume",
     icon: <DockResumeIcon width={"100%"} height={"100%"} />,
