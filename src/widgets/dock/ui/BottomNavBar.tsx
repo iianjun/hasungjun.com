@@ -122,27 +122,6 @@ export default function BottomNavBar() {
     }
   };
 
-  const renderItemContent = (item: (typeof ITEMS)[number]) => {
-    if (item.src) {
-      return (
-        <Image
-          fill
-          {...(item.isLCP
-            ? {
-                priority: true,
-                fetchPriority: "high",
-              }
-            : {})}
-          sizes="3.125rem"
-          src={item.src}
-          alt={t(item.type)}
-          className="object-contain"
-        />
-      );
-    }
-    return item.icon;
-  };
-
   return (
     <nav
       ref={ref}
@@ -173,7 +152,15 @@ export default function BottomNavBar() {
                 }
                 aria-label={item.label}
               >
-                {renderItemContent(item)}
+                <Image
+                  fill
+                  priority
+                  fetchPriority="high"
+                  sizes="3.125rem"
+                  src={item.src!}
+                  alt={t(item.type)}
+                  className="object-contain"
+                />
               </Link>
             ) : (
               <button
@@ -181,7 +168,7 @@ export default function BottomNavBar() {
                 onClick={() => handleClick(item.type)}
                 aria-label={item.label}
               >
-                {renderItemContent(item)}
+                {item.icon}
               </button>
             )}
           </DockItem>
