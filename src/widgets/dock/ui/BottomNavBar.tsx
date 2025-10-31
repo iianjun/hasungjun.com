@@ -12,7 +12,6 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Route } from "next";
 import { cn } from "@/shared/lib";
@@ -124,21 +123,7 @@ export default function BottomNavBar() {
 
   const renderItemContent = (item: (typeof ITEMS)[number]) => {
     if (item.src) {
-      return (
-        <Image
-          fill
-          {...(item.isLCP
-            ? {
-                priority: true,
-                fetchPriority: "high",
-              }
-            : {})}
-          sizes="3.125rem"
-          src={item.src}
-          alt={t(item.type)}
-          className="object-contain"
-        />
-      );
+      return <></>;
     }
     return item.icon;
   };
@@ -153,7 +138,7 @@ export default function BottomNavBar() {
             !horizontal,
           "left-1/2 -translate-x-1/2": horizontal,
           hidden: !isLg && !isShow && position === "left",
-          // "animate-nav-fade-up": isAnimationReady,
+          "animate-nav-fade-up": isAnimationReady,
         },
       )}
     >
