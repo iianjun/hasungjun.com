@@ -129,9 +129,7 @@
     }
   }
 
-  /* Easing */
-  --ease-smooth: cubic-bezier(0.4, 0, 0.6, 1);
-
+  /* Font */
   --font-inter: var(--font-inter);
   --font-d2coding: var(--font-d2coding);
 
