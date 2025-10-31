@@ -17,7 +17,6 @@ import { Route } from "next";
 import { cn } from "@/shared/lib";
 import { hideDock } from "@/features/dock-toggle";
 import { useLocale } from "@/entities/locale/hooks/useLocale";
-import { useMediaQuery } from "@/shared/lib";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -86,7 +85,7 @@ export default function BottomNavBar() {
   const t = useTranslations("nav");
   const isShow = useAppSelector((state) => state.dock.show);
   const dispatch = useAppDispatch();
-  const isLg = useMediaQuery("(min-width: 1024px)");
+  const [isLg, setIsLg] = useState(false);
   const [isAnimationReady, setIsAnimationReady] = useState(false);
   const pathname = usePathname();
 
@@ -96,6 +95,15 @@ export default function BottomNavBar() {
     const navRef = ref.current;
     const didMnt = !!navRef;
     setIsAnimationReady(didMnt);
+
+    // Set media query after mount to avoid hydration mismatch
+    const media = window.matchMedia("(min-width: 1024px)");
+    setIsLg(media.matches);
+
+    const listener = (e: MediaQueryListEvent) => setIsLg(e.matches);
+    media.addEventListener("change", listener);
+
+    return () => media.removeEventListener("change", listener);
   }, []);
 
   const horizontal = position === "bottom" || (position === "left" && !isLg);
