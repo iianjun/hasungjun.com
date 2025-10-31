@@ -2,7 +2,6 @@ import "@/app/styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
 
-import Head from "next/head";
 import { Inter } from "next/font/google";
 import { LOCALE_HASH } from "@/entities/locale";
 import { NextIntlClientProvider } from "next-intl";
@@ -73,9 +72,14 @@ export default async function RootLayout({
   const locale = await getLocale();
   return (
     <html lang={locale} className={cn(inter.variable, d2coding.variable)}>
-      <Head>
-        <link as="image" rel="preload" href="/dock/dock-about.webp" />
-      </Head>
+      <head>
+        <link
+          rel="preload"
+          href="/dock/dock-about.webp"
+          as="image"
+          fetchPriority="high"
+        />
+      </head>
       <body className={"bg-background overflow-x-hidden antialiased"}>
         <NextIntlClientProvider locale={locale}>
           <StoreProvider>{children}</StoreProvider>
