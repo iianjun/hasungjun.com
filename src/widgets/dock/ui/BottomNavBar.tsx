@@ -127,12 +127,12 @@ export default function BottomNavBar() {
       return (
         <Image
           // fill
-          {...(item.isLCP
-            ? {
-                priority: true,
-                fetchPriority: "high",
-              }
-            : {})}
+          // {...(item.isLCP
+          //   ? {
+          //       priority: true,
+          //       fetchPriority: "high",
+          //     }
+          //   : {})}
           width={50}
           height={50}
           src={item.src}
