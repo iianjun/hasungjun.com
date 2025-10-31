@@ -12,7 +12,6 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Route } from "next";
 import { cn } from "@/shared/lib";
@@ -125,17 +124,10 @@ export default function BottomNavBar() {
   const renderItemContent = (item: (typeof ITEMS)[number]) => {
     if (item.src) {
       return (
-        <Image
-          fill
-          {...(item.isLCP
-            ? {
-                priority: true,
-                fetchPriority: "high",
-              }
-            : {})}
-          sizes="3.125rem"
+        <img
           src={item.src}
           alt={t(item.type)}
+          fetchPriority="high"
           className="object-contain"
         />
       );
