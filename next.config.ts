@@ -36,9 +36,6 @@ const nextConfig: NextConfig = {
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
   },
-  experimental: {
-    optimizeCss: true,
-  },
 };
 
 const withNextIntl = createNextIntlPlugin("./src/shared/lib/i18n/request.ts");
