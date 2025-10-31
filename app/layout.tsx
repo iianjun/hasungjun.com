@@ -77,6 +77,7 @@ export default async function RootLayout({
           rel="preload"
           href="/dock/dock-about.webp"
           as="image"
+          type="image/webp"
           fetchPriority="high"
         />
       </head>

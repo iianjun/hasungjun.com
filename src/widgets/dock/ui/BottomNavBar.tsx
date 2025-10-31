@@ -124,7 +124,16 @@ export default function BottomNavBar() {
   const renderItemContent = (item: (typeof ITEMS)[number]) => {
     if (item.src) {
       return (
-        <img src={item.src} alt={t(item.type)} className="object-contain" />
+        <img
+          src={item.src}
+          alt={t(item.type)}
+          className="h-auto w-full object-contain"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+          width={50}
+          height={50}
+        />
       );
     }
     return item.icon;
