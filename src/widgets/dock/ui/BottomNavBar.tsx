@@ -38,7 +38,6 @@ const ITEMS: {
     icon: <DockTerminalIcon width={"100%"} height={"100%"} />,
     label: "Go to Home",
   },
-
   {
     type: "resume",
     icon: <DockResumeIcon width={"100%"} height={"100%"} />,
