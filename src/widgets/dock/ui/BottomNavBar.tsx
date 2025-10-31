@@ -124,12 +124,7 @@ export default function BottomNavBar() {
   const renderItemContent = (item: (typeof ITEMS)[number]) => {
     if (item.src) {
       return (
-        <img
-          src={item.src}
-          alt={t(item.type)}
-          fetchPriority="high"
-          className="object-contain"
-        />
+        <img src={item.src} alt={t(item.type)} className="object-contain" />
       );
     }
     return item.icon;
@@ -145,7 +140,6 @@ export default function BottomNavBar() {
             !horizontal,
           "left-1/2 -translate-x-1/2": horizontal,
           hidden: !isLg && !isShow && position === "left",
-          "animate-nav-fade-up": isAnimationReady,
         },
       )}
     >
