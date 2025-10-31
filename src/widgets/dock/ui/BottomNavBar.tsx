@@ -12,7 +12,6 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/lib";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Route } from "next";
 import { cn } from "@/shared/lib";
@@ -37,6 +36,14 @@ const ITEMS: {
     as: "link",
     icon: <DockTerminalIcon width={"100%"} height={"100%"} />,
     label: "Go to Home",
+  },
+  {
+    type: "about",
+    src: "/dock/dock-about.webp",
+    link: "/about",
+    as: "link",
+    isLCP: true,
+    label: "Go to about page",
   },
   {
     type: "resume",
@@ -117,19 +124,7 @@ export default function BottomNavBar() {
   const renderItemContent = (item: (typeof ITEMS)[number]) => {
     if (item.src) {
       return (
-        <Image
-          fill
-          {...(item.isLCP
-            ? {
-                priority: true,
-                fetchPriority: "high",
-              }
-            : {})}
-          sizes="3.125rem"
-          src={item.src}
-          alt={t(item.type)}
-          className="object-contain"
-        />
+        <img src={item.src} alt={t(item.type)} className="object-contain" />
       );
     }
     return item.icon;
