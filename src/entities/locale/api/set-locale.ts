@@ -1,6 +1,6 @@
 "use server";
 
-import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from "../model/constants";
+import { LOCALE_COOKIE_MAX_AGE, LOCALE_COOKIE_NAME } from "../config/constants";
 
 import type { SupportedLocale } from "../model/types";
 import { cookies } from "next/headers";

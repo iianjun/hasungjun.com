@@ -73,65 +73,24 @@
   --spacing-m-header: 3.125rem;
   --spacing-left-nav: calc(var(--spacing) * 17);
 
-  /* Animations & Keyframes */
+  /* Animations  */
   --animate-blink-caret: blink-caret 0.75s step-end infinite;
-  @keyframes blink-caret {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: white;
-    }
-  }
 
   --animate-nav-fade-up:
     opacity 0.5s, fade-up-full 0.5s cubic-bezier(0, 0, 0.5, 1);
-  @keyframes fade-up-full {
-    0% {
-      transform: translateY(100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
 
   --animate-fade-in-up: text-fade-up 0.5s cubic-bezier(0, 0, 0.5, 1) forwards;
-  @keyframes text-fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(1.5rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
   --animate-nav-fade-right:
     opacity 0.5s, fade-right-full 0.5s cubic-bezier(0, 0, 0.5, 1);
-  @keyframes fade-right-full {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
 
   --animate-resume-visible: opacity 0.8s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-  @keyframes opacity {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
 
-  /* Easing */
-  --ease-smooth: cubic-bezier(0.4, 0, 0.6, 1);
+  --animate-fade-in: opacity 0.2s ease-in forwards;
+  --animate-divider-width: divider-width 0.2s ease-in forwards;
+  --animate-divider-height: divider-height 0.2s ease-in forwards;
 
+  /* Fonrt */
   --font-inter: var(--font-inter);
   --font-d2coding: var(--font-d2coding);
 
@@ -144,6 +103,72 @@
   --a4-width-reference: 595px;
   --a4-font-min: 0.5375rem; /* 8.6px */
   --a4-font-max: 1.334rem; /* 21.344px */
+
+  /* Keyframes */
+  @keyframes divider-width {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 1rem;
+    }
+  }
+  @keyframes divider-height {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 1rem;
+    }
+  }
+
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: white;
+    }
+  }
+
+  @keyframes fade-up-full {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes text-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-right-full {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 /**
@@ -168,23 +193,6 @@
     background-color: #646687;
   }
 
-  @keyframes divider-width {
-    0% {
-      width: 0;
-    }
-    100% {
-      width: 1rem;
-    }
-  }
-  @keyframes divider-height {
-    0% {
-      height: 0;
-    }
-    100% {
-      height: 1rem;
-    }
-  }
-
   button {
     @apply cursor-pointer;
   }
@@ -192,145 +200,45 @@
 
 /**
  * =============================================================================
- * UTILITY CLASSES
+ * CUSTOM UTILITIES
  * =============================================================================
- * Your custom utility classes. These are processed by Tailwind and can be
- * used with variants like hover:, focus:, etc.
+ * Custom utility classes defined using @utility directive.
  */
 @layer utilities {
   .animate-delay-0 {
     animation-delay: 0s;
   }
-  .animate-delay-75 {
-    animation-delay: 75ms;
-  }
-  .animate-delay-100 {
-    animation-delay: 100ms;
-  }
-  .animate-delay-150 {
-    animation-delay: 150ms;
-  }
   .animate-delay-200 {
     animation-delay: 200ms;
-  }
-  .animate-delay-300 {
-    animation-delay: 300ms;
   }
   .animate-delay-400 {
     animation-delay: 400ms;
   }
-  .animate-delay-500 {
-    animation-delay: 500ms;
-  }
   .animate-delay-600 {
     animation-delay: 600ms;
   }
-  .animate-delay-700 {
-    animation-delay: 700ms;
-  }
-  .animate-delay-1000 {
-    animation-delay: 1000ms;
-  }
-  .bg-text-gradient {
-    background: -webkit-linear-gradient(
-      16deg,
-      var(--color-text-gradient-stop-1) 0,
-      var(--color-text-gradient-stop-2) 9%,
-      var(--color-text-gradient-stop-3) 20%,
-      var(--color-text-gradient-stop-3) 24%,
-      var(--color-text-gradient-stop-2) 35%,
-      var(--color-text-gradient-stop-1) 44%,
-      var(--color-text-gradient-stop-2) 50%,
-      var(--color-text-gradient-stop-3) 56%,
-      var(--color-background) 75%,
-      var(--color-background) 100%
-    );
-    background-size: 400% 100%;
+  .animate-delay-800 {
+    animation-delay: 800ms;
   }
 }
-
-@layer components {
-  @media (width <= 49.625rem) {
-    .resume-aside li:nth-of-type(1) {
-      opacity: 0;
-      animation: opacity 0.2s ease-in forwards;
-      animation-delay: 0s;
-    }
-    .resume-aside li:nth-of-type(1)::after {
-      position: absolute;
-      content: "";
-      display: block;
-      border-top: 1px solid var(--color-gray-light);
-      top: 50%;
-      transform: translateY(-50%);
-      left: calc(100% + 0.5rem);
-      animation: divider-width 0.2s ease-in forwards;
-      animation-delay: 0.2s;
-    }
-    .resume-aside li:nth-of-type(2) {
-      opacity: 0;
-      animation: opacity 0.2s ease-in forwards;
-      animation-delay: 0.4s;
-    }
-    .resume-aside li:nth-of-type(2)::after {
-      position: absolute;
-      content: "";
-      display: block;
-      border-top: 1px solid var(--color-gray-light);
-      top: 50%;
-      transform: translateY(-50%);
-      left: calc(100% + 0.5rem);
-      animation: divider-width 0.2s ease-in forwards;
-      animation-delay: 0.6s;
-    }
-    .resume-aside li:nth-of-type(3) {
-      opacity: 0;
-      animation: opacity 0.2s ease-in forwards;
-      animation-delay: 0.8s;
-    }
-  }
-  @media (width > 49.625rem) {
-    .resume-aside li:nth-of-type(1) {
-      opacity: 0;
-      animation: opacity 0.2s ease-in forwards;
-      animation-delay: 0s;
-    }
-    .resume-aside li:nth-of-type(1)::before {
-      position: absolute;
-      content: "";
-      display: block;
-      border-right: 1px solid var(--color-gray-light);
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: calc(100% + 0.5rem);
-      animation: divider-height 0.2s ease-in forwards;
-      animation-delay: 0.2s;
-    }
-    .resume-aside li:nth-of-type(2) {
-      opacity: 0;
-      animation: opacity 0.2s ease-in forwards;
-      animation-delay: 0.4s;
-    }
-    .resume-aside li:nth-of-type(2)::before {
-      position: absolute;
-      content: "";
-      display: block;
-      border-right: 1px solid var(--color-gray-light);
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: calc(100% + 0.5rem);
-      animation: divider-height 0.2s ease-in forwards;
-      animation-delay: 0.6s;
-    }
-    .resume-aside li:nth-of-type(3) {
-      opacity: 0;
-      animation: opacity 0.2s ease-in forwards;
-      animation-delay: 0.8s;
-    }
-  }
+@utility bg-text-gradient {
+  background: -webkit-linear-gradient(
+    16deg,
+    var(--color-text-gradient-stop-1) 0,
+    var(--color-text-gradient-stop-2) 9%,
+    var(--color-text-gradient-stop-3) 20%,
+    var(--color-text-gradient-stop-3) 24%,
+    var(--color-text-gradient-stop-2) 35%,
+    var(--color-text-gradient-stop-1) 44%,
+    var(--color-text-gradient-stop-2) 50%,
+    var(--color-text-gradient-stop-3) 56%,
+    var(--color-background) 75%,
+    var(--color-background) 100%
+  );
+  background-size: 400% 100%;
 }
 
-/* Custom Utility */
+/* Additional Custom Utilities */
 @utility flex-center {
   @apply flex items-center justify-center;
 }

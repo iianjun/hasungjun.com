@@ -1,4 +1,4 @@
-import { SupportedLocale } from "./types";
+import { SupportedLocale } from "../model/types";
 
 export const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
 export const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;

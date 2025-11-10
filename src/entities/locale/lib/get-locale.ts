@@ -1,6 +1,6 @@
 "use server";
 
-import { LOCALE_COOKIE_NAME, defaultLocale } from "../model/constants";
+import { LOCALE_COOKIE_NAME, defaultLocale } from "../config/constants";
 
 import type { SupportedLocale } from "../model/types";
 import { cookies } from "next/headers";
