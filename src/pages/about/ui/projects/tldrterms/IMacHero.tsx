@@ -6,8 +6,8 @@ import { useEffect, useEffectEvent, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
-import Links from "@/pages/about/ui/projects/tldrterms/Links";
-import ScrollLogo from "@/pages/about/ui/projects/tldrterms/ScrollLogo";
+import Links from "./Links";
+import ScrollLogo from "./ScrollLogo";
 import { TLDRTermsTypographyLogoIcon } from "@/shared/ui";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";

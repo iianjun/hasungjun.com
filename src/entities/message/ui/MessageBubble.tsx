@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { useTranslations } from "next-intl";
 
 export default function MessageBubble({

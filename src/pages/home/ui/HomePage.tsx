@@ -3,12 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import Command from "./Command";
-import { CommandHistory } from "@/pages/home/model/types";
-import { DIRECTORIES } from "@/pages/home/config/constants";
+import { CommandHistory } from "../model/types";
+import { DIRECTORIES } from "../config/constants";
 import { Terminal } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 import dayjs from "dayjs";
-import useTypedText from "@/pages/home/hooks/useTypedText";
+import useTypedText from "../hooks/useTypedText";
 
 export const HomePage = () => {
   const [command, setCommand] = useState<string>("");

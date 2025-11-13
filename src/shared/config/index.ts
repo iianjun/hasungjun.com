@@ -1,0 +1,1 @@
+export { SKILLS } from "./skill";

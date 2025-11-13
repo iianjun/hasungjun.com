@@ -9,10 +9,10 @@ import {
 } from "react";
 import { useMediaQuery, useWindowResize } from "@/shared/lib";
 
-import HoloImage from "@/pages/about/ui/projects/tldrterms/HoloImage";
+import HoloImage from "./HoloImage";
 import Link from "next/link";
-import Links from "@/pages/about/ui/projects/tldrterms/Links";
-import ViewLoader from "@/pages/about/ui/projects/tldrterms/ViewLoader";
+import Links from "./Links";
+import ViewLoader from "./ViewLoader";
 import { cn } from "@/shared/lib";
 import { useLocale } from "@/entities/locale";
 import { useTranslations } from "next-intl";

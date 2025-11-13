@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 import { LOCALE_HASH } from "@/entities/locale";
 import { NextIntlClientProvider } from "next-intl";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import StoreProvider from "@/app/providers/store-provider";
+import { StoreProvider } from "@/app/providers";
 import { cn } from "@/shared/lib";
 import { getLocale } from "@/entities/locale";
 import { getTranslations } from "next-intl/server";

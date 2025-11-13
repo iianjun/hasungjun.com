@@ -1,6 +1,5 @@
-import React from "react";
-import TLDRTerms from "@/pages/about/ui/projects/tldrterms";
-import TinyDesk from "@/pages/about/ui/projects/tinydesk";
+import TLDRTerms from "./tldrterms";
+import TinyDesk from "./tinydesk";
 import { useTranslations } from "next-intl";
 
 const ProjectsSection = () => {

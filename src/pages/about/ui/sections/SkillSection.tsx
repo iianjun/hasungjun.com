@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
-
 import Image from "next/image";
-import { SKILLS } from "@/shared/config/skill";
+import { SKILLS } from "@/shared/config";
 import { cn } from "@/shared/lib";
-import { useScrollTransform } from "@/pages/about/hooks/useScrollTransform";
+import { useRef } from "react";
+import { useScrollTransform } from "../../hooks/useScrollTransform";
 import { useTranslations } from "next-intl";
 
 const SkillSection = () => {

@@ -1,13 +1,12 @@
 "use client";
 
-import AboutTerminal from "@/pages/about/ui/terminals/AboutTerminal";
-import EducationSection from "@/pages/about/ui/sections/EducationSection";
-import ExperienceTerminal from "@/pages/about/ui/terminals/ExperienceTerminal";
-import MainSection from "@/pages/about/ui/sections/MainSection";
-import ProjectsSection from "@/pages/about/ui/projects/ProjectsSection";
-import React from "react";
-import SkillSection from "@/pages/about/ui/sections/SkillSection";
-import { useEntrance } from "@/pages/about/hooks/useEntrance";
+import AboutTerminal from "./terminals/AboutTerminal";
+import EducationSection from "./sections/EducationSection";
+import ExperienceTerminal from "./terminals/ExperienceTerminal";
+import MainSection from "./sections/MainSection";
+import ProjectsSection from "./projects/ProjectsSection";
+import SkillSection from "./sections/SkillSection";
+import { useEntrance } from "../hooks/useEntrance";
 import { useIsInViews } from "@/shared/lib";
 
 export const AboutPage = () => {

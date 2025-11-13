@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useIsInView, useMediaQuery } from "@/shared/lib";
 
 import Image from "next/image";

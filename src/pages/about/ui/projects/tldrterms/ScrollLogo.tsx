@@ -10,7 +10,7 @@ import {
 import { cn, useMediaQuery } from "@/shared/lib";
 import { useEffect, useEffectEvent, useId, useState } from "react";
 
-import Links from "@/pages/about/ui/projects/tldrterms/Links";
+import Links from "./Links";
 
 const GRADIENT_COLORS = ["#2b7fff", "#9810fa", "#2b7fff"];
 const STROKE_WIDTH = 5;

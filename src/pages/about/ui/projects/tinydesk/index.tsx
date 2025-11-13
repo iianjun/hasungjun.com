@@ -1,7 +1,6 @@
 import HeroGroup from "./HeroGroup";
 import Intro from "./Intro";
 import Link from "next/link";
-import React from "react";
 import { useIsInView } from "@/shared/lib";
 import { useTranslations } from "next-intl";
 

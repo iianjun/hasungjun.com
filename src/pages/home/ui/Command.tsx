@@ -1,8 +1,7 @@
 "use client";
 
-import { DIRECTORIES, LINK_HASH } from "@/pages/home/config/constants";
+import { type CommandHistory, DIRECTORIES, LINK_HASH } from "@/pages/home";
 
-import { CommandHistory } from "@/pages/home/model/types";
 import { Route } from "next";
 import { cn } from "@/shared/lib";
 import { useEffect } from "react";

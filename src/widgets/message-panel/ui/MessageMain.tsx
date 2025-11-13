@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useAppDispatch, useResize } from "@/shared/lib";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import Image from "next/image";
-import MessageBubble from "@/entities/message/ui/MessageBubble";
+import { MessageBubble } from "@/entities/message";
 import { cn } from "@/shared/lib";
-import { setLastMessage } from "@/features/message/model/message.slice";
-import { useTextareaAutoSize } from "@/pages/messages/hooks/useTextareaAutoSize";
+import { setLastMessage } from "@/features/message";
+import { useTextareaAutoSize } from "@/pages/messages";
 import { useTranslations } from "next-intl";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

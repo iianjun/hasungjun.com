@@ -1,6 +1,6 @@
 "use client";
 
-import { Dock, DockItem } from "@/widgets/dock/ui/Dock";
+import { Dock, DockItem } from "./Dock";
 import {
   DockGitHubIcon,
   DockLanguageIcon,
@@ -10,15 +10,18 @@ import {
   DockTerminalIcon,
 } from "@/shared/ui";
 import React, { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/shared/lib";
+import {
+  cn,
+  useAppDispatch,
+  useAppSelector,
+  useMediaQuery,
+} from "@/shared/lib";
 
 import Image from "next/image";
 import Link from "next/link";
 import { Route } from "next";
-import { cn } from "@/shared/lib";
 import { hideDock } from "@/features/dock-toggle";
-import { useLocale } from "@/entities/locale/hooks/useLocale";
-import { useMediaQuery } from "@/shared/lib";
+import { useLocale } from "@/entities/locale";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 

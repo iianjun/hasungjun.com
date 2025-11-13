@@ -1,6 +1,6 @@
 "use client";
 
-import React, { PropsWithChildren, useEffect, useRef } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 
 import { Terminal } from "@/shared/ui";
 import { cn } from "@/shared/lib";
