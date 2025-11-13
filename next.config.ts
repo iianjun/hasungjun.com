@@ -1,5 +1,51 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import fs from "fs";
+import path from "path";
+
+const generateFsdOptimizeImports = (): string[] => {
+  const slicesToScan = [
+    "entities",
+    "features",
+    "shared",
+    "widgets",
+    "app",
+    "pages",
+  ];
+  const baseSrcPath = path.join(process.cwd(), "src");
+  const aliasPrefix = "@/";
+
+  const optimizedImports: string[] = [];
+
+  for (const slice of slicesToScan) {
+    const slicePath = path.join(baseSrcPath, slice);
+
+    try {
+      if (!fs.existsSync(slicePath) || !fs.statSync(slicePath).isDirectory()) {
+        continue;
+      }
+
+      const entries = fs.readdirSync(slicePath, { withFileTypes: true });
+
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          const alias = `${aliasPrefix}${slice}/${entry.name}`;
+          optimizedImports.push(alias);
+        }
+      }
+    } catch (error) {
+      console.error(
+        `[Next.js Config] '${slicePath}' 스캔 중 오류 발생:`,
+        error,
+      );
+      throw error;
+    }
+  }
+
+  console.info("[Next.js Config] optimizePackageImports:", optimizedImports);
+  return optimizedImports;
+};
+
 const nextConfig: NextConfig = {
   reactStrictMode: false,
   typedRoutes: true,
@@ -35,6 +81,9 @@ const nextConfig: NextConfig = {
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
+  },
+  experimental: {
+    optimizePackageImports: generateFsdOptimizeImports(),
   },
 };
 
