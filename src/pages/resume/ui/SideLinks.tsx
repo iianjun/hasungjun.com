@@ -1,10 +1,9 @@
 import { LINKS } from "@/pages/resume";
 import Link from "next/link";
 import { Route } from "next";
-import { SupportedLocale } from "@/entities/locale";
 import { cn } from "@/shared/lib";
 
-export default function SideLinks({ locale }: { locale: SupportedLocale }) {
+export default function SideLinks() {
   return (
     <aside className="a4:fixed a4:top-auto a4:bottom-7.5 a4:left-7.5 a4:block a4:h-auto a4:px-0 top-2 left-4 z-[2] flex h-12.5 items-center px-4">
       <ul className="a4:flex-col-reverse a4:justify-start flex gap-7.5">
@@ -22,7 +21,7 @@ export default function SideLinks({ locale }: { locale: SupportedLocale }) {
             })}
           >
             <Link
-              href={href.replace("${locale}", locale) as Route}
+              href={href.replace("${locale}", "en") as Route}
               target="_blank"
               aria-label={label}
               rel="noopener noreferrer"

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ResumePage } from "@/pages/resume";
+import { ResumePage, MaintenancePage } from "@/pages/resume";
 import { getTranslations } from "next-intl/server";
 import { getLocale } from "@/entities/locale";
 import { LOCALE_HASH } from "@/entities/locale";
@@ -48,5 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
+  const locale = await getLocale();
+  if (locale === "ko") return <MaintenancePage />;
   return <ResumePage />;
 }
