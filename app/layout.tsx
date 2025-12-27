@@ -1,8 +1,8 @@
 import "@/app/styles/globals.css";
 
+import { IBM_Plex_Mono, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 
-import { Inter } from "next/font/google";
 import { LOCALE_HASH } from "@/entities/locale";
 import { NextIntlClientProvider } from "next-intl";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -10,13 +10,13 @@ import { StoreProvider } from "@/app/providers";
 import { cn } from "@/shared/lib";
 import { getLocale } from "@/entities/locale";
 import { getTranslations } from "next-intl/server";
-import localFont from "next/font/local";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-const d2coding = localFont({
-  src: "./fonts/D2Coding.woff2",
-  variable: "--font-d2coding",
+const mono = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -71,7 +71,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   return (
-    <html lang={locale} className={cn(inter.variable, d2coding.variable)}>
+    <html lang={locale} className={cn(inter.variable, mono.variable)}>
       <body className={"bg-background overflow-x-hidden antialiased"}>
         <NextIntlClientProvider locale={locale}>
           <StoreProvider>{children}</StoreProvider>

@@ -39,7 +39,7 @@ export const HomePage = () => {
   return (
     <Terminal
       className={
-        "font-d2coding h-[calc(100svh-5rem)] w-screen text-base text-white md:h-[80svh] md:w-[90vw] lg:h-[70svh] lg:w-[60vw] xl:w-[50vw]"
+        "h-[calc(100svh-5rem)] w-screen font-mono text-base text-white md:h-[80svh] md:w-[90vw] lg:h-[70svh] lg:w-[60vw] xl:w-[50vw]"
       }
       onClick={() => {
         skipAnimation();

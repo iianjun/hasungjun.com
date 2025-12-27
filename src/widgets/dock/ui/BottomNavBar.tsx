@@ -17,6 +17,7 @@ import {
   useMediaQuery,
 } from "@/shared/lib";
 
+import { ABOUT_IMAGE_BASE_64 } from "@/pages/home/config/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { Route } from "next";
@@ -43,7 +44,7 @@ const ITEMS: {
   },
   {
     type: "about",
-    src: "/dock/dock-about.webp",
+    src: ABOUT_IMAGE_BASE_64,
     link: "/about",
     as: "link",
     isLCP: true,
@@ -135,6 +136,7 @@ export default function BottomNavBar() {
             ? {
                 priority: true,
                 fetchPriority: "high",
+                unoptimized: true,
               }
             : {})}
           sizes="3.125rem"
@@ -155,9 +157,8 @@ export default function BottomNavBar() {
         {
           "lg:animate-nav-fade-right lg:top-0 lg:left-0 lg:h-full lg:w-fit lg:flex-col lg:pl-[.625rem]":
             !horizontal,
-          "left-1/2 -translate-x-1/2": horizontal,
+          "animate-nav-fade-up left-1/2 -translate-x-1/2": horizontal,
           hidden: !isLg && !isShow && position === "left",
-          "animate-nav-fade-up": isAnimationReady,
         },
       )}
     >
