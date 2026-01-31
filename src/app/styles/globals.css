@@ -107,18 +107,18 @@
   /* Keyframes */
   @keyframes divider-width {
     0% {
-      width: 0;
+      transform: scaleX(0);
     }
     100% {
-      width: 1rem;
+      transform: scaleX(1);
     }
   }
   @keyframes divider-height {
     0% {
-      height: 0;
+      transform: scaleY(0);
     }
     100% {
-      height: 1rem;
+      transform: scaleY(1);
     }
   }
 
@@ -182,10 +182,6 @@
   body {
     font-size: 1rem;
     font-family: var(--font-inter);
-  }
-
-  * {
-    backface-visibility: hidden;
   }
 
   ::selection {

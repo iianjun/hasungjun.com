@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { cn, useMediaQuery } from "@/shared/lib";
-import { useEffect, useEffectEvent, useId, useState } from "react";
+import { useEffect, useEffectEvent, useId, useRef, useState } from "react";
 
 import Links from "./Links";
 
@@ -115,10 +115,15 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
   }, [stopColor]);
 
   const [hoverEnabled, setHoverEnabled] = useState(false);
+  const prevHoverEnabled = useRef(false);
 
   useEffect(() => {
     const unsubscribe = y.on("change", (latest) => {
-      setHoverEnabled(latest >= 0.55);
+      const next = latest >= 0.55;
+      if (next !== prevHoverEnabled.current) {
+        prevHoverEnabled.current = next;
+        setHoverEnabled(next);
+      }
     });
 
     return () => unsubscribe();

@@ -12,29 +12,26 @@ export default function ViewLoader() {
     },
   });
   const [progress, setProgress] = useState(IS_DEV ? 100 : 0);
-  const interval = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!isInView || didRun.current || IS_DEV) return;
     didRun.current = true;
-    let currentProgress = 0;
-    interval.current = setInterval(() => {
-      currentProgress += 1;
-      if (currentProgress >= 100) {
-        currentProgress = 100;
-        clearInterval(interval.current as NodeJS.Timeout);
-      }
-      setProgress(currentProgress);
-    }, 10);
-  }, [isInView]);
+    let start: number;
+    let rafId: number;
+    const duration = 1000;
 
-  useEffect(() => {
-    return () => {
-      if (interval.current) {
-        clearInterval(interval.current);
+    const animate = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const elapsed = timestamp - start;
+      const next = Math.min(Math.round((elapsed / duration) * 100), 100);
+      setProgress(next);
+      if (next < 100) {
+        rafId = requestAnimationFrame(animate);
       }
     };
-  }, []);
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, [isInView]);
 
   const isDone = progress === 100;
 

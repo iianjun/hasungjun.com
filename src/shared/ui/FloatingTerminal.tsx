@@ -21,41 +21,38 @@ export const FloatingTerminal = ({
   const isLg = useMediaQuery("(min-width: 1024px)");
   useEffect(() => {
     if (!animation) return;
+    let rafId = 0;
     const animate = () => {
-      if (!ref.current || !isLg) return;
-      const calc = (window.scrollY / window.innerHeight) * 100;
-      const scaleValue = Math.min(50 + calc * 2, 100);
-      const yScale = -10;
-      const translateY = Math.min(yScale + calc, 0);
-      ref.current.setAttribute(
-        "style",
-        `transform: translateX(-50%) scale(${scaleValue}%); bottom: ${translateY}%`,
-      );
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (!ref.current || !isLg) return;
+        const calc = (window.scrollY / window.innerHeight) * 100;
+        const scaleValue = Math.min(50 + calc * 2, 100);
+        const translateY = Math.min(-10 + calc, 0);
+        ref.current.style.transform = `translateX(-50%) translateY(${-translateY}vh) scale(${scaleValue}%)`;
+      });
     };
     window.addEventListener("scroll", animate);
-    return () => window.removeEventListener("scroll", animate);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", animate);
+    };
   }, [animation, isLg]);
 
   useEffect(() => {
+    if (!ref.current) return;
     if (!isLg) {
-      ref.current?.setAttribute(
-        "style",
-        "transform: translateX(-50%) scale(1); bottom: 0%",
-      );
+      ref.current.style.transform = "translateX(-50%) scale(1)";
       return;
     }
     if (!animation) {
-      ref.current?.setAttribute("style", "transform: translateX(-50%)");
+      ref.current.style.transform = "translateX(-50%)";
       return;
     }
     const calc = (window.scrollY / window.innerHeight) * 100;
     const scaleValue = Math.min(50 + calc * 2, 100);
-    const yScale = -10;
-    const translateY = Math.min(yScale + calc, 0);
-    ref.current?.setAttribute(
-      "style",
-      `transform: translateX(-50%) scale(${scaleValue}%); bottom: ${translateY}%`,
-    );
+    const translateY = Math.min(-10 + calc, 0);
+    ref.current.style.transform = `translateX(-50%) translateY(${-translateY}vh) scale(${scaleValue}%)`;
   }, [isLg, animation]);
 
   useEffect(() => {

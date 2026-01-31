@@ -38,109 +38,115 @@ export const useScrollTransform = (
   }, []);
 
   useEffect(() => {
+    let rafId = 0;
+
+    const setStyle = (
+      el: Element | null | undefined,
+      transform: string,
+      opacity?: string,
+      zIndex?: string,
+    ) => {
+      if (!el) return;
+      const s = (el as HTMLElement).style;
+      s.transform = transform;
+      if (opacity !== undefined) s.opacity = opacity;
+      if (zIndex !== undefined) s.zIndex = zIndex;
+    };
+
     const handleScroll = () => {
-      if (!container.current || !scrollContent.current) return;
-      const currentScroll = window.scrollY - topOffset.current;
-      if (currentScroll < 0) {
-        scrollContent.current.setAttribute(
-          "style",
-          `transform: matrix(1, 0, 0, 1, 0, ${stuckOffset.current.toFixed(2)}); opacity: 0`,
-        );
-        return;
-      }
-      const imgContainers = Array.from(scrollContent.current.children);
-      // Going up animation & opacity
-      if (currentScroll <= stuckOffset.current) {
-        scrollContent.current.setAttribute(
-          "style",
-          `transform: matrix(1, 0, 0, 1, 0, ${(stuckOffset.current - currentScroll).toFixed(2)}); opacity: ${(currentScroll / stuckOffset.current).toFixed(2)}`,
-        );
-        for (const item of imgContainers) {
-          item?.setAttribute("style", "transform: matrix(1, 0, 0, 1, 0, 0)");
-          item.firstElementChild?.setAttribute("style", "opacity: 0");
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        if (!container.current || !scrollContent.current) return;
+        const currentScroll = window.scrollY - topOffset.current;
+        const sc = scrollContent.current.style;
+        if (currentScroll < 0) {
+          sc.transform = `matrix(1, 0, 0, 1, 0, ${stuckOffset.current.toFixed(2)})`;
+          sc.opacity = "0";
+          return;
         }
-      }
-      //Going left
-      else {
-        const sectionHeight = container.current.scrollHeight;
-        const scrollableHeight =
-          sectionHeight - stuckOffset.current - window.innerHeight;
+        const imgContainers = Array.from(scrollContent.current.children);
+        // Going up animation & opacity
+        if (currentScroll <= stuckOffset.current) {
+          sc.transform = `matrix(1, 0, 0, 1, 0, ${(stuckOffset.current - currentScroll).toFixed(2)})`;
+          sc.opacity = (currentScroll / stuckOffset.current).toFixed(2);
+          for (const item of imgContainers) {
+            setStyle(item, "matrix(1, 0, 0, 1, 0, 0)");
+            setStyle(item.firstElementChild, "", "0");
+          }
+        }
+        //Going left
+        else {
+          const sectionHeight = container.current.scrollHeight;
+          const scrollableHeight =
+            sectionHeight - stuckOffset.current - window.innerHeight;
 
-        const skillsWidth = scrollContent.current.scrollWidth - 100;
-        const toLeftPerScrollRatio = scrollableHeight / skillsWidth;
-        const scrollSinceStuck = currentScroll - stuckOffset.current;
-        const toLeft = -scrollSinceStuck / toLeftPerScrollRatio;
-        scrollContent.current.setAttribute(
-          "style",
-          `transform: matrix(1, 0, 0, 1, ${toLeft}, 0); opacity: 1`,
-        );
-        const imageRatio = scrollableHeight / num;
-        const toScaleIndex = Math.floor(scrollSinceStuck / imageRatio);
-        const remainder = scrollSinceStuck / imageRatio - toScaleIndex;
-        const scale = 0.6 * remainder;
-        for (let i = 0; i < imgContainers.length; i++) {
-          const item = imgContainers[i];
-          const tooltip = item.firstElementChild;
-          // At the end
+          const skillsWidth = scrollContent.current.scrollWidth - 100;
+          const toLeftPerScrollRatio = scrollableHeight / skillsWidth;
+          const scrollSinceStuck = currentScroll - stuckOffset.current;
+          const toLeft = -scrollSinceStuck / toLeftPerScrollRatio;
+          sc.transform = `matrix(1, 0, 0, 1, ${toLeft}, 0)`;
+          sc.opacity = "1";
+          const imageRatio = scrollableHeight / num;
+          const toScaleIndex = Math.floor(scrollSinceStuck / imageRatio);
+          const remainder = scrollSinceStuck / imageRatio - toScaleIndex;
+          const scale = 0.6 * remainder;
+
+          // End state — lock final item, reset the rest
           if (toScaleIndex === num) {
-            const current = imgContainers.at(num - 1);
-            const currentTooltip = current?.firstElementChild;
-            const prev = current?.previousElementSibling;
-            const prevTooltip = prev?.firstElementChild;
-            current?.setAttribute(
-              "style",
-              `transform: matrix(1.6, 0, 0, 1.6, 0, 0); z-index: 2`,
-            );
-            currentTooltip?.setAttribute("style", `opacity: 1`);
+            for (let i = 0; i < imgContainers.length; i++) {
+              const item = imgContainers[i];
+              if (i === num - 1) {
+                setStyle(item, "matrix(1.6, 0, 0, 1.6, 0, 0)", undefined, "2");
+                setStyle(item.firstElementChild, "", "1");
+              } else {
+                setStyle(item, "matrix(1, 0, 0, 1, 0, 0)", undefined, "1");
+                setStyle(item.firstElementChild, "", "0");
+              }
+            }
+          } else {
+            for (let i = 0; i < imgContainers.length; i++) {
+              const item = imgContainers[i];
+              const tooltip = item.firstElementChild;
+              const dist = i - toScaleIndex;
 
-            prev?.setAttribute("style", `transform: matrix(1, 0, 0, 1, 0, 0)`);
-            prevTooltip?.setAttribute("style", `opacity: 0`);
-          }
-          //First item
-          else if (i === toScaleIndex && toScaleIndex === 0) {
-            item.setAttribute(
-              "style",
-              `transform: matrix(${1 + scale}, 0, 0, ${1 + scale}, 0, 0); z-index: 2`,
-            );
-            tooltip?.setAttribute("style", `opacity: ${remainder}`);
-          }
-          // current index item
-          else if (i === toScaleIndex) {
-            tooltip?.setAttribute("style", `opacity: ${remainder / 2 + 0.5}`);
-            item.setAttribute(
-              "style",
-              `transform: matrix(${1.3 + scale / 2}, 0, 0, ${1.3 + scale / 2}, 0, 0); z-index: 2`,
-            );
-          }
-          // previous index item
-          else if (toScaleIndex - 1 === i) {
-            item.setAttribute(
-              "style",
-              `transform: matrix(${1.6 - scale}, 0, 0, ${1.6 - scale}, 0, 0)`,
-            );
-            tooltip?.setAttribute("style", `opacity: ${1 - remainder}`);
-          }
-          // next index item
-          else if (toScaleIndex + 1 === i) {
-            item.setAttribute(
-              "style",
-              `transform: matrix(${1 + scale / 2}, 0, 0, ${1 + scale / 2}, 0, 0)`,
-            );
-            tooltip?.setAttribute("style", `opacity: ${remainder / 2}`);
-          }
-          // rest of the items
-          else {
-            item.setAttribute(
-              "style",
-              `transform: matrix(1, 0, 0, 1, 0, 0); z-index: 1`,
-            );
-            tooltip?.setAttribute("style", "opacity: 0");
+              switch (dist) {
+                case 0: {
+                  const s = toScaleIndex === 0 ? 1 + scale : 1.3 + scale / 2;
+                  const op =
+                    toScaleIndex === 0 ? remainder : remainder / 2 + 0.5;
+                  setStyle(
+                    item,
+                    `matrix(${s}, 0, 0, ${s}, 0, 0)`,
+                    undefined,
+                    "2",
+                  );
+                  setStyle(tooltip, "", `${op}`);
+                  break;
+                }
+                case -1: {
+                  const s = 1.6 - scale;
+                  setStyle(item, `matrix(${s}, 0, 0, ${s}, 0, 0)`);
+                  setStyle(tooltip, "", `${1 - remainder}`);
+                  break;
+                }
+                case 1: {
+                  const s = 1 + scale / 2;
+                  setStyle(item, `matrix(${s}, 0, 0, ${s}, 0, 0)`);
+                  setStyle(tooltip, "", `${remainder / 2}`);
+                  break;
+                }
+                default:
+                  setStyle(item, "matrix(1, 0, 0, 1, 0, 0)", undefined, "1");
+                  setStyle(tooltip, "", "0");
+              }
+            }
           }
         }
-      }
+      });
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [container, scrollContent, num, stuckOffset]);
