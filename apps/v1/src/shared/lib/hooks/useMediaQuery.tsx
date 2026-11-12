@@ -3,17 +3,15 @@
 import { useEffect, useState } from "react";
 
 export const useMediaQuery = (query: string) => {
-  const [matches, setMatches] = useState(
-    typeof window !== "object" ? false : window.matchMedia(query).matches,
-  );
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia(query);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMatches(media.matches);
     const listener = (e: MediaQueryListEvent) => setMatches(e.matches);
     media.addEventListener("change", listener);
-    return () => {
-      media.removeEventListener("change", listener);
-    };
+    return () => media.removeEventListener("change", listener);
   }, [query]);
 
   return matches;

@@ -1,15 +1,7 @@
 "use client";
 
 import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import {
   DocContextType,
-  DockIconProps,
   DockItemProps,
   DockLabelProps,
   DockProps,
@@ -22,8 +14,8 @@ import {
   useEffect,
   useEffectEvent,
   useRef,
-  useState,
 } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 const MAGNIFICATION = 80;
 const DISTANCE = 150;
@@ -119,18 +111,27 @@ function Dock({
 
 function DockItem({ children, label }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const rectRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
 
   const { mouseX, mouseY, isVertical, isXs } = useDock();
 
   const isHovered = useMotionValue(0);
 
-  const mouseDistance = useTransform(isVertical ? mouseY : mouseX, (val) => {
-    const domRect = ref.current?.getBoundingClientRect() ?? {
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0,
+  // Cache bounding rect — update only on resize, not every frame
+  useEffect(() => {
+    const updateRect = () => {
+      if (ref.current) {
+        const r = ref.current.getBoundingClientRect();
+        rectRef.current = { x: r.x, y: r.y, width: r.width, height: r.height };
+      }
     };
+    updateRect();
+    window.addEventListener("resize", updateRect);
+    return () => window.removeEventListener("resize", updateRect);
+  }, []);
+
+  const mouseDistance = useTransform(isVertical ? mouseY : mouseX, (val) => {
+    const domRect = rectRef.current;
     if (isVertical) {
       return val - domRect.y - domRect.height / 2;
     }
@@ -165,62 +166,47 @@ function DockItem({ children, label }: DockItemProps) {
       aria-haspopup="true"
     >
       <DockLabel isHovered={isHovered}>{label}</DockLabel>
-      <DockIcon size={size}>{children}</DockIcon>
+      <DockIcon>{children}</DockIcon>
     </motion.div>
   );
 }
 
 function DockLabel({ children, isHovered }: DockLabelProps) {
-  const [isVisible, setIsVisible] = useState(false);
   const { isVertical } = useDock();
 
-  useEffect(() => {
-    const unsubscribe = isHovered.on("change", (latest) => {
-      setIsVisible(latest === 1);
-    });
-
-    return () => unsubscribe();
-  }, [isHovered]);
-
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={isVertical ? { opacity: 0, x: 0 } : { opacity: 0, y: 0 }}
-          animate={isVertical ? { opacity: 1, x: 10 } : { opacity: 1, y: -10 }}
-          exit={isVertical ? { opacity: 0, x: 0 } : { opacity: 0, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className={cn(
-            "bg-nav-tooltip-bg absolute w-fit rounded-md border border-neutral-900 px-2 py-0.5 text-xs whitespace-pre text-white shadow-[inset_0_0_0_1px_#47484a]",
-            {
-              "top-1/2 left-full": isVertical,
-              "bottom-full left-1/2": !isVertical,
-            },
-          )}
-          role="tooltip"
-          style={isVertical ? { y: "-50%" } : { x: "-50%" }}
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
+  const springConfig = { stiffness: 300, damping: 25 };
+  const opacity = useSpring(isHovered, springConfig);
+  const offset = useSpring(
+    useTransform(isHovered, (v) => v * (isVertical ? 10 : -10)),
+    springConfig,
   );
-}
 
-function DockIcon({ children, size }: DockIconProps) {
-  const sizeTransform = useTransform(size, (val) => val);
-
-  const { isXs } = useDock();
   return (
     <motion.div
       style={{
-        width: isXs ? "100%" : sizeTransform,
-        height: isXs ? "100%" : sizeTransform,
+        opacity,
+        pointerEvents: "none",
+        ...(isVertical ? { x: offset, y: "-50%" } : { x: "-50%", y: offset }),
       }}
-      className={"flex items-center justify-center"}
+      className={cn(
+        "bg-nav-tooltip-bg absolute w-fit rounded-md border border-neutral-900 px-2 py-0.5 text-xs whitespace-pre text-white shadow-[inset_0_0_0_1px_#47484a]",
+        {
+          "top-1/2 left-full": isVertical,
+          "bottom-full left-1/2": !isVertical,
+        },
+      )}
+      role="tooltip"
     >
       {children}
     </motion.div>
+  );
+}
+
+function DockIcon({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      {children}
+    </div>
   );
 }
 

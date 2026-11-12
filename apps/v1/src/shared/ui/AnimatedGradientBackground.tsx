@@ -104,6 +104,22 @@ const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const gradientStopsString = gradientStops
+      .map((stop, index) => `${gradientColors[index]} ${stop}%`)
+      .join(", ");
+
+    const setGradient = (width: number) => {
+      if (containerRef.current) {
+        containerRef.current.style.background = `radial-gradient(${width}% ${width + topOffset}% at 50% 20%, ${gradientStopsString})`;
+      }
+    };
+
+    // When not breathing, set once and stop
+    if (!Breathing) {
+      setGradient(startingGap);
+      return;
+    }
+
     let animationFrame: number;
     let width = startingGap;
     let directionWidth = 1;
@@ -112,25 +128,14 @@ const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProps> = ({
       if (width >= startingGap + breathingRange) directionWidth = -1;
       if (width <= startingGap - breathingRange) directionWidth = 1;
 
-      if (!Breathing) directionWidth = 0;
       width += directionWidth * animationSpeed;
-
-      const gradientStopsString = gradientStops
-        .map((stop, index) => `${gradientColors[index]} ${stop}%`)
-        .join(", ");
-
-      const gradient = `radial-gradient(${width}% ${width + topOffset}% at 50% 20%, ${gradientStopsString})`;
-
-      if (containerRef.current) {
-        containerRef.current.style.background = gradient;
-      }
-
+      setGradient(width);
       animationFrame = requestAnimationFrame(animateGradient);
     };
 
     animationFrame = requestAnimationFrame(animateGradient);
 
-    return () => cancelAnimationFrame(animationFrame); // Cleanup animation
+    return () => cancelAnimationFrame(animationFrame);
   }, [
     startingGap,
     Breathing,

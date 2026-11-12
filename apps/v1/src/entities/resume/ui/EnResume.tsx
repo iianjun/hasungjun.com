@@ -116,9 +116,22 @@ export default function EnResume() {
       <Section title="Experience">
         <div className="text-a4-sm flex flex-col gap-[1.25em]">
           <SectionItem
+            title="MiriDih"
+            subTitle="Seoul, South Korea"
+            date="December 2025 - Present"
+          >
+            <p>Frontend Developer</p>
+            <List
+              data={[
+                "Conducted A/B tests to support data-driven product decisions",
+                "Developing personalized recommendation features",
+              ]}
+            />
+          </SectionItem>
+          <SectionItem
             title="Aicy"
             subTitle="Seoul, South Korea"
-            date="June 2025 - Present"
+            date="June 2025 - December 2025"
           >
             <p>Full-Stack Developer</p>
             <List

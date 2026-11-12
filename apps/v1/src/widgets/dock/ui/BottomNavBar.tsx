@@ -17,7 +17,7 @@ import {
   useMediaQuery,
 } from "@/shared/lib";
 
-import { ABOUT_IMAGE_BASE_64 } from "@/pages/home/config/constants";
+import { ABOUT_IMAGE_BASE_64 } from "../config/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { Route } from "next";

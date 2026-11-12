@@ -129,7 +129,6 @@ export default function IMacHero({ y }: { y: MotionValue<number> }) {
       >
         <div className="relative aspect-[3082/2287] w-[90svw] max-w-[calc(64rem-(var(--spacing-left-nav)*3))]">
           <Image
-            priority
             src="/tldrterms/xdr-display.webp"
             alt="imac"
             fill

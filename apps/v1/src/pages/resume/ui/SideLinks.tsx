@@ -16,7 +16,7 @@ export default function SideLinks() {
               "animate-delay-400 after:animate-delay-600 before:animate-delay-600":
                 index === 1,
               "animate-delay-800": index === 2,
-              "after:a4:hidden after:border-gray-light after:animate-divider-width after:animate-delay-200 before:max-a4:hidden before:border-gray-light before:animate-divider-height before:animate-delay-200 before:absolute before:bottom-[calc(100%+0.5rem)] before:left-1/2 before:block before:-translate-x-1/2 before:border-r before:content-[''] after:absolute after:top-1/2 after:left-[calc(100%+0.5rem)] after:block after:-translate-y-1/2 after:border-t after:content-['']":
+              "after:a4:hidden after:border-gray-light after:animate-divider-width after:animate-delay-200 before:max-a4:hidden before:border-gray-light before:animate-divider-height before:animate-delay-200 before:absolute before:bottom-[calc(100%+0.5rem)] before:left-1/2 before:block before:h-4 before:origin-bottom before:-translate-x-1/2 before:border-r before:content-[''] after:absolute after:top-1/2 after:left-[calc(100%+0.5rem)] after:block after:w-4 after:origin-left after:-translate-y-1/2 after:border-t after:content-['']":
                 index !== 2,
             })}
           >

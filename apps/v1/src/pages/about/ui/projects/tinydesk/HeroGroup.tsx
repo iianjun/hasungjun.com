@@ -63,7 +63,6 @@ const HeroGroup = () => {
         <div className="absolute left-1/2 h-53 w-62.5 -translate-x-1/2 md:h-100.5 md:w-119 lg:h-148.5 lg:w-176">
           <Image
             src="/tinydesk/hero-mac.webp"
-            priority
             fill
             alt="hero-mac"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -78,7 +77,6 @@ const HeroGroup = () => {
             fill
             src="/tinydesk/hero-macbook-landing.webp"
             alt="hero-macbook-landing"
-            priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>

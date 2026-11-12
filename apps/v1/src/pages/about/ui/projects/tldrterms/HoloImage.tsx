@@ -75,7 +75,6 @@ export default function HoloImage() {
           }
           width={isMd ? 1520 : 528}
           height={isMd ? 865 : 689}
-          priority
           alt="TL;DR Terms Landing page"
           style={{ width: "100%", height: "auto" }}
         />

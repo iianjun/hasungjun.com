@@ -330,22 +330,23 @@ export default function Description() {
           </motion.div>
         )}
       </AnimatePresence>
-      <motion.div
+      <div
         className={cn(
           "absolute top-0 right-0 left-0 h-full w-full md:left-3/10 md:w-7/10",
           {
             "pointer-events-none": clicked,
           },
         )}
-        animate={{
-          opacity: clicked ? 0.5 : 1,
-          filter: clicked ? "blur(4px)" : "blur(0)",
-        }}
       >
         <div className="flex-center absolute inset-0 p-5">
           <HoloImage />
         </div>
-      </motion.div>
+        <motion.div
+          className="absolute inset-0 bg-black/50 backdrop-blur-[4px]"
+          animate={{ opacity: clicked ? 1 : 0 }}
+          style={{ pointerEvents: "none" }}
+        />
+      </div>
     </div>
   );
 }

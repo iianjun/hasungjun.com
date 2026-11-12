@@ -19,6 +19,12 @@ const ExperienceTerminal: React.FC<FloatingTerminalProps> = ({ ...rest }) => {
     <FloatingTerminal {...rest}>
       <div className="flex flex-col gap-6">
         <ExperienceSection
+          period={t("miridihPeriod")}
+          jobTitle={t("frontend")}
+          company="MiriDih"
+          description={getComponent("miridih")}
+        />
+        <ExperienceSection
           period={t("aicyPeriod")}
           jobTitle={t("fullStack")}
           company="Aicy"
