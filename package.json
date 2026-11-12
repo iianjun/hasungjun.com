@@ -8,20 +8,5 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2"
   },
-  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
-  "pnpm": {
-    "overrides": {
-      "yargs-parser": "^13.1.2",
-      "braces": "^3.0.3",
-      "micromatch": "^4.0.8",
-      "cross-spawn": "^7.0.6",
-      "brace-expansion": "^2.0.2",
-      "@babel/helpers": "^7.26.10",
-      "@babel/runtime": "^7.26.10",
-      "@eslint/plugin-kit": "^0.3.4",
-      "tmp": "^0.2.4",
-      "@types/react": "19.2.2",
-      "@types/react-dom": "19.2.2"
-    }
-  }
+  "packageManager": "pnpm@12.18.0"
 }

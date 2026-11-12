@@ -1,2 +1,21 @@
 packages:
   - "apps/*"
+
+overrides:
+  "yargs-parser": "^13.1.2"
+  "braces": "^3.0.3"
+  "micromatch": "^4.0.8"
+  "cross-spawn": "^7.0.6"
+  "brace-expansion": "^2.0.2"
+  "@babel/helpers": "^7.26.10"
+  "@babel/runtime": "^7.26.10"
+  "@eslint/plugin-kit": "^0.3.4"
+  "tmp": "^0.2.4"
+  "@types/react": "19.2.2"
+  "@types/react-dom": "19.2.2"
+
+allowBuilds:
+  "@parcel/watcher": false
+  "@tailwindcss/oxide": false
+  "@vercel/speed-insights": false
+  sharp: false
