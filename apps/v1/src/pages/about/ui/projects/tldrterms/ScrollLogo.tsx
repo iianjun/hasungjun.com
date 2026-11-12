@@ -74,6 +74,8 @@ const ScrollLogo = ({ y }: { y: MotionValue<number> }) => {
   });
 
   useEffect(() => {
+    // Initial measurement must run after mount: it reads window size, which is unavailable during SSR.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     calculateTranslateTo();
     const controller = new AbortController();
     window.addEventListener("resize", calculateTranslateTo, {
