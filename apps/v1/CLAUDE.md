@@ -10,6 +10,8 @@ This is a Next.js 16 portfolio website built with TypeScript, following the Feat
 
 ### Essential Commands
 
+This app is the `v1` package of a pnpm workspace (`apps/v1`). Run these from `apps/v1`, or from the repo root with `pnpm --filter v1 <script>`.
+
 - `pnpm dev` - Start development server
 - `pnpm build` - Build production bundle (uses webpack with `--webpack` flag)
 - `pnpm start` - Start production server
@@ -21,8 +23,8 @@ This is a Next.js 16 portfolio website built with TypeScript, following the Feat
 The repository uses Husky pre-commit hooks that run:
 
 1. `pnpm lint-staged` - Runs import sorting and Prettier on staged files
-2. `pnpm lint` - Runs ESLint
-3. `pnpm type-check` - Runs TypeScript type checking
+2. `pnpm -r lint` - Runs ESLint in every workspace package
+3. `pnpm -r type-check` - Runs TypeScript type checking in every workspace package
 
 All three must pass before commits are allowed.
 
@@ -131,8 +133,8 @@ Next.js App Router is used with the following structure:
 
 ## Package Manager
 
-- **Required**: pnpm 10.13.1+
-- Node.js version: 22.x (specified in engines)
+- **Required**: pnpm 12.18.0+ (pinned via `packageManager` in the workspace root)
+- Node.js version: 24.x (specified in engines)
 - Never use npm or yarn
 
 ## Code Quality Tools
