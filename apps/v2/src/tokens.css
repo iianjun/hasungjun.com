@@ -47,8 +47,6 @@
   --surface-highlight: #3175e9;
   --color-on-highlight: #fff;
   --color-menubar: #fff;
-  --surface-menubar: #ffffff09;
-  --surface-menu-open: #ffffff30;
   --border-window-control: #00000018;
   --color-window-control-symbol: #533c2d;
   --surface-close: #ff5e57;
@@ -59,7 +57,6 @@
   --shadow-window-active:
     0 22px 65px #21192e45, 0 0 0 1px #fff9, 0 2px 7px #20142220;
   --shadow-window-inactive: 0 10px 35px #21192e24, 0 0 0 1px #ffffff70;
-  --shadow-menubar-text: 0 1px 3px #20152066;
   --shadow-menu: 0 10px 30px #1c162c40;
   --shadow-dock: 0 4px 16px #2b1e3526, inset 0 1px 2px #fff8;
   --shadow-icon: inset 0 0 0 1px #fff6, 0 2px 4px #0003;

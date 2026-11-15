@@ -53,17 +53,52 @@
   z-index: -2;
   background: linear-gradient(130deg, #594c50, #b6a694 65%, #e3e0da);
 }
+/*
+ * macOS darkens the wallpaper under the menu bar by subtracting a constant from every
+ * sRGB channel (plus-darker), measured from the 2026-11-15 reference: 51.5/255 down to
+ * 10pt, fading out by 76pt. Chrome has no plus-darker, so the backdrop filter does the
+ * same affine map: brightness(1/(1+2k)) then contrast(1+2k) gives x - k with the same
+ * clamping. The mask carries the measured fade. It sits under the windows.
+ */
+.menuBarScrim {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 76px;
+  pointer-events: none;
+  backdrop-filter: brightness(0.7123) contrast(1.4039);
+  -webkit-backdrop-filter: brightness(0.7123) contrast(1.4039);
+  mask-image: linear-gradient(
+    rgb(0 0 0 / 1) 10px,
+    rgb(0 0 0 / 0.985) 12px,
+    rgb(0 0 0 / 0.96) 18px,
+    rgb(0 0 0 / 0.94) 20px,
+    rgb(0 0 0 / 0.92) 22px,
+    rgb(0 0 0 / 0.895) 24px,
+    rgb(0 0 0 / 0.866) 26px,
+    rgb(0 0 0 / 0.835) 28px,
+    rgb(0 0 0 / 0.79) 30px,
+    rgb(0 0 0 / 0.753) 32px,
+    rgb(0 0 0 / 0.666) 36px,
+    rgb(0 0 0 / 0.586) 40px,
+    rgb(0 0 0 / 0.48) 44px,
+    rgb(0 0 0 / 0.394) 48px,
+    rgb(0 0 0 / 0.31) 52px,
+    rgb(0 0 0 / 0.233) 56px,
+    rgb(0 0 0 / 0.163) 60px,
+    rgb(0 0 0 / 0.101) 64px,
+    rgb(0 0 0 / 0.06) 68px,
+    rgb(0 0 0 / 0.02) 72px,
+    rgb(0 0 0 / 0) 76px
+  );
+}
 .menuBar {
   position: absolute;
   inset: 0 0 auto;
-  height: 32px;
+  height: 30px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
   color: var(--color-menubar);
-  text-shadow: var(--shadow-menubar-text);
-  background: var(--surface-menubar);
+  font-size: var(--text-body);
   z-index: 1000;
   user-select: none;
 }
@@ -71,21 +106,40 @@
 .menuStatus {
   height: 100%;
   display: flex;
-  align-items: center;
-  gap: 21px;
 }
-.menuLeft > button {
+.menuLeft {
+  padding-left: 10.5px;
+}
+/* Title frames touch: advance + 10px on each side (accessibility frames, reference 05). */
+.menuLeft > button,
+.menuDecoration {
+  position: relative;
+  z-index: 0;
+  height: 100%;
+  padding: 0 10px 2px;
   color: inherit;
   background: transparent;
-  height: 100%;
-  padding: 0 1px;
-  text-shadow: inherit;
+  line-height: 28px;
 }
-.menuLeft > button[aria-expanded="true"] {
-  background: var(--surface-menu-open);
-  box-shadow:
-    9px 0 var(--surface-menu-open),
-    -9px 0 var(--surface-menu-open);
+/* No pressed tint on titles. A filter would also cut the capsule's backdrop. */
+.menuLeft > button:active {
+  filter: none;
+}
+/*
+ * The open title gets a capsule 4px wider than its frame on each side that adds
+ * 17.5/255, flat for the top quarter, fading to 8.75/255 at the bottom (plus-lighter, reference 05 vs 07).
+ * contrast(1/(1+2k)) then brightness(1+2k) is x + k with plus-lighter's clamping.
+ */
+.menuLeft > button[aria-expanded="true"]::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 3px -4px auto;
+  height: 22.5px;
+  border-radius: 11.25px;
+  backdrop-filter: contrast(0.8793) brightness(1.1373);
+  -webkit-backdrop-filter: contrast(0.8793) brightness(1.1373);
+  mask-image: linear-gradient(#000 25%, rgb(0 0 0 / 0.5));
 }
 .appMenuName {
   font-weight: var(--weight-strong);
@@ -93,25 +147,38 @@
 .menuDecoration {
   opacity: var(--opacity-decoration);
 }
+/* The system font's Apple logo, nudged onto the reference ink (x 20.5–33.5, y 6–21.5). */
 .appleMark {
-  position: relative;
-  font-size: 19px;
-  width: 13px;
-  line-height: 16px;
+  width: 33px;
+  display: flex;
+  justify-content: center;
+  font-size: 19.5px;
+  line-height: 30px;
+  transform: translate(-0.75px, -1.25px);
 }
-.appleMark i {
-  position: absolute;
-  top: -3px;
-  left: 8px;
-  width: 4px;
-  height: 6px;
-  transform: rotate(35deg);
-  border-radius: 5px 0;
-  background: currentColor;
-}
+/* Status items keep their measured gaps from the clock leftwards. */
 .menuStatus {
-  gap: 18px;
-  font-size: var(--text-label);
+  align-items: flex-start;
+  padding-right: 20px;
+}
+.menuStatus > svg {
+  margin-top: 8px;
+}
+.menuStatus > svg + svg {
+  margin-left: 18px;
+}
+.menuStatus > svg + svg + svg {
+  margin-left: 22px;
+}
+.menuStatus > time {
+  display: flex;
+  margin-left: 22px;
+  line-height: 28px;
+  color: rgb(255 255 255 / 0.9);
+  font-variant-numeric: tabular-nums;
+}
+.menuStatus > time > span + span {
+  margin-left: 7px;
 }
 .commandMenu {
   position: absolute;
