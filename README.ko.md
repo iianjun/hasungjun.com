@@ -51,14 +51,46 @@ cd hasungjun.com
 pnpm install
 
 # 개발 서버 실행
-pnpm dev
+pnpm --filter v1 dev
 ```
 
 브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
 
+## v2 데스크톱 기반
+
+`apps/v2`에 React + Vite 데스크톱 구현을 추가했음. 기존 Next.js 사이트는 `apps/v1`에 있음.
+
+```bash
+pnpm install --frozen-lockfile
+pnpm dev:v2
+```
+
+[http://127.0.0.1:5173](http://127.0.0.1:5173)에서 확인할 수 있음. 데스크톱 viewport는 최소 1024 × 640임.
+Notes와 Shapes에서 여러 창의 열기·포커스·이동·크기 조절·최소화·복원·닫기·앱 종료를 확인할 수 있음.
+Window 메뉴에서 키보드 이동과 크기 조절을 시작할 수 있음.
+방향키는 10px, Shift + 방향키는 1px 단위임. Enter로 확정함. Escape 또는 Tab으로 취소함.
+
+각 앱이 작업 데이터를 소유함. 셸이 창 좌표와 앱 실행 수명을 소유함.
+지원하지 않는 viewport로 전환해도 현재 방문의 데이터를 메모리에 보존함. 새로고침하면 초기화함.
+View 메뉴의 contrast preview로 테마 경계를 확인할 수 있음.
+모바일 UI·다크 최종 디자인·홈페이지 콘텐츠·운영 전환은 후속 범위임.
+
+```bash
+pnpm check:v2
+pnpm build:v2
+# WebKit 보조 엔진 설치. 브라우저 검증에는 로컬 Google Chrome도 필요함.
+pnpm --filter v2 exec playwright install webkit
+pnpm test:v2:browser
+```
+
+브라우저 검증은 1440 × 900 CSS pixels, DPR 2를 사용함.
+고정 화면과 JSON 결과를 `apps/v2/test-results`에 생성함.
+WebKit 자동 검증과 실제 Safari 확인을 구분함.
+macOS 외형은 알려진 차이가 있는 첫 구현임. 시각적 완료 판정은 아직 열려 있음.
+
 ## 📁 프로젝트 구조
 
-이 프로젝트는 [Feature-Sliced Design](https://feature-sliced.design/) 아키텍처를 따릅니다:
+v1은 [Feature-Sliced Design](https://feature-sliced.design/) 아키텍처를 따름. 아래 경로는 `apps/v1` 기준임:
 
 ```
 hasungjun.com/

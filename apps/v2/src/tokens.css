@@ -1,0 +1,90 @@
+/* Theme and shared UI policy. See ../DESIGN.md before adding a token. */
+:root {
+  --font-system:
+    -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --text-status: 9px;
+  --text-caption: 10px;
+  --text-control: 11px;
+  --text-label: 12px;
+  --text-body: 13px;
+  --text-editor: 14px;
+  --weight-medium: 600;
+  --weight-strong: 700;
+  --leading-body: 1.6;
+
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 24px;
+  --radius-field: 4px;
+  --radius-control: 6px;
+  --radius-window: 13px;
+  --radius-icon: 12px;
+  --radius-menu: 11px;
+  --radius-overlay: 12px;
+  --radius-round: 50%;
+  --stroke: 1px;
+  --focus-width: 3px;
+  --focus-offset: 2px;
+  --opacity-disabled: 0.4;
+  --opacity-decoration: 0.65;
+  --filter-pressed: brightness(0.92);
+  --motion-icon: 140ms ease;
+
+  --color-text: #262528;
+  --color-text-muted: #767278;
+  --surface-window: #faf9f8;
+  --surface-panel: #ece9e6d9;
+  --surface-glass: #eeebeaa6;
+  --border-glass: #ffffff87;
+  --border-color: #29232d21;
+  --surface-titlebar: #f3f0eded;
+  --surface-selection: #d5ccbf;
+  --surface-control: #fff9;
+  --color-focus: #3478f6;
+  --surface-highlight: #3175e9;
+  --color-on-highlight: #fff;
+  --color-menubar: #fff;
+  --surface-menubar: #ffffff09;
+  --surface-menu-open: #ffffff30;
+  --border-window-control: #00000018;
+  --color-window-control-symbol: #533c2d;
+  --surface-close: #ff5e57;
+  --surface-minimize: #ffbd2e;
+  --surface-maximize: #b4b4b4;
+  --surface-window-control-inactive: #c8c5c4;
+
+  --shadow-window-active:
+    0 22px 65px #21192e45, 0 0 0 1px #fff9, 0 2px 7px #20142220;
+  --shadow-window-inactive: 0 10px 35px #21192e24, 0 0 0 1px #ffffff70;
+  --shadow-menubar-text: 0 1px 3px #20152066;
+  --shadow-menu: 0 10px 30px #1c162c40;
+  --shadow-dock: 0 4px 16px #2b1e3526, inset 0 1px 2px #fff8;
+  --shadow-icon: inset 0 0 0 1px #fff6, 0 2px 4px #0003;
+  --shadow-tooltip: 0 2px 9px #0002;
+  --material-menu: blur(28px) saturate(1.4);
+  --material-dock: blur(24px) saturate(1.6);
+  --material-overlay: blur(20px);
+
+  /* The environment notice has its own fixed light palette. */
+  --surface-notice: #f4f3ee;
+  --color-notice: #141414;
+  --color-notice-muted: #5c5c5c;
+}
+
+/* Overrides live on the desktop subtree, not on the document or an app. */
+[data-theme="contrast"] {
+  color-scheme: dark;
+  --color-text: #f4f3ee;
+  --color-text-muted: #b9b7be;
+  --surface-window: #25232b;
+  --surface-panel: #33313be8;
+  --surface-glass: #24242dd9;
+  --border-glass: #ffffff45;
+  --border-color: #ffffff28;
+  --surface-titlebar: #34323bef;
+  --surface-selection: #61536b;
+  --surface-control: #ffffff13;
+}

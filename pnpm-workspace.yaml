@@ -12,6 +12,7 @@ overrides:
   "tmp": "^0.2.4"
 
 allowBuilds:
+  esbuild: true
   "@parcel/watcher": false
   "@tailwindcss/oxide": false
   "@vercel/speed-insights": false
