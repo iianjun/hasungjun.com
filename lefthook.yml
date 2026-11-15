@@ -1,0 +1,9 @@
+pre-commit:
+  piped: true
+  jobs:
+    - name: format-staged
+      run: pnpm exec lint-staged
+    - name: lint
+      run: pnpm -r lint
+    - name: type-check
+      run: pnpm -r type-check

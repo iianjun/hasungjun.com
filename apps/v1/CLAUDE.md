@@ -15,15 +15,15 @@ This app is the `v1` package of a pnpm workspace (`apps/v1`). Run these from `ap
 - `pnpm dev` - Start development server
 - `pnpm build` - Build production bundle (uses webpack with `--webpack` flag)
 - `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
-- `pnpm type-check` - Run TypeScript compiler type checking
+- `pnpm lint` - Run Oxlint
+- `pnpm type-check` - Generate Next.js route types, then run TypeScript type checking
 
 ### Pre-commit Workflow
 
-The repository uses Husky pre-commit hooks that run:
+The repository uses Lefthook pre-commit hooks (`lefthook.yml` at the workspace root) that run:
 
 1. `pnpm lint-staged` - Runs import sorting and Prettier on staged files
-2. `pnpm -r lint` - Runs ESLint in every workspace package
+2. `pnpm -r lint` - Runs Oxlint in every workspace package
 3. `pnpm -r type-check` - Runs TypeScript type checking in every workspace package
 
 All three must pass before commits are allowed.
@@ -122,14 +122,16 @@ Next.js App Router is used with the following structure:
 - Target: ES2017
 - JSX runtime: `react-jsx`
 
-### ESLint
+### Oxlint
 
-- Configuration: `eslint.config.mjs` (Flat config format)
-- Uses Next.js core-web-vitals and TypeScript presets
+- Configuration: `.oxlintrc.json`
+- Uses native Next.js, React, and TypeScript rules migrated from the previous ESLint presets
 - Custom rules:
-  - `unused-imports/no-unused-imports`: error
+  - `no-unused-vars`: error (also checks unused imports)
   - `no-console`: error (allows warn, error, info, time, timeEnd, trace)
   - Unused vars must be prefixed with `_`
+- Native-rule differences: `no-unused-vars` replaces `unused-imports/no-unused-imports`, including the `_` exemption. The previous `react/no-deprecated` and `@next/next/no-location-assign-relative-destination` checks have no equivalent enabled in this config.
+- JSX usage is handled natively. ESLint React Compiler `config` and `gating` rules do not apply to Oxlint's fixed compiler options.
 
 ## Package Manager
 
@@ -142,7 +144,7 @@ Next.js App Router is used with the following structure:
 - **Import sorting**: `import-sort-cli`
 - **Formatting**: Prettier with Tailwind plugin
 - **Type checking**: TypeScript strict mode
-- **Linting**: ESLint with Next.js presets
+- **Linting**: Oxlint with native Next.js, React, and TypeScript rules
 
 ## Key Dependencies
 

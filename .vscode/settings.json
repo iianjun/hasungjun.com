@@ -1,15 +1,8 @@
 {
   "tailwindCSS.rootFontSize": 16,
   "liveServer.settings.port": 5501,
-  "eslint.useFlatConfig": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "always"
+    "source.fixAll.oxc": "always"
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
   "tailwindCSS.experimental.configFile": "./apps/v1/src/app/styles/globals.css"
 }
