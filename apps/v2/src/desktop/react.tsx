@@ -1,19 +1,8 @@
 import styles from "./desktop.module.css";
-import {
-  memo,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useSyncExternalStore,
-} from "react";
+import { memo, useEffect, useLayoutEffect, useRef } from "react";
 import type { ReactNode } from "react";
-import type {
-  AppDefinition,
-  AppRuntime,
-  DesktopSession,
-  ShellCommand,
-} from "./DesktopSession";
+import type { DesktopSession } from "./DesktopSession";
+import type { AppDefinition, AppRuntime } from "./types";
 
 // React presentation extends the shell's framework-independent app contract.
 export type Application = AppDefinition & {
@@ -23,6 +12,7 @@ export type Application = AppDefinition & {
 
 // Pointer and keyboard entry points share one token sequence.
 let inputSequence = 0;
+export const nextInputToken = () => ++inputSequence;
 
 export const WindowFrame = memo(function WindowFrame({
   session,
@@ -113,7 +103,7 @@ export const WindowFrame = memo(function WindowFrame({
       )
         return;
       event.preventDefault();
-      const token = ++inputSequence;
+      const token = nextInputToken();
       session.send({
         type: "begin",
         id,
@@ -288,7 +278,7 @@ export const WindowFrame = memo(function WindowFrame({
               type: "begin",
               id,
               mode: "resizing",
-              token: ++inputSequence,
+              token: nextInputToken(),
             });
         }}
       >
@@ -297,51 +287,3 @@ export const WindowFrame = memo(function WindowFrame({
     </section>
   );
 });
-
-// React connections do not own the page session or dispose its apps.
-export function useDesktop(session: DesktopSession) {
-  const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
-  const focusFrame = useRef(0);
-  useLayoutEffect(
-    () => () => cancelAnimationFrame(focusFrame.current),
-    [session],
-  );
-  const previousActive = useRef<string | null>(null);
-  useLayoutEffect(() => {
-    if (
-      previousActive.current !== snapshot.activeId ||
-      (document.activeElement instanceof HTMLElement &&
-        document.activeElement.closest("[hidden]"))
-    ) {
-      const destination = snapshot.activeId
-        ? document.getElementById(snapshot.activeId)
-        : document.querySelector<HTMLButtonElement>("[data-dock] button");
-      if (!destination?.contains(document.activeElement))
-        destination?.focus({ preventScroll: true });
-    }
-    previousActive.current = snapshot.activeId;
-  }, [snapshot.activeId, snapshot.windows]);
-  const execute = useCallback(
-    (
-      command:
-        | Exclude<ShellCommand, { type: "begin" }>
-        | Omit<Extract<ShellCommand, { type: "begin" }>, "token">,
-    ) => {
-      session.send(
-        command.type === "begin"
-          ? { ...command, token: ++inputSequence }
-          : command,
-      );
-      cancelAnimationFrame(focusFrame.current);
-      focusFrame.current = requestAnimationFrame(() => {
-        const id = session.getSnapshot().activeId;
-        (id
-          ? document.getElementById(id)
-          : document.querySelector<HTMLButtonElement>("[data-dock] button")
-        )?.focus({ preventScroll: true });
-      });
-    },
-    [session],
-  );
-  return { snapshot, execute };
-}

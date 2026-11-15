@@ -1,4 +1,4 @@
-import type { AppPorts, AppRuntime } from "../../desktop/DesktopSession";
+import type { AppPorts, AppRuntime } from "../../desktop/types";
 
 type Note = Readonly<{ text: string; status: "ready" | "loading" | "error" }>;
 type NotesSnapshot = Readonly<{

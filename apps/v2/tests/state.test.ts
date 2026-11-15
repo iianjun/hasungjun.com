@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { DesktopSession } from "../src/desktop/DesktopSession";
-import type { AppPorts, AppDefinition } from "../src/desktop/DesktopSession";
+import type { AppPorts, AppDefinition } from "../src/desktop/types";
 import { NotesApp } from "../src/apps/notes/NotesApp";
 import { ShapesApp } from "../src/apps/shapes/ShapesApp";
 
@@ -94,7 +94,11 @@ test("같은 앱의 독 반복 클릭, 다중 창, 마지막 창 닫기, 종료�
   assert.equal(app.getSnapshot().windows[first.id]?.text, "private first");
   shell.send({ type: "close", id: second.id });
   shell.send({ type: "close", id: first.id });
-  assert.deepEqual(shell.getSnapshot().running, ["notes"]);
+  // A windowless run stays reachable through the published run id.
+  assert.deepEqual(shell.getSnapshot().running, [
+    { runId: first.runId, appId: "notes" },
+  ]);
+  assert.equal(shell.getApp(first.runId), app);
   assert.equal(app.getSnapshot().phase, "running");
   shell.send({ type: "dock", appId: "notes" });
   assert.equal(activeWindow(shell).runId, first.runId);
@@ -106,6 +110,25 @@ test("같은 앱의 독 반복 클릭, 다중 창, 마지막 창 닫기, 종료�
   const fresh = shell.getApp(restarted.runId);
   assert.ok(fresh instanceof NotesApp);
   assert.equal(fresh.getSnapshot().defaultText, "");
+});
+
+test("frontmost app은 활성 창의 앱이고 창이 없으면 마지막에 실행한 앱임", () => {
+  const shell = fixture();
+  assert.equal(shell.getSnapshot().frontmostAppId, null);
+  shell.send({ type: "dock", appId: "notes" });
+  const notes = activeWindow(shell);
+  shell.send({ type: "dock", appId: "shapes" });
+  const shapes = activeWindow(shell);
+  assert.equal(shell.getSnapshot().frontmostAppId, "shapes");
+  shell.send({ type: "focus", id: notes.id });
+  assert.equal(shell.getSnapshot().frontmostAppId, "notes");
+  shell.send({ type: "close", id: shapes.id });
+  shell.send({ type: "close", id: notes.id });
+  assert.equal(shell.getSnapshot().frontmostAppId, "shapes");
+  shell.send({ type: "quit", appId: "shapes" });
+  assert.equal(shell.getSnapshot().frontmostAppId, "notes");
+  shell.send({ type: "quit", appId: "notes" });
+  assert.equal(shell.getSnapshot().frontmostAppId, null);
 });
 
 test("독은 최근 보이는 창을 우선하고 전체 최소화 때 최근 창을 복원함", () => {
@@ -279,7 +302,9 @@ test("주입 포트는 다른 실행의 창과 종료된 실행의 요청을 거
   shell.send({ type: "quit", appId: "notes" });
   notes.ports.newWindow();
   notes.ports.closeWindow(b.id);
-  assert.deepEqual(shell.getSnapshot().running, ["shapes"]);
+  assert.deepEqual(shell.getSnapshot().running, [
+    { runId: b.runId, appId: "shapes" },
+  ]);
   assert.equal(shell.getSnapshot().windows.length, 1);
 });
 
@@ -322,7 +347,9 @@ test("생성·실행·정리 실패를 한 실행에 격리하고 재진입 명�
   shell.send({ type: "new", appId: "throws" });
   shell.send({ type: "new", appId: "broken" });
   assert.equal(shell.getSnapshot().activeId, note.id);
-  assert.deepEqual(shell.getSnapshot().running, ["notes"]);
+  assert.deepEqual(shell.getSnapshot().running, [
+    { runId: note.runId, appId: "notes" },
+  ]);
   shell.send({ type: "new", appId: "reentrant" });
   assert.equal(shell.getSnapshot().windows.length, 2);
   // Opening app cannot yet close an uncommitted shell window. Later requests may close it.
@@ -458,7 +485,11 @@ test("여러 앱·창의 반복 조합에서 포커스·실행 소유권·작업
     );
     for (const window of state.windows) {
       assert.ok(shell.getApp(window.runId));
-      assert.ok(state.running.includes(window.appId));
+      assert.ok(
+        state.running.some(
+          (run) => run.runId === window.runId && run.appId === window.appId,
+        ),
+      );
       const rect = shell.getRect(window.id);
       assert.ok(rect);
       assert.ok(

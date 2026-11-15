@@ -355,3 +355,23 @@ test("React adapter는 선택 구독·인스턴스 교체·StrictMode 재연결�
   });
   expect(errors).toEqual([]);
 });
+
+test("셸 명령 뒤 키보드 포커스가 활성 창으로 가고 창이 없으면 Dock으로 감", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const dock = page.getByRole("button", { name: "Open Notes", exact: true });
+  const frame = page.getByRole("region", { name: "Notes 2", exact: true });
+  await dock.click();
+  await expect(frame).toBeFocused();
+  // The active window does not change here; the command alone returns focus.
+  await dock.focus();
+  await page.keyboard.press("Enter");
+  await expect(frame).toBeFocused();
+  await page.locator('[data-menu="window"]').click();
+  await page.getByRole("menuitem", { name: "✓ Notes 2", exact: true }).click();
+  await expect(frame).toBeFocused();
+  await page.locator('[data-menu="window"]').click();
+  await page.getByRole("menuitem", { name: "Close Window" }).click();
+  await expect(dock).toBeFocused();
+});

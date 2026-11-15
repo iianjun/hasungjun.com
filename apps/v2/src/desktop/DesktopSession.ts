@@ -1,70 +1,20 @@
-/** The shell owns execution and geometry; app data never enters its snapshot. */
-export interface AppRuntime {
-  openWindow(id: string): void;
-  closeWindow(id: string): void;
-  dispose(): void;
-}
-export interface AppPorts {
-  readonly runId: string;
-  newWindow(): void;
-  closeWindow(id: string): void;
-  fail(error: unknown): void;
-}
-export interface AppDefinition {
-  readonly id: string;
-  readonly title: string;
-  create(ports: AppPorts): AppRuntime;
-}
-export type Rect = Readonly<{
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}>;
-type WindowInfo = Readonly<{
-  id: string;
-  appId: string;
-  runId: string;
-  title: string;
-  minimized: boolean;
-}>;
+import type {
+  AppDefinition,
+  AppRuntime,
+  Rect,
+  ShellCommand,
+  ShellSnapshot,
+  WindowInfo,
+} from "./types";
+
 type Run = {
   id: string;
   appId: string;
   phase: "starting" | "running" | "stopping";
   app?: AppRuntime;
 };
-type Input =
-  | Readonly<{ phase: "idle" }>
-  | Readonly<{
-      phase: "moving" | "resizing";
-      id: string;
-      token: number;
-      origin: Rect;
-    }>;
-export type ShellSnapshot = Readonly<{
-  phase: "unavailable" | "available" | "disposed";
-  windows: readonly WindowInfo[];
-  running: readonly string[];
-  activeId: string | null;
-  input: Input;
-  error: string | null;
-}>;
-export type ShellCommand =
-  | { type: "dock" | "new" | "quit"; appId: string; sourceRunId?: string }
-  | {
-      type: "focus" | "minimize" | "restore" | "close";
-      id: string;
-      sourceRunId?: string;
-    }
-  | { type: "begin"; id: string; mode: "moving" | "resizing"; token: number }
-  | { type: "update"; token: number; dx: number; dy: number }
-  | { type: "finish"; token: number }
-  | { type: "cancel" }
-  | { type: "environment"; available: boolean; width: number; height: number }
-  | { type: "failure"; runId: string }
-  | { type: "dispose" };
 
+/** The shell owns execution and geometry; app data never enters its snapshot. */
 export class DesktopSession {
   #runs = new Map<string, Run>();
   #windows: WindowInfo[] = [];
@@ -81,6 +31,7 @@ export class DesktopSession {
     windows: Object.freeze([]),
     running: Object.freeze([]),
     activeId: null,
+    frontmostAppId: null,
     input: Object.freeze({ phase: "idle" }),
     error: null,
   });
@@ -128,18 +79,22 @@ export class DesktopSession {
   #publish(patch: Partial<ShellSnapshot> = {}) {
     const activeId =
       patch.activeId === undefined ? this.#snapshot.activeId : patch.activeId;
+    const active =
+      this.#windows.find((w) => w.id === activeId && !w.minimized) ??
+      this.#windows.findLast((w) => !w.minimized);
+    const running = Object.freeze(
+      [...this.#runs.values()]
+        .filter((r) => r.phase === "running")
+        .map((r) => Object.freeze({ runId: r.id, appId: r.appId })),
+    );
     this.#snapshot = Object.freeze({
       ...this.#snapshot,
       ...patch,
       windows: Object.freeze([...this.#windows]),
-      running: Object.freeze(
-        [...this.#runs.values()]
-          .filter((r) => r.phase === "running")
-          .map((r) => r.appId),
-      ),
-      activeId: this.#windows.some((w) => w.id === activeId && !w.minimized)
-        ? activeId
-        : (this.#windows.findLast((w) => !w.minimized)?.id ?? null),
+      running,
+      activeId: active?.id ?? null,
+      // Without a visible window, the most recently launched app stays in front.
+      frontmostAppId: active?.appId ?? running.at(-1)?.appId ?? null,
     });
     this.#notify();
   }

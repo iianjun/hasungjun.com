@@ -1,25 +1,24 @@
 import styles from "./desktop.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { applications } from "../applications";
-import type { ShellSnapshot } from "./DesktopSession";
-import type { useDesktop } from "./react";
+import type { DesktopSession } from "./DesktopSession";
+import type { ShellCommand } from "./types";
+import { nextInputToken } from "./react";
 
 export function MenuBar({
-  snapshot,
-  execute: onCommand,
+  session,
   theme,
   onThemeChange,
 }: {
-  snapshot: ShellSnapshot;
-  execute: ReturnType<typeof useDesktop>["execute"];
+  session: DesktopSession;
   theme: string;
   onThemeChange(theme: string): void;
 }) {
+  const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
   const [menu, setMenu] = useState<"app" | "window" | "view" | null>(null);
   const menuRoot = useRef<HTMLDivElement>(null);
   const active = snapshot.windows.find((w) => w.id === snapshot.activeId);
-  const appId =
-    active?.appId ?? snapshot.running.at(-1) ?? applications[0]?.id ?? "";
+  const appId = snapshot.frontmostAppId ?? applications[0]?.id ?? "";
   const definition = applications.find((app) => app.id === appId);
   useEffect(() => {
     if (!menu) return;
@@ -33,9 +32,9 @@ export function MenuBar({
     document.addEventListener("pointerdown", outside);
     return () => document.removeEventListener("pointerdown", outside);
   }, [menu]);
-  const execute: typeof onCommand = (command) => {
+  const execute = (command: ShellCommand) => {
     setMenu(null);
-    onCommand(command);
+    session.send(command);
   };
   return (
     <header className={styles.menuBar}>
@@ -139,7 +138,7 @@ export function MenuBar({
                 <hr />
                 <button
                   role="menuitem"
-                  disabled={!snapshot.running.includes(appId)}
+                  disabled={!snapshot.running.some((run) => run.appId === appId)}
                   onClick={() => execute({ type: "quit", appId })}
                 >
                   Quit {definition?.title}
@@ -196,6 +195,7 @@ export function MenuBar({
                       type: "begin",
                       id: active.id,
                       mode: "moving",
+                      token: nextInputToken(),
                     })
                   }
                 >
@@ -210,6 +210,7 @@ export function MenuBar({
                       type: "begin",
                       id: active.id,
                       mode: "resizing",
+                      token: nextInputToken(),
                     })
                   }
                 >
