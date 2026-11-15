@@ -36,6 +36,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# v2
+apps/v2/dist/
+apps/v2/test-results/
+apps/v2/playwright-report/
+
 # Private research and glossary live outside the public repository.
 /docs/research/
 /GLOSSARY.md

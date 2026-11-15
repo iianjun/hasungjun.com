@@ -51,14 +51,42 @@ cd hasungjun.com
 pnpm install
 
 # Run the development server
-pnpm dev
+pnpm --filter v1 dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+## v2 desktop foundation
+
+`apps/v2` contains the React + Vite desktop implementation. The existing Next.js site stays in `apps/v1`.
+
+```bash
+pnpm install --frozen-lockfile
+pnpm dev:v2
+```
+
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173). Use a desktop viewport of at least 1024 × 640.
+Notes and Shapes exercise multiple windows, focus, dragging, resizing, minimizing, restoring, closing, and quitting.
+The Window menu exposes keyboard move/resize: arrows move 10 px, Shift + arrows move 1 px, Enter confirms, and Escape or Tab cancels.
+
+Each app owns its data. The shell owns window geometry and application lifetimes. Data stays in memory during this page visit, including temporary transitions to an unsupported viewport. Refreshing resets the session.
+The View menu offers a contrast preview to exercise the theme boundary. Mobile UI, final dark styling, portfolio content, and deployment are later work.
+
+```bash
+pnpm check:v2
+pnpm build:v2
+# Install the supplemental WebKit engine; browser tests also require local Google Chrome.
+pnpm --filter v2 exec playwright install webkit
+pnpm test:v2:browser
+```
+
+Browser tests use 1440 × 900 CSS pixels at DPR 2. They record fixed screenshots and JSON results in `apps/v2/test-results`.
+WebKit automation supplements actual Safari checks; it does not replace Safari.
+The macOS appearance is an initial implementation with known visual differences. Visual acceptance remains open.
+
 ## 📁 Project Structure
 
-This project follows the [Feature-Sliced Design](https://feature-sliced.design/) architecture:
+The v1 app follows [Feature-Sliced Design](https://feature-sliced.design/). The paths below are relative to `apps/v1`:
 
 ```
 hasungjun.com/

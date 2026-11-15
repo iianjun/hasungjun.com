@@ -1,0 +1,365 @@
+.desktop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+  color: var(--color-text);
+}
+/* Original CSS wallpaper approximation; not a crop of Apple's annotated reference. */
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 100% 85%, #a6b9c1, transparent 45%),
+    linear-gradient(125deg, #62546b 5%, #9b806b 35%, #56536b 70%, #939d9c);
+}
+.ribbon {
+  position: absolute;
+  border-radius: 47% 50% 45% 52%;
+  border: 3px solid #eee5d2b0;
+  box-shadow:
+    inset -12px -16px 30px #fcf3d2b3,
+    inset 32px 20px 45px #352b35a3,
+    12px 9px 20px #392b3c45;
+  transform: rotate(-36deg);
+}
+.ribbonOne {
+  width: 135%;
+  height: 86%;
+  left: -67%;
+  top: -19%;
+  background: radial-gradient(
+    ellipse at 85% 75%,
+    #e6d8b3,
+    #aa8d68 35%,
+    #716055 65%
+  );
+}
+.ribbonTwo {
+  width: 133%;
+  height: 79%;
+  left: -48%;
+  top: -25%;
+  z-index: -1;
+  background: linear-gradient(135deg, #7a665b 20%, #b9a58c 60%, #dfdbd3 96%);
+}
+.ribbonThree {
+  width: 120%;
+  height: 91%;
+  left: -24%;
+  top: -31%;
+  z-index: -2;
+  background: linear-gradient(130deg, #594c50, #b6a694 65%, #e3e0da);
+}
+.menuBar {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: var(--color-menubar);
+  text-shadow: var(--shadow-menubar-text);
+  background: var(--surface-menubar);
+  z-index: 1000;
+  user-select: none;
+}
+.menuLeft,
+.menuStatus {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 21px;
+}
+.menuLeft > button {
+  color: inherit;
+  background: transparent;
+  height: 100%;
+  padding: 0 1px;
+  text-shadow: inherit;
+}
+.menuLeft > button[aria-expanded="true"] {
+  background: var(--surface-menu-open);
+  box-shadow:
+    9px 0 var(--surface-menu-open),
+    -9px 0 var(--surface-menu-open);
+}
+.appMenuName {
+  font-weight: var(--weight-strong);
+}
+.menuDecoration {
+  opacity: var(--opacity-decoration);
+}
+.appleMark {
+  position: relative;
+  font-size: 19px;
+  width: 13px;
+  line-height: 16px;
+}
+.appleMark i {
+  position: absolute;
+  top: -3px;
+  left: 8px;
+  width: 4px;
+  height: 6px;
+  transform: rotate(35deg);
+  border-radius: 5px 0;
+  background: currentColor;
+}
+.menuStatus {
+  gap: 18px;
+  font-size: var(--text-label);
+}
+.commandMenu {
+  position: absolute;
+  top: 35px;
+  min-width: 235px;
+  max-height: calc(100vh - 145px);
+  overflow-y: auto;
+  padding: var(--space-2);
+  border-radius: var(--radius-menu);
+  border: var(--stroke) solid var(--border-glass);
+  box-shadow: var(--shadow-menu);
+  background: var(--surface-glass);
+  backdrop-filter: var(--material-menu);
+  -webkit-backdrop-filter: var(--material-menu);
+  color: var(--color-text);
+  text-shadow: none;
+}
+.commandMenu.app {
+  left: 42px;
+}
+.commandMenu.window {
+  left: 245px;
+}
+.commandMenu.view {
+  left: 193px;
+}
+.commandMenu button {
+  display: flex;
+  width: 100%;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 7px 9px;
+  border-radius: 5px;
+}
+.commandMenu button:not(:disabled):hover,
+.commandMenu button:focus-visible {
+  background: var(--surface-highlight);
+  color: var(--color-on-highlight);
+  outline: none;
+}
+.menuCaption {
+  display: block;
+  padding: var(--space-3) 9px;
+  font-size: var(--text-control);
+  color: var(--color-text-muted);
+}
+.commandMenu hr {
+  border: 0;
+  border-top: var(--stroke) solid var(--border-color);
+  margin: 5px;
+}
+.workspace {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 88px;
+}
+.desktopWindow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-window);
+  background: var(--surface-window);
+  box-shadow: var(--shadow-window-inactive);
+  outline: none;
+}
+.desktopWindow[data-active="true"] {
+  box-shadow: var(--shadow-window-active);
+}
+.desktopWindow:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.windowTitlebar {
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  background: var(--surface-titlebar);
+  border-bottom: var(--stroke) solid var(--border-color);
+  user-select: none;
+  touch-action: none;
+}
+.windowTitlebar h1 {
+  margin: 0;
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.desktopWindow[data-active="false"] .windowTitlebar {
+  color: var(--color-text-muted);
+}
+.titleSpacer {
+  width: 54px;
+}
+.trafficLights {
+  display: flex;
+  gap: var(--space-3);
+}
+.trafficLights button {
+  padding: 0;
+  width: 12px;
+  height: 12px;
+  border: var(--stroke) solid var(--border-window-control);
+  border-radius: var(--radius-round);
+  font-size: var(--text-label);
+  line-height: 9px;
+  color: transparent;
+}
+.trafficLights:hover button:not(:disabled),
+.trafficLights button:focus-visible {
+  color: var(--color-window-control-symbol);
+}
+.trafficLights .close {
+  background: var(--surface-close);
+}
+.trafficLights .minimize {
+  background: var(--surface-minimize);
+}
+.trafficLights .maximize {
+  background: var(--surface-maximize);
+  opacity: var(--opacity-decoration);
+}
+.desktopWindow[data-active="false"] .trafficLights button:not(:focus-visible) {
+  background: var(--surface-window-control-inactive);
+}
+.resizeHandle {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: nwse-resize;
+  touch-action: none;
+  font-size: 18px;
+}
+.dock {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 7px 10px 5px;
+  height: 74px;
+  max-width: calc(100% - 40px);
+  border: var(--stroke) solid var(--border-glass);
+  border-radius: 20px;
+  background: var(--surface-glass);
+  backdrop-filter: var(--material-dock);
+  -webkit-backdrop-filter: var(--material-dock);
+  box-shadow: var(--shadow-dock);
+  z-index: 1001;
+}
+.dock button {
+  position: relative;
+  flex-shrink: 0;
+  width: 56px;
+  height: 60px;
+  background: none;
+  padding: 0 3px 9px;
+}
+
+.dock button:hover :global(.app-icon) {
+  transform: translateY(-4px);
+}
+.runningDot {
+  position: absolute;
+  bottom: 0;
+  left: 26px;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-round);
+  background: var(--color-text);
+  visibility: hidden;
+}
+[data-running="true"] .runningDot {
+  visibility: visible;
+}
+.dockTooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 7px var(--space-4);
+  white-space: nowrap;
+  background: var(--surface-glass);
+  border: var(--stroke) solid var(--border-glass);
+  border-radius: 7px;
+  box-shadow: var(--shadow-tooltip);
+  backdrop-filter: var(--material-overlay);
+}
+.dock button:hover .dockTooltip,
+.dock button:focus-visible .dockTooltip {
+  display: block;
+}
+.dockDivider {
+  height: 45px;
+  border-left: var(--stroke) solid var(--border-color);
+  margin: 0 var(--space-1);
+}
+.miniWindow {
+  display: block;
+  width: 50px;
+  height: 38px;
+  margin-top: var(--space-3);
+  background: var(--surface-window);
+  border: var(--stroke) solid var(--border-color);
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+.miniWindow i {
+  display: block;
+  height: 9px;
+  background: var(--surface-panel);
+  border-bottom: var(--stroke) solid var(--border-color);
+}
+.inputGuide,
+.errorNotice {
+  position: absolute;
+  bottom: 105px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 11px 18px;
+  border-radius: var(--radius-overlay);
+  border: var(--stroke) solid var(--border-glass);
+  background: var(--surface-glass);
+  backdrop-filter: var(--material-overlay);
+  z-index: 999;
+  font-size: var(--text-label);
+  white-space: nowrap;
+}
+.errorNotice {
+  top: 48px;
+  bottom: auto;
+}

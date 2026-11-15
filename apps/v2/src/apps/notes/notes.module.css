@@ -1,0 +1,74 @@
+.notesSidebar {
+  width: 150px;
+  flex-shrink: 0;
+  background: var(--surface-panel);
+  padding: 23px 10px;
+  border-right: var(--stroke) solid var(--border-color);
+}
+.sidebarHeading {
+  color: var(--color-text-muted);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  padding: 0 7px;
+}
+.selectedFolder {
+  margin-top: var(--space-4);
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: 9px;
+  background: var(--surface-selection);
+  border-radius: var(--radius-control);
+}
+.selectedFolder span {
+  margin-left: auto;
+  color: var(--color-text-muted);
+  font-size: var(--text-control);
+}
+.notesSidebar p {
+  color: var(--color-text-muted);
+  font-size: var(--text-caption);
+  padding: 7px;
+}
+.noteEditor {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.noteEditor :global(.app-toolbar) > span {
+  flex: 1;
+  font-size: var(--text-control);
+}
+.noteDate {
+  padding: 14px var(--space-2) 7px;
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+.noteEditor textarea {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  resize: none;
+  padding: 10px var(--space-6);
+  border: 0;
+  outline: none;
+  background: transparent;
+  line-height: var(--leading-body);
+  font-size: var(--text-editor);
+}
+.noteEditor textarea:focus-visible {
+  outline-offset: -4px;
+  outline-width: 1px;
+}
+.notesIcon {
+  background: linear-gradient(#ffcf47 0 28%, #e3ae2a 28% 29%, #fffef4 29%);
+  padding-top: 21px;
+}
+.notesIcon i {
+  display: block;
+  border-top: 1px solid #d9d7cc;
+  height: 9px;
+  margin: 0 8px;
+}

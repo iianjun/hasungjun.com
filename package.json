@@ -2,7 +2,11 @@
   "name": "hasungjun.com",
   "private": true,
   "scripts": {
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "dev:v2": "pnpm --filter v2 dev",
+    "build:v2": "pnpm --filter v2 build",
+    "check:v2": "pnpm --filter v2 type-check && pnpm --filter v2 lint && pnpm --filter v2 test",
+    "test:v2:browser": "pnpm --filter v2 test:browser"
   },
   "devDependencies": {
     "lint-staged": "^17.6.0",
