@@ -1,3 +1,4 @@
+import type { Clock } from "./clock";
 import type { DesktopSession } from "./DesktopSession";
 import { Dock } from "./Dock";
 import { MenuBar } from "./MenuBar";
@@ -7,21 +8,19 @@ import styles from "./desktop.module.css";
 // Layout only. Each shell module subscribes to the session by itself.
 export function DesktopView({
   session,
-  theme,
-  onThemeChange,
+  clock,
 }: {
   session: DesktopSession;
-  theme: string;
-  onThemeChange(theme: string): void;
+  clock: Clock;
 }) {
   return (
-    <main className={styles.desktop} data-theme={theme} aria-label="Desktop">
+    <main className={styles.desktop} aria-label="Desktop">
       <div className={styles.wallpaper} aria-hidden="true">
         <div className={`${styles.ribbon} ${styles.ribbonOne}`} />
         <div className={`${styles.ribbon} ${styles.ribbonTwo}`} />
         <div className={`${styles.ribbon} ${styles.ribbonThree}`} />
       </div>
-      <MenuBar session={session} theme={theme} onThemeChange={onThemeChange} />
+      <MenuBar session={session} clock={clock} />
       <Workspace session={session} />
       <Dock session={session} />
     </main>

@@ -70,7 +70,7 @@ Notes and Shapes exercise multiple windows, focus, dragging, resizing, minimizin
 The Window menu exposes keyboard move/resize: arrows move 10 px, Shift + arrows move 1 px, Enter confirms, and Escape or Tab cancels.
 
 Each app owns its data. The shell owns window geometry and application lifetimes. Data stays in memory during this page visit, including temporary transitions to an unsupported viewport. Refreshing resets the session.
-The View menu offers a contrast preview to exercise the theme boundary. Mobile UI, final dark styling, portfolio content, and deployment are later work.
+The desktop has no theme switch; the contrast tokens remain as the theme boundary. Mobile UI, final dark styling, portfolio content, and deployment are later work.
 
 ```bash
 pnpm check:v2
@@ -80,7 +80,7 @@ pnpm --filter v2 exec playwright install webkit
 pnpm test:v2:browser
 ```
 
-Browser tests use 1440 × 900 CSS pixels at DPR 2. They record fixed screenshots and JSON results in `apps/v2/test-results`.
+Browser tests use 1512 × 945 CSS pixels at DPR 2, the reference conditions for comparing with real macOS. They record fixed screenshots and JSON results in `apps/v2/test-results`.
 WebKit automation supplements actual Safari checks; it does not replace Safari.
 The macOS appearance is an initial implementation with known visual differences. Visual acceptance remains open.
 

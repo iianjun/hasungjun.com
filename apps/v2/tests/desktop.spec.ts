@@ -51,7 +51,7 @@ test("다중 창·앱·기본값·최소화·종료 흐름", async ({ page }) =>
   expect(errors).toEqual([]);
 });
 
-test("키보드 전용 명령·확정·취소·테마·viewport 보존", async ({ page }) => {
+test("키보드 전용 명령·확정·취소·viewport 보존", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Open Notes", exact: true }).focus();
   await page.keyboard.press("Enter");
@@ -81,20 +81,13 @@ test("키보드 전용 명령·확정·취소·테마·viewport 보존", async (
   await frame
     .getByRole("textbox", { name: "Note text", exact: true })
     .fill("preserve across environments");
-  await page.locator('[data-menu="view"]').click();
-  await page.getByRole("menuitemradio", { name: "Contrast preview" }).click();
-  expect(await frame.boundingBox()).toEqual(moved);
   await page.setViewportSize({ width: 800, height: 600 });
   await expect(page.getByText("A little more room.")).toBeVisible();
-  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.setViewportSize({ width: 1512, height: 945 });
   await expect(
     frame.getByRole("textbox", { name: "Note text", exact: true }),
   ).toHaveValue("preserve across environments");
   expect(await frame.boundingBox()).toEqual(moved);
-  await expect(page.locator("[data-theme]")).toHaveAttribute(
-    "data-theme",
-    "contrast",
-  );
 });
 
 test("포인터 최종값·취소·경계와 이동 중 앱 렌더 분리", async ({
@@ -115,7 +108,7 @@ test("포인터 최종값·취소·경계와 이동 중 앱 렌더 분리", asyn
   if (!moved) throw new Error("No moved window");
   await page.mouse.move(moved.x + 260, moved.y + 22);
   await page.mouse.down();
-  await page.mouse.move(1410, 870);
+  await page.mouse.move(1482, 915);
   await page.keyboard.press("Escape");
   await page.mouse.up();
   expect(await frame.boundingBox()).toEqual(moved);
@@ -132,11 +125,11 @@ test("포인터 최종값·취소·경계와 이동 중 앱 렌더 분리", asyn
   expect(enlarged?.height).toBe(moved.height + 40);
   await page.mouse.move(moved.x + 260, moved.y + 22);
   await page.mouse.down();
-  await page.mouse.move(1440, 900);
+  await page.mouse.move(1512, 945);
   await page.mouse.up();
   const edge = await frame.boundingBox();
-  expect((edge?.x ?? 0) + (edge?.width ?? 0)).toBeLessThanOrEqual(1440);
-  expect((edge?.y ?? 0) + (edge?.height ?? 0)).toBeLessThanOrEqual(812);
+  expect((edge?.x ?? 0) + (edge?.width ?? 0)).toBeLessThanOrEqual(1512);
+  expect((edge?.y ?? 0) + (edge?.height ?? 0)).toBeLessThanOrEqual(857);
   // Browser frame cadence and app DOM writes during real pointer input.
   const measurement = page.evaluate(
     () =>
@@ -267,16 +260,14 @@ test("고정 비교 화면과 reduced-motion 결과를 보관함", async ({
     ),
     contentType: "application/json",
   });
-  await page.locator('[data-menu="view"]').click();
-  await page.getByRole("menuitemradio", { name: "Contrast preview" }).click();
-  await page.screenshot({ path: testInfo.outputPath("05-contrast.png") });
-  await page.locator('[data-menu="view"]').focus();
+  // The desktop has no theme switch; Contrast is not captured here.
+  await page.locator('[data-menu="window"]').focus();
   await page.keyboard.press("ArrowDown");
-  await page.screenshot({ path: testInfo.outputPath("06-menu-focus.png") });
+  await page.screenshot({ path: testInfo.outputPath("05-menu-focus.png") });
   await page.keyboard.press("Escape");
   await page.setViewportSize({ width: 800, height: 600 });
   await expect(page.getByText("A little more room.")).toBeVisible();
-  await page.screenshot({ path: testInfo.outputPath("07-small-screen.png") });
+  await page.screenshot({ path: testInfo.outputPath("06-small-screen.png") });
 });
 
 test("pointercancel·capture 상실·blur·Tab·환경 전환이 입력을 취소함", async ({
@@ -303,7 +294,7 @@ test("pointercancel·capture 상실·blur·Tab·환경 전환이 입력을 취�
     else if (kind === "environment") {
       await page.setViewportSize({ width: 800, height: 600 });
       await expect(page.getByText("A little more room.")).toBeVisible();
-      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.setViewportSize({ width: 1512, height: 945 });
     } else
       await frame.locator("[data-drag]").dispatchEvent(kind, { pointerId: 1 });
     await page.mouse.up();

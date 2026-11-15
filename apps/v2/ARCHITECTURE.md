@@ -27,7 +27,7 @@ macOS Shell
 └─ 화면 모듈 — 각각 붙이거나 뗄 수 있음
    ├─ Workspace   ← DesktopSession
    ├─ Dock        ← DesktopSession + 앱 목록
-   └─ MenuBar     ← DesktopSession + 앱 목록
+   └─ MenuBar     ← DesktopSession + 앱 목록 + Clock
 ```
 
 `←`는 그 모듈이 읽는 대상임. 화면 모듈은 서로를 읽지 않음.
@@ -90,6 +90,7 @@ flowchart TB
 | 실행, 창, 활성 창, frontmost app, 창 위치와 크기 | `DesktopSession` |
 | 앱 데이터 | 그 앱의 App runtime |
 | 설치할 앱, Dock 순서 | 앱 목록 |
+| 메뉴바 시계의 시각 | `Clock`. `main.tsx`가 page 수명으로 생성함. 비교·검증 도구는 고정 시각 `Clock`을 넘길 수 있음. |
 | 실행에 딸린 표시 | 소유자 없음. 실행 목록에서 유도함. |
 | 열린 메뉴, hover | 컴포넌트 local state |
 

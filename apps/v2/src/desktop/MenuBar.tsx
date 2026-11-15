@@ -1,21 +1,36 @@
 import styles from "./desktop.module.css";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { applications } from "../applications";
+import type { Clock } from "./clock";
 import type { DesktopSession } from "./DesktopSession";
 import type { ShellCommand } from "./types";
 import { nextInputToken } from "./react";
 
+const clockFormat = new Intl.DateTimeFormat("en-US", {
+  weekday: "short",
+  month: "short",
+  day: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+});
+// macOS shows "Sun Nov 15 7:59 PM": the en-US parts without commas or "at".
+const formatClock = (time: number) => {
+  const part = Object.fromEntries(
+    clockFormat.formatToParts(time).map(({ type, value }) => [type, value]),
+  );
+  return `${part.weekday} ${part.month} ${part.day} ${part.hour}:${part.minute} ${part.dayPeriod}`;
+};
+
 export function MenuBar({
   session,
-  theme,
-  onThemeChange,
+  clock,
 }: {
   session: DesktopSession;
-  theme: string;
-  onThemeChange(theme: string): void;
+  clock: Clock;
 }) {
   const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
-  const [menu, setMenu] = useState<"app" | "window" | "view" | null>(null);
+  const time = useSyncExternalStore(clock.subscribe, clock.now);
+  const [menu, setMenu] = useState<"app" | "window" | null>(null);
   const menuRoot = useRef<HTMLDivElement>(null);
   const active = snapshot.windows.find((w) => w.id === snapshot.activeId);
   const appId = snapshot.frontmostAppId ?? applications[0]?.id ?? "";
@@ -102,14 +117,6 @@ export function MenuBar({
           Edit
         </span>
         <button
-          data-menu="view"
-          aria-haspopup="menu"
-          aria-expanded={menu === "view"}
-          onClick={() => setMenu(menu === "view" ? null : "view")}
-        >
-          View
-        </button>
-        <button
           data-menu="window"
           aria-haspopup="menu"
           aria-expanded={menu === "window"}
@@ -142,36 +149,6 @@ export function MenuBar({
                   onClick={() => execute({ type: "quit", appId })}
                 >
                   Quit {definition?.title}
-                </button>
-              </>
-            )}
-            {menu === "view" && (
-              <>
-                <button
-                  role="menuitemradio"
-                  aria-checked={theme === "light"}
-                  onClick={() => {
-                    onThemeChange("light");
-                    setMenu(null);
-                    menuRoot.current
-                      ?.querySelector<HTMLButtonElement>('[data-menu="view"]')
-                      ?.focus();
-                  }}
-                >
-                  Light
-                </button>
-                <button
-                  role="menuitemradio"
-                  aria-checked={theme === "contrast"}
-                  onClick={() => {
-                    onThemeChange("contrast");
-                    setMenu(null);
-                    menuRoot.current
-                      ?.querySelector<HTMLButtonElement>('[data-menu="view"]')
-                      ?.focus();
-                  }}
-                >
-                  Contrast preview
                 </button>
               </>
             )}
@@ -250,7 +227,7 @@ export function MenuBar({
         <span aria-hidden="true">◉</span>
         <span aria-disabled="true">⌕</span>
         <span aria-disabled="true">☷</span>
-        <time>Wed Apr 1 9:41 AM</time>
+        <time dateTime={new Date(time).toISOString()}>{formatClock(time)}</time>
       </div>
     </header>
   );

@@ -72,7 +72,7 @@ Window 메뉴에서 키보드 이동과 크기 조절을 시작할 수 있음.
 
 각 앱이 작업 데이터를 소유함. 셸이 창 좌표와 앱 실행 수명을 소유함.
 지원하지 않는 viewport로 전환해도 현재 방문의 데이터를 메모리에 보존함. 새로고침하면 초기화함.
-View 메뉴의 contrast preview로 테마 경계를 확인할 수 있음.
+운영 화면에는 테마 전환이 없음. contrast 토큰은 테마 경계로 유지함.
 모바일 UI·다크 최종 디자인·홈페이지 콘텐츠·운영 전환은 후속 범위임.
 
 ```bash
@@ -83,7 +83,7 @@ pnpm --filter v2 exec playwright install webkit
 pnpm test:v2:browser
 ```
 
-브라우저 검증은 1440 × 900 CSS pixels, DPR 2를 사용함.
+브라우저 검증은 1512 × 945 CSS pixels, DPR 2를 사용함. 실제 macOS와 비교하는 기준 조건과 같음.
 고정 화면과 JSON 결과를 `apps/v2/test-results`에 생성함.
 WebKit 자동 검증과 실제 Safari 확인을 구분함.
 macOS 외형은 알려진 차이가 있는 첫 구현임. 시각적 완료 판정은 아직 열려 있음.
