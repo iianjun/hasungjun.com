@@ -194,7 +194,7 @@
   padding: 5px 0;
   border-radius: var(--radius-menu);
   box-shadow: var(--shadow-menu);
-  background: var(--surface-glass);
+  background: var(--surface-menu);
   backdrop-filter: var(--material-menu);
   -webkit-backdrop-filter: var(--material-menu);
   color: var(--color-menu-text);

@@ -38,6 +38,7 @@
   --surface-window: #faf9f8;
   --surface-panel: #ece9e6d9;
   --surface-glass: #eeebeaa6;
+  --surface-menu: #ffffff9c;
   --border-glass: #ffffff87;
   --border-color: #29232d21;
   --surface-titlebar: #f3f0eded;
@@ -66,7 +67,7 @@
   --shadow-dock: 0 4px 16px #2b1e3526, inset 0 1px 2px #fff8;
   --shadow-icon: inset 0 0 0 1px #fff6, 0 2px 4px #0003;
   --shadow-tooltip: 0 2px 9px #0002;
-  --material-menu: blur(28px) saturate(1.4);
+  --material-menu: blur(15px) saturate(2.3);
   --material-dock: blur(24px) saturate(1.6);
   --material-overlay: blur(20px);
 
@@ -84,6 +85,7 @@
   --surface-window: #25232b;
   --surface-panel: #33313be8;
   --surface-glass: #24242dd9;
+  --surface-menu: #24242dd9;
   --border-glass: #ffffff45;
   --border-color: #ffffff28;
   --surface-titlebar: #34323bef;
