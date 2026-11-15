@@ -1,8 +1,15 @@
 import styles from "./desktop.module.css";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type MouseEvent,
+} from "react";
 import { applications } from "../applications";
 import type { Clock } from "./clock";
 import type { DesktopSession } from "./DesktopSession";
+import { Menu, type MenuEntry } from "./Menu";
 import type { ShellCommand } from "./types";
 import { nextInputToken } from "./react";
 
@@ -55,6 +62,17 @@ const statusIcons = (
   </>
 );
 
+// The window list icon (SF Symbol "macwindow"), drawn to reference 11: an 11×9 frame
+// with three dots. The 11px box puts it 1px above the row centre, as in the reference.
+const windowIcon = (
+  <svg viewBox="0 0 11 11" width="11" height="11" fill="none" stroke="currentColor" aria-hidden="true">
+    <rect x="0.5" y="0.5" width="10" height="8" rx="2" />
+    <path d="M2 2.5h0.9M3.5 2.5h0.9M5 2.5h0.9" strokeWidth="0.9" />
+  </svg>
+);
+
+type Title = "app" | "window";
+
 export function MenuBar({
   session,
   clock,
@@ -65,26 +83,69 @@ export function MenuBar({
   const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
   const time = useSyncExternalStore(clock.subscribe, clock.now);
   const shown = formatClock(time);
-  const [menu, setMenu] = useState<"app" | "window" | null>(null);
+  // The open menu and its left edge: 5px left of its title frame, on a whole point as
+  // macOS places menu windows (reference 06: title at 43.5, menu at 38).
+  const [open, setOpen] = useState<{ title: Title; left: number } | null>(null);
   const menuRoot = useRef<HTMLDivElement>(null);
   const active = snapshot.windows.find((w) => w.id === snapshot.activeId);
   const appId = snapshot.frontmostAppId ?? applications[0]?.id ?? "";
   const definition = applications.find((app) => app.id === appId);
   useEffect(() => {
-    if (!menu) return;
+    if (!open) return;
     const outside = (event: PointerEvent) => {
       if (
         event.target instanceof Node &&
         !menuRoot.current?.contains(event.target)
       )
-        setMenu(null);
+        setOpen(null);
     };
     document.addEventListener("pointerdown", outside);
     return () => document.removeEventListener("pointerdown", outside);
-  }, [menu]);
-  const execute = (command: ShellCommand) => {
-    setMenu(null);
-    session.send(command);
+  }, [open]);
+  const close = () => setOpen(null);
+  const toggle = (title: Title) => (event: MouseEvent<HTMLButtonElement>) =>
+    setOpen(
+      open?.title === title
+        ? null
+        : { title, left: Math.floor(event.currentTarget.getBoundingClientRect().left) - 5 },
+    );
+  const send = (command: ShellCommand) => () => session.send(command);
+  const entries: Record<Title, MenuEntry[]> = {
+    app: [
+      { label: "New Window", onSelect: send({ type: "new", appId }) },
+      "separator",
+      {
+        label: `Quit ${definition?.title ?? ""}`,
+        disabled: !snapshot.running.some((run) => run.appId === appId),
+        onSelect: send({ type: "quit", appId }),
+      },
+    ],
+    window: [
+      {
+        label: "Minimize",
+        disabled: !active,
+        onSelect: () => active && session.send({ type: "minimize", id: active.id }),
+      },
+      ...(["moving", "resizing"] as const).map((mode) => ({
+        label: mode === "moving" ? "Move with Keyboard" : "Resize with Keyboard",
+        disabled: !active,
+        onSelect: () =>
+          active &&
+          session.send({ type: "begin", id: active.id, mode, token: nextInputToken() }),
+      })),
+      {
+        label: "Close Window",
+        disabled: !active,
+        onSelect: () => active && session.send({ type: "close", id: active.id }),
+      },
+      ...(snapshot.windows.length ? ["separator" as const] : []),
+      ...snapshot.windows.map((w) => ({
+        label: w.title,
+        icon: windowIcon,
+        mark: w.id === active?.id ? ("check" as const) : w.minimized ? ("diamond" as const) : undefined,
+        onSelect: send({ type: "restore", id: w.id }),
+      })),
+    ],
   };
   return (
     <>
@@ -94,41 +155,7 @@ export function MenuBar({
         className={styles.menuLeft}
         ref={menuRoot}
         onKeyDown={(event) => {
-          if (event.metaKey || event.ctrlKey || event.altKey) return;
-          if (event.key === "Tab") {
-            setMenu(null);
-            return;
-          }
-          if (event.key === "Escape") {
-            setMenu(null);
-            menuRoot.current
-              ?.querySelector<HTMLButtonElement>(`[data-menu="${menu}"]`)
-              ?.focus();
-            return;
-          }
-          if (
-            !menu ||
-            !["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)
-          )
-            return;
-          const items = [
-            ...(menuRoot.current?.querySelectorAll<HTMLButtonElement>(
-              '[role="menu"] button:not(:disabled)',
-            ) ?? []),
-          ];
-          if (!items.length) return;
-          event.preventDefault();
-          const index = items.findIndex(
-            (item) => item === document.activeElement,
-          );
-          const next =
-            event.key === "Home"
-              ? 0
-              : event.key === "End"
-                ? items.length - 1
-                : (index + (event.key === "ArrowUp" ? -1 : 1) + items.length) %
-                  items.length;
-          items[next]?.focus();
+          if (event.key === "Tab") close();
         }}
       >
         <span
@@ -142,8 +169,8 @@ export function MenuBar({
           className={styles.appMenuName}
           data-menu="app"
           aria-haspopup="menu"
-          aria-expanded={menu === "app"}
-          onClick={() => setMenu(menu === "app" ? null : "app")}
+          aria-expanded={open?.title === "app"}
+          onClick={toggle("app")}
         >
           {definition?.title ?? "Desktop"}
         </button>
@@ -156,107 +183,22 @@ export function MenuBar({
         <button
           data-menu="window"
           aria-haspopup="menu"
-          aria-expanded={menu === "window"}
-          onClick={() => setMenu(menu === "window" ? null : "window")}
+          aria-expanded={open?.title === "window"}
+          onClick={toggle("window")}
         >
           Window
         </button>
         <span className={styles.menuDecoration} aria-disabled="true">
           Help
         </span>
-        {menu && (
-          <div
-            className={`${styles.commandMenu} ${styles[menu]}`}
-            role="menu"
-            aria-label={`${menu} commands`}
-          >
-            {menu === "app" && (
-              <>
-                <span className={styles.menuCaption}>{definition?.title}</span>
-                <button
-                  role="menuitem"
-                  onClick={() => execute({ type: "new", appId })}
-                >
-                  New Window <span>＋</span>
-                </button>
-                <hr />
-                <button
-                  role="menuitem"
-                  disabled={!snapshot.running.some((run) => run.appId === appId)}
-                  onClick={() => execute({ type: "quit", appId })}
-                >
-                  Quit {definition?.title}
-                </button>
-              </>
-            )}
-            {menu === "window" && (
-              <>
-                <button
-                  role="menuitem"
-                  disabled={!active}
-                  onClick={() =>
-                    active && execute({ type: "minimize", id: active.id })
-                  }
-                >
-                  Minimize
-                </button>
-                <button
-                  role="menuitem"
-                  disabled={!active}
-                  onClick={() =>
-                    active &&
-                    execute({
-                      type: "begin",
-                      id: active.id,
-                      mode: "moving",
-                      token: nextInputToken(),
-                    })
-                  }
-                >
-                  Move with Keyboard
-                </button>
-                <button
-                  role="menuitem"
-                  disabled={!active}
-                  onClick={() =>
-                    active &&
-                    execute({
-                      type: "begin",
-                      id: active.id,
-                      mode: "resizing",
-                      token: nextInputToken(),
-                    })
-                  }
-                >
-                  Resize with Keyboard
-                </button>
-                <button
-                  role="menuitem"
-                  disabled={!active}
-                  onClick={() =>
-                    active && execute({ type: "close", id: active.id })
-                  }
-                >
-                  Close Window
-                </button>
-                <hr />
-                {snapshot.windows.map((w) => (
-                  <button
-                    key={w.id}
-                    role="menuitem"
-                    onClick={() => execute({ type: "restore", id: w.id })}
-                  >
-                    {w.id === active?.id ? "✓ " : ""}
-                    {w.title}
-                    {w.minimized ? " · Minimized" : ""}
-                  </button>
-                ))}
-                {!snapshot.windows.length && (
-                  <span className={styles.menuCaption}>No open windows</span>
-                )}
-              </>
-            )}
-          </div>
+        {open && (
+          <Menu
+            label={`${open.title} commands`}
+            entries={entries[open.title]}
+            left={open.left}
+            top={31}
+            onClose={close}
+          />
         )}
       </div>
       <div className={styles.menuStatus} aria-label="System status preview">

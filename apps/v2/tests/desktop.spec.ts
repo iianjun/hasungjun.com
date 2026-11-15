@@ -360,9 +360,23 @@ test("셸 명령 뒤 키보드 포커스가 활성 창으로 가고 창이 없�
   await page.keyboard.press("Enter");
   await expect(frame).toBeFocused();
   await page.locator('[data-menu="window"]').click();
-  await page.getByRole("menuitem", { name: "✓ Notes 2", exact: true }).click();
+  await page.getByRole("menuitemcheckbox", { name: "Notes 2", exact: true }).click();
   await expect(frame).toBeFocused();
   await page.locator('[data-menu="window"]').click();
   await page.getByRole("menuitem", { name: "Close Window" }).click();
   await expect(dock).toBeFocused();
+});
+
+test("메뉴 항목에 hover했다가 나가도 글자 열이 그대로임", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Window", exact: true }).click();
+  const items = page.getByRole("menu").getByRole("menuitem");
+  const labelStarts = () =>
+    items.evaluateAll((rows) =>
+      rows.map((row) => row.querySelector("span")?.getBoundingClientRect().left),
+    );
+  const before = await labelStarts();
+  for (const item of await items.all()) await item.hover();
+  await page.mouse.move(1300, 700);
+  expect(await labelStarts()).toEqual(before);
 });

@@ -180,54 +180,117 @@
 .menuStatus > time > span + span {
   margin-left: 7px;
 }
-.commandMenu {
+/*
+ * Pull-down menu, measured on the 2026-11-15 references (06, 11, 13, 22): 5px above
+ * and below the rows, 24px rows, 11px separators. Text starts 16px in, or 30px when a
+ * mark column is shown. Columns: text, a 41.5px gap, modifiers, the key centred in a
+ * column as wide as the widest key, 17.5px to the edge. The highlight is inset 5px and fills the row.
+ */
+.menu {
+  --menu-lead: 16px;
   position: absolute;
-  top: 35px;
-  min-width: 235px;
-  max-height: calc(100vh - 145px);
-  overflow-y: auto;
-  padding: var(--space-2);
+  display: grid;
+  grid-template-columns: var(--menu-lead) max-content 41.5px max-content max-content 17.5px;
+  padding: 5px 0;
   border-radius: var(--radius-menu);
-  border: var(--stroke) solid var(--border-glass);
   box-shadow: var(--shadow-menu);
   background: var(--surface-glass);
   backdrop-filter: var(--material-menu);
   -webkit-backdrop-filter: var(--material-menu);
-  color: var(--color-text);
+  color: var(--color-menu-text);
+  font-size: var(--text-body);
   text-shadow: none;
+  white-space: nowrap;
 }
-.commandMenu.app {
-  left: 42px;
+.menu[data-marks] {
+  --menu-lead: 30px;
 }
-.commandMenu.window {
-  left: 193px;
+.menuItem,
+.menuSeparator {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
 }
-.commandMenu button {
-  display: flex;
-  width: 100%;
-  text-align: left;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;
-  padding: 7px 9px;
-  border-radius: 5px;
-}
-.commandMenu button:not(:disabled):hover,
-.commandMenu button:focus-visible {
-  background: var(--surface-highlight);
-  color: var(--color-on-highlight);
+.menuItem {
+  position: relative;
+  z-index: 0;
+  height: 24px;
+  line-height: 24px;
   outline: none;
 }
-.menuCaption {
-  display: block;
-  padding: var(--space-3) 9px;
-  font-size: var(--text-control);
-  color: var(--color-text-muted);
+/*
+ * Every row keeps its highlight box and the highlight only shows it. WebKit lays a
+ * subgrid row out again on its own when a box is added to it, and its label column
+ * then drifts from the other rows until the menu closes.
+ */
+.menuItem::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 5px;
+  border-radius: 8px;
+  background: var(--surface-highlight);
+  visibility: hidden;
 }
-.commandMenu hr {
-  border: 0;
-  border-top: var(--stroke) solid var(--border-color);
-  margin: 5px;
+.menuItem[data-highlighted]::before {
+  visibility: visible;
+}
+.menuItem[data-highlighted]:not([aria-disabled]) {
+  color: var(--color-on-highlight);
+}
+.menuItem[aria-disabled],
+.menuShortcut {
+  color: var(--color-menu-text-tertiary);
+}
+.menuItem[data-highlighted]:not([aria-disabled]) .menuShortcut {
+  color: inherit;
+}
+/* Marks are centred 17.5px in; icons are centred in a 15px slot at the text start. */
+.menuMark {
+  position: absolute;
+  left: 0;
+  width: 35px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menuLabel {
+  grid-column: 2;
+  display: flex;
+}
+/* An item icon sits at the text start and pushes only its own label. */
+.menuIcon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  margin-right: 7px;
+}
+.menuShortcut {
+  grid-column: 4 / 6;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+/* Modifiers sit on a 14px pitch; the last one's spacing is the gap to the key column. */
+.menuShortcut > span:first-child {
+  justify-self: end;
+  letter-spacing: 1.75px;
+}
+.menuShortcut > span:last-child {
+  text-align: center;
+}
+.menuSeparator {
+  height: 11px;
+}
+.menuSeparator::before {
+  content: "";
+  grid-column: 1 / -1;
+  align-self: center;
+  height: 1px;
+  margin: 0 16.5px 0 calc(var(--menu-lead) + 0.5px);
+  background: var(--border-menu-separator);
 }
 .workspace {
   position: absolute;

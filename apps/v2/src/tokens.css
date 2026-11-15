@@ -22,7 +22,7 @@
   --radius-control: 6px;
   --radius-window: 13px;
   --radius-icon: 12px;
-  --radius-menu: 11px;
+  --radius-menu: 12px;
   --radius-overlay: 12px;
   --radius-round: 50%;
   --stroke: 1px;
@@ -44,7 +44,10 @@
   --surface-selection: #d5ccbf;
   --surface-control: #fff9;
   --color-focus: #3478f6;
-  --surface-highlight: #3175e9;
+  --surface-highlight: #007aff;
+  --color-menu-text: #000000d9;
+  --color-menu-text-tertiary: #00000040;
+  --border-menu-separator: #0000001a;
   --color-on-highlight: #fff;
   --color-menubar: #fff;
   --border-window-control: #00000018;
@@ -57,7 +60,9 @@
   --shadow-window-active:
     0 22px 65px #21192e45, 0 0 0 1px #fff9, 0 2px 7px #20142220;
   --shadow-window-inactive: 0 10px 35px #21192e24, 0 0 0 1px #ffffff70;
-  --shadow-menu: 0 10px 30px #1c162c40;
+  --shadow-menu:
+    inset 0 1px 0 #ffffff80, inset 0 0 0 0.5px #ffffff40, 0 0 0 0.5px #00000033,
+    0 3px 16px #00000045;
   --shadow-dock: 0 4px 16px #2b1e3526, inset 0 1px 2px #fff8;
   --shadow-icon: inset 0 0 0 1px #fff6, 0 2px 4px #0003;
   --shadow-tooltip: 0 2px 9px #0002;
