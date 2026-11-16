@@ -70,6 +70,243 @@
         ]
       },
       "plugins": ["react"]
+    },
+    {
+      "files": ["src/desktop/core/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "react",
+                "message": "core does not import React. Put React code in this module's bridge/ or ui/."
+              },
+              {
+                "name": "react-dom",
+                "message": "core does not import React. Put React code in this module's bridge/ or ui/."
+              }
+            ],
+            "patterns": [
+              {
+                "group": ["react/**", "react-dom/**"],
+                "message": "core does not import React. Put React code in this module's bridge/ or ui/."
+              },
+              {
+                "group": ["**/bridge/**"],
+                "message": "core does not import bridge/. Put code that needs bridge/ in bridge/."
+              },
+              {
+                "group": ["**/ui/**"],
+                "message": "Layers depend in one direction: ui on bridge, and bridge on core. Only ui/ and the composition files (main.tsx, applications.tsx, apps/*/*.tsx) import ui/."
+              },
+              {
+                "group": ["**/*.css"],
+                "message": "Only ui/ imports CSS."
+              },
+              {
+                "group": ["**/apps/**", "**/applications"],
+                "message": "desktop does not import apps. main.tsx passes the installed apps to DesktopSession."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/desktop/bridge/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/ui/**"],
+                "message": "Layers depend in one direction: ui on bridge, and bridge on core. Only ui/ and the composition files (main.tsx, applications.tsx, apps/*/*.tsx) import ui/."
+              },
+              {
+                "group": ["**/*.css"],
+                "message": "Only ui/ imports CSS."
+              },
+              {
+                "group": ["**/apps/**", "**/applications"],
+                "message": "desktop does not import apps. Read the installed apps with useDesktop() from desktop/bridge."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/desktop/ui/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/core/*", "!**/core/types"],
+                "message": "ui does not import core, not even for types. desktop/core/types is the one exception. Read state and send commands through this module's bridge/."
+              },
+              {
+                "group": ["**/apps/**", "**/applications"],
+                "message": "desktop does not import apps. Read the installed apps with useDesktop() from desktop/bridge."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/apps/*/core/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "react",
+                "message": "core does not import React. Put React code in this module's bridge/ or ui/."
+              },
+              {
+                "name": "react-dom",
+                "message": "core does not import React. Put React code in this module's bridge/ or ui/."
+              }
+            ],
+            "patterns": [
+              {
+                "group": ["react/**", "react-dom/**"],
+                "message": "core does not import React. Put React code in this module's bridge/ or ui/."
+              },
+              {
+                "group": ["**/bridge/**"],
+                "message": "core does not import bridge/. Put code that needs bridge/ in bridge/."
+              },
+              {
+                "group": ["**/ui/**"],
+                "message": "Layers depend in one direction: ui on bridge, and bridge on core. Only ui/ and the composition files (main.tsx, applications.tsx, apps/*/*.tsx) import ui/."
+              },
+              {
+                "group": ["**/*.css"],
+                "message": "Only ui/ imports CSS."
+              },
+              {
+                "group": ["../../[!.]*/**"],
+                "message": "An app does not import another app."
+              },
+              {
+                "group": ["../../../desktop/**", "!../../../desktop/core/types"],
+                "message": "From desktop, an app imports only desktop/core/types and the Application type from desktop/bridge/react."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/apps/*/bridge/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "../../../desktop/bridge/react",
+                "allowImportNames": ["Application"],
+                "message": "From desktop, an app imports only desktop/core/types and the Application type from desktop/bridge/react."
+              }
+            ],
+            "patterns": [
+              {
+                "group": ["**/ui/**"],
+                "message": "Layers depend in one direction: ui on bridge, and bridge on core. Only ui/ and the composition files (main.tsx, applications.tsx, apps/*/*.tsx) import ui/."
+              },
+              {
+                "group": ["**/*.css"],
+                "message": "Only ui/ imports CSS."
+              },
+              {
+                "group": ["../../[!.]*/**"],
+                "message": "An app does not import another app."
+              },
+              {
+                "group": [
+                  "../../../desktop/**",
+                  "!../../../desktop/core/types",
+                  "!../../../desktop/bridge/react"
+                ],
+                "message": "From desktop, an app imports only desktop/core/types and the Application type from desktop/bridge/react."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/apps/*/ui/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "../../../desktop/bridge/react",
+                "allowImportNames": ["Application"],
+                "message": "From desktop, an app imports only desktop/core/types and the Application type from desktop/bridge/react."
+              }
+            ],
+            "patterns": [
+              {
+                "group": ["**/core/*", "!../../../desktop/core/types"],
+                "message": "ui does not import core, not even for types. desktop/core/types is the one exception. Read state and send commands through this module's bridge/."
+              },
+              {
+                "group": ["../../[!.]*/**"],
+                "message": "An app does not import another app."
+              },
+              {
+                "group": [
+                  "../../../desktop/**",
+                  "!../../../desktop/core/types",
+                  "!../../../desktop/bridge/react"
+                ],
+                "message": "From desktop, an app imports only desktop/core/types and the Application type from desktop/bridge/react."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/apps/*/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "../../desktop/bridge/react",
+                "allowImportNames": ["Application"],
+                "message": "From desktop, an app imports only desktop/core/types and the Application type from desktop/bridge/react."
+              }
+            ],
+            "patterns": [
+              {
+                "group": ["../[!.]*/**"],
+                "message": "An app does not import another app."
+              },
+              {
+                "group": [
+                  "../../desktop/**",
+                  "!../../desktop/core/types",
+                  "!../../desktop/bridge/react"
+                ],
+                "message": "From desktop, an app imports only desktop/core/types and the Application type from desktop/bridge/react."
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }
