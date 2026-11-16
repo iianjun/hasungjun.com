@@ -1,9 +1,4 @@
-// The time the menu bar shows. The snapshot changes only at minute boundaries,
-// so getSnapshot stays stable between ticks and subscribers render once a minute.
-export interface Clock {
-  subscribe(listener: () => void): () => void;
-  now(): number;
-}
+import type { Clock } from "./types";
 
 const MINUTE = 60_000;
 const currentMinute = () => Math.floor(Date.now() / MINUTE) * MINUTE;

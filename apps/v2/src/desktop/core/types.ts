@@ -16,6 +16,11 @@ export interface AppDefinition {
   create(ports: AppPorts): AppRuntime;
 }
 
+export interface Clock {
+  subscribe(listener: () => void): () => void;
+  now(): number;
+}
+
 // The state the shell publishes and the commands it accepts.
 export type Rect = Readonly<{
   x: number;

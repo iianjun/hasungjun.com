@@ -1,7 +1,8 @@
-import type { Application } from "../../desktop/react";
-import { ShapesApp } from "./ShapesApp";
-import { ShapesView } from "./ShapesView";
-import shapesStyles from "./shapes.module.css";
+import type { Application } from "../../desktop/bridge/react";
+import { ShapesApp } from "./core/ShapesApp";
+import { ShapesProvider } from "./bridge/react";
+import { ShapesView } from "./ui/ShapesView";
+import shapesStyles from "./ui/shapes.module.css";
 
 export const shapesApplication: Application = {
   id: "shapes",
@@ -16,6 +17,10 @@ export const shapesApplication: Application = {
   render: (app, id, active) => {
     if (!(app instanceof ShapesApp))
       throw new Error("Invalid Shapes registration");
-    return <ShapesView app={app} windowId={id} active={active} />;
+    return (
+      <ShapesProvider value={app}>
+        <ShapesView windowId={id} active={active} />
+      </ShapesProvider>
+    );
   },
 };

@@ -7,12 +7,9 @@ import {
   type MouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { applications } from "../applications";
-import type { Clock } from "./clock";
-import type { DesktopSession } from "./DesktopSession";
+import { useDesktop, type DesktopIntent } from "../bridge/react";
+import type { Clock } from "../core/types";
 import { Menu, type MenuEntry } from "./Menu";
-import type { ShellCommand } from "./types";
-import { nextInputToken } from "./react";
 
 const clockFormat = new Intl.DateTimeFormat("en-US", {
   weekday: "short",
@@ -74,14 +71,8 @@ const windowIcon = (
 
 type Title = "app" | "window";
 
-export function MenuBar({
-  session,
-  clock,
-}: {
-  session: DesktopSession;
-  clock: Clock;
-}) {
-  const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
+export function MenuBar({ clock }: { clock: Clock }) {
+  const { snapshot, applications, send } = useDesktop();
   const time = useSyncExternalStore(clock.subscribe, clock.now);
   const shown = formatClock(time);
   // The open menu and its left edge: 5px left of its title frame, on a whole point as
@@ -131,11 +122,11 @@ export function MenuBar({
       // A press dragged off its target ends with no click; the next press ends this.
       document.addEventListener("pointerdown", end, true);
       if (frame.dataset.windowId)
-        session.send({ type: "focus", id: frame.dataset.windowId });
+        send({ type: "focus", id: frame.dataset.windowId });
     };
     document.addEventListener("pointerdown", outside, true);
     return () => document.removeEventListener("pointerdown", outside, true);
-  }, [open, session]);
+  }, [open, send]);
   const close = () => setOpen(null);
   const at = (title: Title, button: HTMLElement, pressed?: number) => ({
     title,
@@ -170,41 +161,41 @@ export function MenuBar({
         setOpen(open?.title === name ? null : at(name, event.currentTarget));
     },
   });
-  const send = (command: ShellCommand) => () => session.send(command);
+  const select = (intent: DesktopIntent) => () => send(intent);
   const entries: Record<Title, MenuEntry[]> = {
     app: [
-      { label: "New Window", onSelect: send({ type: "new", appId }) },
+      { label: "New Window", onSelect: select({ type: "new", appId }) },
       "separator",
       {
         label: `Quit ${definition?.title ?? ""}`,
         disabled: !snapshot.running.some((run) => run.appId === appId),
-        onSelect: send({ type: "quit", appId }),
+        onSelect: select({ type: "quit", appId }),
       },
     ],
     window: [
       {
         label: "Minimize",
         disabled: !active,
-        onSelect: () => active && session.send({ type: "minimize", id: active.id }),
+        onSelect: () => active && send({ type: "minimize", id: active.id }),
       },
       ...(["moving", "resizing"] as const).map((mode) => ({
         label: mode === "moving" ? "Move with Keyboard" : "Resize with Keyboard",
         disabled: !active,
         onSelect: () =>
           active &&
-          session.send({ type: "begin", id: active.id, mode, token: nextInputToken() }),
+          send({ type: "begin", id: active.id, mode }),
       })),
       {
         label: "Close Window",
         disabled: !active,
-        onSelect: () => active && session.send({ type: "close", id: active.id }),
+        onSelect: () => active && send({ type: "close", id: active.id }),
       },
       ...(snapshot.windows.length ? ["separator" as const] : []),
       ...snapshot.windows.map((w) => ({
         label: w.title,
         icon: windowIcon,
         mark: w.id === active?.id ? ("check" as const) : w.minimized ? ("diamond" as const) : undefined,
-        onSelect: send({ type: "restore", id: w.id }),
+        onSelect: select({ type: "restore", id: w.id }),
       })),
     ],
   };

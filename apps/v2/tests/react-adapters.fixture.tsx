@@ -1,9 +1,9 @@
 import { act, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { NotesApp } from "../src/apps/notes/NotesApp";
-import { ShapesApp } from "../src/apps/shapes/ShapesApp";
-import { useNotes } from "../src/apps/notes/react";
-import { useShapes } from "../src/apps/shapes/react";
+import { NotesApp } from "../src/apps/notes/core/NotesApp";
+import { ShapesApp } from "../src/apps/shapes/core/ShapesApp";
+import { NotesProvider, useNotes } from "../src/apps/notes/bridge/react";
+import { ShapesProvider, useShapes } from "../src/apps/shapes/bridge/react";
 
 // A real React root exercises the adapters' public state and commands in both engines.
 export async function verifyAdapters() {
@@ -40,21 +40,11 @@ export async function verifyAdapters() {
     };
   }
   let renders = 0;
-  function Probe({
-    notes,
-    shapes,
-    id,
-  }: {
-    notes: NotesApp;
-    shapes: ShapesApp;
-    id: string;
-  }) {
+  function Probe({ id }: { id: string }) {
     const { note, defaultText, replaceText, loadSample, setDefaultText } =
-      useNotes(notes, id);
-    const { drawing, color, addShape, clear, setDefaultColor } = useShapes(
-      shapes,
-      id,
-    );
+      useNotes(id);
+    const { drawing, color, addShape, clear, setDefaultColor } =
+      useShapes(id);
     renders++;
     return (
       <>
@@ -97,7 +87,11 @@ export async function verifyAdapters() {
     await act(() =>
       root.render(
         <StrictMode>
-          <Probe notes={firstNotes} shapes={firstShapes} id="one" />
+          <NotesProvider value={firstNotes}>
+            <ShapesProvider value={firstShapes}>
+              <Probe id="one" />
+            </ShapesProvider>
+          </NotesProvider>
         </StrictMode>,
       ),
     );
@@ -131,7 +125,11 @@ export async function verifyAdapters() {
     await act(() =>
       root.render(
         <StrictMode>
-          <Probe notes={firstNotes} shapes={firstShapes} id="one" />
+          <NotesProvider value={firstNotes}>
+            <ShapesProvider value={firstShapes}>
+              <Probe id="one" />
+            </ShapesProvider>
+          </NotesProvider>
         </StrictMode>,
       ),
     );
@@ -139,7 +137,11 @@ export async function verifyAdapters() {
     await act(() =>
       root.render(
         <StrictMode>
-          <Probe notes={firstNotes} shapes={firstShapes} id="two" />
+          <NotesProvider value={firstNotes}>
+            <ShapesProvider value={firstShapes}>
+              <Probe id="two" />
+            </ShapesProvider>
+          </NotesProvider>
         </StrictMode>,
       ),
     );
@@ -156,7 +158,11 @@ export async function verifyAdapters() {
     await act(() =>
       root.render(
         <StrictMode>
-          <Probe notes={nextNotes} shapes={nextShapes} id="two" />
+          <NotesProvider value={nextNotes}>
+            <ShapesProvider value={nextShapes}>
+              <Probe id="two" />
+            </ShapesProvider>
+          </NotesProvider>
         </StrictMode>,
       ),
     );

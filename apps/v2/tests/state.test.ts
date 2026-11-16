@@ -1,10 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { DesktopSession } from "../src/desktop/DesktopSession";
-import type { AppPorts, AppDefinition } from "../src/desktop/types";
-import { NotesApp } from "../src/apps/notes/NotesApp";
-import { ShapesApp } from "../src/apps/shapes/ShapesApp";
+import { DesktopSession } from "../src/desktop/core/DesktopSession";
+import type { AppPorts, AppDefinition } from "../src/desktop/core/types";
+import { NotesApp } from "../src/apps/notes/core/NotesApp";
+import { ShapesApp } from "../src/apps/shapes/core/ShapesApp";
 
 const ports: AppPorts = {
   runId: "test",
@@ -31,9 +31,9 @@ test("core는 React와 JSX 런타임 없이 import하고 실행할 수 있음", 
         return nextResolve(specifier, context);
       },
     });
-    const { DesktopSession } = await import("./src/desktop/DesktopSession.ts");
-    const { NotesApp } = await import("./src/apps/notes/NotesApp.ts");
-    const { ShapesApp } = await import("./src/apps/shapes/ShapesApp.ts");
+    const { DesktopSession } = await import("./src/desktop/core/DesktopSession.ts");
+    const { NotesApp } = await import("./src/apps/notes/core/NotesApp.ts");
+    const { ShapesApp } = await import("./src/apps/shapes/core/ShapesApp.ts");
     const session = new DesktopSession([
       { id: "notes", title: "Notes", create: ports => new NotesApp(ports, async () => "sample") },
       { id: "shapes", title: "Shapes", create: ports => new ShapesApp(ports) },

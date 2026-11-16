@@ -1,14 +1,11 @@
 import { memo } from "react";
-import type { NotesApp } from "./NotesApp";
-import { useNotes } from "./react";
+import { useNotes } from "../bridge/react";
 import styles from "./notes.module.css";
 
 export const NotesView = memo(function NotesView({
-  app,
   windowId,
   active,
 }: {
-  app: NotesApp;
   windowId: string;
   active: boolean;
 }) {
@@ -19,7 +16,7 @@ export const NotesView = memo(function NotesView({
     replaceText,
     setDefaultText,
     loadSample,
-  } = useNotes(app, windowId);
+  } = useNotes(windowId);
   if (!note) return null;
   return (
     <div className="app-content" data-content="notes" data-active={active}>

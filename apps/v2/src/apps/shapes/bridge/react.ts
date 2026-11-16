@@ -1,8 +1,22 @@
-import { useCallback, useMemo, useSyncExternalStore } from "react";
-import type { ShapesApp } from "./ShapesApp";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useSyncExternalStore,
+  type ProviderExoticComponent,
+  type ProviderProps,
+} from "react";
+import type { ShapesApp } from "../core/ShapesApp";
 
-// Commands retain their receiver and window when React replaces either input.
-export function useShapes(app: ShapesApp, windowId: string) {
+const ShapesContext = createContext<ShapesApp | null>(null);
+
+export const ShapesProvider: ProviderExoticComponent<ProviderProps<ShapesApp>> =
+  ShapesContext;
+
+export function useShapes(windowId: string) {
+  const app = useContext(ShapesContext);
+  if (!app) throw new Error("Shapes UI rendered outside ShapesProvider");
   const drawing = useSyncExternalStore(
     app.subscribe,
     useCallback(() => app.getSnapshot().windows[windowId], [app, windowId]),

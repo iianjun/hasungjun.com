@@ -1,7 +1,8 @@
-import type { Application } from "../../desktop/react";
-import { NotesApp } from "./NotesApp";
-import { NotesView } from "./NotesView";
-import notesStyles from "./notes.module.css";
+import type { Application } from "../../desktop/bridge/react";
+import { NotesApp } from "./core/NotesApp";
+import { NotesProvider } from "./bridge/react";
+import { NotesView } from "./ui/NotesView";
+import notesStyles from "./ui/notes.module.css";
 
 export const notesApplication: Application = {
   id: "notes",
@@ -42,6 +43,10 @@ export const notesApplication: Application = {
   render: (app, id, active) => {
     if (!(app instanceof NotesApp))
       throw new Error("Invalid Notes registration");
-    return <NotesView app={app} windowId={id} active={active} />;
+    return (
+      <NotesProvider value={app}>
+        <NotesView windowId={id} active={active} />
+      </NotesProvider>
+    );
   },
 };

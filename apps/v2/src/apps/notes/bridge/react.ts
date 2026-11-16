@@ -1,8 +1,23 @@
-import { useCallback, useMemo, useSyncExternalStore } from "react";
-import type { NotesApp } from "./NotesApp";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useSyncExternalStore,
+  type ProviderExoticComponent,
+  type ProviderProps,
+} from "react";
+import type { NotesApp } from "../core/NotesApp";
+
+const NotesContext = createContext<NotesApp | null>(null);
+
+export const NotesProvider: ProviderExoticComponent<ProviderProps<NotesApp>> =
+  NotesContext;
 
 // Select only this window and the shared default. Unsubscribing never ends a run.
-export function useNotes(app: NotesApp, windowId: string) {
+export function useNotes(windowId: string) {
+  const app = useContext(NotesContext);
+  if (!app) throw new Error("Notes UI rendered outside NotesProvider");
   const note = useSyncExternalStore(
     app.subscribe,
     useCallback(() => app.getSnapshot().windows[windowId], [app, windowId]),
