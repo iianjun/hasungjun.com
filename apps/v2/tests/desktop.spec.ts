@@ -63,6 +63,8 @@ test("키보드 전용 명령·확정·취소·viewport 보존", async ({ page }
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
+  // The chosen row blinks before the command runs, as in macOS.
+  await expect(page.getByRole("menu")).toHaveCount(0);
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Shift+ArrowDown");
   let moved = await frame.boundingBox();
@@ -72,6 +74,7 @@ test("키보드 전용 명령·확정·취소·viewport 보존", async ({ page }
   expect(await frame.boundingBox()).toEqual(origin);
   await page.locator('[data-menu="window"]').click();
   await page.getByRole("menuitem", { name: "Resize with Keyboard" }).click();
+  await expect(page.getByRole("menu")).toHaveCount(0);
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Shift+ArrowDown");
   await page.keyboard.press("Enter");
@@ -361,6 +364,8 @@ test("셸 명령 뒤 키보드 포커스가 활성 창으로 가고 창이 없�
   await expect(frame).toBeFocused();
   await page.locator('[data-menu="window"]').click();
   await page.getByRole("menuitemcheckbox", { name: "Notes 2", exact: true }).click();
+  // The command runs after the blink; a press on the menu does not move focus.
+  await expect(page.getByRole("menu")).toHaveCount(0);
   await expect(frame).toBeFocused();
   await page.locator('[data-menu="window"]').click();
   await page.getByRole("menuitem", { name: "Close Window" }).click();
@@ -379,4 +384,72 @@ test("메뉴 항목에 hover했다가 나가도 글자 열이 그대로임", asy
   for (const item of await items.all()) await item.hover();
   await page.mouse.move(1300, 700);
   expect(await labelStarts()).toEqual(before);
+});
+
+test("메뉴는 누르면 열리고, 열린 동안 제목을 옮기면 바뀌고, 닫힐 때 사라지며 흐려짐", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const app = page.locator('[data-menu="app"]');
+  const windowTitle = page.locator('[data-menu="window"]');
+  const appMenu = page.locator('[role="menu"][aria-label="app commands"]');
+  const windowMenu = page.locator('[role="menu"][aria-label="window commands"]');
+  // A closed menu bar does not react to hover.
+  await windowTitle.hover();
+  await expect(windowMenu).toHaveCount(0);
+  // Press opens before release.
+  await app.hover();
+  await page.mouse.down();
+  await expect(appMenu).toBeVisible();
+  await page.mouse.up();
+  await expect(appMenu).toBeVisible();
+  // Moving onto another title swaps menus at once: the old one does not fade.
+  await windowTitle.hover();
+  await expect(windowMenu).toBeVisible();
+  await expect(appMenu).toHaveCount(0);
+  await expect(windowTitle).toHaveAttribute("aria-expanded", "true");
+  // Escape: the title capsule goes at once, the menu fades out and then goes.
+  await page.keyboard.press("Escape");
+  await expect(windowTitle).toHaveAttribute("aria-expanded", "false");
+  // A pointer press leaves focus where it was, so no focus ring appears on Escape.
+  await expect(windowTitle).not.toBeFocused();
+  await expect(app).not.toBeFocused();
+  await expect(windowMenu).toHaveAttribute("data-closing");
+  await expect(page.getByRole("menu")).toHaveCount(0);
+  await expect(windowMenu).toHaveCount(0);
+  // Pressing the open title closes it the same way.
+  await app.click();
+  await expect(appMenu).toBeVisible();
+  await page.mouse.down();
+  await expect(appMenu).toHaveAttribute("data-closing");
+  await page.mouse.up();
+  await expect(appMenu).toHaveCount(0);
+});
+
+test("누른 채 끌어 항목에서 놓으면 강조가 깜빡인 뒤 명령이 실행됨", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open Notes", exact: true }).click();
+  const frame = page.getByRole("region", { name: "Notes 2", exact: true });
+  await expect(frame).toBeVisible();
+  await page.locator('[data-menu="window"]').hover();
+  await page.mouse.down();
+  const minimize = page.getByRole("menuitem", { name: "Minimize", exact: true });
+  await minimize.hover();
+  await expect(minimize).toHaveAttribute("data-highlighted");
+  // Timers stop here so the blink can be stepped.
+  await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 1000);
+  await page.mouse.up();
+  // Off for 67 ms, on again, and the command at 113 ms (reference R3).
+  await expect(minimize).not.toHaveAttribute("data-highlighted");
+  await page.clock.runFor(66);
+  await expect(minimize).not.toHaveAttribute("data-highlighted");
+  await expect(frame).toBeVisible();
+  await page.clock.runFor(1);
+  await expect(minimize).toHaveAttribute("data-highlighted");
+  await page.clock.runFor(45);
+  await expect(frame).toBeVisible();
+  await page.clock.runFor(1);
+  await expect(frame).toBeHidden();
+  await expect(page.getByRole("menu")).toHaveCount(0);
 });

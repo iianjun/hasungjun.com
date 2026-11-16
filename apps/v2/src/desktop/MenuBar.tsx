@@ -5,6 +5,7 @@ import {
   useState,
   useSyncExternalStore,
   type MouseEvent,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 import { applications } from "../applications";
 import type { Clock } from "./clock";
@@ -103,12 +104,32 @@ export function MenuBar({
     return () => document.removeEventListener("pointerdown", outside);
   }, [open]);
   const close = () => setOpen(null);
-  const toggle = (title: Title) => (event: MouseEvent<HTMLButtonElement>) =>
-    setOpen(
-      open?.title === title
-        ? null
-        : { title, left: Math.floor(event.currentTarget.getBoundingClientRect().left) - 5 },
-    );
+  const at = (title: Title, button: HTMLElement) => ({
+    title,
+    left: Math.floor(button.getBoundingClientRect().left) - 5,
+  });
+  // A title opens on press, as in macOS, and a press on the open title closes it.
+  // While a menu is open, moving onto another title switches to its menu at once
+  // (reference R2). Keyboard activation arrives as a click with no press. A press does
+  // not take keyboard focus: the macOS menu bar leaves it where it was, and a focused
+  // title would show a focus ring at the next key (Escape in reference R5).
+  const title = (name: Title) => ({
+    "data-menu": name,
+    "aria-haspopup": "menu" as const,
+    "aria-expanded": open?.title === name,
+    onPointerDown: (event: ReactPointerEvent<HTMLButtonElement>) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      setOpen(open?.title === name ? null : at(name, event.currentTarget));
+    },
+    onPointerEnter: (event: ReactPointerEvent<HTMLButtonElement>) => {
+      if (open && open.title !== name) setOpen(at(name, event.currentTarget));
+    },
+    onClick: (event: MouseEvent<HTMLButtonElement>) => {
+      if (event.detail === 0)
+        setOpen(open?.title === name ? null : at(name, event.currentTarget));
+    },
+  });
   const send = (command: ShellCommand) => () => session.send(command);
   const entries: Record<Title, MenuEntry[]> = {
     app: [
@@ -165,13 +186,7 @@ export function MenuBar({
         >
           {appleLogo}
         </span>
-        <button
-          className={styles.appMenuName}
-          data-menu="app"
-          aria-haspopup="menu"
-          aria-expanded={open?.title === "app"}
-          onClick={toggle("app")}
-        >
+        <button className={styles.appMenuName} {...title("app")}>
           {definition?.title ?? "Desktop"}
         </button>
         <span className={styles.menuDecoration} aria-disabled="true">
@@ -180,26 +195,23 @@ export function MenuBar({
         <span className={styles.menuDecoration} aria-disabled="true">
           Edit
         </span>
-        <button
-          data-menu="window"
-          aria-haspopup="menu"
-          aria-expanded={open?.title === "window"}
-          onClick={toggle("window")}
-        >
+        <button {...title("window")}>
           Window
         </button>
         <span className={styles.menuDecoration} aria-disabled="true">
           Help
         </span>
-        {open && (
-          <Menu
-            label={`${open.title} commands`}
-            entries={entries[open.title]}
-            left={open.left}
-            top={31}
-            onClose={close}
-          />
-        )}
+        <Menu
+          menu={
+            open && {
+              label: `${open.title} commands`,
+              entries: entries[open.title],
+              left: open.left,
+              top: 31,
+            }
+          }
+          onClose={close}
+        />
       </div>
       <div className={styles.menuStatus} aria-label="System status preview">
         {statusIcons}

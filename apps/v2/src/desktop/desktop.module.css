@@ -130,7 +130,7 @@
  * 17.5/255, flat for the top quarter, fading to 8.75/255 at the bottom (plus-lighter, reference 05 vs 07).
  * contrast(1/(1+2k)) then brightness(1+2k) is x + k with plus-lighter's clamping.
  */
-.menuLeft > button[aria-expanded="true"]::before {
+.menuLeft > button::before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -140,6 +140,17 @@
   backdrop-filter: contrast(0.8793) brightness(1.1373);
   -webkit-backdrop-filter: contrast(0.8793) brightness(1.1373);
   mask-image: linear-gradient(#000 25%, rgb(0 0 0 / 0.5));
+  visibility: hidden;
+  /* When the menu closes the capsule stays 17ms after the fade starts (R1, R3, R5: 15–19ms). */
+  transition: visibility 0s 17ms;
+}
+.menuLeft > button[aria-expanded="true"]::before {
+  visibility: visible;
+  transition: none;
+}
+/* Switching menus moves the capsule at once (R2). */
+.menuLeft:has(> button[aria-expanded="true"]) > button::before {
+  transition: none;
 }
 .appMenuName {
   font-weight: var(--weight-strong);
@@ -204,6 +215,19 @@
 }
 .menu[data-marks] {
   --menu-lead: 30px;
+}
+/*
+ * Closing fades the menu out over 200ms on 1 − (1 − x)², as a cubic Bézier exactly
+ * (references R1, R3, R5). Opening has no animation.
+ */
+.menu[data-closing] {
+  pointer-events: none;
+  animation: menuClose 200ms cubic-bezier(0.3333, 0.6667, 0.6667, 1) forwards;
+}
+@keyframes menuClose {
+  to {
+    opacity: 0;
+  }
 }
 .menuItem,
 .menuSeparator {
