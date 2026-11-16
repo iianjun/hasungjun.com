@@ -21,11 +21,14 @@ export type MenuEntry =
 type Item = Exclude<MenuEntry, "separator">;
 // An open menu at `left`/`top` in the positioned parent. `label` names the menu; a new
 // label is a different menu, so switching menus starts with no highlighted row.
+// `pressed` is the `performance.now()` of the pointer press that opened the menu; only
+// the first release after it counts. A menu opened by keyboard has none.
 export type MenuSpec = Readonly<{
   label: string;
   entries: readonly MenuEntry[];
   left: number;
   top: number;
+  pressed?: number;
 }>;
 
 // The marks drawn to reference 11: a checkmark and a diamond taller than wide.
@@ -56,6 +59,10 @@ const modifierGlyph = {
 // (±8 ms, one 60 Hz frame).
 const BLINK_OFF_MS = 67;
 const BLINK_DONE_MS = 113;
+// Releasing the opening press this long after it closes the menu unless the release
+// chooses a row. A shorter press is a click and leaves the menu open. References R9–R12:
+// held 560 ms the menu stayed, 570 ms it closed.
+const STICKY_PRESS_MS = 565;
 
 /**
  * A macOS pull-down menu. Pass the open menu, or null to close it.
@@ -63,15 +70,19 @@ const BLINK_DONE_MS = 113;
  * Opening and switching to another menu are instant. Closing fades the last menu out
  * (reference R1, R3, R5); while it fades it shows what it showed when it closed, takes
  * no input and is hidden from assistive technology. Choosing a row blinks the row,
- * then runs the command and asks the caller to close. A chosen command always runs,
- * even when the caller replaces the menu during the blink.
+ * asks the caller to close, and runs the command once the fade has ended: in macOS the
+ * command's effect shows the frame after the menu is gone (reference R21). A chosen
+ * command always runs, even when the caller replaces the menu before then.
  *
  * It owns the column layout (a mark column appears for every row once any row has a
  * mark) and the single highlighted row shared by pointer and keyboard (disabled rows
  * highlight under the pointer but cannot be chosen). The pointer chooses on release,
- * so a press on a title can drag to a row and release on it, as in macOS. While it is
- * open the arrow keys, Home, End, Return and Escape go to it. Escape gives focus back
- * to whatever had it when the menu opened; choosing a row leaves focus to the command.
+ * so a press on a title can drag to a row and release on it, as in macOS. Releasing
+ * that press anywhere else, once it has been held long enough to not be a click,
+ * closes the menu (references R6–R12). While it is open the arrow keys, Home, End,
+ * Return and Escape go to it; from the blink on, every key goes to the app (R20, R23).
+ * Escape gives focus back to whatever had it when the menu opened; choosing a row
+ * leaves focus to the command.
  */
 export function Menu({ menu, onClose }: { menu: MenuSpec | null; onClose(): void }) {
   // `fading` is the menu that was open when `menu` became null. Each opening is a new
@@ -105,6 +116,7 @@ function Panel({
   entries,
   left,
   top,
+  pressed,
   closing,
   onClose,
   onFaded,
@@ -113,8 +125,15 @@ function Panel({
   const [blinking, setBlinking] = useState(false);
   const element = useRef<HTMLDivElement>(null);
   const rows = useRef<(HTMLDivElement | null)[]>([]);
-  // The command waiting for the blink to end.
-  const pending = useRef<{ run(): void; timers: number[] } | null>(null);
+  // The chosen command, waiting for the blink and the fade to end.
+  const pending = useRef<{ command(): void; timers: number[] } | null>(null);
+  const runPending = () => {
+    const waiting = pending.current;
+    if (!waiting) return;
+    pending.current = null;
+    waiting.timers.forEach((timer) => window.clearTimeout(timer));
+    waiting.command();
+  };
   const items = entries.flatMap((entry, index) =>
     entry === "separator" ? [] : [{ entry, index }],
   );
@@ -123,34 +142,37 @@ function Panel({
     if (item.disabled || !idle) return;
     setBlinking(true);
     setHighlighted(null);
-    const run = () => {
-      pending.current = null;
-      item.onSelect();
-      onClose();
-    };
     pending.current = {
-      run,
+      command: item.onSelect,
       timers: [
         window.setTimeout(() => setHighlighted(index), BLINK_OFF_MS),
-        window.setTimeout(run, BLINK_DONE_MS),
+        window.setTimeout(() => latest.current.close(), BLINK_DONE_MS),
       ],
     };
   };
-  const latest = useRef({ items, highlighted, choose, idle, close: onClose });
-  latest.current = { items, highlighted, choose, idle, close: onClose };
+  const latest = useRef({ items, highlighted, choose, idle, close: onClose, runPending });
+  latest.current = { items, highlighted, choose, idle, close: onClose, runPending };
+  // The release of the press that opened the menu.
+  useEffect(() => {
+    if (pressed === undefined) return;
+    const release = (event: PointerEvent) => {
+      document.removeEventListener("pointerup", release, true);
+      if (event.button !== 0 || performance.now() - pressed < STICKY_PRESS_MS) return;
+      // An enabled row chooses itself; anywhere else, a disabled row included, closes.
+      const row =
+        event.target instanceof Element ? event.target.closest('[role^="menuitem"]') : null;
+      if (row && element.current?.contains(row) && !row.hasAttribute("aria-disabled")) return;
+      latest.current.close();
+    };
+    document.addEventListener("pointerup", release, true);
+    return () => document.removeEventListener("pointerup", release, true);
+  }, [pressed]);
   useEffect(() => {
     const opener = document.activeElement;
     const keydown = (event: KeyboardEvent) => {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       const { items, highlighted, choose, idle } = latest.current;
-      if (!idle) {
-        // The blinking menu still owns its keys; a fading one owns none.
-        if (pending.current && /^(ArrowDown|ArrowUp|Home|End|Enter|Escape| )$/.test(event.key)) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        return;
-      }
+      if (!idle) return;
       const enabled = items.filter(({ entry }) => !entry.disabled);
       const at = enabled.findIndex(({ index }) => index === highlighted);
       let next: number | undefined;
@@ -178,22 +200,26 @@ function Panel({
     document.addEventListener("keydown", keydown);
     return () => {
       document.removeEventListener("keydown", keydown);
-      // Replaced during the blink: the chosen command still runs.
-      const waiting = pending.current;
-      if (!waiting) return;
-      waiting.timers.forEach((timer) => window.clearTimeout(timer));
-      pending.current = null;
-      waiting.run();
+      // Replaced before the fade ended: the chosen command still runs.
+      latest.current.runPending();
     };
   }, []);
   // The fade is a CSS animation. Without one (reduced motion) the menu goes at once.
+  // The chosen command runs when the menu is gone.
   useLayoutEffect(() => {
     if (!closing) return;
     const animations = element.current?.getAnimations() ?? [];
-    if (!animations.length) return onFaded();
+    if (!animations.length) {
+      latest.current.runPending();
+      return onFaded();
+    }
     let current = true;
     Promise.all(animations.map((animation) => animation.finished)).then(
-      () => current && onFaded(),
+      () => {
+        if (!current) return;
+        latest.current.runPending();
+        onFaded();
+      },
       () => {},
     );
     return () => {

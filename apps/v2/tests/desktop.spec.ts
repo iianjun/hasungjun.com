@@ -63,8 +63,8 @@ test("키보드 전용 명령·확정·취소·viewport 보존", async ({ page }
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
-  // The chosen row blinks before the command runs, as in macOS.
-  await expect(page.getByRole("menu")).toHaveCount(0);
+  // The chosen row blinks, the menu fades, and the command runs once it is gone.
+  await expect(page.locator('[role="menu"]')).toHaveCount(0);
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Shift+ArrowDown");
   let moved = await frame.boundingBox();
@@ -74,7 +74,7 @@ test("키보드 전용 명령·확정·취소·viewport 보존", async ({ page }
   expect(await frame.boundingBox()).toEqual(origin);
   await page.locator('[data-menu="window"]').click();
   await page.getByRole("menuitem", { name: "Resize with Keyboard" }).click();
-  await expect(page.getByRole("menu")).toHaveCount(0);
+  await expect(page.locator('[role="menu"]')).toHaveCount(0);
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Shift+ArrowDown");
   await page.keyboard.press("Enter");
@@ -440,7 +440,8 @@ test("누른 채 끌어 항목에서 놓으면 강조가 깜빡인 뒤 명령이
   // Timers stop here so the blink can be stepped.
   await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 1000);
   await page.mouse.up();
-  // Off for 67 ms, on again, and the command at 113 ms (reference R3).
+  // Off for 67 ms, on again, the fade from 113 ms (reference R3), and the command once
+  // the menu is gone (R21).
   await expect(minimize).not.toHaveAttribute("data-highlighted");
   await page.clock.runFor(66);
   await expect(minimize).not.toHaveAttribute("data-highlighted");
@@ -448,8 +449,123 @@ test("누른 채 끌어 항목에서 놓으면 강조가 깜빡인 뒤 명령이
   await page.clock.runFor(1);
   await expect(minimize).toHaveAttribute("data-highlighted");
   await page.clock.runFor(45);
-  await expect(frame).toBeVisible();
+  await expect(page.getByRole("menu")).not.toHaveAttribute("data-closing");
   await page.clock.runFor(1);
+  // The fade is a CSS animation on real time; the command waits for it.
+  expect(
+    await page.evaluate(() => [
+      document.querySelector('[role="menu"]')?.hasAttribute("data-closing"),
+      document.querySelector<HTMLElement>('[aria-label="Notes 2"]')?.hidden,
+    ]),
+  ).toEqual([true, false]);
   await expect(frame).toBeHidden();
+  await expect(page.getByRole("menu")).toHaveCount(0);
+});
+
+test("누른 채 끌어 항목 아닌 곳이나 비활성 항목에서 놓거나 제목을 오래 눌렀다 놓으면 닫힘", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const app = page.locator('[data-menu="app"]');
+  const windowTitle = page.locator('[data-menu="window"]');
+  const menu = page.locator('[role="menu"]');
+  // A press on a title held past a click, released on a separator (reference R6).
+  await app.hover();
+  await page.mouse.down();
+  await page.waitForTimeout(600);
+  await menu.getByRole("separator").hover();
+  await page.mouse.up();
+  await expect(menu).toHaveAttribute("data-closing");
+  await expect(menu).toHaveCount(0);
+  // Released outside the menu (R7): leaving the menu does not close it, releasing does.
+  await app.hover();
+  await page.mouse.down();
+  await page.waitForTimeout(600);
+  await page.mouse.move(900, 500);
+  await expect(menu).not.toHaveAttribute("data-closing");
+  await page.mouse.up();
+  await expect(menu).toHaveAttribute("data-closing");
+  await expect(menu).toHaveCount(0);
+  // Released on a disabled row (R8): no blink, the highlight stays while it fades.
+  await windowTitle.hover();
+  await page.mouse.down();
+  const minimize = page.getByRole("menuitem", { name: "Minimize", exact: true });
+  await minimize.hover();
+  await page.waitForTimeout(600);
+  await page.mouse.up();
+  await expect(menu).toHaveAttribute("data-closing");
+  // A fading menu is hidden from the accessibility tree, so the row is found by CSS.
+  await expect(menu.locator("[data-highlighted]")).toHaveText("Minimize");
+  await expect(menu).toHaveCount(0);
+  // Held on the title (R9–R12): a click leaves the menu open, a long press closes it.
+  await app.hover();
+  await page.mouse.down();
+  await page.mouse.up();
+  await expect(menu).not.toHaveAttribute("data-closing");
+  await page.keyboard.press("Escape");
+  await expect(menu).toHaveCount(0);
+  await page.mouse.down();
+  await page.waitForTimeout(600);
+  await page.mouse.up();
+  await expect(menu).toHaveAttribute("data-closing");
+  await expect(menu).toHaveCount(0);
+});
+
+test("메뉴가 열린 채 창을 누르면 창은 앞으로 오지만 누름은 창 안으로 가지 않고, 창 버튼만 작동함", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open Notes", exact: true }).click();
+  await page.getByRole("button", { name: "New Notes window" }).click();
+  const back = page.getByRole("region", { name: "Notes 2", exact: true });
+  const front = page.getByRole("region", { name: "Notes 3", exact: true });
+  const app = page.locator('[data-menu="app"]');
+  const menu = page.locator('[role="menu"]');
+  await expect(front).toHaveAttribute("data-active", "true");
+  const backBox = await back.boundingBox();
+  const frontBox = await front.boundingBox();
+  if (!backBox || !frontBox) throw new Error("windows are not laid out");
+  // A point of the back window that the front one does not cover.
+  const x = backBox.x + 8;
+  const y = backBox.y + backBox.height - 8;
+  expect(x < frontBox.x || y > frontBox.y + frontBox.height).toBe(true);
+  // Front window text (R18): the menu fades and the text box does not take the press.
+  const frontText = front.getByRole("textbox", { name: "Note text", exact: true });
+  await app.click();
+  await frontText.click();
+  await expect(menu).toHaveAttribute("data-closing");
+  await expect(frontText).not.toBeFocused();
+  await expect(menu).toHaveCount(0);
+  // Back window (R13, R19): it comes to the front and becomes active, the press stops.
+  await app.click();
+  await page.mouse.click(x, y);
+  await expect(menu).toHaveAttribute("data-closing");
+  await expect(back).toHaveAttribute("data-active", "true");
+  await expect(back).toBeFocused();
+  await expect(menu).toHaveCount(0);
+  // A title bar button (R14, R16) acts, and the menu goes at once without a fade.
+  await app.click();
+  await expect(menu).toBeVisible();
+  await page.getByRole("button", { name: "Minimize Notes 2", exact: true }).click();
+  expect(await page.locator('[role="menu"]').count()).toBe(0);
+  await expect(back).toBeHidden();
+});
+
+test("고른 항목이 깜빡이는 동안 누른 키는 메뉴가 아니라 앱으로 감", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open Notes", exact: true }).click();
+  const text = page.getByRole("textbox", { name: "Note text", exact: true });
+  await text.fill("a");
+  await page.locator('[data-menu="window"]').hover();
+  await page.mouse.down();
+  const notes = page.getByRole("menuitemcheckbox", { name: "Notes 2", exact: true });
+  await notes.hover();
+  await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 1000);
+  await page.mouse.up();
+  // Return during the blink reaches the text, as in TextEdit (reference R23).
+  await page.keyboard.press("Enter");
+  await expect(text).toHaveValue("a\n");
+  await page.clock.runFor(113);
   await expect(page.getByRole("menu")).toHaveCount(0);
 });

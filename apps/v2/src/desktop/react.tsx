@@ -241,7 +241,7 @@ export const WindowFrame = memo(function WindowFrame({
       }}
     >
       <header className={styles.windowTitlebar} data-drag>
-        <div className={styles.trafficLights}>
+        <div className={styles.trafficLights} data-window-controls>
           <button
             className={styles.close}
             aria-label={`Close ${title}`}

@@ -86,33 +86,68 @@ export function MenuBar({
   const shown = formatClock(time);
   // The open menu and its left edge: 5px left of its title frame, on a whole point as
   // macOS places menu windows (reference 06: title at 43.5, menu at 38).
-  const [open, setOpen] = useState<{ title: Title; left: number } | null>(null);
+  // `pressed` is the press that opened it (see MenuSpec).
+  const [open, setOpen] = useState<{
+    title: Title;
+    left: number;
+    pressed?: number;
+  } | null>(null);
+  // A new key removes the menu at once, without its fade.
+  const [menuKey, setMenuKey] = useState(0);
   const menuRoot = useRef<HTMLDivElement>(null);
   const active = snapshot.windows.find((w) => w.id === snapshot.activeId);
   const appId = snapshot.frontmostAppId ?? applications[0]?.id ?? "";
   const definition = applications.find((app) => app.id === appId);
+  // A press outside closes the menu (reference R5). Over a window it does what macOS
+  // does (references R13–R19): the window comes to the front, but the press and its
+  // click go no further. Only the title bar buttons still act, and then the menu goes
+  // at once with no fade (R14, R16). Elsewhere the press goes on as usual.
   useEffect(() => {
     if (!open) return;
     const outside = (event: PointerEvent) => {
-      if (
-        event.target instanceof Node &&
-        !menuRoot.current?.contains(event.target)
-      )
-        setOpen(null);
+      const target = event.target;
+      if (!(target instanceof Element) || menuRoot.current?.contains(target)) return;
+      setOpen(null);
+      const frame = target.closest<HTMLElement>("[data-window-id]");
+      if (!frame) return;
+      if (target.closest("[data-window-controls]")) {
+        setMenuKey((key) => key + 1);
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      const swallow = (later: Event) => {
+        later.preventDefault();
+        later.stopPropagation();
+        if (later.type === "click") end();
+      };
+      const end = () => {
+        document.removeEventListener("pointerup", swallow, true);
+        document.removeEventListener("click", swallow, true);
+        document.removeEventListener("pointerdown", end, true);
+      };
+      document.addEventListener("pointerup", swallow, true);
+      document.addEventListener("click", swallow, true);
+      // A press dragged off its target ends with no click; the next press ends this.
+      document.addEventListener("pointerdown", end, true);
+      if (frame.dataset.windowId)
+        session.send({ type: "focus", id: frame.dataset.windowId });
     };
-    document.addEventListener("pointerdown", outside);
-    return () => document.removeEventListener("pointerdown", outside);
-  }, [open]);
+    document.addEventListener("pointerdown", outside, true);
+    return () => document.removeEventListener("pointerdown", outside, true);
+  }, [open, session]);
   const close = () => setOpen(null);
-  const at = (title: Title, button: HTMLElement) => ({
+  const at = (title: Title, button: HTMLElement, pressed?: number) => ({
     title,
     left: Math.floor(button.getBoundingClientRect().left) - 5,
+    pressed,
   });
   // A title opens on press, as in macOS, and a press on the open title closes it.
   // While a menu is open, moving onto another title switches to its menu at once
-  // (reference R2). Keyboard activation arrives as a click with no press. A press does
-  // not take keyboard focus: the macOS menu bar leaves it where it was, and a focused
-  // title would show a focus ring at the next key (Escape in reference R5).
+  // (reference R2); a press still held carries over to the new menu. Keyboard
+  // activation arrives as a click with no press. A press does not take keyboard focus:
+  // the macOS menu bar leaves it where it was, and a focused title would show a focus
+  // ring at the next key (Escape in reference R5).
   const title = (name: Title) => ({
     "data-menu": name,
     "aria-haspopup": "menu" as const,
@@ -120,10 +155,15 @@ export function MenuBar({
     onPointerDown: (event: ReactPointerEvent<HTMLButtonElement>) => {
       if (event.button !== 0) return;
       event.preventDefault();
-      setOpen(open?.title === name ? null : at(name, event.currentTarget));
+      setOpen(
+        open?.title === name ? null : at(name, event.currentTarget, performance.now()),
+      );
     },
     onPointerEnter: (event: ReactPointerEvent<HTMLButtonElement>) => {
-      if (open && open.title !== name) setOpen(at(name, event.currentTarget));
+      if (open && open.title !== name)
+        setOpen(
+          at(name, event.currentTarget, event.buttons & 1 ? open.pressed : undefined),
+        );
     },
     onClick: (event: MouseEvent<HTMLButtonElement>) => {
       if (event.detail === 0)
@@ -202,12 +242,14 @@ export function MenuBar({
           Help
         </span>
         <Menu
+          key={menuKey}
           menu={
             open && {
               label: `${open.title} commands`,
               entries: entries[open.title],
               left: open.left,
               top: 31,
+              pressed: open.pressed,
             }
           }
           onClose={close}
