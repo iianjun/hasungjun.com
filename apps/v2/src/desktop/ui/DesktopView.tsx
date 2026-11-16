@@ -4,7 +4,6 @@ import { MenuBar } from "./MenuBar";
 import { Workspace } from "./Workspace";
 import styles from "./desktop.module.css";
 
-// Layout only. Each shell module subscribes to the session by itself.
 export function DesktopView({ clock }: { clock: Clock }) {
   return (
     <main className={styles.desktop} aria-label="Desktop">

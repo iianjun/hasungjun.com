@@ -6,18 +6,13 @@ import styles from "./desktop.module.css";
 export function Workspace() {
   const { snapshot, renderWindow } = useDesktop();
   const previousActive = useRef<string | null>(null);
-  // The only writer of shell keyboard focus. Other shell modules send commands and leave focus alone.
   useLayoutEffect(() => {
     const focused = document.activeElement;
     const activeChanged = previousActive.current !== snapshot.activeId;
     previousActive.current = snapshot.activeId;
-    // Without an active window, focus moves only when the last one just went away.
-    if (
-      !snapshot.activeId &&
-      !activeChanged &&
-      !(focused instanceof HTMLElement && focused.closest("[hidden]"))
-    )
-      return;
+    const focusInHiddenWindow =
+      focused instanceof HTMLElement && focused.closest("[hidden]") !== null;
+    if (!snapshot.activeId && !activeChanged && !focusInHiddenWindow) return;
     const destination = snapshot.activeId
       ? document.getElementById(snapshot.activeId)
       : document.querySelector<HTMLButtonElement>("[data-dock] button");

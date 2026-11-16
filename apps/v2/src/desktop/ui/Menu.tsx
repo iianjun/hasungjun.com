@@ -1,8 +1,6 @@
 import styles from "./desktop.module.css";
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
-// A key equivalent. The part draws the modifiers in macOS order whatever the
-// order given here.
 export type Shortcut = Readonly<{
   key: string;
   modifiers: readonly ("control" | "option" | "shift" | "command")[];
@@ -12,26 +10,21 @@ export type MenuEntry =
   | Readonly<{
       label: string;
       shortcut?: Shortcut;
-      // State in the mark column: ✓ on (the active window), ◇ a minimized window.
       mark?: "check" | "diamond";
       icon?: ReactNode;
       disabled?: boolean;
       onSelect(): void;
     }>;
 type Item = Exclude<MenuEntry, "separator">;
-// An open menu at `left`/`top` in the positioned parent. `label` names the menu; a new
-// label is a different menu, so switching menus starts with no highlighted row.
-// `pressed` is the `performance.now()` of the pointer press that opened the menu; only
-// the first release after it counts. A menu opened by keyboard has none.
 export type MenuSpec = Readonly<{
   label: string;
   entries: readonly MenuEntry[];
   left: number;
   top: number;
-  pressed?: number;
+  pressedAt?: number;
 }>;
 
-// The marks drawn to reference 11: a checkmark and a diamond taller than wide.
+// Drawn to reference 11.
 const marks = {
   check: (
     <svg viewBox="0 0 10 9" width="10" height="9" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -53,56 +46,36 @@ const modifierGlyph = {
   command: ["⌘", "Meta"],
 } as const;
 
-// Choosing a row blinks its highlight off and on, then runs the command and the menu
-// starts to fade. Reference R3: release in 3.317–3.333 s, highlight back on in
-// 3.383–3.400 s, fade from 3.438 s (fitted), so off 67 ms and the blink ends at 113 ms
-// (±8 ms, one 60 Hz frame).
+// Reference R3: release in 3.317–3.333 s, highlight back on in 3.383–3.400 s, fade
+// from 3.438 s (fitted), so off 67 ms and the blink ends at 113 ms (±8 ms, one 60 Hz
+// frame).
 const BLINK_OFF_MS = 67;
 const BLINK_DONE_MS = 113;
-// Releasing the opening press this long after it closes the menu unless the release
-// chooses a row. A shorter press is a click and leaves the menu open. References R9–R12:
-// held 560 ms the menu stayed, 570 ms it closed.
-const STICKY_PRESS_MS = 565;
+// References R9–R12: held 560 ms the menu stayed, 570 ms it closed.
+const CLICK_MAX_MS = 565;
 
-/**
- * A macOS pull-down menu. Pass the open menu, or null to close it.
- *
- * Opening and switching to another menu are instant. Closing fades the last menu out
- * (reference R1, R3, R5); while it fades it shows what it showed when it closed, takes
- * no input and is hidden from assistive technology. Choosing a row blinks the row,
- * asks the caller to close, and runs the command once the fade has ended: in macOS the
- * command's effect shows the frame after the menu is gone (reference R21). A chosen
- * command always runs, even when the caller replaces the menu before then.
- *
- * It owns the column layout (a mark column appears for every row once any row has a
- * mark) and the single highlighted row shared by pointer and keyboard (disabled rows
- * highlight under the pointer but cannot be chosen). The pointer chooses on release,
- * so a press on a title can drag to a row and release on it, as in macOS. Releasing
- * that press anywhere else, once it has been held long enough to not be a click,
- * closes the menu (references R6–R12). While it is open the arrow keys, Home, End,
- * Return and Escape go to it; from the blink on, every key goes to the app (R20, R23).
- * Escape gives focus back to whatever had it when the menu opened; choosing a row
- * leaves focus to the command.
- */
+// macOS behavior that this menu matches:
+// - A chosen command's effect shows the frame after the menu is gone (reference R21).
+// - The pointer chooses on release. Releasing the opening press elsewhere, after it is
+//   held past a click, closes the menu (references R6–R12).
+// - From the blink on, every key goes to the app (R20, R23).
 export function Menu({ menu, onClose }: { menu: MenuSpec | null; onClose(): void }) {
-  // `fading` is the menu that was open when `menu` became null. Each opening is a new
-  // panel, so a menu reopened while it fades starts fresh.
   const [state, setState] = useState<{
     open: MenuSpec | null;
     fading: MenuSpec | null;
-    opening: number;
-  }>({ open: menu, fading: null, opening: 0 });
+    openCount: number;
+  }>({ open: menu, fading: null, openCount: 0 });
   if (menu !== state.open)
     setState({
       open: menu,
       fading: menu ? null : (state.open ?? state.fading),
-      opening: state.opening + (menu && !state.open ? 1 : 0),
+      openCount: state.openCount + (menu && !state.open ? 1 : 0),
     });
   const shown = menu ?? state.fading;
   if (!shown) return null;
   return (
     <Panel
-      key={`${state.opening} ${shown.label}`}
+      key={`${state.openCount} ${shown.label}`}
       {...shown}
       closing={!menu}
       onClose={onClose}
@@ -116,7 +89,7 @@ function Panel({
   entries,
   left,
   top,
-  pressed,
+  pressedAt,
   closing,
   onClose,
   onFaded,
@@ -125,7 +98,6 @@ function Panel({
   const [blinking, setBlinking] = useState(false);
   const element = useRef<HTMLDivElement>(null);
   const rows = useRef<(HTMLDivElement | null)[]>([]);
-  // The chosen command, waiting for the blink and the fade to end.
   const pending = useRef<{ command(): void; timers: number[] } | null>(null);
   const runPending = () => {
     const waiting = pending.current;
@@ -152,13 +124,11 @@ function Panel({
   };
   const latest = useRef({ items, highlighted, choose, idle, close: onClose, runPending });
   latest.current = { items, highlighted, choose, idle, close: onClose, runPending };
-  // The release of the press that opened the menu.
   useEffect(() => {
-    if (pressed === undefined) return;
+    if (pressedAt === undefined) return;
     const release = (event: PointerEvent) => {
       document.removeEventListener("pointerup", release, true);
-      if (event.button !== 0 || performance.now() - pressed < STICKY_PRESS_MS) return;
-      // An enabled row chooses itself; anywhere else, a disabled row included, closes.
+      if (event.button !== 0 || performance.now() - pressedAt < CLICK_MAX_MS) return;
       const row =
         event.target instanceof Element ? event.target.closest('[role^="menuitem"]') : null;
       if (row && element.current?.contains(row) && !row.hasAttribute("aria-disabled")) return;
@@ -166,7 +136,7 @@ function Panel({
     };
     document.addEventListener("pointerup", release, true);
     return () => document.removeEventListener("pointerup", release, true);
-  }, [pressed]);
+  }, [pressedAt]);
   useEffect(() => {
     const opener = document.activeElement;
     const keydown = (event: KeyboardEvent) => {
@@ -190,22 +160,18 @@ function Panel({
         if (!current) return;
         choose(current.entry, current.index);
       } else return;
-      // The open menu takes the key, so window and app handlers never see it.
       event.preventDefault();
       event.stopPropagation();
       if (next === undefined) return;
       setHighlighted(next);
       rows.current[next]?.focus();
     };
-    document.addEventListener("keydown", keydown);
+    document.addEventListener("keydown", keydown, true);
     return () => {
-      document.removeEventListener("keydown", keydown);
-      // Replaced before the fade ended: the chosen command still runs.
+      document.removeEventListener("keydown", keydown, true);
       latest.current.runPending();
     };
   }, []);
-  // The fade is a CSS animation. Without one (reduced motion) the menu goes at once.
-  // The chosen command runs when the menu is gone.
   useLayoutEffect(() => {
     if (!closing) return;
     const animations = element.current?.getAnimations() ?? [];
@@ -238,7 +204,6 @@ function Panel({
       role="menu"
       aria-label={label}
       style={{ left, top }}
-      // A press on the menu leaves keyboard focus where it was, as in macOS.
       onPointerDown={(event) => event.preventDefault()}
       onPointerLeave={() => idle && setHighlighted(null)}
     >

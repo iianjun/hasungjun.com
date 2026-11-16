@@ -14,7 +14,6 @@ const NotesContext = createContext<NotesApp | null>(null);
 export const NotesProvider: ProviderExoticComponent<ProviderProps<NotesApp>> =
   NotesContext;
 
-// Select only this window and the shared default. Unsubscribing never ends a run.
 export function useNotes(windowId: string) {
   const app = useContext(NotesContext);
   if (!app) throw new Error("Notes UI rendered outside NotesProvider");

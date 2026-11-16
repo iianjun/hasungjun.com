@@ -5,7 +5,6 @@ import { ShapesApp } from "../src/apps/shapes/core/ShapesApp";
 import { NotesProvider, useNotes } from "../src/apps/notes/bridge/react";
 import { ShapesProvider, useShapes } from "../src/apps/shapes/bridge/react";
 
-// A real React root exercises the adapters' public state and commands in both engines.
 export async function verifyAdapters() {
   const ports = {
     runId: "fixture",

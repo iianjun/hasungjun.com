@@ -3,7 +3,6 @@ import type { Clock } from "./types";
 const MINUTE = 60_000;
 const currentMinute = () => Math.floor(Date.now() / MINUTE) * MINUTE;
 
-// Page lifetime. The timer runs only while someone subscribes.
 export function createSystemClock(): Clock {
   const listeners = new Set<() => void>();
   let minute = currentMinute();
