@@ -14,8 +14,7 @@ type Run = {
   app?: AppRuntime;
 };
 
-/** The shell owns execution and geometry; app data never enters its snapshot. */
-export class DesktopSession {
+export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
   #runs = new Map<string, Run>();
   #windows: WindowInfo[] = [];
   #rects = new Map<string, Rect>();
@@ -35,7 +34,7 @@ export class DesktopSession {
     input: Object.freeze({ phase: "idle" }),
     error: null,
   });
-  constructor(readonly definitions: readonly AppDefinition[]) {}
+  constructor(readonly definitions: readonly Definition[]) {}
   getSnapshot = () => this.#snapshot;
   getRect = (id: string) => this.#rects.get(id);
   getApp = (runId: string) => this.#runs.get(runId)?.app;

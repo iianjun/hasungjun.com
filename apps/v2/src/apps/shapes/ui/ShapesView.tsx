@@ -1,21 +1,16 @@
 import { memo } from "react";
-import type { ShapesApp } from "../core/ShapesApp";
 import { useShapes } from "../bridge/react";
 import styles from "./shapes.module.css";
 
 export const ShapesView = memo(function ShapesView({
-  app,
   windowId,
   active,
 }: {
-  app: ShapesApp;
   windowId: string;
   active: boolean;
 }) {
-  const { drawing, color, addShape, clear, setDefaultColor } = useShapes(
-    app,
-    windowId,
-  );
+  const { drawing, color, addShape, clear, setDefaultColor } =
+    useShapes(windowId);
   if (!drawing) return null;
   return (
     <div

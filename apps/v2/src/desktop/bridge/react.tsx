@@ -1,8 +1,18 @@
-import styles from "../ui/desktop.module.css";
-import { memo, useEffect, useLayoutEffect, useRef } from "react";
-import type { ReactNode } from "react";
+import {
+  Component,
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+  type ProviderExoticComponent,
+  type ProviderProps,
+  type ReactNode,
+} from "react";
 import type { DesktopSession } from "../core/DesktopSession";
-import type { AppDefinition, AppRuntime } from "../core/types";
+import type { AppDefinition, AppRuntime, WindowInfo } from "../core/types";
 
 // React presentation extends the shell's framework-independent app contract.
 export type Application = AppDefinition & {
@@ -10,27 +20,84 @@ export type Application = AppDefinition & {
   render(app: AppRuntime, id: string, active: boolean): ReactNode;
 };
 
+type Session = DesktopSession<Application>;
+
+const DesktopContext = createContext<Session | null>(null);
+
+export const DesktopProvider: ProviderExoticComponent<ProviderProps<Session>> =
+  DesktopContext;
+
+export type DesktopIntent =
+  | { type: "dock" | "new" | "quit"; appId: string }
+  | { type: "focus" | "minimize" | "restore" | "close"; id: string }
+  | { type: "begin"; id: string; mode: "moving" | "resizing" };
+
 // Pointer and keyboard entry points share one token sequence.
 let inputSequence = 0;
-export const nextInputToken = () => ++inputSequence;
+const nextInputToken = () => ++inputSequence;
 
-export const WindowFrame = memo(function WindowFrame({
-  session,
-  id,
-  title,
-  minimized,
-  active,
-  order,
-  children,
-}: {
-  session: DesktopSession;
-  id: string;
-  title: string;
-  minimized: boolean;
-  active: boolean;
-  order: number;
-  children: ReactNode;
-}) {
+const useSession = () => {
+  const session = useContext(DesktopContext);
+  if (!session) throw new Error("Desktop UI rendered outside DesktopProvider");
+  return session;
+};
+
+const useSend = (session: Session) =>
+  useMemo(
+    () => (intent: DesktopIntent) =>
+      session.send(
+        intent.type === "begin"
+          ? { ...intent, token: nextInputToken() }
+          : intent,
+      ),
+    [session],
+  );
+
+class AppBoundary extends Component<
+  { children: ReactNode; session: Session; runId: string },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.session.send({ type: "failure", runId: this.props.runId });
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
+export function useDesktop() {
+  const session = useSession();
+  const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
+  const send = useSend(session);
+  const renderWindow = useMemo(
+    () =>
+      (w: WindowInfo, active: boolean): ReactNode => {
+        const app = session.getApp(w.runId);
+        const registration = session.definitions.find((a) => a.id === w.appId);
+        if (!app || !registration) return null;
+        return (
+          <AppBoundary session={session} runId={w.runId}>
+            {registration.render(app, w.id, active)}
+          </AppBoundary>
+        );
+      },
+    [session],
+  );
+  const applications: readonly Pick<Application, "id" | "title" | "icon">[] =
+    session.definitions;
+  return { snapshot, applications, send, renderWindow };
+}
+
+const moveHandle = { "data-drag": true } as const;
+const resizeHandle = { "data-resize": true } as const;
+
+export function useWindowFrame(id: string) {
+  const session = useSession();
+  const send = useSend(session);
   const root = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const element = root.current;
@@ -221,69 +288,5 @@ export const WindowFrame = memo(function WindowFrame({
       document.removeEventListener("visibilitychange", visibility);
     };
   }, [session, id]);
-  return (
-    <section
-      ref={root}
-      id={id}
-      className={styles.desktopWindow}
-      role="region"
-      aria-label={title}
-      tabIndex={-1}
-      hidden={minimized}
-      data-active={active}
-      data-window-id={id}
-      style={{ zIndex: order + 1 }}
-      onPointerDownCapture={() => {
-        if (!active) session.send({ type: "focus", id });
-      }}
-      onFocusCapture={() => {
-        if (!active) session.send({ type: "focus", id });
-      }}
-    >
-      <header className={styles.windowTitlebar} data-drag>
-        <div className={styles.trafficLights} data-window-controls>
-          <button
-            className={styles.close}
-            aria-label={`Close ${title}`}
-            onClick={() => session.send({ type: "close", id })}
-          >
-            ×
-          </button>
-          <button
-            className={styles.minimize}
-            aria-label={`Minimize ${title}`}
-            onClick={() => session.send({ type: "minimize", id })}
-          >
-            −
-          </button>
-          <button
-            className={styles.maximize}
-            aria-label="Full screen unavailable"
-            disabled
-          >
-            +
-          </button>
-        </div>
-        <h1>{title}</h1>
-        <span className={styles.titleSpacer} />
-      </header>
-      {children}
-      <button
-        className={styles.resizeHandle}
-        data-resize
-        aria-label={`Resize ${title}`}
-        onClick={(e) => {
-          if (e.detail === 0)
-            session.send({
-              type: "begin",
-              id,
-              mode: "resizing",
-              token: nextInputToken(),
-            });
-        }}
-      >
-        ⌟
-      </button>
-    </section>
-  );
-});
+  return { ref: root, send, moveHandle, resizeHandle };
+}

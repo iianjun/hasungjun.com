@@ -1,13 +1,14 @@
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { DesktopView } from "./desktop/ui/DesktopView";
+import { DesktopProvider, type Application } from "./desktop/bridge/react";
 import { applications } from "./applications";
 import { DesktopSession } from "./desktop/core/DesktopSession";
 import { createSystemClock } from "./desktop/core/clock";
 import "./styles.css";
 
 // Page-session ownership is deliberately outside React's display/mount lifetime.
-let desktop: DesktopSession | undefined;
+let desktop: DesktopSession<Application> | undefined;
 const clock = createSystemClock();
 function ExperienceRoot() {
   const [experience, setExperience] = useState<
@@ -45,7 +46,11 @@ function ExperienceRoot() {
     };
   }, []);
   if (experience === "desktop" && desktop)
-    return <DesktopView session={desktop} clock={clock} />;
+    return (
+      <DesktopProvider value={desktop}>
+        <DesktopView clock={clock} />
+      </DesktopProvider>
+    );
   if (experience === "mobile")
     return (
       <main className="experience-notice">
