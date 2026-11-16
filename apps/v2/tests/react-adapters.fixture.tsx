@@ -1,9 +1,9 @@
 import { act, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { NotesApp } from "../src/apps/notes/NotesApp";
-import { ShapesApp } from "../src/apps/shapes/ShapesApp";
-import { useNotes } from "../src/apps/notes/react";
-import { useShapes } from "../src/apps/shapes/react";
+import { NotesApp } from "../src/apps/notes/core/NotesApp";
+import { ShapesApp } from "../src/apps/shapes/core/ShapesApp";
+import { useNotes } from "../src/apps/notes/bridge/react";
+import { useShapes } from "../src/apps/shapes/bridge/react";
 
 // A real React root exercises the adapters' public state and commands in both engines.
 export async function verifyAdapters() {

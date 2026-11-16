@@ -13,19 +13,19 @@ Lime Ink로 외형을 교체하지 않음. 환경 안내 화면은 기존의 밝
 
 ## 소유권과 변경 위치
 
-| 변경할 정책                                  | 기준 파일                                                              | 호출자가 몰라도 되는 내용                                  |
-| -------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------- |
-| 색·타이포그래피·공통 간격·재질·상호작용 표현 | [src/tokens.css](src/tokens.css)                                       | 테마별 실제 값과 공통 시각 정책                            |
-| 기본 요소·앱 공통 표현·환경 안내             | [src/styles.css](src/styles.css)                                       | 포커스, 비활성, 툴바·하단 영역의 조합, reduced-motion 처리 |
-| 데스크톱·창·메뉴·Dock·벽지                   | [src/desktop/desktop.module.css](src/desktop/desktop.module.css)       | 셸의 배치, 활성 상태, 메뉴·Dock 표현과 선택자 격리         |
-| Notes 편집 영역·아이콘 그림                  | [src/apps/notes/notes.module.css](src/apps/notes/notes.module.css)     | Notes 내부 배치와 아이콘 표현                              |
-| Shapes 캔버스·도형·아이콘 그림               | [src/apps/shapes/shapes.module.css](src/apps/shapes/shapes.module.css) | Shapes 내부 배치와 도형 표현                               |
+| 변경할 정책                                  | 기준 파일                                                                    | 호출자가 몰라도 되는 내용                                  |
+| -------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| 색·타이포그래피·공통 간격·재질·상호작용 표현 | [src/tokens.css](src/tokens.css)                                             | 테마별 실제 값과 공통 시각 정책                            |
+| 기본 요소·앱 공통 표현·환경 안내             | [src/styles.css](src/styles.css)                                             | 포커스, 비활성, 툴바·하단 영역의 조합, reduced-motion 처리 |
+| 데스크톱·창·메뉴·Dock·벽지                   | [src/desktop/ui/desktop.module.css](src/desktop/ui/desktop.module.css)       | 셸의 배치, 활성 상태, 메뉴·Dock 표현과 선택자 격리         |
+| Notes 편집 영역·아이콘 그림                  | [src/apps/notes/ui/notes.module.css](src/apps/notes/ui/notes.module.css)     | Notes 내부 배치와 아이콘 표현                              |
+| Shapes 캔버스·도형·아이콘 그림               | [src/apps/shapes/ui/shapes.module.css](src/apps/shapes/ui/shapes.module.css) | Shapes 내부 배치와 도형 표현                               |
 
 `main.tsx`가 전역 스타일을 한 번 불러옴. `styles.css`가 토큰을 불러옴.
 앱은 전역 CSS를 추가하지 않음. 앱 고유 표현이 있으면 `*.module.css`를 직접 불러올 것.
 앱별 `application.tsx`가 생성 의존성·아이콘·View 연결을 소유함. 아이콘 그림과 공통 프레임도 여기서 조합함.
 `applications.tsx`는 설치할 앱과 Dock 순서만 결정함.
-등록 모듈은 `desktop/react.tsx`의 `Application` 계약을 구현함. core class는 React를 불러오지 않음.
+등록 모듈은 `desktop/bridge/react.tsx`의 `Application` 계약을 구현함. core class는 React를 불러오지 않음.
 
 공통 클래스로 모든 배치를 표현하면 앱별 예외 조합이 늘어남.
 앱마다 모든 규칙을 복제하면 테마와 제어 요소의 정책이 갈라짐.

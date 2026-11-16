@@ -1,5 +1,5 @@
-import type { Clock } from "./clock";
-import type { DesktopSession } from "./DesktopSession";
+import type { Clock } from "../core/clock";
+import type { DesktopSession } from "../core/DesktopSession";
 import { Dock } from "./Dock";
 import { MenuBar } from "./MenuBar";
 import { Workspace } from "./Workspace";

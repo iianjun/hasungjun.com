@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
-import type { DesktopSession } from "./DesktopSession";
-import { applications } from "../applications";
+import type { DesktopSession } from "../core/DesktopSession";
+import { applications } from "../../applications";
 import styles from "./desktop.module.css";
 
 export function Dock({ session }: { session: DesktopSession }) {

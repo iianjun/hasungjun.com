@@ -1,8 +1,8 @@
 import { Component, useLayoutEffect, useRef, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
-import type { DesktopSession } from "./DesktopSession";
-import { applications } from "../applications";
-import { WindowFrame } from "./react";
+import type { DesktopSession } from "../core/DesktopSession";
+import { applications } from "../../applications";
+import { WindowFrame } from "../bridge/react";
 import styles from "./desktop.module.css";
 
 class AppBoundary extends Component<

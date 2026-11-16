@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useSyncExternalStore } from "react";
-import type { ShapesApp } from "./ShapesApp";
+import type { ShapesApp } from "../core/ShapesApp";
 
 // Commands retain their receiver and window when React replaces either input.
 export function useShapes(app: ShapesApp, windowId: string) {

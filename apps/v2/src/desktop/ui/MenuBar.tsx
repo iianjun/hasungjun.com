@@ -7,12 +7,12 @@ import {
   type MouseEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { applications } from "../applications";
-import type { Clock } from "./clock";
-import type { DesktopSession } from "./DesktopSession";
+import { applications } from "../../applications";
+import type { Clock } from "../core/clock";
+import type { DesktopSession } from "../core/DesktopSession";
 import { Menu, type MenuEntry } from "./Menu";
-import type { ShellCommand } from "./types";
-import { nextInputToken } from "./react";
+import type { ShellCommand } from "../core/types";
+import { nextInputToken } from "../bridge/react";
 
 const clockFormat = new Intl.DateTimeFormat("en-US", {
   weekday: "short",

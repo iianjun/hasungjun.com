@@ -1,9 +1,9 @@
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { DesktopView } from "./desktop/DesktopView";
+import { DesktopView } from "./desktop/ui/DesktopView";
 import { applications } from "./applications";
-import { DesktopSession } from "./desktop/DesktopSession";
-import { createSystemClock } from "./desktop/clock";
+import { DesktopSession } from "./desktop/core/DesktopSession";
+import { createSystemClock } from "./desktop/core/clock";
 import "./styles.css";
 
 // Page-session ownership is deliberately outside React's display/mount lifetime.

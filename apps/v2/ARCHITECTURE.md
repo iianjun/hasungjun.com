@@ -107,7 +107,7 @@ flowchart TB
 | View와 `react` 파일 | App runtime을 구독해서 창 안을 그림. |
 | `application.tsx` | 등록 모듈임. 생성 의존성, 아이콘, View 연결을 조합함. |
 
-앱과 Shell은 두 방향의 계약으로 연결함. 계약의 정의는 `desktop/types.ts`와 `desktop/react.tsx`에 있음.
+앱과 Shell은 두 방향의 계약으로 연결함. 계약의 정의는 `desktop/core/types.ts`와 `desktop/bridge/react.tsx`에 있음.
 
 - **앱 → Shell:** 생성 방법, 창 열림·닫힘·정리에 대한 응답, 아이콘, 창 안의 화면을 제공함.
 - **Shell → 앱:** ports를 제공함. 앱은 ports로 새 창, 창 닫기, 실패 보고를 요청함.

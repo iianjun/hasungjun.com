@@ -1,6 +1,6 @@
 import { memo } from "react";
-import type { ShapesApp } from "./ShapesApp";
-import { useShapes } from "./react";
+import type { ShapesApp } from "../core/ShapesApp";
+import { useShapes } from "../bridge/react";
 import styles from "./shapes.module.css";
 
 export const ShapesView = memo(function ShapesView({

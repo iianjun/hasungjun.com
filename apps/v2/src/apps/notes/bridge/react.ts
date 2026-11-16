@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useSyncExternalStore } from "react";
-import type { NotesApp } from "./NotesApp";
+import type { NotesApp } from "../core/NotesApp";
 
 // Select only this window and the shared default. Unsubscribing never ends a run.
 export function useNotes(app: NotesApp, windowId: string) {

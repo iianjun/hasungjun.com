@@ -1,7 +1,7 @@
-import type { Application } from "../../desktop/react";
-import { NotesApp } from "./NotesApp";
-import { NotesView } from "./NotesView";
-import notesStyles from "./notes.module.css";
+import type { Application } from "../../desktop/bridge/react";
+import { NotesApp } from "./core/NotesApp";
+import { NotesView } from "./ui/NotesView";
+import notesStyles from "./ui/notes.module.css";
 
 export const notesApplication: Application = {
   id: "notes",

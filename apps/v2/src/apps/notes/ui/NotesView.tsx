@@ -1,6 +1,6 @@
 import { memo } from "react";
-import type { NotesApp } from "./NotesApp";
-import { useNotes } from "./react";
+import type { NotesApp } from "../core/NotesApp";
+import { useNotes } from "../bridge/react";
 import styles from "./notes.module.css";
 
 export const NotesView = memo(function NotesView({

@@ -1,4 +1,4 @@
-import type { AppPorts, AppRuntime } from "../../desktop/types";
+import type { AppPorts, AppRuntime } from "../../../desktop/core/types";
 
 type Shape = Readonly<{ id: number; color: string; kind: "circle" | "square" }>;
 type Drawing = Readonly<{ shapes: readonly Shape[] }>;

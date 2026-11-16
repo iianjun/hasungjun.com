@@ -1,8 +1,8 @@
-import styles from "./desktop.module.css";
+import styles from "../ui/desktop.module.css";
 import { memo, useEffect, useLayoutEffect, useRef } from "react";
 import type { ReactNode } from "react";
-import type { DesktopSession } from "./DesktopSession";
-import type { AppDefinition, AppRuntime } from "./types";
+import type { DesktopSession } from "../core/DesktopSession";
+import type { AppDefinition, AppRuntime } from "../core/types";
 
 // React presentation extends the shell's framework-independent app contract.
 export type Application = AppDefinition & {

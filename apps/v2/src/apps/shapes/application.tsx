@@ -1,7 +1,7 @@
-import type { Application } from "../../desktop/react";
-import { ShapesApp } from "./ShapesApp";
-import { ShapesView } from "./ShapesView";
-import shapesStyles from "./shapes.module.css";
+import type { Application } from "../../desktop/bridge/react";
+import { ShapesApp } from "./core/ShapesApp";
+import { ShapesView } from "./ui/ShapesView";
+import shapesStyles from "./ui/shapes.module.css";
 
 export const shapesApplication: Application = {
   id: "shapes",
