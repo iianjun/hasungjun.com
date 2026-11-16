@@ -14,7 +14,6 @@ import {
 import type { DesktopSession } from "../core/DesktopSession";
 import type { AppDefinition, AppRuntime, WindowInfo } from "../core/types";
 
-// React presentation extends the shell's framework-independent app contract.
 export type Application = AppDefinition & {
   readonly icon: ReactNode;
   render(app: AppRuntime, id: string, active: boolean): ReactNode;
@@ -32,26 +31,11 @@ export type DesktopIntent =
   | { type: "focus" | "minimize" | "restore" | "close"; id: string }
   | { type: "begin"; id: string; mode: "moving" | "resizing" };
 
-// Pointer and keyboard entry points share one token sequence.
-let inputSequence = 0;
-const nextInputToken = () => ++inputSequence;
-
 const useSession = () => {
   const session = useContext(DesktopContext);
   if (!session) throw new Error("Desktop UI rendered outside DesktopProvider");
   return session;
 };
-
-const useSend = (session: Session) =>
-  useMemo(
-    () => (intent: DesktopIntent) =>
-      session.send(
-        intent.type === "begin"
-          ? { ...intent, token: nextInputToken() }
-          : intent,
-      ),
-    [session],
-  );
 
 class AppBoundary extends Component<
   { children: ReactNode; session: Session; runId: string },
@@ -72,7 +56,7 @@ class AppBoundary extends Component<
 export function useDesktop() {
   const session = useSession();
   const snapshot = useSyncExternalStore(session.subscribe, session.getSnapshot);
-  const send = useSend(session);
+  const send: (intent: DesktopIntent) => void = session.send;
   const renderWindow = useMemo(
     () =>
       (w: WindowInfo, active: boolean): ReactNode => {
@@ -97,12 +81,11 @@ const resizeHandle = { "data-resize": true } as const;
 
 export function useWindowFrame(id: string) {
   const session = useSession();
-  const send = useSend(session);
+  const send: (intent: DesktopIntent) => void = session.send;
   const root = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const element = root.current;
     if (!element) return;
-    // Geometry properties have one writer; React never writes these style properties.
     const paint = () => {
       const rect = session.getRect(id);
       if (!rect) return;
@@ -170,17 +153,16 @@ export function useWindowFrame(id: string) {
       )
         return;
       event.preventDefault();
-      const token = nextInputToken();
       session.send({
         type: "begin",
         id,
         mode: handle.hasAttribute("data-resize") ? "resizing" : "moving",
-        token,
       });
-      if (session.getSnapshot().input.phase === "idle") return;
+      const input = session.getSnapshot().input;
+      if (input.phase === "idle" || input.id !== id) return;
       drag = {
         pointer: event.pointerId,
-        token,
+        token: input.token,
         x: event.clientX,
         y: event.clientY,
         dx: 0,
@@ -260,7 +242,6 @@ export function useWindowFrame(id: string) {
     const visibility = () => {
       if (document.hidden) cancel();
     };
-    // Shell commands can cancel an input before the next animation frame.
     const detach = session.subscribe(() => {
       const input = session.getSnapshot().input;
       if (drag && (input.phase === "idle" || input.token !== drag.token))

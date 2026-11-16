@@ -63,7 +63,6 @@ test("키보드 전용 명령·확정·취소·viewport 보존", async ({ page }
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
-  // The chosen row blinks, the menu fades, and the command runs once it is gone.
   await expect(page.locator('[role="menu"]')).toHaveCount(0);
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Shift+ArrowDown");
@@ -133,7 +132,6 @@ test("포인터 최종값·취소·경계와 이동 중 앱 렌더 분리", asyn
   const edge = await frame.boundingBox();
   expect((edge?.x ?? 0) + (edge?.width ?? 0)).toBeLessThanOrEqual(1512);
   expect((edge?.y ?? 0) + (edge?.height ?? 0)).toBeLessThanOrEqual(857);
-  // Browser frame cadence and app DOM writes during real pointer input.
   const measurement = page.evaluate(
     () =>
       new Promise<{
@@ -263,7 +261,6 @@ test("고정 비교 화면과 reduced-motion 결과를 보관함", async ({
     ),
     contentType: "application/json",
   });
-  // The desktop has no theme switch; Contrast is not captured here.
   await page.locator('[data-menu="window"]').focus();
   await page.keyboard.press("ArrowDown");
   await page.screenshot({ path: testInfo.outputPath("05-menu-focus.png") });
@@ -358,13 +355,11 @@ test("셸 명령 뒤 키보드 포커스가 활성 창으로 가고 창이 없�
   const frame = page.getByRole("region", { name: "Notes 2", exact: true });
   await dock.click();
   await expect(frame).toBeFocused();
-  // The active window does not change here; the command alone returns focus.
   await dock.focus();
   await page.keyboard.press("Enter");
   await expect(frame).toBeFocused();
   await page.locator('[data-menu="window"]').click();
   await page.getByRole("menuitemcheckbox", { name: "Notes 2", exact: true }).click();
-  // The command runs after the blink; a press on the menu does not move focus.
   await expect(page.getByRole("menu")).toHaveCount(0);
   await expect(frame).toBeFocused();
   await page.locator('[data-menu="window"]').click();
@@ -394,30 +389,24 @@ test("메뉴는 누르면 열리고, 열린 동안 제목을 옮기면 바뀌고
   const windowTitle = page.locator('[data-menu="window"]');
   const appMenu = page.locator('[role="menu"][aria-label="app commands"]');
   const windowMenu = page.locator('[role="menu"][aria-label="window commands"]');
-  // A closed menu bar does not react to hover.
   await windowTitle.hover();
   await expect(windowMenu).toHaveCount(0);
-  // Press opens before release.
   await app.hover();
   await page.mouse.down();
   await expect(appMenu).toBeVisible();
   await page.mouse.up();
   await expect(appMenu).toBeVisible();
-  // Moving onto another title swaps menus at once: the old one does not fade.
   await windowTitle.hover();
   await expect(windowMenu).toBeVisible();
   await expect(appMenu).toHaveCount(0);
   await expect(windowTitle).toHaveAttribute("aria-expanded", "true");
-  // Escape: the title capsule goes at once, the menu fades out and then goes.
   await page.keyboard.press("Escape");
   await expect(windowTitle).toHaveAttribute("aria-expanded", "false");
-  // A pointer press leaves focus where it was, so no focus ring appears on Escape.
   await expect(windowTitle).not.toBeFocused();
   await expect(app).not.toBeFocused();
   await expect(windowMenu).toHaveAttribute("data-closing");
   await expect(page.getByRole("menu")).toHaveCount(0);
   await expect(windowMenu).toHaveCount(0);
-  // Pressing the open title closes it the same way.
   await app.click();
   await expect(appMenu).toBeVisible();
   await page.mouse.down();
@@ -427,6 +416,8 @@ test("메뉴는 누르면 열리고, 열린 동안 제목을 옮기면 바뀌고
 });
 
 test("누른 채 끌어 항목에서 놓으면 강조가 깜빡인 뒤 명령이 실행됨", async ({ page }) => {
+  const blinkOffMs = 67;
+  const blinkDoneMs = 113;
   await page.clock.install();
   await page.goto("/");
   await page.getByRole("button", { name: "Open Notes", exact: true }).click();
@@ -437,21 +428,18 @@ test("누른 채 끌어 항목에서 놓으면 강조가 깜빡인 뒤 명령이
   const minimize = page.getByRole("menuitem", { name: "Minimize", exact: true });
   await minimize.hover();
   await expect(minimize).toHaveAttribute("data-highlighted");
-  // Timers stop here so the blink can be stepped.
   await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 1000);
   await page.mouse.up();
-  // Off for 67 ms, on again, the fade from 113 ms (reference R3), and the command once
-  // the menu is gone (R21).
   await expect(minimize).not.toHaveAttribute("data-highlighted");
-  await page.clock.runFor(66);
+  await page.clock.runFor(blinkOffMs - 1);
   await expect(minimize).not.toHaveAttribute("data-highlighted");
   await expect(frame).toBeVisible();
   await page.clock.runFor(1);
   await expect(minimize).toHaveAttribute("data-highlighted");
-  await page.clock.runFor(45);
+  await page.clock.runFor(blinkDoneMs - blinkOffMs - 1);
   await expect(page.getByRole("menu")).not.toHaveAttribute("data-closing");
   await page.clock.runFor(1);
-  // The fade is a CSS animation on real time; the command waits for it.
+  // page.clock does not drive CSS animations, so the fade runs on real time.
   expect(
     await page.evaluate(() => [
       document.querySelector('[role="menu"]')?.hasAttribute("data-closing"),
@@ -469,7 +457,6 @@ test("누른 채 끌어 항목 아닌 곳이나 비활성 항목에서 놓거나
   const app = page.locator('[data-menu="app"]');
   const windowTitle = page.locator('[data-menu="window"]');
   const menu = page.locator('[role="menu"]');
-  // A press on a title held past a click, released on a separator (reference R6).
   await app.hover();
   await page.mouse.down();
   await page.waitForTimeout(600);
@@ -477,7 +464,6 @@ test("누른 채 끌어 항목 아닌 곳이나 비활성 항목에서 놓거나
   await page.mouse.up();
   await expect(menu).toHaveAttribute("data-closing");
   await expect(menu).toHaveCount(0);
-  // Released outside the menu (R7): leaving the menu does not close it, releasing does.
   await app.hover();
   await page.mouse.down();
   await page.waitForTimeout(600);
@@ -486,7 +472,6 @@ test("누른 채 끌어 항목 아닌 곳이나 비활성 항목에서 놓거나
   await page.mouse.up();
   await expect(menu).toHaveAttribute("data-closing");
   await expect(menu).toHaveCount(0);
-  // Released on a disabled row (R8): no blink, the highlight stays while it fades.
   await windowTitle.hover();
   await page.mouse.down();
   const minimize = page.getByRole("menuitem", { name: "Minimize", exact: true });
@@ -494,10 +479,8 @@ test("누른 채 끌어 항목 아닌 곳이나 비활성 항목에서 놓거나
   await page.waitForTimeout(600);
   await page.mouse.up();
   await expect(menu).toHaveAttribute("data-closing");
-  // A fading menu is hidden from the accessibility tree, so the row is found by CSS.
   await expect(menu.locator("[data-highlighted]")).toHaveText("Minimize");
   await expect(menu).toHaveCount(0);
-  // Held on the title (R9–R12): a click leaves the menu open, a long press closes it.
   await app.hover();
   await page.mouse.down();
   await page.mouse.up();
@@ -525,25 +508,21 @@ test("메뉴가 열린 채 창을 누르면 창은 앞으로 오지만 누름은
   const backBox = await back.boundingBox();
   const frontBox = await front.boundingBox();
   if (!backBox || !frontBox) throw new Error("windows are not laid out");
-  // A point of the back window that the front one does not cover.
   const x = backBox.x + 8;
   const y = backBox.y + backBox.height - 8;
   expect(x < frontBox.x || y > frontBox.y + frontBox.height).toBe(true);
-  // Front window text (R18): the menu fades and the text box does not take the press.
   const frontText = front.getByRole("textbox", { name: "Note text", exact: true });
   await app.click();
   await frontText.click();
   await expect(menu).toHaveAttribute("data-closing");
   await expect(frontText).not.toBeFocused();
   await expect(menu).toHaveCount(0);
-  // Back window (R13, R19): it comes to the front and becomes active, the press stops.
   await app.click();
   await page.mouse.click(x, y);
   await expect(menu).toHaveAttribute("data-closing");
   await expect(back).toHaveAttribute("data-active", "true");
   await expect(back).toBeFocused();
   await expect(menu).toHaveCount(0);
-  // A title bar button (R14, R16) acts, and the menu goes at once without a fade.
   await app.click();
   await expect(menu).toBeVisible();
   await page.getByRole("button", { name: "Minimize Notes 2", exact: true }).click();
@@ -563,9 +542,21 @@ test("고른 항목이 깜빡이는 동안 누른 키는 메뉴가 아니라 앱
   await notes.hover();
   await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 1000);
   await page.mouse.up();
-  // Return during the blink reaches the text, as in TextEdit (reference R23).
   await page.keyboard.press("Enter");
   await expect(text).toHaveValue("a\n");
   await page.clock.runFor(113);
   await expect(page.getByRole("menu")).toHaveCount(0);
+});
+
+test("고른 항목이 깜빡이는 동안 다른 메뉴로 바꿔도 고른 명령은 실행됨", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/");
+  await page.locator('[data-menu="app"]').hover();
+  await page.mouse.down();
+  await page.getByRole("menuitem", { name: "New Window", exact: true }).hover();
+  await page.clock.pauseAt((await page.evaluate(() => Date.now())) + 1000);
+  await page.mouse.up();
+  await page.locator('[data-menu="window"]').hover();
+  await expect(page.locator('[role="menu"][aria-label="window commands"]')).toBeVisible();
+  await expect(page.getByRole("region", { name: "Notes 2", exact: true })).toBeVisible();
 });

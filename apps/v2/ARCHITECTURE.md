@@ -72,7 +72,7 @@ flowchart TB
 - **화면 모듈은 표시(projection)임.** 상태를 구독하고 명령을 보냄. 실행이나 창의 상태를 따로 보관하지 않음. 열린 메뉴 같은 화면 상태만 컴포넌트 안에 둠.
 - **실행에 딸린 표시는 실행 목록에서 유도함.** Dock의 실행 표시가 그 예임. 등록과 해제 절차가 없으므로 앱이 종료되면 같은 render에서 사라짐.
 - **수명이 다른 상태만 따로 둠.** 따로 둔 상태는 `main.tsx`가 `DesktopSession` 옆에서 생성함. 화면 모듈은 필요한 소유자만 직접 구독함.
-- **키보드 포커스는 Workspace만 옮김.** 다른 화면 모듈은 명령만 보냄. Workspace가 Shell 상태의 변화를 보고 활성 창에 포커스를 둠.
+- **창 사이의 키보드 포커스는 Workspace가 옮김.** Workspace가 Shell 상태의 변화를 보고 활성 창에 포커스를 둠. 예외는 두 곳임. 메뉴는 열린 동안 자기 행에 포커스를 두고, Escape로 닫으면 연 곳에 포커스를 돌려줌. `useWindowFrame`은 pointer drag를 시작할 때 그 창에 포커스를 둠.
 - **상태 층은 React를 모름.** `DesktopSession`과 App runtime은 일반 class임. React 연결은 각 모듈의 `bridge/`가 담당함.
 - **화면 모듈은 `DesktopSession`과 App runtime을 직접 참조하지 않음.** 두 객체는 bridge의 context 안에 있음. 화면 모듈은 bridge hook으로 상태를 읽고 명령을 보냄.
 

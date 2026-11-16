@@ -149,7 +149,6 @@ export class NotesApp implements AppRuntime {
   }
   dispose() {
     if (this.#snapshot.phase === "disposed") return;
-    // Mark stopped before abort signals can call back into the app.
     this.#snapshot = Object.freeze({
       phase: "disposed",
       defaultText: "",

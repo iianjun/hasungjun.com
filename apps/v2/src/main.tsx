@@ -7,7 +7,6 @@ import { DesktopSession } from "./desktop/core/DesktopSession";
 import { createSystemClock } from "./desktop/core/clock";
 import "./styles.css";
 
-// Page-session ownership is deliberately outside React's display/mount lifetime.
 let desktop: DesktopSession<Application> | undefined;
 const clock = createSystemClock();
 function ExperienceRoot() {
@@ -25,13 +24,16 @@ function ExperienceRoot() {
             : "desktop";
       if (next === "desktop" && !desktop)
         desktop = new DesktopSession(applications);
-      // Preserve supported desktop bounds while an unsupported experience is displayed.
-      desktop?.send({
-        type: "environment",
-        available: next === "desktop",
-        width: next === "desktop" ? innerWidth : 0,
-        height: next === "desktop" ? innerHeight - 128 : 0,
-      });
+      desktop?.send(
+        next === "desktop"
+          ? {
+              type: "environment",
+              available: true,
+              width: innerWidth,
+              height: innerHeight - 128,
+            }
+          : { type: "environment", available: false },
+      );
       setExperience(next);
     };
     update();

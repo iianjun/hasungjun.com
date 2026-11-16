@@ -67,6 +67,12 @@ function fixture(extra: AppDefinition[] = []) {
   });
   return shell;
 }
+function inputToken(shell: DesktopSession) {
+  const input = shell.getSnapshot().input;
+  assert.ok(input.phase !== "idle");
+  return input.token;
+}
+
 function activeWindow(shell: DesktopSession) {
   const window = shell
     .getSnapshot()
@@ -94,7 +100,6 @@ test("같은 앱의 독 반복 클릭, 다중 창, 마지막 창 닫기, 종료�
   assert.equal(app.getSnapshot().windows[first.id]?.text, "private first");
   shell.send({ type: "close", id: second.id });
   shell.send({ type: "close", id: first.id });
-  // A windowless run stays reachable through the published run id.
   assert.deepEqual(shell.getSnapshot().running, [
     { runId: first.runId, appId: "notes" },
   ]);
@@ -157,22 +162,24 @@ test("창 이동은 의미 snapshot과 앱 데이터를 다시 발행하지 않�
   const w = activeWindow(shell);
   const origin = shell.getRect(w.id);
   assert.ok(origin);
-  shell.send({ type: "begin", id: w.id, mode: "moving", token: 1 });
+  shell.send({ type: "begin", id: w.id, mode: "moving" });
+  const moving = inputToken(shell);
   const semantic = shell.getSnapshot();
   let geometry = 0;
   const unsubscribe = shell.subscribeGeometry(() => geometry++);
-  shell.send({ type: "update", token: 1, dx: 9999, dy: 9999 });
+  shell.send({ type: "update", token: moving, dx: 9999, dy: 9999 });
   assert.equal(shell.getSnapshot(), semantic);
   assert.equal(geometry, 1);
   assert.deepEqual(shell.getRect(w.id), { ...origin, x: 900, y: 392 });
   shell.send({ type: "cancel" });
   assert.deepEqual(shell.getRect(w.id), origin);
-  shell.send({ type: "begin", id: w.id, mode: "resizing", token: 2 });
-  shell.send({ type: "update", token: 2, dx: -999, dy: -999 });
-  shell.send({ type: "finish", token: 2 });
+  shell.send({ type: "begin", id: w.id, mode: "resizing" });
+  const resizing = inputToken(shell);
+  shell.send({ type: "update", token: resizing, dx: -999, dy: -999 });
+  shell.send({ type: "finish", token: resizing });
   assert.equal(shell.getRect(w.id)?.width, 320);
   assert.equal(shell.getRect(w.id)?.height, 200);
-  shell.send({ type: "update", token: 2, dx: 200, dy: 200 });
+  shell.send({ type: "update", token: resizing, dx: 200, dy: 200 });
   assert.equal(shell.getRect(w.id)?.width, 320);
   unsubscribe();
 });
@@ -185,9 +192,9 @@ test("환경 전환은 입력만 취소하고 앱·창을 보존하며 작업 �
   assert.ok(app instanceof NotesApp);
   app.replaceText(w.id, "persistent visit");
   const origin = shell.getRect(w.id);
-  shell.send({ type: "begin", id: w.id, mode: "moving", token: 1 });
-  shell.send({ type: "update", token: 1, dx: 400, dy: 200 });
-  shell.send({ type: "environment", available: false, width: 0, height: 0 });
+  shell.send({ type: "begin", id: w.id, mode: "moving" });
+  shell.send({ type: "update", token: inputToken(shell), dx: 400, dy: 200 });
+  shell.send({ type: "environment", available: false });
   assert.deepEqual(shell.getRect(w.id), origin);
   shell.send({ type: "new", appId: "shapes" });
   assert.equal(shell.getSnapshot().windows.length, 1);
@@ -352,7 +359,6 @@ test("생성·실행·정리 실패를 한 실행에 격리하고 재진입 명�
   ]);
   shell.send({ type: "new", appId: "reentrant" });
   assert.equal(shell.getSnapshot().windows.length, 2);
-  // Opening app cannot yet close an uncommitted shell window. Later requests may close it.
   shell.send({ type: "new", appId: "shapes" });
   assert.equal(activeWindow(shell).appId, "shapes");
 });
@@ -361,8 +367,8 @@ test("창 명령과 dispose가 대기 입력을 취소하며 구독 예외가 �
   const shell = fixture();
   shell.send({ type: "new", appId: "notes" });
   const w = activeWindow(shell);
-  shell.send({ type: "begin", id: w.id, mode: "moving", token: 3 });
-  shell.send({ type: "update", token: 3, dx: 10, dy: 20 });
+  shell.send({ type: "begin", id: w.id, mode: "moving" });
+  shell.send({ type: "update", token: inputToken(shell), dx: 10, dy: 20 });
   shell.send({ type: "minimize", id: w.id });
   assert.equal(shell.getSnapshot().input.phase, "idle");
   const app = shell.getApp(w.runId);
@@ -408,6 +414,78 @@ test("abort 콜백이 창을 닫아도 편집·재요청이 닫힌 창을 복구
   await app.loadSample("a");
   await second;
   assert.equal(app.getSnapshot().windows.a, undefined);
+});
+
+test("dispose는 abort 콜백보다 먼저 앱을 정지 상태로 바꿈", async () => {
+  let phaseInAbort: string | undefined;
+  const app: NotesApp = new NotesApp(
+    ports,
+    (signal) =>
+      new Promise((_resolve, reject) => {
+        signal.addEventListener(
+          "abort",
+          () => {
+            phaseInAbort = app.getSnapshot().phase;
+            app.openWindow("b");
+            reject(Error("cancelled"));
+          },
+          { once: true },
+        );
+      }),
+  );
+  app.openWindow("a");
+  const load = app.loadSample("a");
+  app.dispose();
+  await load;
+  assert.equal(phaseInAbort, "disposed");
+  assert.deepEqual(app.getSnapshot().windows, {});
+});
+
+test("앱은 여는 중인 창을 닫지 못하고 연 뒤에는 닫을 수 있음", () => {
+  let injected: AppPorts | undefined;
+  const shell = fixture([
+    {
+      id: "closer",
+      title: "Closer",
+      create: (p) => {
+        injected = p;
+        return {
+          openWindow(id) {
+            p.closeWindow(id);
+          },
+          closeWindow() {},
+          dispose() {},
+        };
+      },
+    },
+  ]);
+  shell.send({ type: "new", appId: "closer" });
+  const opened = activeWindow(shell);
+  assert.equal(opened.appId, "closer");
+  injected?.closeWindow(opened.id);
+  assert.equal(shell.getSnapshot().windows.length, 0);
+});
+
+test("정리 중인 앱의 포트 요청은 모두 무시함", () => {
+  const shell = fixture([
+    {
+      id: "noisy",
+      title: "Noisy",
+      create: (p) => ({
+        openWindow() {},
+        closeWindow() {},
+        dispose() {
+          p.newWindow();
+          p.fail(new Error("cleanup"));
+        },
+      }),
+    },
+  ]);
+  shell.send({ type: "new", appId: "noisy" });
+  shell.send({ type: "quit", appId: "noisy" });
+  assert.deepEqual(shell.getSnapshot().windows, []);
+  assert.deepEqual(shell.getSnapshot().running, []);
+  assert.equal(shell.getSnapshot().error, null);
 });
 
 test("재진입 포트 명령은 처리 시점에도 실행 권한을 검사함", () => {
@@ -464,14 +542,16 @@ test("여러 앱·창의 반복 조합에서 포커스·실행 소유권·작업
         break;
       case 6:
         if (w) {
-          shell.send({ type: "begin", id: w.id, mode: "moving", token: i });
+          shell.send({ type: "begin", id: w.id, mode: "moving" });
+          const input = shell.getSnapshot().input;
+          if (input.phase === "idle") break;
           shell.send({
             type: "update",
-            token: i,
+            token: input.token,
             dx: seed % 2000,
             dy: seed % 1000,
           });
-          shell.send({ type: "finish", token: i });
+          shell.send({ type: "finish", token: input.token });
         }
         break;
       case 7:
