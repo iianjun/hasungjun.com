@@ -23,6 +23,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
   #queue: ShellCommand[] = [];
   #processing = false;
   #sequence = 0;
+  #inputSequence = 0;
   #width = 1440;
   #height = 772;
   #snapshot: ShellSnapshot = Object.freeze({
@@ -51,7 +52,6 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
       this.#geometryListeners.delete(listener);
     };
   };
-  // Serial commands defer reentrant app requests until their current transition completes.
   send = (command: ShellCommand) => {
     if (this.#snapshot.phase === "disposed") return;
     this.#queue.push(command);
@@ -92,7 +92,6 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
       windows: Object.freeze([...this.#windows]),
       running,
       activeId: active?.id ?? null,
-      // Without a visible window, the most recently launched app stays in front.
       frontmostAppId: active?.appId ?? running.at(-1)?.appId ?? null,
     });
     this.#notify();
@@ -113,7 +112,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
       y: Math.max(0, Math.min(this.#height - height, rect.y)),
     });
   }
-  #cancel() {
+  #cancelInput() {
     const input = this.#snapshot.input;
     if (input.phase === "idle") return;
     if (this.#rects.has(input.id)) this.#rects.set(input.id, input.origin);
@@ -125,7 +124,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
   }
   #stop(run: Run) {
     run.phase = "stopping";
-    this.#runs.delete(run.id); // Revoke injected capabilities before calling app cleanup.
+    this.#runs.delete(run.id);
     for (const w of this.#windows)
       if (w.runId === run.id) this.#rects.delete(w.id);
     this.#windows = this.#windows.filter((w) => w.runId !== run.id);
@@ -216,7 +215,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
         return;
     }
     if (command.type === "dispose") {
-      this.#cancel();
+      this.#cancelInput();
       for (const run of [...this.#runs.values()]) this.#stop(run);
       this.#publish({ phase: "disposed" });
       this.#listeners.clear();
@@ -227,7 +226,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
     if (command.type === "failure") {
       const run = this.#runs.get(command.runId);
       if (run) {
-        this.#cancel();
+        this.#cancelInput();
         this.#stop(run);
         this.#publish({
           error: "An app stopped unexpectedly. Other apps are still available.",
@@ -236,8 +235,9 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
       return;
     }
     if (command.type === "environment") {
-      this.#cancel();
+      this.#cancelInput();
       if (
+        command.available &&
         Number.isFinite(command.width) &&
         Number.isFinite(command.height) &&
         command.width > 0 &&
@@ -253,7 +253,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
       return;
     }
     if (command.type === "cancel") {
-      this.#cancel();
+      this.#cancelInput();
       this.#publish();
       return;
     }
@@ -282,8 +282,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
       this.#notify(true);
       return;
     }
-    // Every other window command rolls back any input transaction first.
-    this.#cancel();
+    this.#cancelInput();
     if (command.type === "dock") {
       const candidates = this.#windows.filter((w) => w.appId === command.appId);
       const target =
@@ -335,7 +334,7 @@ export class DesktopSession<Definition extends AppDefinition = AppDefinition> {
           input: Object.freeze({
             phase: command.mode,
             id: w.id,
-            token: command.token,
+            token: ++this.#inputSequence,
             origin,
           }),
         });

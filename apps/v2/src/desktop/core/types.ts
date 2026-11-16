@@ -1,4 +1,3 @@
-// The contract between an app and the shell.
 export interface AppRuntime {
   openWindow(id: string): void;
   closeWindow(id: string): void;
@@ -21,7 +20,6 @@ export interface Clock {
   now(): number;
 }
 
-// The state the shell publishes and the commands it accepts.
 export type Rect = Readonly<{
   x: number;
   y: number;
@@ -59,10 +57,11 @@ export type ShellCommand =
       id: string;
       sourceRunId?: string;
     }
-  | { type: "begin"; id: string; mode: "moving" | "resizing"; token: number }
+  | { type: "begin"; id: string; mode: "moving" | "resizing" }
   | { type: "update"; token: number; dx: number; dy: number }
   | { type: "finish"; token: number }
   | { type: "cancel" }
-  | { type: "environment"; available: boolean; width: number; height: number }
+  | { type: "environment"; available: false }
+  | { type: "environment"; available: true; width: number; height: number }
   | { type: "failure"; runId: string }
   | { type: "dispose" };
